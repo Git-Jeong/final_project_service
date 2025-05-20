@@ -24,3 +24,4 @@ hs_err_pid*
 replay_pid*
 /SpringBootFineDust/src/test
 SpringBootFineDust/src/main/resources/application.properties
+/SpringBootFineDust/.metadata
