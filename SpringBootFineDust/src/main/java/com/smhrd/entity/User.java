@@ -11,11 +11,11 @@ public class User {
 
 	@Id
 	@Column(length = 30)
-	private String usr_email;
+	private String usrEmail;
 	
 	@Column(nullable = false, length = 20)
-	private String usr_pw;
+	private String usrPw;
 
 	@Column(nullable = false, length = 30)
-	private String usr_nick;
+	private String usrNick;
 }

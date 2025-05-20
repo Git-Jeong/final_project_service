@@ -15,17 +15,17 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 	
-	public User idCheck(String mem_email) {
-		Optional<User> m = repository.findById(mem_email);
-		if(m.isPresent()) {
-			User info = new User();
-			String findId = m.get().getMem_email();
-			info.setMem_email(mem_email);
-			return info;
-		}
-		else {
-			return new User();
-		}
+	public User idCheck(String usrEmail) {
+	    Optional<User> optionalUser = repository.findById(usrEmail);
+	    
+	    if (optionalUser.isPresent()) {
+	        User user = optionalUser.get();
+	        User info = new User();
+	        info.setUsrEmail(user.getUsrEmail());
+	        return info;
+	    } else {
+	        return new User();
+	    }
 	}
 
 	public void join(User vo) {
@@ -33,22 +33,22 @@ public class UserService {
 	}
 
 	public User login(User vo) {
-		User m = repository.findByIdAndPw(vo.getMem_email(), vo.getMem_pw());
+		User m = repository.findByUsrEmailAndUsrPw(vo.getUsrEmail(), vo.getUsrPw());
 		if(m != null) {
-	    	m.setMem_pw(null);
+	    	m.setUsrPw(null);
 		}
 		return m;
 	}
 
 	public boolean tokenCheck(User vo) {
-		boolean result = repository.findById(vo.getMem_email()).isPresent();
+		boolean result = repository.findById(vo.getUsrEmail()).isPresent();
 		return result;
 	}
 
-	public User getMemberInfo(User vo) {
-		Optional<User> m = repository.findById(vo.getMem_email());
+	public User getUserInfo(User vo) {
+		Optional<User> m = repository.findById(vo.getUsrEmail());
 		if(m.isPresent()) {
-			m.get().setMem_pw(null);
+			m.get().setUsrPw(null);
 			return m.get();
 		}
 		else {
@@ -56,21 +56,16 @@ public class UserService {
 		}
 	}
 
-	public void setMemberInfo(User vo) {
+	public void setUserInfo(User vo) {
 		repository.save(vo);
 	}
 
 	public ArrayList<User> getAllUser() {
-		// TODO Auto-generated method stub
 		ArrayList<User> m = (ArrayList<User>)repository.findAll();
 		for(int i=0; i<m.size(); i++) {
-			m.get(i).setMem_pw(null);
+			m.get(i).setUsrPw(null);
 		}
 		return m;
-	}
-
-	public void goDelete(String mem_email) {
-		repository.deleteById(mem_email);
 	}
 	
 }

@@ -15,21 +15,21 @@ import lombok.Data;
 public class Station {
 
     @Id
-    private int st_id;
+    private int stId;
 
     @Column(nullable = false, length = 60)
-    private String st_name;
+    private String stName;
 
     @Column(nullable = false, length = 300)
-    private String st_loc;
+    private String stLoc;
 
     @Column(nullable = false, precision = 11, scale = 8)
-    private BigDecimal st_lat;
+    private BigDecimal stLat;
 
     @Column(nullable = false, precision = 11, scale = 8)
-    private BigDecimal st_lon;
+    private BigDecimal stLon;
 
     @ManyToOne
-    @JoinColumn(name = "usr_email", referencedColumnName = "usr_email", nullable = false)
+    @JoinColumn(name = "usrEmail", referencedColumnName = "usrEmail", nullable = false)
     private User user;
 }
