@@ -37,18 +37,18 @@ public class UserController {
     @Value("${service.admin.id}")
     private String admin_id;
     
-	@GetMapping("/join")
+	@GetMapping("/signup")
 	public String join(HttpServletRequest request) {
 	    if (validateJwtFromCookie(request)) {
 	        return "redirect:/main";
 	    }
-		return "member/join";
+		return "member/signup";
 	}
 	
-	@PostMapping("/join")
+	@PostMapping("/signup")
 	public String join(User vo) {
 		service.join(vo);
-		return "redirect:/main";
+		return "redirect:/login";
 	}
 	
 	@GetMapping("/login")
@@ -71,7 +71,7 @@ public class UserController {
 	        cookie.setMaxAge(60 * 60);
 	        response.addCookie(cookie);
 	    }
-	    return "redirect:/main";
+	    return "redirect:/service";
 	}
 	
 	@GetMapping("/update")
@@ -102,18 +102,7 @@ public class UserController {
 	    response.addCookie(cookie);
 		return "redirect:/main";
 	}
-	
-	@GetMapping("/list")
-	public String list(HttpServletRequest request) {
-	    if (!validateJwtFromCookie(request)) {
-	        return "redirect:/main";
-	    }
-	    User m = getIdFromJwtCookie(request);
-	    if (!m.getId().equals(admin_id)) {
-	        return "redirect:/main";
-	    }
-		return "member/list";
-	}
+
 	
 	private boolean validateJwtFromCookie(HttpServletRequest request) {
 	    Cookie[] cookies = request.getCookies();
@@ -123,10 +112,10 @@ public class UserController {
 	                String token = cookie.getValue();
 	                Claims claims = jwtUtil.validateTokenAndGetClaims(token);
 	                if (claims != null) {
-	                    String id = (String) claims.get(secretVal_2); 
+	                    String email = (String) claims.get(secretVal_2); 
 	                    // 서비스에 실제 존재하는 계정인지 확인
 	                    User m = new User();
-	                    m.setId(id);
+	                    m.setUsr_email(email);
 	                    if (service.tokenCheck(m)) {
 	                        return true;
 	                    }
@@ -146,8 +135,8 @@ public class UserController {
 	                String token = cookie.getValue();
 	                Claims claims = jwtUtil.validateTokenAndGetClaims(token);
 	                if (claims != null) {
-	                    String id = (String) claims.get(secretVal_2);
-	                    m.setId(id);
+	                    String email = (String) claims.get(secretVal_2);
+	                    m.setUsr_email(email);
 	                }
 	            }
 	        }

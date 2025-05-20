@@ -25,3 +25,4 @@ replay_pid*
 /SpringBootFineDust/src/test
 SpringBootFineDust/src/main/resources/application.properties
 /SpringBootFineDust/.metadata
+/.metadata/
