@@ -160,24 +160,34 @@ h3.mb-5 {
 										<h3 class="mb-5">지하철역 등록</h3>
 									</div>
 
-									<div class="form-outline mb-4">
-										<label class="form-label" for="subway1">지하철역</label>
-										<span style="color: #FF0858;">*</span>
-										<input placeholder="지하철역을 입력해주세요" type="text" id="subway1" name="subway1"
-											class="form-control form-control-lg" />
-									</div>
+									<!-- 지하철역 1 입력 폼 -->
+									<form>
+									  <div class="form-outline mb-4">
+									    <label class="form-label" for="subway1">지하철역</label>
+									    <span style="color: #FF0858;">*</span>
+									    <input placeholder="지하철역을 입력해주세요" type="text" id="subway1" name="subway1"
+									      class="form-control form-control-lg" />
+									  </div>
+									</form>
+									
+									<!-- 지하철역 2 입력 폼 (초기에는 숨김 처리) -->
+									<form>
+									  <div class="form-outline mb-4" id="insert-subway-2" style="display: none;">
+									    <label class="form-label" for="subway2">지하철역</label>
+									    <input placeholder="지하철역을 입력해주세요" type="text" id="subway2" name="subway2"
+									      class="form-control form-control-lg" />
+									  </div>
+									</form>
+									
+									<!-- 지하철역 3 입력 폼 (초기에는 숨김 처리) -->
+									<form>
+									  <div class="form-outline mb-4" id="insert-subway-3" style="display: none;">
+									    <label class="form-label" for="subway3">지하철역</label>
+									    <input placeholder="지하철역을 입력해주세요" type="text" id="subway3" name="subway3"
+									      class="form-control form-control-lg" />
+									  </div>
+									</form>
 
-									<div class="form-outline mb-4" id="insert-subway-2" style="display: none;">
-										<label class="form-label" for="subway2"></label>
-										<input placeholder="지하철역을 입력해주세요" type="text" id="subway2" name="subway2"
-											class="form-control form-control-lg" />
-									</div>
-
-									<div class="form-outline mb-4" id="insert-subway-3" style="display: none;">
-										<label class="form-label" for="subway3"></label>
-										<input placeholder="지하철역을 입력해주세요" type="text" id="subway3" name="subway3"
-											class="form-control form-control-lg" />
-									</div>
 
 									<div class="btn-list-plus-minus">
 										<button type="button" class="btn btn-plus" onclick="formPlus()">+</button>
