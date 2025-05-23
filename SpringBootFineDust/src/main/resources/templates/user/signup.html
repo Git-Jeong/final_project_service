@@ -35,57 +35,63 @@
 								<!-- Step 1 -->
 								<div id="signup1" style="display: block"
 									class="card-body p-md-5 text-black">
-
-									<div id="fixed-title" class="signup-fixed-title"
-										style="right: 20%;">
-										<h3 class="signup-h3 mb-5">회원가입</h3>
-									</div>
-
-									<div class="mb-4"
-										style="display: flex; align-items: end; gap: 10px;">
-										<div class="flex-grow-1">
-											<label class="signup-form-label" for="id">이메일</label><span
-												style="color: #FF0858;">*</span> <input
-												placeholder="이메일을 입력하세요" type="text" id="usrEmail"
-												name="usrEmail" required="required"
-												class="form-control form-control-lg signup-form-control" />
+									<div class="signup-right-container">
+										<div id="fixed-title" class="signup-head-title">
+											<h3 class="signup-h3 mb-5">회원가입</h3>
 										</div>
-										<div style="text-align: center; align-content: center;">
-											<button onclick="idCheck()" type="button"
-												class="btn signup-btn-primary">중복체크</button>
+										<div class="signup-middle-content">
+											<div class="mb-4"
+												style="display: flex; align-items: end; gap: 10px;">
+												<div class="flex-grow-1">
+													<label class="signup-form-label" for="id">이메일</label><span
+														style="color: #FF0858;">*</span> <input
+														placeholder="이메일을 입력하세요" type="text" id="usrEmail"
+														name="usrEmail" required="required"
+														class="form-control form-control-lg signup-form-control" />
+												</div>
+												<div style="text-align: center; align-content: center;">
+													<button onclick="idCheck()" type="button"
+														class="btn signup-btn-primary">중복체크</button>
+												</div>
+											</div>
+
+											<div class="form-outline mb-4">
+												<label class="signup-form-label" for="nick">닉네임</label><span
+													style="color: #FF0858;">*</span> <input
+													placeholder="닉네임을 입력해주세요" type="text" id="usrNick"
+													name="usrNick" required="required"
+													class="form-control form-control-lg signup-form-control" />
+											</div>
+
+											<div class="row">
+												<div class="col-md-6 mb-4">
+													<label class="signup-form-label" for="password">비밀번호
+														(문자, 숫자, 특수문자 포함 8~20자)</label><span style="color: #FF0858;">*</span>
+													<input placeholder="비밀번호를 입력해주세요" type="password"
+														id="usrPw" name="usrPw" required="required"
+														class="form-control form-control-lg signup-form-control" />
+												</div>
+												<div class="col-md-6 mb-4">
+													<label class="signup-form-label" for="passwordCheck">비밀번호
+														확인</label><span style="color: #FF0858;">*</span> <input
+														placeholder="비밀번호를 재입력해주세요" type="password"
+														id="usrPwCheck" name="usrPwCheck" required="required"
+														class="form-control form-control-lg signup-form-control" />
+												</div>
+											</div>
+											<div align="center">
+												<button type="button" onclick="goNext()"
+													class="btn signup-next-btn btn-lg">다음</button>
+											</div>
+										</div>
+
+										<div class="signup-bottom-content">
+											<div align="center">
+												이메일이 이미 있나요? 로그인
+											</div>
 										</div>
 									</div>
 
-									<div class="form-outline mb-4">
-										<label class="signup-form-label" for="nick">닉네임</label><span
-											style="color: #FF0858;">*</span> <input
-											placeholder="닉네임을 입력해주세요" type="text" id="usrNick"
-											name="usrNick" required="required"
-											class="form-control form-control-lg signup-form-control" />
-									</div>
-
-									<div class="row">
-										<div class="col-md-6 mb-4">
-											<label class="signup-form-label" for="password">비밀번호
-												(문자, 숫자, 특수문자 포함 8~20자)</label><span style="color: #FF0858;">*</span>
-											<input placeholder="비밀번호를 입력해주세요" type="password" id="usrPw"
-												name="usrPw" required="required"
-												class="form-control form-control-lg signup-form-control" />
-										</div>
-										<div class="col-md-6 mb-4">
-											<label class="signup-form-label" for="passwordCheck">비밀번호
-												확인</label><span style="color: #FF0858;">*</span> <input
-												placeholder="비밀번호를 재입력해주세요" type="password" id="usrPwCheck"
-												name="usrPwCheck" required="required"
-												class="form-control form-control-lg signup-form-control" />
-										</div>
-									</div>
-
-									<div align="center">
-										<button type="button" onclick="goNext()"
-											class="btn signup-next-btn btn-lg">다음</button>
-									</div>
-									<div align="center">이메일이 이미 있나요? 로그인</div>
 								</div>
 							</form>
 
@@ -93,48 +99,57 @@
 							<form id="step2-form" method="post" action="insertSt">
 								<div id="signup2" style="display: none"
 									class="card-body p-md-5 text-black">
-
-									<div id="fixed-title" class="signup-fixed-title"
-										style="right: 18%;">
-										<h3 class="signup-h3 mb-5">지하철역 등록</h3>
+									
+									<div class="signup-right-container">
+										<div class="signup-head-title">
+										
+											<div id="fixed-title" class="signup-head-title">
+												<h3 class="signup-h3 mb-5">지하철역 등록</h3>
+											</div>
+										</div>
+										<div class="signup-middle-content">
+											<div class="form-outline mb-4">
+												<label class="signup-form-label" for="subway1">지하철역</label><span
+													style="color: #FF0858;">*</span> <input
+													placeholder="지하철역을 입력해주세요" type="text" id="stName_1"
+													name="stName_1"
+													class="form-control form-control-lg signup-form-control" />
+											</div>
+		
+											<div class="form-outline mb-4" id="insert-subway-2"
+												style="display: none;">
+												<label class="signup-form-label" for="subway2"></label> <input
+													placeholder="지하철역을 입력해주세요" type="text" id="stName_2"
+													name="stName_2"
+													class="form-control form-control-lg signup-form-control" />
+											</div>
+		
+											<div class="form-outline mb-4" id="insert-subway-3"
+												style="display: none;">
+												<label class="signup-form-label" for="subway3"></label> <input
+													placeholder="지하철역을 입력해주세요" type="text" id="stName_3"
+													name="stName_3"
+													class="form-control form-control-lg signup-form-control" />
+											</div>
+		
+											<div class="signup-btn-list-plus-minus">
+												<button type="button" class="btn btn-plus"
+													onclick="formPlus()">+</button>
+												<button type="button" class="btn btn-minus"
+													onclick="formMinus()">-</button>
+											</div>
+											<div align="center">
+												<button type="button" onclick="handleSubmit(event)"
+													class="btn signup-next-btn btn-lg">회원가입</button>
+											</div>
+										</div>
+										<div class="signup-bottom-content">
+											<div align="center">이메일이 이미 있나요? 로그인</div>
+										</div>
 									</div>
+									
 
-									<div class="form-outline mb-4">
-										<label class="signup-form-label" for="subway1">지하철역</label><span
-											style="color: #FF0858;">*</span> <input
-											placeholder="지하철역을 입력해주세요" type="text" id="stName_1"
-											name="stName_1"
-											class="form-control form-control-lg signup-form-control" />
-									</div>
-
-									<div class="form-outline mb-4" id="insert-subway-2"
-										style="display: none;">
-										<label class="signup-form-label" for="subway2"></label> <input
-											placeholder="지하철역을 입력해주세요" type="text" id="stName_2"
-											name="stName_2"
-											class="form-control form-control-lg signup-form-control" />
-									</div>
-
-									<div class="form-outline mb-4" id="insert-subway-3"
-										style="display: none;">
-										<label class="signup-form-label" for="subway3"></label> <input
-											placeholder="지하철역을 입력해주세요" type="text" id="stName_3"
-											name="stName_3"
-											class="form-control form-control-lg signup-form-control" />
-									</div>
-
-									<div class="signup-btn-list-plus-minus">
-										<button type="button" class="btn btn-plus"
-											onclick="formPlus()">+</button>
-										<button type="button" class="btn btn-minus"
-											onclick="formMinus()">-</button>
-									</div>
-
-									<div align="center">
-										<button type="button" onclick="handleSubmit(event)"
-											class="btn signup-next-btn btn-lg">회원가입</button>
-										<div align="center">이메일이 이미 있나요? 로그인</div>
-									</div>
+									
 								</div>
 							</form>
 						</div>
@@ -150,7 +165,7 @@
 	<script>
 		let subwayIndex = 1;
 		let idCheckPassed = false;
-		
+
 		function formPlus() {
 			if (subwayIndex < 3) {
 				subwayIndex++;
@@ -171,7 +186,7 @@
 				alert("이메일을 입력해 주세요.");
 				return;
 			}
-			
+
 			$.ajax({
 				url : "idCheck",
 				type : "get",
@@ -204,7 +219,7 @@
 				alert("이메일 중복체크를 해주세요.");
 				return;
 			}
-			
+
 			if (!usrEmail) {
 				alert("이메일을 입력해 주세요.");
 				return;
@@ -224,12 +239,12 @@
 				alert("비밀번호 확인을 입력해 주세요.");
 				return;
 			}
-			
-			if (usrPw != usrPwCheck){
+
+			if (usrPw != usrPwCheck) {
 				alert("비밀번호가 일치하지 앖습니다.");
 				return;
 			}
-			
+
 			$("#signup1").hide();
 			$("#signup2").show();
 		}
@@ -242,12 +257,12 @@
 			const usrNick = $('#usrNick').val();
 			const usrPw = $('#usrPw').val();
 			const usrPwCheck = $('#usrPwCheck').val();
-			
+
 			if (!stName_1) {
 				alert("역을 하나는 입력해 주세요.");
 				return;
 			}
-			
+
 			$.ajax({
 				type : "POST",
 				url : "/signup",
