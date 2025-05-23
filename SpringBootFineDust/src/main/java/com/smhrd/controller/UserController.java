@@ -39,12 +39,6 @@ public class UserController {
         return "user/signup";
     }
 
-    @PostMapping("/signup")
-    public String join(User vo) {
-        service.join(vo);
-        return "redirect:/login";
-    }
-
     @GetMapping("/login")
     public String login(HttpServletRequest request) {
         if (isUserLoggedIn(request)) {

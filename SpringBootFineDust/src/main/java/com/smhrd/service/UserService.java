@@ -15,16 +15,13 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 	
-	public User idCheck(String usrEmail) {
-	    Optional<User> optionalUser = repository.findById(usrEmail);
+	public boolean idCheck(String usrEmail) {
+	    Optional<User> optionalUser = repository.findByUsrEmail(usrEmail);
 	    
 	    if (optionalUser.isPresent()) {
-	        User user = optionalUser.get();
-	        User info = new User();
-	        info.setUsrEmail(user.getUsrEmail());
-	        return info;
+	        return true;
 	    } else {
-	        return new User();
+	        return false;
 	    }
 	}
 
@@ -41,12 +38,13 @@ public class UserService {
 	}
 
 	public boolean tokenCheck(User vo) {
-		boolean result = repository.findById(vo.getUsrEmail()).isPresent();
-		return result;
+	    Optional<User> optionalUser = repository.findByUsrEmail(vo.getUsrEmail());
+	    boolean result = optionalUser.isPresent();  // null이면 false, 있으면 true
+	    return result;
 	}
 
 	public User getUserInfo(User vo) {
-		Optional<User> m = repository.findById(vo.getUsrEmail());
+		Optional<User> m = repository.findByUsrEmail(vo.getUsrEmail());
 		if(m.isPresent()) {
 			m.get().setUsrPw(null);
 			return m.get();

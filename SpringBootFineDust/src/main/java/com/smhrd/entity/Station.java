@@ -1,12 +1,10 @@
 package com.smhrd.entity;
 
-import java.math.BigDecimal;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 
 import lombok.Data;
 
@@ -15,21 +13,18 @@ import lombok.Data;
 public class Station {
 
     @Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int stId;
 
     @Column(nullable = false, length = 60)
-    private String stName;
+    private String stName_1;
 
-    @Column(nullable = false, length = 300)
-    private String stLoc;
+    @Column(nullable = true, length = 60)
+    private String stName_2;
+    
+    @Column(nullable = true, length = 60)
+    private String stName_3;
 
-    @Column(nullable = false, precision = 11, scale = 8)
-    private BigDecimal stLat;
-
-    @Column(nullable = false, precision = 11, scale = 8)
-    private BigDecimal stLon;
-
-    @ManyToOne
-    @JoinColumn(name = "usrEmail", referencedColumnName = "usrEmail", nullable = false)
-    private User user;
+    @Column(name = "usrEmail", nullable = false, length = 100)
+    private String usrEmail;
 }
