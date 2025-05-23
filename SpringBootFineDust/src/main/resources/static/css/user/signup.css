@@ -78,7 +78,10 @@
   display: flex;
   flex-direction: column;
   justify-content : space-between;
+  margin-left: auto;
+  margin-right: auto;
   height: 100vh;
+  width: 40vw;
 }
 
 .signup-head-title {
