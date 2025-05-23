@@ -2,6 +2,8 @@ package com.smhrd.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
@@ -10,7 +12,10 @@ import lombok.Data;
 public class User {
 
 	@Id
-	@Column(length = 30)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long usrIdx;
+
+	@Column(length = 30, unique = true, nullable = false)
 	private String usrEmail;
 	
 	@Column(nullable = false, length = 20)
