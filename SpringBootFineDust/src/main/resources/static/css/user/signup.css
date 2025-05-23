@@ -34,10 +34,18 @@
 
 .signup-btn-primary {
   background-color: #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(15px);
   border: none;
   font-size: 14px;
   padding: 10px 16px;
   border-radius: 8px;
+  color: #ffffff;
+}
+
+.signup-btn-primary:hover {
+  background-color: #eee;
+  color: #000000;
 }
 
 .signup-next-btn {
