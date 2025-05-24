@@ -31,24 +31,24 @@ public class UserController {
     @Value("${jwt.cookie.name}")
     private String token_login;
 
-    @GetMapping("/signup")
+    @GetMapping("/Signup")
     public String join(HttpServletRequest request) {
         if (token.isUserLoggedIn(request)) {
-            return "redirect:/service";
+            return "redirect:/Service";
         }
-        return "user/signup";
+        return "user/Signup";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/Login")
     public String login(HttpServletRequest request) {
         if (token.isUserLoggedIn(request)) {
-            return "redirect:/service";
+            return "redirect:/Service";
         }
         System.out.println("...");
-        return "user/login";
+        return "user/Login";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/Login")
     public String login(User vo, HttpServletResponse response) {
         User m = service.login(vo);
         if (m != null) {
@@ -58,40 +58,40 @@ public class UserController {
             cookie.setPath("/");
             cookie.setMaxAge(3600); // 1시간
             response.addCookie(cookie);
-            return "redirect:/service";
+            return "redirect:/Service";
         }
         else {
-        	return "user/login";
+        	return "user/Login";
 
         }
     }
 
-    @GetMapping("/update")
+    @GetMapping("/Update")
     public String update(HttpServletRequest request, Model model) {
         if (!token.isUserLoggedIn(request)) {
-            return "redirect:/main";
+            return "redirect:/Main";
         }
         User m = token.extractUserFromJwt(request);
         User vo = service.getUserInfo(m);
         model.addAttribute("vo", vo);
-        return "user/update";
+        return "user/Update";
     }
 
-    @PostMapping("/update")
+    @PostMapping("/Update")
     public String update(HttpServletRequest request, User vo) {
         if (!token.isUserLoggedIn(request)) {
-            return "redirect:/main";
+            return "redirect:/Main";
         }
         service.setUserInfo(vo);
-        return "redirect:/main";
+        return "redirect:/Update";
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/Logout")
     public String logout(HttpServletResponse response) {
         Cookie cookie = new Cookie(token_login, null);
         cookie.setMaxAge(0);
         cookie.setPath("/");
         response.addCookie(cookie);
-        return "redirect:/main";
+        return "redirect:/Main";
     }
 }

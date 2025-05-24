@@ -10,8 +10,8 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/css/user/signup_login.css" />
-<link rel="stylesheet" href="/css/common.css" />
+	<link rel="stylesheet" href="/css/user/SignupLogin.css" />
+	<link rel="stylesheet" href="/css/common.css" />
 </head>
 
 <body>
@@ -101,7 +101,7 @@
 							</form>
 
 							<!-- Step 2 -->
-							<form id="step2-form" method="post" action="insertSt">
+							<form id="step2-form" method="post" action="InsertSt">
 								<div id="signup2" style="display: none"
 									class="card-body p-md-5 text-black">
 
@@ -150,7 +150,7 @@
 										</div>
 										<div class="signup-bottom-content">
 											<div align="center">
-												계정이 이미 있나요? <a style="font-weight: 600" href="login">로그인</a>
+												계정이 이미 있나요? <a style="font-weight: 600" href="Login">로그인</a>
 											</div>
 										</div>
 									</div>
@@ -195,7 +195,7 @@
 			}
 
 			$.ajax({
-				url : "idCheck",
+				url : "IdCheck",
 				type : "get",
 				dataType : "json",
 				data : {
@@ -272,7 +272,7 @@
 
 			$.ajax({
 				type : "POST",
-				url : "/signup",
+				url : "/Signup",
 				contentType : "application/json",
 				data : JSON.stringify({
 					"usrEmail" : usrEmail,

@@ -8,11 +8,11 @@ public class MainController {
     
 	@RequestMapping("/")
 	public String mainFisrtPage() {
-		return "redirect:/main";
+		return "redirect:/Main";
 	}
 	
-	@RequestMapping("/main")
+	@RequestMapping("/Main")
 	public String mainPage() {
-		return "main";
+		return "Main";
 	}
 }
