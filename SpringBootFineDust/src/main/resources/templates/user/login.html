@@ -26,7 +26,7 @@
 
 						<!-- 우측 로그인 폼 영역 -->
 						<div class="col-md-6">
-							<form id="login-form" method="post" action="Login">
+							<form id="login-form" method="post" action="login">
 								<div class="card-body p-md-5 text-black">
 									<div class="signup-right-container">
 										<div class="signup-head-title">
@@ -40,6 +40,9 @@
 												</div>
 												<input placeholder="이메일을 입력하세요" type="text" id="usrEmail"
 													name="usrEmail" required="required"
+													maxlength="30" 
+												    pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$" 
+												    title="영어, 숫자, 특수문자(@, ., _, %, +, -)만 가능하며, 올바른 이메일 형식이어야 합니다."
 													class="form-control form-control-lg signup-form-control" />
 											</div>
 
@@ -50,6 +53,7 @@
 												</div>
 												<input placeholder="비밀번호를 입력해주세요" type="password"
 													id="usrPw" name="usrPw" required="required"
+													maxlength="20" 
 													class="form-control form-control-lg signup-form-control" />
 											</div>
 
@@ -60,7 +64,7 @@
 
 										<div class="signup-bottom-content">
 											<div align="center">
-												계정이 없나요? <a style="font-weight: 600" href="Signup">회원가입</a>
+												계정이 없나요? <a style="font-weight: 600" href="signup">회원가입</a>
 											</div>
 										</div>
 									</div>

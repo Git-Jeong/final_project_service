@@ -16,13 +16,13 @@ public class UserRestController {
 	@Autowired
 	private UserService service;
 	
-	@GetMapping("/IdCheck")
+	@GetMapping("/idCheck")
 	public boolean idCheck(@RequestParam("usrEmail") String usrEmail) {
 		boolean m = service.idCheck(usrEmail);
 		return m;
 	}
 
-    @PostMapping("/Signup")
+    @PostMapping("/signup")
     public String join(@RequestBody User vo) {
         service.join(vo);
         return "success";

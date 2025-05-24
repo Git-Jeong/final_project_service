@@ -12,11 +12,11 @@ public class ServiceController {
     @Autowired
     private TokenCheck token;
     
-	@GetMapping("/Service")
+	@GetMapping("/service")
 	public String mainFisrtPage(HttpServletRequest request) {
         if (!token.isUserLoggedIn(request)) {
-            return "redirect:/Main";
+            return "redirect:/main";
         }
-		return "service/Service";
+		return "service/service";
 	}
 }

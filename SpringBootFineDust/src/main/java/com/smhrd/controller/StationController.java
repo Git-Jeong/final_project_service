@@ -12,14 +12,14 @@ public class StationController {
     @Autowired
     private StationService service;
 
-    @PostMapping("/InsertSt")
+    @PostMapping("/insertSt")
     public String insertSt(Station st) {
     	boolean result = service.insertSt(st);
     	if(result) {
-    		return "redirect:/Login";
+    		return "redirect:/login";
     	}
     	else {
-    		return "redirect:/Signup";
+    		return "redirect:/signup";
     	}
     }
     
