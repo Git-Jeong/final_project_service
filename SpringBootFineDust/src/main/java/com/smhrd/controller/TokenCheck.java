@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
-public class UserController {
+public class TokenCheck {
 
     @Autowired
     private UserService service;

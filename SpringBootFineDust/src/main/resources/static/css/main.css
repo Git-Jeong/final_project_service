@@ -1,0 +1,90 @@
+.main-wrapper {
+
+	width: 100vw;
+	display: fix;
+	justify-content: center;
+	align-items: center;
+	transform-origin: top left;
+	overflow: hidden;
+}
+
+.main-top-banner {
+	background: rgba(217, 217, 217, 0.5);
+	padding: 80px 200px;
+}
+
+.main-top-banner h2 {
+	font-size: clamp(24px, 2.5vw, 36px);
+	font-weight: 700;
+	margin-bottom: 10px;
+}
+
+.main-top-banner h1 {
+	font-size: clamp(36px, 4vw, 60px);
+	font-weight: 700;
+	margin-bottom: 20px;
+}
+
+.main-top-banner p {
+	font-size: clamp(14px, 1.5vw, 18px);
+	color: rgba(0, 0, 0, 0.5);
+	margin-bottom: 30px;
+}
+
+.main-start-button {
+	background: #66A3FF;
+	color: white;
+	font-size: clamp(18px, 1.8vw, 25px);
+	font-weight: 700;
+	padding: 15px 30px;
+	border: none;
+	border-radius: 15px;
+	cursor: pointer;
+}
+
+.main-start-button:hover {
+	background: #5591e6;
+}
+
+.main-info-section {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 50px;
+	padding: 60px 20px;
+}
+
+.main-info-card {
+	width: 300px;
+	text-align: center;
+}
+
+.main-info-card .main-circle {
+	width: 250px;
+	height: 250px;
+	background: #D9D9D9;
+	border-radius: 50%;
+	margin: 0 auto 20px;
+}
+
+.main-info-card h3 {
+	font-size: 15px;
+	font-weight: 700;
+	margin-bottom: 10px;
+}
+
+.main-info-card p {
+	font-size: 18px;
+	color: rgba(0, 0, 0, 0.5);
+	line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+	.main-info-card {
+		width: 90%;
+	}
+}
+
+a {
+	text-decoration: none;
+}

@@ -27,11 +27,11 @@ public class JwtUtil {
     
     public String generateToken(User vo) {
         return Jwts.builder()
-                .setSubject(vo.getId())
+                .setSubject(vo.getUsrEmail())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 1000)) //1시간
                 .claim(secretVal_1, System.currentTimeMillis())
-                .claim(secretVal_2, vo.getId())
+                .claim(secretVal_2, vo.getUsrEmail())
                 .signWith(SignatureAlgorithm.HS256, secretKey.getBytes())
                 .compact();
     }

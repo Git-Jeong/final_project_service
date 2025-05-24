@@ -4,134 +4,38 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>지하철 미세먼지 시각화</title>
-<style>
-body {
-	margin: 0;
-	font-family: 'Inter', sans-serif;
-	background: #fff;
-}
-
- .wrapper {
-	width: 100vw;
-	height: 100vh;
-	display: fix;
-	justify-content: center;
-	align-items: center;
-	transform-origin: top left;
-	overflow: hidden;
-}
-
-.top-banner {
-	background: rgba(217, 217, 217, 0.5);
-	padding: 80px 200px;
-	border: 2px solid #3399ff;
-}
-
-.top-banner h2 {
-	font-size: clamp(24px, 2.5vw, 36px);
-	font-weight: 700;
-	margin-bottom: 10px;
-}
-
-.top-banner h1 {
-	font-size: clamp(36px, 4vw, 60px);
-	font-weight: 700;
-	margin-bottom: 20px;
-}
-
-.top-banner p {
-	font-size: clamp(14px, 1.5vw, 18px);
-	color: rgba(0, 0, 0, 0.5);
-	margin-bottom: 30px;
-}
-
-.start-button {
-	background: #66A3FF;
-	color: white;
-	font-size: clamp(18px, 1.8vw, 25px);
-	font-weight: 700;
-	padding: 15px 30px;
-	border: none;
-	border-radius: 15px;
-	cursor: pointer;
-}
-
-.info-section {
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
-	gap: 50px;
-	padding: 60px 20px;
-}
-
-.info-card {
-	width: 300px;
-	text-align: center;
-}
-
-.info-card .circle {
-	width: 250px;
-	height: 250px;
-	background: #D9D9D9;
-	border-radius: 50%;
-	margin: 0 auto 20px;
-}
-
-.info-card h3 {
-	font-size: 15px;
-	font-weight: 700;
-	margin-bottom: 10px;
-}
-
-.info-card p {
-	font-size: 18px;
-	color: rgba(0, 0, 0, 0.5);
-	line-height: 1.4;
-}
-
-@media ( max-width : 768px) {
-	.info-card {
-		width: 90%;
-	}
-}
-
-a {
-	text-decoration: none;
-}
-</style>
+<link rel="stylesheet" href="/css/main.css" />
+<link rel="stylesheet" href="/css/common.css" />
 </head>
 <body>
-  
-	<div id="wrapper">
-		<section class="top-banner">
-			<h2>눈으로 확인하는 지하철 미세먼지 상태!</h2>
-			<h1>지하철 미세먼지, 실시간으로 확인하세요!</h1>
-			<p>전국 지하철역의 초미세먼지(PM2.5), 미세먼지(PM10) 농도를 한 눈에 확인할 수 있어요.</p>
-			<a class="btn start-button" href="login">시작하기</a>
-		</section>
-	</div>	
+  <div class="main-wrapper">
+    <section class="main-top-banner">
+      <h2>눈으로 확인하는 지하철 미세먼지 상태!</h2>
+      <h1>지하철 미세먼지, 실시간으로 확인하세요!</h1>
+      <p>전국 지하철역의 초미세먼지(PM2.5), 미세먼지(PM10) 농도를 한 눈에 확인할 수 있어요.</p>
+      <a class="main-start-button" href="login">시작하기</a>
+    </section>
+  </div>
 
-		<section class="info-section">
-			<div class="info-card">
-				<div class="circle"></div>
-				<h3>환경 아이콘</h3>
-				<h3>실시간 데이터</h3>
-				<p>공공 API를 활용한 전국 지하철 미세먼지 정보 제공</p>
-			</div>
-			<div class="info-card">
-				<div class="circle"></div>
-				<h3>통계 아이콘</h3>
-				<h3>통계 데이터</h3>
-				<p>통계화되고 시간대별 평균 미세먼지 농도 그래프 제공</p>
-			</div>
-			<div class="info-card">
-				<div class="circle"></div>
-				<h3>지도 아이콘</h3>
-				<h3>관심역 등록</h3>
-				<p>자주 이용하는 역을 등록해 빠르게 확인</p>
-			</div>
-		</section>
-	
-
+  <section class="main-info-section">
+    <div class="main-info-card">
+      <div class="main-circle"></div>
+      <h3>환경 아이콘</h3>
+      <h3>실시간 데이터</h3>
+      <p>공공 API를 활용한 전국 지하철 미세먼지 정보 제공</p>
+    </div>
+    <div class="main-info-card">
+      <div class="main-circle"></div>
+      <h3>통계 아이콘</h3>
+      <h3>통계 데이터</h3>
+      <p>통계화되고 시간대별 평균 미세먼지 농도 그래프 제공</p>
+    </div>
+    <div class="main-info-card">
+      <div class="main-circle"></div>
+      <h3>지도 아이콘</h3>
+      <h3>관심역 등록</h3>
+      <p>자주 이용하는 역을 등록해 빠르게 확인</p>
+    </div>
+  </section>
 </body>
 </html>
