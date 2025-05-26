@@ -5,10 +5,11 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
 import com.smhrd.entity.User;
-
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Random;
+import java.util.UUID;
 
 @Component
 public class JwtUtil {
@@ -25,16 +26,23 @@ public class JwtUtil {
     @Value("${jwt.secret.val.3}")
     private String secretVal_3;
     
-    public String generateToken(User vo) {
-        return Jwts.builder()
-                .setSubject(vo.getId())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 1000)) //1시간
-                .claim(secretVal_1, System.currentTimeMillis())
-                .claim(secretVal_2, vo.getId())
-                .signWith(SignatureAlgorithm.HS256, secretKey.getBytes())
-                .compact();
-    }
+	public String generateToken(User vo) {
+		long currentMillis = System.currentTimeMillis();
+		long uuidNum = Math.abs(UUID.randomUUID().getMostSignificantBits());
+		int randomNum = new Random().nextInt(10000) + 1;  // 1~10000 난수
+
+		long combinedVal = currentMillis * uuidNum * randomNum;
+
+		return Jwts.builder()
+		        .setSubject(vo.getUsrEmail())
+		        .claim(secretVal_1, combinedVal)
+		        .claim(secretVal_2, vo.getUsrEmail())
+		        .claim(secretVal_3, UUID.randomUUID().toString())
+		        .setIssuedAt(new Date())
+		        .setExpiration(new Date(currentMillis + 60 * 60 * 1000))
+		        .signWith(SignatureAlgorithm.HS256, secretKey.getBytes())
+		        .compact();
+	}
 
  // JwtUtil 클래스에 Claims 반환 메서드 추가
     public Claims validateTokenAndGetClaims(String token) {
