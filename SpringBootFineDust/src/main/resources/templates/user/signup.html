@@ -261,6 +261,12 @@
 				return;
 			}
 
+			// 잘못된 조건 수정
+			if ((usrPw.length < 8) || (usrPw.length > 20)) {
+			    alert("비밀번호는 8~20자로 입력해 주세요.");
+			    return;
+			}
+			 
 			if (usrPw != usrPwCheck) {
 				alert("비밀번호가 일치하지 앖습니다.");
 				return;
