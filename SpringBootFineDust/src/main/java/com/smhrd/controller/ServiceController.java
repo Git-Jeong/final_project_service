@@ -17,6 +17,6 @@ public class ServiceController {
         if (!token.isUserLoggedIn(request)) {
             return "redirect:/main";
         }
-		return "service/service";
+		return "service/serviceMain";
 	}
 }
