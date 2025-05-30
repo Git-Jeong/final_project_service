@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.smhrd.config.AESUtils;
 import com.smhrd.config.JwtUtil;
 import com.smhrd.entity.User;
 import com.smhrd.service.UserService;
@@ -24,6 +26,9 @@ public class UserController {
     
     @Autowired
     private JwtUtil jwtUtil;
+
+    @Autowired
+    private AESUtils AesUtils;
 
     @Value("${jwt.secret.val.2}")
     private String secretVal_2;
@@ -49,19 +54,25 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(User vo, HttpServletResponse response) {
+    	if((vo != null) && (vo.getUsrPw() != null)) {
+    		String aesPw = AesUtils.encrypt(vo.getUsrPw());
+    		if(aesPw == null) {
+    	        return "user/login";
+    		}
+			vo.setUsrPw(aesPw);
+    	}
         User m = service.login(vo);
         if (m != null) {
             String jwt = jwtUtil.generateToken(vo);
             Cookie cookie = new Cookie(token_login, jwt);
             cookie.setHttpOnly(true);
             cookie.setPath("/");
-            cookie.setMaxAge(3600); // 1시간
+            cookie.setMaxAge(60 * 60 * 8); // 1시간
             response.addCookie(cookie);
             return "redirect:/service";
         }
         else {
         	return "user/login";
-
         }
     }
 
@@ -74,15 +85,6 @@ public class UserController {
         User vo = service.getUserInfo(m);
         model.addAttribute("vo", vo);
         return "user/mypage";
-    }
-
-    @PostMapping("/mypage")
-    public String mypage(HttpServletRequest request, User vo) {
-        if (!token.isUserLoggedIn(request)) {
-            return "redirect:/main";
-        }
-        service.setUserInfo(vo);
-        return "redirect:/mypage";
     }
 
     @GetMapping("/logout")
