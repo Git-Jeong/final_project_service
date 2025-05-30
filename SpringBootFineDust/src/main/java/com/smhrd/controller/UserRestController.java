@@ -39,7 +39,7 @@ public class UserRestController {
         return "success";
     }
     
-    @PostMapping("/mypage")
+    @PostMapping("/updateUserInfo")
     public String mypage(User vo) {
     	if((vo != null) && (vo.getUsrPw() != null)) {
     		String aesPw = AesUtils.encrypt(vo.getUsrPw());

@@ -20,8 +20,10 @@
 		<form id="user-form" class="mypage-form">
 			<div class="mypage-l-form">
 				<div>
-					<label for="usrEmail">이메일</label> <input type="email" id="usrEmail"
-						name="usrEmail"  required th:value="${vo.usrEmail}"  readonly />
+					<label for="usrEmail">이메일</label> <input type="email" id="usrEmail" 
+					  name="usrEmail"
+					  required th:value="${vo.usrEmail}" readonly
+					  autocomplete="username" />
 				</div>
 
 				<div>
@@ -30,11 +32,13 @@
 					</label>
 					<div class="mypage-password-group">
 						<input type="password" id="usrPw" name="usrPw"
-							placeholder="비밀번호를 입력해 주세요." required maxlength="20" th:value="${vo.usrPw}"
-							pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$" />
-
+						  placeholder="비밀번호를 입력해 주세요." required maxlength="20"
+						  pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$"
+						  autocomplete="new-password" />
+						
 						<input type="password" id="usrPwCheck" name="usrPwCheck"
-							placeholder="비밀번호를 재입력해 주세요." required th:value="${vo.usrPw}"/>
+						  placeholder="비밀번호를 재입력해 주세요." required
+						  autocomplete="new-password" />
 					</div>
 				</div>
 
@@ -45,7 +49,7 @@
 			</div>
 			<div class="mypage-right-form">
 				<div>
-					<label for="stName_1">지하철역</label> <input type="text" id="stName_2"
+					<label for="stName_1">지하철역</label> <input type="text" id="stName_1"
 						name="stName_1" placeholder="지하철역을 입력해 주세요." />
 				</div>
 				<div>
