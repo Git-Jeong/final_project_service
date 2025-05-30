@@ -1,627 +1,88 @@
-/* 개인정보수정 페이지 - 김윤서 */
-
-.Mypage-container{
-position: relative;
-width: 1920px;
-height: 1080px;
-
-background: #FFFFFF;
-
-
-/* Group 345 */
-position: absolute;
-width: 1581px;
-height: 692px;
-left: 169px;
-top: 308px;
-
-
-
-/* Group 344 */
-position: absolute;
-width: 1581px;
-height: 692px;
-left: 169px;
-top: 308px;
-
-
-
-/* Group 336 */
-position: absolute;
-width: 1581px;
-height: 692px;
-left: 169px;
-top: 308px;
-
-
-
-/* Group 277 */
-position: absolute;
-width: 1581px;
-height: 692px;
-left: 169px;
-top: 308px;
-
-
-
-/* Group 274 */
-position: absolute;
-width: 1581px;
-height: 692px;
-left: 169px;
-top: 308px;
-
-
-
-/* Group 273 */
-position: absolute;
-width: 1581px;
-height: 692px;
-left: 169px;
-top: 308px;
-
-
-
-/* Group 271 */
-position: absolute;
-width: 730px;
-height: 97px;
-left: 169px;
-top: 599px;
-
-
-
-/* Group 266 */
-position: absolute;
-width: 730px;
-height: 70px;
-left: 169px;
-top: 626px;
-
-
-
-/* Rectangle 3 */
-box-sizing: border-box;
-
-position: absolute;
-width: 730px;
-height: 70px;
-left: 169px;
-top: 626px;
-
-background: #FFFFFF;
-border: 1px solid rgba(0, 0, 0, 0.3);
-border-radius: 15px;
-
-
-/* 닉네임을 입력해 주세요. */
-position: absolute;
-width: 181px;
-height: 18.12px;
-left: 191px;
-top: 652.35px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 18px;
-line-height: 22px;
-
-color: rgba(0, 0, 0, 0.5);
-
-
-
-/* 닉네임 */
-position: absolute;
-width: 70px;
-height: 18px;
-left: 178px;
-top: 599px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 15px;
-line-height: 18px;
-
-color: #000000;
-
-
-
-/* Group 340 */
-position: absolute;
-width: 730px;
-height: 388px;
-left: 1020px;
-top: 308px;
-
-
-
-/* Group 266 */
-position: absolute;
-width: 730px;
-height: 70px;
-left: 1020px;
-top: 335px;
-
-
-
-/* Rectangle 3 */
-box-sizing: border-box;
-
-position: absolute;
-width: 730px;
-height: 70px;
-left: 1020px;
-top: 335px;
-
-background: #FFFFFF;
-border: 1px solid rgba(0, 0, 0, 0.3);
-border-radius: 15px;
-
-
-/* 지하철역을 입력해 주세요. */
-position: absolute;
-width: 198px;
-height: 18.12px;
-left: 1042px;
-top: 361.35px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 18px;
-line-height: 22px;
-
-color: rgba(0, 0, 0, 0.5);
-
-
-
-/* Group 267 */
-position: absolute;
-width: 730px;
-height: 70px;
-left: 1020px;
-top: 486px;
-
-
-
-/* Rectangle 3 */
-box-sizing: border-box;
-
-position: absolute;
-width: 730px;
-height: 70px;
-left: 1020px;
-top: 486px;
-
-background: #FFFFFF;
-border: 1px solid rgba(0, 0, 0, 0.3);
-border-radius: 15px;
-
-
-/* 지하철역을 입력해 주세요. */
-position: absolute;
-width: 198px;
-height: 18.12px;
-left: 1042px;
-top: 512.35px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 18px;
-line-height: 22px;
-
-color: rgba(0, 0, 0, 0.5);
-
-
-
-/* Group 268 */
-position: absolute;
-width: 730px;
-height: 70px;
-left: 1020px;
-top: 626px;
-
-
-
-/* Rectangle 3 */
-box-sizing: border-box;
-
-position: absolute;
-width: 730px;
-height: 70px;
-left: 1020px;
-top: 626px;
-
-background: #FFFFFF;
-border: 1px solid rgba(0, 0, 0, 0.3);
-border-radius: 15px;
-
-
-/* 지하철역을 입력해 주세요. */
-position: absolute;
-width: 198px;
-height: 18.12px;
-left: 1042px;
-top: 652.35px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 18px;
-line-height: 22px;
-
-color: rgba(0, 0, 0, 0.5);
-
-
-
-/* 지하철역 */
-position: absolute;
-width: 70px;
-height: 18px;
-left: 1029px;
-top: 308px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 15px;
-line-height: 18px;
-
-color: #000000;
-
-
-
-/* Group 269 */
-position: absolute;
-width: 350px;
-height: 100px;
-left: 169px;
-top: 457px;
-
-
-
-/* Group 267 */
-position: absolute;
-width: 350px;
-height: 70.71px;
-left: 169px;
-top: 486.29px;
-
-
-
-/* Rectangle 11 */
-box-sizing: border-box;
-
-position: absolute;
-width: 350px;
-height: 70.71px;
-left: 169px;
-top: 486.29px;
-
-background: #FFFFFF;
-border: 1px solid rgba(0, 0, 0, 0.3);
-border-radius: 15px;
-
-
-/* 비밀번호를 입력해 주세요. */
-position: absolute;
-width: 206.25px;
-height: 19.94px;
-left: 191.92px;
-top: 513.49px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 18px;
-line-height: 22px;
-
-color: rgba(0, 0, 0, 0.5);
-
-
-
-/* 비밀번호* (문자, 숫자, 특수문자 포함 8~20자) */
-position: absolute;
-width: 292px;
-height: 18.18px;
-left: 180px;
-top: 457px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 15px;
-line-height: 18px;
-/* identical to box height */
-
-color: #000000;
-
-
-
-/* Group 270 */
-position: absolute;
-width: 350px;
-height: 99px;
-left: 547px;
-top: 457px;
-
-
-
-/* Group 268 */
-position: absolute;
-width: 350px;
-height: 70px;
-left: 547px;
-top: 486px;
-
-
-
-/* Rectangle 12 */
-box-sizing: border-box;
-
-position: absolute;
-width: 350px;
-height: 70px;
-left: 547px;
-top: 486px;
-
-background: #FFFFFF;
-border: 1px solid rgba(0, 0, 0, 0.3);
-border-radius: 15px;
-
-
-/* 비밀번호를 재입력해 주세요. */
-position: absolute;
-width: 214px;
-height: 19.74px;
-left: 571.86px;
-top: 512.92px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 18px;
-line-height: 22px;
-
-color: rgba(0, 0, 0, 0.5);
-
-
-
-/* 비밀번호 확인* */
-position: absolute;
-width: 95px;
-height: 18px;
-left: 558px;
-top: 457px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 15px;
-line-height: 18px;
-
-color: #000000;
-
-
-
-/* Group 339 */
-position: absolute;
-width: 730px;
-height: 98px;
-left: 169px;
-top: 308px;
-
-
-
-/* Group 272 */
-position: absolute;
-width: 730px;
-height: 98px;
-left: 169px;
-top: 308px;
-
-
-
-/* Group 265 */
-position: absolute;
-width: 730px;
-height: 70px;
-left: 169px;
-top: 336px;
-
-
-
-/* Rectangle 4 */
-box-sizing: border-box;
-position: absolute;
-width: 730px;
-height: 70px;
-left: 169px;
-top: 336px;
-
-background: #F7F7F7;
-border: 1px solid rgba(0, 0, 0, 0.3);
-border-radius: 15px;
-
-
-/* figma@gmail.com */
-position: absolute;
-width: 152px;
-height: 18.12px;
-left: 195px;
-top: 362.35px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 18px;
-line-height: 22px;
-
-color: rgba(0, 0, 0, 0.5);
-
-
-
-/* 이메일 */
-position: absolute;
-width: 42px;
-height: 18px;
-left: 178px;
-top: 308px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 15px;
-line-height: 18px;
-
-color: #000000;
-
-
-
-/* Group 341 */
-
-position: absolute;
-width: 730px;
-height: 183px;
-left: calc(50% - 730px/2 - 21px);
-top: 817px;
-
-
-
-/* Group 264 */
-position: absolute;
-width: 730px;
-height: 183px;
-left: 574px;
-top: 817px;
-
-
-
-/* Group 342 */
-position: absolute;
-width: 730px;
-height: 70px;
-left: 574px;
-top: 817px;
-
-
-
-/* Rectangle 5 */
-box-sizing: border-box;
-position: absolute;
-width: 730px;
-height: 70px;
-left: 574px;
-top: 817px;
-
-background: #66A3FF;
-border: 1px solid rgba(0, 0, 0, 0.3);
-border-radius: 15px;
-
-
-/* Group 337 */
-ition: absolute;
-width: 108px;
-height: 23.88px;
-left: 885px;
-top: 839.65px;
-
-
-
-/* 수정 */
-position: absolute;
-width: 108px;
-height: 23.88px;
-left: 885px;
-top: 839.65px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 25px;
-line-height: 30px;
-text-align: center;
-
-color: #FFFFFF;
-
-
-
-/* Group 343 */
-position: absolute;
-width: 730px;
-height: 70px;
-left: 574px;
-top: 930px;
-
-
-
-/* Rectangle 6 */
-position: absolute;
-width: 730px;
-height: 70px;
-left: 574px;
-top: 930px;
-
-background: #6C757D;
-border-radius: 15px;
-
-
-/* Group 338 */
-
-position: absolute;
-width: 108px;
-height: 29px;
-left: 885px;
-top: 950px;
-
-
-
-/* 취소 */
-position: absolute;
-width: 108px;
-height: 29px;
-left: 885px;
-top: 950px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 25px;
-line-height: 30px;
-text-align: center;
-
-color: #FFFFFF;
-
-
-
-/* 개인정보 수정 */
-position: absolute;
-width: 281px;
-height: 58px;
-left: calc(50% - 281px/2 - 0.5px);
-top: 218px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 48px;
-line-height: 58px;
-/* identical to box height */
-text-align: center;
-
-color: #000000;
-
-
-
-/* image 28 */
-position: absolute;
-width: 80px;
-height: 80px;
-left: 920px;
-top: 115px;
-
-background: url(image.png);
- }
+body {
+  background-color: #fff;
+  font-family: 'Noto Sans KR', sans-serif;
+  padding: 40px;
+}
+
+.mypage-password-group {
+  display: flex;
+  gap: 16px;
+}
+
+.mypage-password-group input {
+  flex: 1;
+}
+
+
+.mypage-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.mypage-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.mypage-header img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 15px;
+}
+
+.mypage-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #000;
+}
+
+.mypage-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 40px;
+}
+
+.mypage-form label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: block;
+  color: #333;
+}
+
+.mypage-form input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+}
+
+.mypage-buttons {
+  grid-column: 1 / 3;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.mypage-btn {
+  width: 200px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.mypage-btn.submit {
+  background-color: #649BFF;
+  color: white;
+}
+
+.mypage-btn.cancel {
+  background-color: #4B4B4B;
+  color: white;
+}
