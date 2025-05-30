@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>실내공기질 측정시스템</title>
+	<link rel="stylesheet" href="/css/service/sideBar.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: auto;
+      min-height: 100vh;
+      overflow-y: auto;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: row;
+    }
+
+
+    .main-content {
+      flex: 1;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header h2 {
+      margin: 0;
+    }
+
+    .header select,
+    .header input[type="date"],
+    .header button {
+      margin: 0.25rem;
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .charts {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+.chart-top {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  height: 100%; /* 필요 시 높이 지정 */
+}
+
+.chart-top-left {
+  flex: 3;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+}
+
+.chart-top-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.air-quality-box {
+  flex: 1;
+  min-height: 0;
+  padding: 1rem;
+  border-radius: 10px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+
+    .pm1 {
+      background-color: #3498db;
+      color: white;
+    }
+
+    .pm2 {
+      background-color: #f1c40f;
+      color: black;
+    }
+
+    .pm10 {
+      background-color: #e74c3c;
+      color: white;
+    }
+
+    .chart-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .chart-box {
+      flex: 1;
+      min-width: 200px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      height: 200px;
+      padding: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .chart-top {
+        flex-direction: column;
+      }
+
+      .chart-bottom {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="sidebar-container"></div> 
+
+<script
+	src="/js/sideBar.js"></script>
+  <main class="main-content">
+    <div class="header">
+      <h2>실내공기질 측정시스템</h2>
+      <div>
+        <select>
+          <option>서울역</option>
+        </select>
+        <input type="date" value="2024-04-24">
+        <button>예측 vs 실제</button>
+        <button>미세먼지</button>
+        <button>유해가스</button>
+      </div>
+    </div>
+
+    <div class="charts">
+      <div class="chart-top">
+        <div class="chart-top-left">
+          <!-- 예측 vs 실제 차트 -->
+        </div>
+        <div class="chart-top-right">
+          <div class="air-quality-box pm1">PM1.0<br>임의의수치<br>굿이에요 굿 Good</div>
+          <div class="air-quality-box pm2">PM2.5<br>12<br>Moderate</div>
+          <div class="air-quality-box pm10">PM10<br>28<br>Poor</div>
+        </div>
+      </div>
+
+      <div class="chart-bottom">
+        <div class="chart-box">
+          <!-- PM1.0 시간별 차트 -->
+        </div>
+        <div class="chart-box">
+          <!-- PM2.5 시간별 차트 -->
+        </div>
+        <div class="chart-box">
+          <!-- PM10 시간별 차트 -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
