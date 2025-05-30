@@ -51,6 +51,7 @@ public class UserService {
 	public User getUserInfo(User vo) {
 		Optional<User> m = repository.findByUsrEmail(vo.getUsrEmail());
 		if(m.isPresent()) {
+			m.get().setUsrPw(null);
 			return m.get();
 		}
 		else {
