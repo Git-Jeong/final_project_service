@@ -125,7 +125,7 @@
     if (usrPw !== usrPwCheck) return alert("비밀번호가 일치하지 않습니다.");
     if (usrPw.length < 8 || usrPw.length > 20) return alert("비밀번호는 8~20자로 입력해 주세요.");
     if (!usrNick) return alert("닉네임을 입력해 주세요.");
-    if (!stName_1) return alert("지하철역은 하나 이상 입력해 주세요.");
+    if (!stName_1) return alert("지하철역은 첫 번째 칸은 필수로 입력해 주세요.");
 
     try {
       // 1단계: 유저 정보 전송
