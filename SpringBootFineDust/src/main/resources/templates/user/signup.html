@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
-<title>회원가입 페이지 - 김윤서</title>
+<title>회원가입</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
@@ -10,8 +10,8 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/css/user/signup.css" />
-<link rel="stylesheet" href="/css/common.css" />
+	<link rel="stylesheet" href="/css/user/SignupLogin.css" />
+	<link rel="stylesheet" href="/css/common.css" />
 </head>
 
 <body>
@@ -24,8 +24,8 @@
 						<!-- 좌측 이미지 영역 -->
 						<div class="col-md-6">
 							<img
-								src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img4.webp"
-								alt="Sample photo" class="img-fluid h-100 signup-left-image" />
+								src="img/subway.png"
+								alt="subway.png" class="img-fluid h-100 signup-left-image" />
 						</div>
 
 						<!-- 우측 입력 폼 영역 -->
@@ -47,9 +47,11 @@
 														style="color: #FF0858;">*</span>
 												</div>
 												<div class="d-flex gap-3">
-													<input placeholder="이메일을 입력하세요" type="text" id="usrEmail"
-														name="usrEmail" required="required"
-														class="form-control form-control-lg signup-form-control" />
+												<input placeholder="이메일을 입력하세요" type="text" id="usrEmail"
+												    name="usrEmail" required maxlength="30" 
+												    pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$" 
+												    title="영어, 숫자, 특수문자(@, ., _, %, +, -)만 가능하며, 올바른 이메일 형식이어야 합니다."
+												    class="form-control form-control-lg signup-form-control" />
 													<button onclick="idCheck()" type="button"
 														class="btn signup-btn-primary"
 														style="white-space: nowrap;">중복체크</button>
@@ -61,7 +63,7 @@
 												<label class="signup-form-label mb-2" for="nick">닉네임</label><span
 													style="color: #FF0858;">*</span> <input
 													placeholder="닉네임을 입력해주세요" type="text" id="usrNick"
-													name="usrNick" required="required"
+													name="usrNick" maxlength="30"  required="required"
 													class="form-control form-control-lg signup-form-control" />
 											</div>
 
@@ -73,12 +75,12 @@
 												<div class="d-flex gap-3">
 													<div class="w-100">
 														<input placeholder="비밀번호를 입력해주세요" type="password"
-															id="usrPw" name="usrPw" required="required"
+															id="usrPw" name="usrPw" maxlength="20" required="required"
 															class="form-control form-control-lg signup-form-control" />
 													</div>
 													<div class="w-100">
 														<input placeholder="비밀번호를 재입력해주세요" type="password"
-															id="usrPwCheck" name="usrPwCheck" required="required"
+															id="usrPwCheck" name="usrPwCheck" maxlength="20" required="required"
 															class="form-control form-control-lg signup-form-control" />
 													</div>
 												</div>
@@ -117,7 +119,7 @@
 												<label class="signup-form-label mb-2" for="subway1">지하철역</label><span
 													style="color: #FF0858;">*</span> <input
 													placeholder="지하철역을 입력해주세요" type="text" id="stName_1"
-													name="stName_1"
+													name="stName_1"  maxlength="60" required="required"
 													class="form-control form-control-lg signup-form-control" />
 											</div>
 
@@ -125,7 +127,7 @@
 												style="display: none;">
 												<label class="signup-form-label mb-2" for="subway2"></label> <input
 													placeholder="지하철역을 입력해주세요" type="text" id="stName_2"
-													name="stName_2"
+													name="stName_2"   maxlength="60"
 													class="form-control form-control-lg signup-form-control" />
 											</div>
 
@@ -133,7 +135,7 @@
 												style="display: none;">
 												<label class="signup-form-label mb-2" for="subway3"></label> <input
 													placeholder="지하철역을 입력해주세요" type="text" id="stName_3"
-													name="stName_3"
+													name="stName_3"   maxlength="60"
 													class="form-control form-control-lg signup-form-control" />
 											</div>
 
@@ -193,7 +195,19 @@
 				alert("이메일을 입력해 주세요.");
 				return;
 			}
+			
+			 // 글자수 30자 제한 체크
+		    if (usrEmail.length > 30) {
+		        alert("이메일은 30자 이하로 입력해 주세요.");
+		        return;
+		    }
 
+		    const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,}$/;
+		    if (!emailPattern.test(usrEmail)) {
+		        alert("올바른 이메일 형식이 아닙니다.");
+		        return;
+		    }
+		    
 			$.ajax({
 				url : "idCheck",
 				type : "get",
@@ -247,8 +261,14 @@
 				return;
 			}
 
+			// 잘못된 조건 수정
+			if ((usrPw.length < 8) || (usrPw.length > 20)) {
+			    alert("비밀번호는 8~20자로 입력해 주세요.");
+			    return;
+			}
+			 
 			if (usrPw != usrPwCheck) {
-				alert("비밀번호가 일치하지 앖습니다.");
+				alert("비밀번호가 일치하지 않습니다.");
 				return;
 			}
 

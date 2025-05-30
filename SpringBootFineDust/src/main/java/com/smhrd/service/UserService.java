@@ -38,10 +38,15 @@ public class UserService {
 	}
 
 	public boolean tokenCheck(User vo) {
-	    Optional<User> optionalUser = repository.findByUsrEmail(vo.getUsrEmail());
-	    boolean result = optionalUser.isPresent();  // null이면 false, 있으면 true
-	    return result;
+	    Optional<User> m = repository.findByUsrEmail(vo.getUsrEmail());
+	    if(m.isPresent()) {
+	        return true;
+	    }
+	    else {
+	        return false;
+	    }
 	}
+
 
 	public User getUserInfo(User vo) {
 		Optional<User> m = repository.findByUsrEmail(vo.getUsrEmail());
