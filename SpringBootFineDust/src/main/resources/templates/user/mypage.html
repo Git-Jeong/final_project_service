@@ -21,7 +21,7 @@
 			<div class="mypage-l-form">
 				<div>
 					<label for="usrEmail">이메일</label> <input type="email" id="usrEmail"
-						name="usrEmail" placeholder="figma@gmail.com" required th:value="${vo.usrEmail}"/>
+						name="usrEmail"  required th:value="${vo.usrEmail}"  readonly />
 				</div>
 
 				<div>
@@ -70,76 +70,60 @@
 	</div>
 
 	<script>
-	  document.getElementById('user-form').addEventListener('submit', function (e) {
-	    e.preventDefault();
+  document.getElementById('user-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
 
-	    // 1. 변수 수집 - 모두 JS 기본 방식 통일
-	    const usrEmail = document.getElementById('usrEmail').value.trim();
-	    const usrNick = document.getElementById('usrNick').value.trim();
-	    const usrPw = document.getElementById('usrPw').value;
-	    const usrPwCheck = document.getElementById('usrPwCheck').value;
-	    const stName_1 = document.getElementById('stName_1').value.trim();
-	    const stName_2 = document.getElementById('stName_2').value.trim();
-	    const stName_3 = document.getElementById('stName_3').value.trim();
+    const usrEmail = document.getElementById('usrEmail').value.trim();
+    const usrNick = document.getElementById('usrNick').value.trim();
+    const usrPw = document.getElementById('usrPw').value;
+    const usrPwCheck = document.getElementById('usrPwCheck').value;
+    const stName_1 = document.getElementById('stName_1').value.trim();
+    const stName_2 = document.getElementById('stName_2').value.trim();
+    const stName_3 = document.getElementById('stName_3').value.trim();
 
-	    // 2. 유효성 검사
-	    if (!usrNick) {
-	      alert("닉네임을 입력해 주세요.");
-	      return;
-	    }
+    // 비밀번호 검증
+    if (!usrPw || !usrPwCheck) return alert("비밀번호와 확인을 모두 입력해 주세요.");
+    if (usrPw !== usrPwCheck) return alert("비밀번호가 일치하지 않습니다.");
+    if (usrPw.length < 8 || usrPw.length > 20) return alert("비밀번호는 8~20자로 입력해 주세요.");
+    const pwPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])/;
+    if (!pwPattern.test(usrPw)) return alert("비밀번호는 문자, 숫자, 특수문자를 포함해야 합니다.");
 
-	    if (!usrPw || !usrPwCheck) {
-	      alert("비밀번호와 확인을 모두 입력해 주세요.");
-	      return;
-	    }
+    if (!usrNick) return alert("닉네임을 입력해 주세요.");
+    if (!stName_1) return alert("지하철역은 하나 이상 입력해 주세요.");
 
-	    if (usrPw !== usrPwCheck) {
-	      alert("비밀번호가 일치하지 않습니다.");
-	      return;
-	    }
+    try {
+      // 1단계: 유저 정보 전송
+      const userRes = await fetch('/updateUserInfo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usrEmail, usrPw, usrNick })
+      });
 
-	    if (usrPw.length < 8 || usrPw.length > 20) {
-	      alert("비밀번호는 8~20자로 입력해 주세요.");
-	      return;
-	    }
+      const userResult = await userRes.text();
 
-	    const pwPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])/;
-	    if (!pwPattern.test(usrPw)) {
-	      alert("비밀번호는 문자, 숫자, 특수문자를 모두 포함해야 합니다.");
-	      return;
-	    }
+      if (userResult !== 'success') {
+        alert('회원정보 수정 실패: ' + userResult);
+        return;
+      }
 
-	    if (!stName_1) {
-	      alert("역을 하나는 입력해 주세요.");
-	      return;
-	    }
+      // 2단계: 역 정보 전송
+      const stationRes = await fetch('/updateStationInfo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usrEmail, stName_1, stName_2, stName_3 })
+      });
 
-	    // 3. 서버 전송
-	    fetch('/signup', {
-	      method: 'POST',
-	      headers: { 'Content-Type': 'application/json' },
-	      body: JSON.stringify({
-	        usrEmail,
-	        usrPw,
-	        usrNick,
-	        stName_1,
-	        stName_2,
-	        stName_3
-	      })
-	    })
-	    .then(res => res.text())
-	    .then(result => {
-	      if (result === 'success') {
-	        alert('회원정보가 성공적으로 수정되었습니다.');
-	        location.href = '/';
-	      } else {
-	        alert('실패: ' + result);
-	      }
-	    })
-	    .catch(err => {
-	      alert('서버 오류 발생: ' + err.message);
-	    });
-	  });
-	</script>
-</body>
-</html>
+      const stationResult = await stationRes.text();
+
+      if (stationResult === 'success') {
+        alert('회원정보가 성공적으로 수정되었습니다.');
+        location.href = '/';
+      } else {
+        alert('역 정보 수정 실패: ' + stationResult);
+      }
+
+    } catch (err) {
+      alert('서버 통신 오류: ' + err.message);
+    }
+  });
+</script>
