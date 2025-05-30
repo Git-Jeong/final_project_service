@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.smhrd.config.AESUtils;
 import com.smhrd.config.JwtUtil;
 import com.smhrd.entity.User;
 import com.smhrd.service.UserService;
@@ -24,6 +26,9 @@ public class UserController {
     
     @Autowired
     private JwtUtil jwtUtil;
+
+    @Autowired
+    private AESUtils AesUtils;
 
     @Value("${jwt.secret.val.2}")
     private String secretVal_2;
@@ -49,6 +54,13 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(User vo, HttpServletResponse response) {
+    	if((vo != null) && (vo.getUsrPw() != null)) {
+    		String aesPw = AesUtils.encrypt(vo.getUsrPw());
+    		if(aesPw == null) {
+    	        return "user/login";
+    		}
+			vo.setUsrPw(aesPw);
+    	}
         User m = service.login(vo);
         if (m != null) {
             String jwt = jwtUtil.generateToken(vo);
@@ -61,7 +73,6 @@ public class UserController {
         }
         else {
         	return "user/login";
-
         }
     }
 
@@ -81,6 +92,13 @@ public class UserController {
         if (!token.isUserLoggedIn(request)) {
             return "redirect:/main";
         }
+    	if((vo != null) && (vo.getUsrPw() != null)) {
+    		String aesPw = AesUtils.encrypt(vo.getUsrPw());
+    		if(aesPw == null) {
+                return "redirect:/update";
+    		}
+			vo.setUsrPw(aesPw);
+    	}
         service.setUserInfo(vo);
         return "redirect:/update";
     }
