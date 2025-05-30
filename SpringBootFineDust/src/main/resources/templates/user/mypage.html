@@ -30,7 +30,7 @@
 					</label>
 					<div class="mypage-password-group">
 						<input type="password" id="usrPw" name="usrPw"
-							placeholder="비밀번호를 입력해 주세요." required maxlength="20" value="${vo.usrPw}"
+							placeholder="비밀번호를 입력해 주세요." required maxlength="20" th:value="${vo.usrPw}"
 							pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$" />
 
 						<input type="password" id="usrPwCheck" name="usrPwCheck"
