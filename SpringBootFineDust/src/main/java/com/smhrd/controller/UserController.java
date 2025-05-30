@@ -65,24 +65,24 @@ public class UserController {
         }
     }
 
-    @GetMapping("/update")
-    public String update(HttpServletRequest request, Model model) {
+    @GetMapping("/mypage")
+    public String mypage(HttpServletRequest request, Model model) {
         if (!token.isUserLoggedIn(request)) {
             return "redirect:/main";
         }
         User m = token.extractUserFromJwt(request);
         User vo = service.getUserInfo(m);
         model.addAttribute("vo", vo);
-        return "user/update";
+        return "user/mypage";
     }
 
-    @PostMapping("/update")
-    public String update(HttpServletRequest request, User vo) {
+    @PostMapping("/mypage")
+    public String mypage(HttpServletRequest request, User vo) {
         if (!token.isUserLoggedIn(request)) {
             return "redirect:/main";
         }
         service.setUserInfo(vo);
-        return "redirect:/update";
+        return "redirect:/mypage";
     }
 
     @GetMapping("/logout")
