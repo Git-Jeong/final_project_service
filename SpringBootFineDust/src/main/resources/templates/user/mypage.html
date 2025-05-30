@@ -19,16 +19,13 @@
 		</div>
 
 		<form id="user-form" class="mypage-form">
-			<input type="text" id="usrIdx" 
-					  name="usrIdx"
-					  required th:value="${vo.usrIdx}" readonly
-					  style="display: none"/>
-			<div class="mypage-l-form">
+			<input type="text" id="usrIdx" name="usrIdx" required
+				th:value="${vo.usrIdx}" readonly style="display: none" />
+			<div class="mypage-left-form">
 				<div>
-					<label for="usrEmail">이메일</label> <input type="email" id="usrEmail" 
-					  name="usrEmail"
-					  required th:value="${vo.usrEmail}" readonly
-					  autocomplete="username" />
+					<label for="usrEmail">이메일</label> <input type="email" id="usrEmail"
+						name="usrEmail" required th:value="${vo.usrEmail}" readonly
+						autocomplete="username" />
 				</div>
 				<div>
 					<label>비밀번호 <span style="color: red;">*</span> <span
@@ -36,24 +33,20 @@
 					</label>
 					<div class="mypage-password-group">
 						<input type="password" id="usrPw" name="usrPw"
-						  placeholder="비밀번호를 입력해 주세요." required maxlength="20"
-						  autocomplete="new-password" />
-						
-						<input type="password" id="usrPwCheck" name="usrPwCheck"
-						  placeholder="비밀번호를 재입력해 주세요." required
-						  autocomplete="new-password" />
+							placeholder="비밀번호를 입력해 주세요." required maxlength="20"
+							autocomplete="new-password" /> <input type="password"
+							id="usrPwCheck" name="usrPwCheck" placeholder="비밀번호를 재입력해 주세요."
+							required autocomplete="new-password" />
 					</div>
 				</div>
 
 				<div>
 					<label for="usrNick">닉네임</label> <input type="text" id="usrNick"
-						name="usrNick" placeholder="닉네임을 입력해 주세요." required th:value="${vo.usrNick}"/>
+						name="usrNick" placeholder="닉네임을 입력해 주세요." required
+						th:value="${vo.usrNick}" />
 				</div>
 			</div>
-			<div class="mypage-right-form">
-				
-				
-			</div>
+			<div class="mypage-right-form"></div>
 
 
 			<div class="mypage-buttons">
@@ -125,7 +118,7 @@
     if (usrPw !== usrPwCheck) return alert("비밀번호가 일치하지 않습니다.");
     if (usrPw.length < 8 || usrPw.length > 20) return alert("비밀번호는 8~20자로 입력해 주세요.");
     if (!usrNick) return alert("닉네임을 입력해 주세요.");
-    if (!stName_1) return alert("지하철역은 첫 번째 칸은 필수로 입력해 주세요.");
+    if (!stName_1) return alert("지하철역의 첫 번째 칸은 필수로 입력해 주세요.");
 
     try {
       // 1단계: 유저 정보 전송
