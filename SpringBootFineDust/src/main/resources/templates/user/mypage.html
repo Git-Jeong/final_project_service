@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
 <title>개인정보 수정</title>
@@ -21,7 +21,7 @@
 			<div class="mypage-l-form">
 				<div>
 					<label for="usrEmail">이메일</label> <input type="email" id="usrEmail"
-						name="usrEmail" placeholder="figma@gmail.com" required value="${vo.usrEmail}"/>
+						name="usrEmail" placeholder="figma@gmail.com" required th:value="${vo.usrEmail}"/>
 				</div>
 
 				<div>
@@ -34,13 +34,13 @@
 							pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$" />
 
 						<input type="password" id="usrPwCheck" name="usrPwCheck"
-							placeholder="비밀번호를 재입력해 주세요." required  value="${vo.usrPw}"/>
+							placeholder="비밀번호를 재입력해 주세요." required th:value="${vo.usrPw}"/>
 					</div>
 				</div>
 
 				<div>
 					<label for="usrNick">닉네임</label> <input type="text" id="usrNick"
-						name="usrNick" placeholder="닉네임을 입력해 주세요." required  value="${vo.usrNick}"/>
+						name="usrNick" placeholder="닉네임을 입력해 주세요." required th:value="${vo.usrNick}"/>
 				</div>
 			</div>
 			<div class="mypage-right-form">
