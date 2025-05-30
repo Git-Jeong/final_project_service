@@ -1,256 +1,145 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
 <title>개인정보 수정</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="/css/user/SignupLogin.css" />
-	<link rel="stylesheet" href="/css/common.css" />
+<link rel="stylesheet" href="/css/user/mypage.css" />
 </head>
 
 <body>
-	<div>
-		<div>
-			<div>
+	<div class="mypage-container">
+		<div class="mypage-header">
+			<img src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
+				alt="profile icon" />
+			<div class="mypage-title">개인정보 수정</div>
+		</div>
+
+		<form id="user-form" class="mypage-form">
+			<div class="mypage-l-form">
 				<div>
-					<div class="signup-page-container">
+					<label for="usrEmail">이메일</label> <input type="email" id="usrEmail"
+						name="usrEmail" placeholder="figma@gmail.com" required th:value="${vo.usrEmail}"/>
+				</div>
 
-						<!-- 좌측 이미지 영역 -->
-						
-						<!-- 우측 입력 폼 영역 -->
-						<div class="col-md-6">
-							<form id="step1-form" method="post">
+				<div>
+					<label>비밀번호 <span style="color: red;">*</span> <span
+						style="color: black;">(문자, 숫자, 특수문자 포함 8~20자)</span>
+					</label>
+					<div class="mypage-password-group">
+						<input type="password" id="usrPw" name="usrPw"
+							placeholder="비밀번호를 입력해 주세요." required maxlength="20" value="${vo.usrPw}"
+							pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$" />
 
-								<!-- Step 1 -->
-								<div id="signup1" style="display: block"
-									class="card-body p-md-5 text-black">
-									<div class="signup-right-container">
-										<div id="fixed-title" class="signup-head-title">
-											<h3 class="signup-h3 mb-5">개인정보 수정</h3>
-										</div>
-										<div class="signup-middle-content">
-											<div class="mb-4">
-												<div
-													class="signup-form-label mb-2 d-flex align-items-center">
-													<label for="usrEmail" class="me-1 mb-0">이메일</label> 
-												</div>
-												<div class="d-flex gap-3">
-												<input placeholder="figma@gmail.com" type="text" id="usrEmail"
-												    name="usrEmail" required maxlength="30" 
-												    pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$" 
-												    title="영어, 숫자, 특수문자(@, ., _, %, +, -)만 가능하며, 올바른 이메일 형식이어야 합니다."
-												    class="form-control form-control-lg signup-form-control" />													
-												</div>
-											</div>
-
-                                         <div class="signup-form-label mb-2">
-												  <label for="usrPw">비밀번호 (문자, 숫자, 특수문자 포함 8~20자)</label>
-												  <span style="color: #FF0858;">*</span>
-												
-												  <label for="usrPwConfirm" style="margin-left: 15px;">비밀번호 확인</label>
-												  <span style="color: #FF0858;">*</span>
-												</div>
-									
-												<div class="d-flex gap-3">
-													<div class="w-100">
-														<input placeholder="비밀번호를 입력해주세요" type="password"
-															id="usrPw" name="usrPw" maxlength="20" required="required"
-															class="form-control form-control-lg signup-form-control" />
-													</div>
-													<div class="w-100">													     
-														<input placeholder="비밀번호를 재입력해주세요" type="password"
-															id="usrPwCheck" name="usrPwCheck" maxlength="20" required="required"
-															class="form-control form-control-lg signup-form-control" />
-													</div>
-												</div>
-											</div>
-											
-											<div class="mb-4" style="margin-top: 24px;">
-												  <div class="form-outline mb-4">
-												    <label class="signup-form-label mb-2" for="nick">닉네임</label>
-												    <input placeholder="닉네임을 입력해주세요" type="text" id="usrNick"
-												      name="usrNick" maxlength="30" required="required"
-												      class="form-control form-control-lg signup-form-control" />
-												  </div>
-												</div>
-
-											<div align="center">
-												<button type="button" onclick="goNext()"
-													class="btn signup-next-btn btn-lg">수정</button>
-												<button type="button" onclick="goNext()" 
-													class="btn signup-next-btn btn-lg">취소</button>
-											</div>
-										</div>
-
-										<div class="signup-bottom-content">
-											<div align="center">
-												
-											</div>
-										</div>
-									</div>
-
-								</div>
-							</form>
-
-							<!-- Step 2 -->
-							<form id="step2-form" method="post" action="insertSt">
-								<div id="signup2" class="card-body p-md-5 text-black">
-
-									<div class="signup-right-container">
-										<div class="signup-head-title">
-
-											<div id="fixed-title" class="signup-head-title">
-												<h3 class="signup-h3 mb-5">지하철역 등록</h3>
-											</div>
-										</div>
-										<div class="signup-middle-content">
-											<div class="form-outline mb-4">
-											 <label class="signup-form-label mb-2" for="subway1">지하철역</label>
-												<input placeholder="지하철역을 입력해주세요" type="text" id="stName_1"
-													   name="stName_1"  maxlength="60" required="required"
-													   class="form-control form-control-lg signup-form-control" />
-											</div>
-
-											<div class="form-outline mb-4" id="insert-subway-2">												
-												<label class="signup-form-label mb-2" for="subway2"></label> <input
-													placeholder="지하철역을 입력해주세요" type="text" id="stName_2"
-													name="stName_2"   maxlength="60"
-													class="form-control form-control-lg signup-form-control" />
-											</div>
-
-											<div class="form-outline mb-4" id="insert-subway-3">
-												
-												<label class="signup-form-label mb-2" for="subway3"></label> <input
-													placeholder="지하철역을 입력해주세요" type="text" id="stName_3"
-													name="stName_3"   maxlength="60"
-												
-																				
-													class="form-control form-control-lg signup-form-control" />
-											</div>
-
-											<div align="center">
-												<button type="button" onclick="handleSubmit(event)"
-													class="btn signup-next-btn btn-lg">회원가입</button>
-											</div>
-										</div>
-										
-								</div>
-							</form>
-						</div>
-						<!-- col-md-6 -->
-
+						<input type="password" id="usrPwCheck" name="usrPwCheck"
+							placeholder="비밀번호를 재입력해 주세요." required th:value="${vo.usrPw}"/>
 					</div>
-					<!-- signup-page-container -->
+				</div>
+
+				<div>
+					<label for="usrNick">닉네임</label> <input type="text" id="usrNick"
+						name="usrNick" placeholder="닉네임을 입력해 주세요." required th:value="${vo.usrNick}"/>
 				</div>
 			</div>
-		</div>
+			<div class="mypage-right-form">
+				<div>
+					<label for="stName_1">지하철역</label> <input type="text" id="stName_2"
+						name="stName_1" placeholder="지하철역을 입력해 주세요." />
+				</div>
+				<div>
+					<label for="stName_2" style="visibility: hidden;">지하철역</label> <input
+						type="text" id="stName_2" name="stName_2"
+						placeholder="지하철역을 입력해 주세요." />
+				</div>
+				<div>
+					<label for="stName_3" style="visibility: hidden;">지하철역</label> <input
+						type="text" id="stName_3" name="stName_3"
+						placeholder="지하철역을 입력해 주세요." />
+				</div>
+			</div>
+
+
+			<div class="mypage-buttons">
+				<button type="submit" class="mypage-btn submit">수정</button>
+				<button type="reset" class="mypage-btn cancel">취소</button>
+
+			</div>
+		</form>
 	</div>
 
 	<script>
-		let subwayIndex = 1;
-		let idCheckPassed = false;
+	  document.getElementById('user-form').addEventListener('submit', function (e) {
+	    e.preventDefault();
 
-		function formPlus() {
-			if (subwayIndex < 3) {
-				subwayIndex++;
-				document.getElementById(`insert-subway-${subwayIndex}`).style.display = "block";
-			}
-		}
+	    // 1. 변수 수집 - 모두 JS 기본 방식 통일
+	    const usrEmail = document.getElementById('usrEmail').value.trim();
+	    const usrNick = document.getElementById('usrNick').value.trim();
+	    const usrPw = document.getElementById('usrPw').value;
+	    const usrPwCheck = document.getElementById('usrPwCheck').value;
+	    const stName_1 = document.getElementById('stName_1').value.trim();
+	    const stName_2 = document.getElementById('stName_2').value.trim();
+	    const stName_3 = document.getElementById('stName_3').value.trim();
 
-		function formMinus() {
-			if (subwayIndex > 1) {
-				document.getElementById(`insert-subway-${subwayIndex}`).style.display = "none";
-				subwayIndex--;
-			}
-		}
+	    // 2. 유효성 검사
+	    if (!usrNick) {
+	      alert("닉네임을 입력해 주세요.");
+	      return;
+	    }
 
-		function idCheck() {
-			const usrEmail = $('#usrEmail').val();
-			if (!usrEmail) {
-				alert("이메일을 입력해 주세요.");
-				return;
-			}
-			
-			 // 글자수 30자 제한 체크
-		    if (usrEmail.length > 30) {
-		        alert("이메일은 30자 이하로 입력해 주세요.");
-		        return;
-		    }
+	    if (!usrPw || !usrPwCheck) {
+	      alert("비밀번호와 확인을 모두 입력해 주세요.");
+	      return;
+	    }
 
-		    const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,}$/;
-		    if (!emailPattern.test(usrEmail)) {
-		        alert("올바른 이메일 형식이 아닙니다.");
-		        return;
-		    }
-		    
-			$.ajax({
-				url : "idCheck",
-				type : "get",
-				dataType : "json",
-				data : {
-					"usrEmail" : usrEmail
-				},
-				success : function(data) {
-					if (data) {
-						alert("해당 ID는 사용할 수 없습니다.");
-					} else {
-						alert("해당 ID는 사용 가능한 ID입니다.");
-						idCheckPassed = true;
-					}
-				},
-				error : function() {
-					alert("에러가 발생했습니다.");
-				}
-			});
-		}
+	    if (usrPw !== usrPwCheck) {
+	      alert("비밀번호가 일치하지 않습니다.");
+	      return;
+	    }
 
+	    if (usrPw.length < 8 || usrPw.length > 20) {
+	      alert("비밀번호는 8~20자로 입력해 주세요.");
+	      return;
+	    }
 
-		function handleSubmit(event) {
-			event.preventDefault();
+	    const pwPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])/;
+	    if (!pwPattern.test(usrPw)) {
+	      alert("비밀번호는 문자, 숫자, 특수문자를 모두 포함해야 합니다.");
+	      return;
+	    }
 
-			const stName_1 = $('#stName_1').val();
-			const usrEmail = $('#usrEmail').val();
-			const usrNick = $('#usrNick').val();
-			const usrPw = $('#usrPw').val();
-			const usrPwCheck = $('#usrPwCheck').val();
+	    if (!stName_1) {
+	      alert("역을 하나는 입력해 주세요.");
+	      return;
+	    }
 
-			if (!stName_1) {
-				alert("역을 하나는 입력해 주세요.");
-				return;
-			}
-
-			$.ajax({
-				type : "POST",
-				url : "/signup",
-				contentType : "application/json",
-				data : JSON.stringify({
-					"usrEmail" : usrEmail,
-					"usrNick" : usrNick,
-					"usrPw" : usrPw
-				}),
-				dataType : "text",
-				success : function(response) {
-					if (response === 'success') {
-						$('#step2-form').append($('<input>').attr({
-							type : 'hidden',
-							name : 'usrEmail',
-							value : usrEmail
-						})).submit();
-					} else {
-						alert("1단계 실패: " + response);
-					}
-				},
-				error : function(xhr, status, error) {
-					alert("서버 오류: " + error);
-				}
-			});
-		}
+	    // 3. 서버 전송
+	    fetch('/signup', {
+	      method: 'POST',
+	      headers: { 'Content-Type': 'application/json' },
+	      body: JSON.stringify({
+	        usrEmail,
+	        usrPw,
+	        usrNick,
+	        stName_1,
+	        stName_2,
+	        stName_3
+	      })
+	    })
+	    .then(res => res.text())
+	    .then(result => {
+	      if (result === 'success') {
+	        alert('회원정보가 성공적으로 수정되었습니다.');
+	        location.href = '/';
+	      } else {
+	        alert('실패: ' + result);
+	      }
+	    })
+	    .catch(err => {
+	      alert('서버 오류 발생: ' + err.message);
+	    });
+	  });
 	</script>
 </body>
 </html>

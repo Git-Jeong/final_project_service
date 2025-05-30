@@ -67,7 +67,7 @@ public class UserController {
             Cookie cookie = new Cookie(token_login, jwt);
             cookie.setHttpOnly(true);
             cookie.setPath("/");
-            cookie.setMaxAge(3600); // 1시간
+            cookie.setMaxAge(60 * 60 * 8); // 1시간
             response.addCookie(cookie);
             return "redirect:/service";
         }
@@ -85,22 +85,6 @@ public class UserController {
         User vo = service.getUserInfo(m);
         model.addAttribute("vo", vo);
         return "user/mypage";
-    }
-
-    @PostMapping("/mypage")
-    public String mypage(HttpServletRequest request, User vo) {
-        if (!token.isUserLoggedIn(request)) {
-            return "redirect:/main";
-        }
-    	if((vo != null) && (vo.getUsrPw() != null)) {
-    		String aesPw = AesUtils.encrypt(vo.getUsrPw());
-    		if(aesPw == null) {
-                return "redirect:/update";
-    		}
-			vo.setUsrPw(aesPw);
-    	}
-        service.setUserInfo(vo);
-        return "redirect:/mypage";
     }
 
     @GetMapping("/logout")
