@@ -6,22 +6,24 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
-<link rel="stylesheet" href="/css/user/mypage.css" />
+<link rel="stylesheet" href="/css/user/Update.css" />
+<link rel="stylesheet" href="/css/Common.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
-	<div class="mypage-container">
-		<div class="mypage-header">
+<div class="update-page-container">
+	<div class="update-container">
+		<div class="update-header">
 			<img src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
 				alt="profile icon" />
-			<div class="mypage-title">개인정보 수정</div>
+			<div class="update-title">개인정보 수정</div> 
 		</div>
 
-		<form id="user-form" class="mypage-form">
+		<form id="user-form" class="update-form">
 			<input type="text" id="usrIdx" name="usrIdx" required
 				th:value="${vo.usrIdx}" readonly style="display: none" />
-			<div class="mypage-left-form">
+			<div class="update-left-form">
 				<div>
 					<label for="usrEmail">이메일</label> <input type="email" id="usrEmail"
 						name="usrEmail" required th:value="${vo.usrEmail}" readonly
@@ -31,7 +33,7 @@
 					<label>비밀번호 <span style="color: red;">*</span> <span
 						style="color: black;">(문자, 숫자, 특수문자 포함 8~20자)</span>
 					</label>
-					<div class="mypage-password-group">
+					<div class="update-password-group">
 						<input type="password" id="usrPw" name="usrPw"
 							placeholder="비밀번호를 입력해 주세요." required maxlength="20"
 							autocomplete="new-password" /> <input type="password"
@@ -46,17 +48,17 @@
 						th:value="${vo.usrNick}" />
 				</div>
 			</div>
-			<div class="mypage-right-form"></div>
+			<div class="update-right-form"></div>
 
 
-			<div class="mypage-buttons">
-				<button type="submit" class="mypage-btn submit">수정</button>
-				<button type="reset" class="mypage-btn cancel">취소</button>
+			<div class="update-buttons">
+				<button type="submit" class="update-btn submit">수정</button>
+				<button type="reset" class="update-btn cancel">취소</button>
 
 			</div>
 		</form>
 	</div>
-
+</div>
 	<script>
 	document.addEventListener('DOMContentLoaded', async function () {
 	    const usrEmail = document.getElementById('usrEmail').value.trim();
@@ -92,7 +94,7 @@
 	    	    <input type="hidden" id="stId" name="stId" value="${data.stId || ''}" />
 	    	  `;
 
-	    	  $('.mypage-right-form').html(stationHtml);
+	    	  $('.update-right-form').html(stationHtml);
 	    	},
 	      error: function(xhr, status, error) {
 	        console.error('역 정보 불러오기 실패:', error);
