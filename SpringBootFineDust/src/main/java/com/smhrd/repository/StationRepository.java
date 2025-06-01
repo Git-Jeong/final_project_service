@@ -6,5 +6,7 @@ import com.smhrd.entity.Station;
 
 public interface StationRepository extends JpaRepository<Station, Integer>{
 
+	Station findByUsrEmail(String usrEmail);
+
 
 }

@@ -1,48 +1,45 @@
-body {
-  background-color: #fff;
-  font-family: 'Noto Sans KR', sans-serif;
+.update-page-container {
   padding: 40px;
 }
 
-.mypage-password-group {
+.update-password-group {
   display: flex;
   gap: 16px;
 }
 
-.mypage-password-group input {
+.update-password-group input {
   flex: 1;
 }
 
-
-.mypage-container {
+.update-container {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.mypage-header {
+.update-header {
   text-align: center;
   margin-bottom: 40px;
 }
 
-.mypage-header img {
+.update-header img {
   width: 50px;
   height: 50px;
   margin-bottom: 15px;
 }
 
-.mypage-title {
+.update-title {
   font-size: 24px;
   font-weight: 700;
   color: #000;
 }
 
-.mypage-form {
+.update-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px 40px;
 }
 
-.mypage-form label {
+.update-form label {
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 8px;
@@ -50,7 +47,7 @@ body {
   color: #333;
 }
 
-.mypage-form input {
+.update-form input {
   width: 100%;
   padding: 12px 16px;
   margin-bottom : 30px;
@@ -60,7 +57,7 @@ body {
   outline: none;
 }
 
-.mypage-buttons {
+.update-buttons {
   grid-column: 1 / 3;
   display: flex;
   flex-direction: column; /* ✅ 세로 정렬 */
@@ -69,7 +66,7 @@ body {
   margin-top: 30px;
 }
 
-.mypage-btn {
+.update-btn {
   width: 730px;
   padding: 12px;
   font-size: 16px;
@@ -80,12 +77,12 @@ body {
 }
 
 
-.mypage-btn.submit {
+.update-btn.submit {
   background-color: #66A3FF;
   color: white;
 }
 
-.mypage-btn.cancel {
+.update-btn.cancel {
   background-color: #6C757D;
   color: white;
 }
