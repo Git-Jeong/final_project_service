@@ -12,53 +12,53 @@
 </head>
 
 <body>
-<div class="update-page-container">
-	<div class="update-container">
-		<div class="update-header">
-			<img src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
-				alt="profile icon" />
-			<div class="update-title">개인정보 수정</div> 
-		</div>
+	<div class="update-page-container">
+		<div class="update-container">
+			<div class="update-header">
+				<img src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
+					alt="profile icon" />
+				<div class="update-title">개인정보 수정</div>
+			</div>
 
-		<form id="user-form" class="update-form">
-			<input type="text" id="usrIdx" name="usrIdx" required
-				th:value="${vo.usrIdx}" readonly style="display: none" />
-			<div class="update-left-form">
-				<div>
-					<label for="usrEmail">이메일</label> <input type="email" id="usrEmail"
-						name="usrEmail" required th:value="${vo.usrEmail}" readonly
-						autocomplete="username" />
-				</div>
-				<div>
-					<label>비밀번호 <span style="color: red;">*</span> <span
-						style="color: black;">(문자, 숫자, 특수문자 포함 8~20자)</span>
-					</label>
-					<div class="update-password-group">
-						<input type="password" id="usrPw" name="usrPw"
-							placeholder="비밀번호를 입력해 주세요." required maxlength="20"
-							autocomplete="new-password" /> <input type="password"
-							id="usrPwCheck" name="usrPwCheck" placeholder="비밀번호를 재입력해 주세요."
-							required autocomplete="new-password" />
+			<form id="user-form" class="update-form">
+				<input type="text" id="usrIdx" name="usrIdx" required
+					th:value="${vo.usrIdx}" readonly style="display: none" />
+				<div class="update-left-form">
+					<div>
+						<label for="usrEmail">이메일</label> <input type="email"
+							id="usrEmail" name="usrEmail" required th:value="${vo.usrEmail}"
+							readonly autocomplete="username" />
+					</div>
+					<div>
+						<label>비밀번호 <span style="color: red;">*</span> <span
+							style="color: black;">(문자, 숫자, 특수문자 포함 8~20자)</span>
+						</label>
+						<div class="update-password-group">
+							<input type="password" id="usrPw" name="usrPw"
+								placeholder="비밀번호를 입력해 주세요." required maxlength="20"
+								autocomplete="new-password" /> <input type="password"
+								id="usrPwCheck" name="usrPwCheck" placeholder="비밀번호를 재입력해 주세요."
+								required autocomplete="new-password" />
+						</div>
+					</div>
+
+					<div>
+						<label for="usrNick">닉네임</label> <input type="text" id="usrNick"
+							name="usrNick" placeholder="닉네임을 입력해 주세요." required
+							th:value="${vo.usrNick}" />
 					</div>
 				</div>
+				<div class="update-right-form"></div>
 
-				<div>
-					<label for="usrNick">닉네임</label> <input type="text" id="usrNick"
-						name="usrNick" placeholder="닉네임을 입력해 주세요." required
-						th:value="${vo.usrNick}" />
+
+				<div class="update-buttons">
+					<button type="submit" class="update-btn submit">수정</button>
+					<button type="reset" class="update-btn cancel">취소</button>
+
 				</div>
-			</div>
-			<div class="update-right-form"></div>
-
-
-			<div class="update-buttons">
-				<button type="submit" class="update-btn submit">수정</button>
-				<button type="reset" class="update-btn cancel">취소</button>
-
-			</div>
-		</form>
+			</form>
+		</div>
 	</div>
-</div>
 	<script>
 	document.addEventListener('DOMContentLoaded', async function () {
 	    const usrEmail = document.getElementById('usrEmail').value.trim();
