@@ -1,9 +1,9 @@
-package com.smhrd.controller;
+package com.smhrd.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import com.smhrd.config.JwtUtil;
+
 import com.smhrd.entity.User;
 import com.smhrd.service.UserService;
 import io.jsonwebtoken.Claims;
