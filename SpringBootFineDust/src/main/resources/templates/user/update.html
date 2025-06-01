@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>개인정보 수정</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet" />
+<link rel="stylesheet" href="/css/user/Update.css" />
+<link rel="stylesheet" href="/css/Common.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+	<div class="update-page-container">
+		<div class="update-container">
+			<div class="update-header">
+				<img src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
+					alt="profile icon" />
+				<div class="update-title">개인정보 수정</div>
+			</div>
+
+			<form id="user-form" class="update-form">
+				<input type="text" id="usrIdx" name="usrIdx" required
+					th:value="${vo.usrIdx}" readonly style="display: none" />
+				<div class="update-left-form">
+					<div>
+						<label for="usrEmail">이메일</label> <input type="email"
+							id="usrEmail" name="usrEmail" required th:value="${vo.usrEmail}"
+							readonly autocomplete="username" />
+					</div>
+					<div>
+						<label>비밀번호 <span style="color: red;">*</span> <span
+							style="color: black;">(문자, 숫자, 특수문자 포함 8~20자)</span>
+						</label>
+						<div class="update-password-group">
+							<input type="password" id="usrPw" name="usrPw"
+								placeholder="비밀번호를 입력해 주세요." required maxlength="20"
+								autocomplete="new-password" /> <input type="password"
+								id="usrPwCheck" name="usrPwCheck" placeholder="비밀번호를 재입력해 주세요."
+								required autocomplete="new-password" />
+						</div>
+					</div>
+
+					<div>
+						<label for="usrNick">닉네임</label> <input type="text" id="usrNick"
+							name="usrNick" placeholder="닉네임을 입력해 주세요." required
+							th:value="${vo.usrNick}" />
+					</div>
+				</div>
+				<div class="update-right-form"></div>
+
+
+				<div class="update-buttons">
+					<button type="submit" class="update-btn submit">수정</button>
+					<button type="reset" class="update-btn cancel">취소</button>
+
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>
+	document.addEventListener('DOMContentLoaded', async function () {
+	    const usrEmail = document.getElementById('usrEmail').value.trim();
+
+	    if (!usrEmail) return;
+
+	 // 수정된 부분: fetch 대신 jQuery의 $.ajax GET 방식 사용
+	    $.ajax({
+	      url: '/getStationInfo',
+	      type: 'GET',
+	      data: { usrEmail: usrEmail },
+	      dataType: 'json',
+	      success: function(data) {
+	    	  const stationHtml = `
+	    	    <div>
+	    	      <label for="stName_1">지하철역</label>
+	    	      <input type="text" id="stName_1" name="stName_1"
+	    	             placeholder="지하철역을 입력해 주세요."
+	    	             value="${data.stName_1 || ''}" />
+	    	    </div>
+	    	    <div>
+	    	      <label for="stName_2" style="visibility: hidden;">지하철역</label>
+	    	      <input type="text" id="stName_2" name="stName_2"
+	    	             placeholder="지하철역을 입력해 주세요."
+	    	             value="${data.stName_2 || ''}" />
+	    	    </div>
+	    	    <div>
+	    	      <label for="stName_3" style="visibility: hidden;">지하철역</label>
+	    	      <input type="text" id="stName_3" name="stName_3"
+	    	             placeholder="지하철역을 입력해 주세요."
+	    	             value="${data.stName_3 || ''}" />
+	    	    </div>
+	    	    <input type="hidden" id="stId" name="stId" value="${data.stId || ''}" />
+	    	  `;
+
+	    	  $('.update-right-form').html(stationHtml);
+	    	},
+	      error: function(xhr, status, error) {
+	        console.error('역 정보 불러오기 실패:', error);
+	        alert('역 정보 로딩 중 오류가 발생했습니다.');
+	      }
+	    });
+
+	  });
+  document.getElementById('user-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+	const usrIdx = document.getElementById('usrIdx').value.trim();
+    const usrEmail = document.getElementById('usrEmail').value.trim();
+    const usrNick = document.getElementById('usrNick').value.trim();
+    const usrPw = document.getElementById('usrPw').value;
+    const usrPwCheck = document.getElementById('usrPwCheck').value;
+	const stId = document.getElementById('stId').value.trim();
+    const stName_1 = document.getElementById('stName_1').value.trim();
+    const stName_2 = document.getElementById('stName_2').value.trim();
+    const stName_3 = document.getElementById('stName_3').value.trim();
+
+    // 비밀번호 검증
+    if (!usrPw || !usrPwCheck) return alert("비밀번호와 확인을 모두 입력해 주세요.");
+    if (usrPw !== usrPwCheck) return alert("비밀번호가 일치하지 않습니다.");
+    if (usrPw.length < 8 || usrPw.length > 20) return alert("비밀번호는 8~20자로 입력해 주세요.");
+    if (!usrNick) return alert("닉네임을 입력해 주세요.");
+    if (!stName_1) return alert("지하철역의 첫 번째 칸은 필수로 입력해 주세요.");
+
+    try {
+      // 1단계: 유저 정보 전송
+      const userRes = await fetch('/updateUserInfo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usrIdx, usrEmail, usrPw, usrNick })
+      });
+
+      const userResult = await userRes.text();
+
+      if (userResult !== 'success') {
+        alert('회원정보 수정 실패: ' + userResult);
+        return;
+      }
+
+      // 2단계: 역 정보 전송
+      const stationRes = await fetch('/updateStationInfo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ stId, usrEmail, stName_1, stName_2, stName_3 })
+      });
+
+      const stationResult = await stationRes.text();
+
+      if (stationResult === 'success') {
+        alert('회원정보가 성공적으로 수정되었습니다.');
+      } else {
+        alert('역 정보 수정 실패: ' + stationResult);
+      }
+
+    } catch (err) {
+      alert('서버 통신 오류: ' + err.message);
+    }
+  });
+</script>
