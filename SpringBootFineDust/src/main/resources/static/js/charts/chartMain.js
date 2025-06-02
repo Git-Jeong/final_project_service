@@ -86,6 +86,11 @@ new Vue({
 				range: XAXISRANGE,
 				tickAmount: 1
 			},
+			stroke: {
+			    curve: 'smooth',
+			    width: 3,
+  				lineCap: 'round'
+			  },
 			yaxis: {
 				max: 110,
 				labels: {
@@ -106,7 +111,7 @@ new Vue({
 				{ name: 'Cosine1', data: data },
 				{ name: 'Sine', data: data2 }
 			]);
-		}, 1000000000);
+		}, 1000);
 
 		setInterval(() => {
 			resetData();

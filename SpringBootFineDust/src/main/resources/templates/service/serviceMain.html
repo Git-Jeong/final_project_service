@@ -77,8 +77,14 @@
 					<!-- 예측 vs 실제 차트 -->
 					<div id="app" class="serviceChart-box">
 						<div id="chart" class="serviceChart_apexchart">
-							<apexchart type="line" ref="chart" :options="chartOptions"
-								:series="series"></apexchart>
+							<apexchart 
+							  type="line" 
+							  ref="chart" 
+							  :options="chartOptions" 
+							  :series="series" 
+							  height="100%">
+							</apexchart>
+
 						</div>
 					</div>
 				</div>
