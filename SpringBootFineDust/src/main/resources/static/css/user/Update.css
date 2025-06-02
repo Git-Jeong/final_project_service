@@ -2,6 +2,11 @@
 	padding: 40px;
 }
 
+#usrEmail[readonly] {
+  background-color: #e9ecef;
+  color: #6c757d;
+}
+
 .update-password-group {
 	display: flex;
 	gap: 16px;
