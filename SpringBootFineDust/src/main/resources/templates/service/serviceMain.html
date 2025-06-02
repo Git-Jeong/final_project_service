@@ -135,39 +135,34 @@
 		</main>
 	</div>
 	<script>
-	const input = document.querySelector('.serviceChart-date');
+	document.addEventListener('DOMContentLoaded', () => {
+		  const input = document.querySelector('.serviceChart-date');
 
-	function updateKoreanDatetimeLocal() {
-	  // 한국 시간 문자열 ISO 형식 맞춤
-	  const now = new Date();
+		  function updateKoreanDatetimeLocal() {
+		    const now = new Date();
+		    const krDate = new Date(now.getTime());
 
-	  // 한국 시간으로 변환 (toLocaleString + Asia/Seoul)
-	  const krDateStr = now.toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
-	  const krDate = new Date(krDateStr);
+		    const year = krDate.getFullYear();
+		    const month = String(krDate.getMonth() + 1).padStart(2, '0');
+		    const day = String(krDate.getDate()).padStart(2, '0');
+		    const hour = String(krDate.getHours()).padStart(2, '0');
+		    const minute = String(krDate.getMinutes()).padStart(2, '0');
 
-	  // "YYYY-MM-DDTHH:mm" 포맷 만들기
-	  const year = krDate.getFullYear();
-	  const month = String(krDate.getMonth() + 1).padStart(2, '0');
-	  const day = String(krDate.getDate()).padStart(2, '0');
-	  const hour = String(krDate.getHours()).padStart(2, '0');
-	  const minute = String(krDate.getMinutes()).padStart(2, '0');
+		    const formatted = `${year}-${month}-${day}T${hour}:${minute}`;
 
-	  const formatted = `${year}-${month}-${day}T${hour}:${minute}`;
+		    input.value = formatted;
+		    input.max = formatted;
+		  }
 
-	  input.value = formatted;
-	  input.max = formatted;
-	}
+		  updateKoreanDatetimeLocal();
 
-	// 최초 실행
-	updateKoreanDatetimeLocal();
-
-	// 매 분 0초에 갱신 (분 바뀔 때마다)
-	setInterval(() => {
-	  const now = new Date();
-	  if (now.getSeconds() === 0) {
-	    updateKoreanDatetimeLocal();
-	  }
-	}, 1000);
+		  setInterval(() => {
+		    const now = new Date();
+		    if (now.getSeconds() === 0) {
+		      updateKoreanDatetimeLocal();
+		    }
+		  }, 1000);
+		});
 
 	</script>
 </body>
