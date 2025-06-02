@@ -2,7 +2,7 @@
 
 var lastDate = 0;
 var data = [], data2 = [];
-var TICKINTERVAL = 1000;
+var TICKINTERVAL = 100220;
 let XAXISRANGE = 59000;
 
 function getDayWiseTimeSeries(baseval, count, yrange) {
@@ -65,17 +65,17 @@ new Vue({
 		chartOptions: {
 			chart: {
 				id: 'realtime',
-				height: '100%',
+				minHeight: "100px",
 				type: 'line',
 				animations: {
 					enabled: true,
 					easing: 'linear',
 					dynamicAnimation: { speed: 1000 }
 				},
-				toolbar: { show: false },
-				zoom: { enabled: false }
+				toolbar: { show: true },
+				zoom: { enabled: true }
 			},
-			dataLabels: { enabled: false },
+			dataLabels: { enabled: true },
 			title: {
 				text: 'Dynamic Updating Chart',
 				align: 'left'
@@ -95,7 +95,7 @@ new Vue({
 				}
 			}
 			,
-			legend: { show: false }
+			legend: { show: true }
 		}
 	},
 	mounted: function() {
@@ -106,7 +106,7 @@ new Vue({
 				{ name: 'Cosine1', data: data },
 				{ name: 'Sine', data: data2 }
 			]);
-		}, 1000);
+		}, 1000000000);
 
 		setInterval(() => {
 			resetData();

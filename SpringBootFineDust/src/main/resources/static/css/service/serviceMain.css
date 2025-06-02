@@ -7,6 +7,10 @@ body {
 	flex-direction: row;
 }
 
+.service-main-page{
+	width: 100vw;
+}
+
 .serviceChart-main-content {
 	padding: 1rem;
 	display: flex;
@@ -210,5 +214,13 @@ body {
 
 .serviceChart_apexchart{
 	height: 100%;
-	overflow: hidden;
+	overflow: visible;
 }
+
+#chart + div{
+  min-height : 100px !important;
+  height: 100% !important;
+  max-height: 120px !important;
+  overflow: hidden;
+}
+
