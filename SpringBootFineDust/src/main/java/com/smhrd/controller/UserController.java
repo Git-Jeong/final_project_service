@@ -118,13 +118,4 @@ public class UserController {
     	}
     }
     
-    @GetMapping("/logout")
-    public String logout(HttpServletResponse response) {
-        Cookie cookie = new Cookie(token_login, null);
-        cookie.setMaxAge(0);
-        cookie.setPath("/");
-        response.addCookie(cookie);
-        return "redirect:/main";
-    }
-    
 }

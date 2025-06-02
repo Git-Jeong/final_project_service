@@ -10,8 +10,15 @@
 <script src="https://cdn.jsdelivr.net/npm/vue-apexcharts"></script>
 
 <!-- 차트 컴포넌트 스타일/스크립트 -->
+<link rel="stylesheet" href="./css/Common.css" />
 <link rel="stylesheet" href="./css/service/sideBar.css" />
 <link rel="stylesheet" href="./css/service/serviceMain.css">
+
+<!-- 부트스트랩 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+<script src="./js/logout.js"></script>
 <script>
 	window.Promise
 			|| document
@@ -25,101 +32,100 @@
 </script>
 
 <title>실내공기질 측정시스템</title>
-<link rel="stylesheet" href="/css/service/sideBar.css" />
 </head>
 <body>
-	<div id="sidebar-container"></div>
 
 	<script th:inline="javascript">
 		window.model = {
 			userName : '[[${userName}]]'
 		};
 	</script>
-
 	<script src="/js/sideBar.js"></script>
-
-	<main class="main-content">
-		<div class="header">
-			<h2>실내공기질 측정시스템</h2>
-		</div>
-
-		<div class="headeroption">
-			<select style="border-radius: 5px;">
-				<option>서울역</option>
-			</select> <input type="date" value="2024-04-24">
-			<button style="border-radius: 5px; background-color: white;">예측
-				vs 실제</button>
-			<div class="buttons">
-				<button style="border-radius: 5px; background-color: white;">미세먼지</button>
-				<button style="border-radius: 5px; background-color: white;">유해가스</button>
+	
+	
+	<div class="service-main-page">
+	<div id="sidebar-container"></div>
+		<main class="serviceChart-main-content">
+			<div class="serviceChart-header">
+				<div class="serviceChart-header-left">
+					<h2>실내공기질 측정시스템</h2>
+				</div>
+				<div class="serviceChart-header-right">
+					<button class="logout-button" onclick="goLogout()">
+					  <i class="bi-box-arrow-right logout-icon"></i>
+					</button>s
+				</div>
 			</div>
-		</div>
 
-		<div class="chart-top">
-			<div class="chart-top-left">
-				<!-- 예측 vs 실제 차트 -->
-				<div id="app">
-					<div id="chart">
-						<apexchart type="line" height="350" ref="chart"
-							:options="chartOptions" :series="series"></apexchart>
+			<div class="serviceChart-headeroption">
+				<select class="serviceChart-select">
+					<option>서울역</option>
+				</select> <input type="date" class="serviceChart-date" value="2024-04-24">
+				<button class="serviceChart-button">예측 vs 실제</button>
+				<div class="serviceChart-buttons">
+					<button class="serviceChart-button">미세먼지</button>
+					<button class="serviceChart-button">유해가스</button>
+				</div>
+			</div>
+
+			<div class="serviceChart-chart-top">
+				<div class="serviceChart-chart-top-left">
+					<!-- 예측 vs 실제 차트 -->
+					<div id="app" class="serviceChart-box">
+						<div id="chart">
+							<apexchart type="line" ref="chart" :options="chartOptions"
+								:series="series"></apexchart>
+						</div>
+					</div>
+				</div>
+
+				<script src="/js/charts/chartMain.js"></script>
+
+				<div class="serviceChart-chart-top-right">
+					<div class="serviceChart-air-quality-box">
+						<ul class="serviceChart-pmbold">
+							<li>PM1.0 <span class="serviceChart-divider">|</span> 10
+							</li>
+						</ul>
+						<div class="serviceChart-quality serviceChart-pm1">Good</div>
+					</div>
+
+					<div class="serviceChart-air-quality-box">
+						<ul class="serviceChart-pmbold">
+							<li>PM2.5 <span class="serviceChart-divider">|</span> 12
+							</li>
+						</ul>
+						<div class="serviceChart-quality serviceChart-pm2">Moderate</div>
+					</div>
+
+					<div class="serviceChart-air-quality-box">
+						<ul class="serviceChart-pmbold">
+							<li>PM10 <span class="serviceChart-divider">|</span> 28
+							</li>
+						</ul>
+						<div class="serviceChart-quality serviceChart-pm10">Poor</div>
 					</div>
 				</div>
 			</div>
 
-			<script src="/js/charts/chartMain.js"></script>
-
-			<div class="chart-top-right">
-				<div class="air-quality-box">
-					<ul class="pmbold">
-						<li>PM1.0 <span style="color: grey; margin: 0 10px;">|</span>
-							10
-						</li>
-					</ul>
-					<br>
-					<div class="air-quality-box pm1">Good</div>
+			<div class="serviceChart-chart-bottom">
+				<div class="serviceChart-chart-box">
+					<!-- PM1.0 시간별 차트 -->
 				</div>
-
-				<div class="air-quality-box">
-					<ul class="pmbold">
-						<li>PM2.5 <span style="color: grey; margin: 0 10px;">|</span>
-							12
-						</li>
-					</ul>
-					<br>
-					<div class="air-quality-box pm2">Moderate</div>
+				<div class="serviceChart-chart-box">
+					<!-- PM2.5 시간별 차트 -->
 				</div>
-
-				<div class="air-quality-box">
-					<ul class="pmbold">
-						<li>PM10 <span style="color: grey; margin: 0 10px;">|</span>
-							28
-						</li>
-					</ul>
-					<br>
-					<div class="air-quality-box pm10">Poor</div>
+				<div class="serviceChart-chart-box">
+					<!-- PM10 시간별 차트 -->
+				</div>
+				<div class="serviceChart-chart-box">
+					<!-- PM2.5 시간별 차트 -->
+				</div>
+				<div class="serviceChart-chart-box">
+					<!-- PM10 시간별 차트 -->
 				</div>
 			</div>
-		</div>
-		<!-- 닫히지 않았던 chart-top 닫기 -->
-
-		<div class="chart-bottom">
-			<div class="chart-box">
-				<!-- PM1.0 시간별 차트 -->
-			</div>
-			<div class="chart-box">
-				<!-- PM2.5 시간별 차트 -->
-			</div>
-			<div class="chart-box">
-				<!-- PM10 시간별 차트 -->
-			</div>
-			<div class="chart-box">
-				<!-- PM2.5 시간별 차트 -->
-			</div>
-			<div class="chart-box">
-				<!-- PM10 시간별 차트 -->
-			</div>
-		</div>
-	</main>
+		</main>
+	</div>
 </body>
-
 </html>
