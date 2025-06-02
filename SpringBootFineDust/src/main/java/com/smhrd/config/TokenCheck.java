@@ -44,21 +44,20 @@ public class TokenCheck {
         return false;
     }
 
-    public User extractUserFromJwt(HttpServletRequest request) {
+    public String extractUserFromJwt(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
-        User m = new User();
+        String email = null;
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (token_login.equals(cookie.getName())) {
                     String token = cookie.getValue();
                     Claims claims = jwtUtil.validateTokenAndGetClaims(token);
                     if (claims != null) {
-                        String email = claims.get(secretVal_2, String.class);
-                        m.setUsrEmail(email);
+                        email = claims.get(secretVal_2, String.class);
                     }
                 }
             }
         }
-        return m;
+        return email;
     }
 }
