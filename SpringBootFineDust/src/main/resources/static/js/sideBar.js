@@ -1,4 +1,6 @@
 // 사이드바 생성
+const userName = window.model?.userName || '사용자';
+  
 const sidebar = document.createElement('aside');
 sidebar.className = 'sidebar';
 
@@ -11,13 +13,35 @@ sidebar.appendChild(logo);
 // 프로필 영역
 const profile = document.createElement('div');
 profile.className = 'sidebar-profile';
-sidebar.appendChild(profile);
+
+const img = document.createElement('img');
+img.src = "https://cdn-icons-png.flaticon.com/512/847/847969.png";
+img.alt = "profile icon";
+
+profile.appendChild(img);
 
 // 환영 메시지
 const welcome = document.createElement('div');
 welcome.className = 'sidebar-welcome';
-welcome.innerHTML = '<strong>김윤서님<br>환영합니다!</strong>';
-sidebar.appendChild(welcome);
+welcome.innerHTML = `<strong>${userName}님<br>환영합니다!</strong>`;
+
+// 프로필과 환영 메시지를 감싸는 div 생성
+const profileWrapper = document.createElement('div');
+profileWrapper.className = 'sidebar-profile-wrapper';
+
+// a 태그 생성 및 설정
+const profileLink = document.createElement('a');
+profileLink.href = '/update';
+profileLink.style.textDecoration = 'none';
+profileLink.style.color = 'inherit';
+
+// profile과 welcome을 profileWrapper에 추가
+profileLink.appendChild(profile);
+profileLink.appendChild(welcome);
+profileWrapper.appendChild(profileLink);
+
+// profileWrapper를 사이드바에 추가
+sidebar.appendChild(profileWrapper);
 
 // 버튼들
 const buttons = [
@@ -32,6 +56,9 @@ buttons.forEach(text => {
   const button = document.createElement('button');
   button.className = 'sidebar-button';
   button.textContent = text;
+  button.addEventListener('click', () => {
+    console.log(`${text} 버튼 클릭됨`);
+  });
   sidebar.appendChild(button);
 });
 
