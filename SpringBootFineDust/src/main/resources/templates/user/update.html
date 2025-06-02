@@ -53,8 +53,8 @@
 
 				<div class="update-buttons">
 					<div class="update-buttons-wide">
-						<button type="button" class="update-btn-back" onclick="history.back()">뒤로가기</button>
-						<button type="reset" class="update-btn-cancel">취소</button>
+						<button type="button" class="update-btn-back" onclick="backBtn()">뒤로가기</button>
+						<button type="button" class="update-btn-cancel" onclick="resetBtn()">취소</button>
 					</div>
 					<button type="submit" class="update-btn-submit">수정</button>
 				</div>
@@ -106,7 +106,9 @@
 
 	  });
   document.getElementById('user-form').addEventListener('submit', async function (e) {
-    e.preventDefault();
+	  e.preventDefault();
+	  if (!confirm("회원정보를 저장하시겠습니까?")) return;
+	  
 	const usrIdx = document.getElementById('usrIdx').value.trim();
     const usrEmail = document.getElementById('usrEmail').value.trim();
     const usrNick = document.getElementById('usrNick').value.trim();
@@ -158,4 +160,17 @@
       alert('서버 통신 오류: ' + err.message);
     }
   });
+  
+  const backBtn = () => {
+	  if(confirm("정말 뒤로 가시겠습니까? ")){
+		  history.back()
+	  }
+  }
+  
+  const resetBtn = () => {
+	  if (confirm("정말 초기화하시겠습니까?")) {
+	    document.getElementById('user-form').reset();
+	  }
+	};
+
 </script>
