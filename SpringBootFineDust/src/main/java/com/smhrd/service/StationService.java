@@ -20,6 +20,20 @@ public class StationService {
 	    }
 	}
 
+	public Station getStInfo(String usrEmail) {
+		// TODO Auto-generated method stub
+		Station st = repository.findByUsrEmail(usrEmail);
+		if(st == null) {
+		    return new Station();
+		}
+		return st;
+	}
+
+	public void setStInfo(Station st) {
+		// TODO Auto-generated method stub
+		repository.save(st);
+	}
+
 	
 	
 }

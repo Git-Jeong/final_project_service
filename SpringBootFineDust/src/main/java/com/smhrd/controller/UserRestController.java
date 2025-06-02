@@ -38,4 +38,17 @@ public class UserRestController {
         service.join(vo);
         return "success";
     }
+    
+    @PostMapping("/updateUserInfo")
+    public String updateUserInfo(@RequestBody User vo) {
+    	if((vo != null) && (vo.getUsrPw() != null)) {
+    		String aesPw = AesUtils.encrypt(vo.getUsrPw());
+    		if(aesPw == null) {
+    	        return "err";
+    		}
+			vo.setUsrPw(aesPw);
+    	}
+        service.setUserInfo(vo);
+        return "success";
+    }
 }

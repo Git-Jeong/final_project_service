@@ -1,0 +1,59 @@
+<!-- src/main/resources/templates/error/404.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>404 오류</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #f8cdda, #1d2b64);
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+        }
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
+        .countdown {
+            font-size: 2rem;
+            font-weight: bold;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            box-shadow: 0 0 10px rgba(255,255,255,0.4);
+            user-select: none;
+        }
+    </style>
+    <script>
+        let countdown = 5;
+        function updateCountdown() {
+            document.getElementById('countdown').textContent = countdown;
+            if (countdown === 0) {
+                window.location.href = '/';
+            } else {
+                countdown--;
+                setTimeout(updateCountdown, 1000);
+            }
+        }
+        window.onload = updateCountdown;
+    </script>
+</head>
+<body>
+    <h1>페이지를 찾을 수 없습니다.</h1>
+    <p>입력하신 주소를 다시 확인해주세요.</p>
+    <div class="countdown"><span id="countdown">5</span>초 후 메인 페이지로 이동합니다.</div>
+</body>
+</html>
