@@ -70,12 +70,12 @@ new Vue({
 				animations: {
 					enabled: true,
 					easing: 'linear',
-					dynamicAnimation: { speed: 1000 }
+					dynamicAnimation: { speed: 1200 }
 				},
 				toolbar: { show: true },
 				zoom: { enabled: false }
 			},
-			dataLabels: { enabled: true },
+			dataLabels: { enabled: false },
 			title: {
 				text: 'Dynamic Updating Chart',
 				align: 'left'
