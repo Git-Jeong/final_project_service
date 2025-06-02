@@ -265,6 +265,10 @@
 		}
 
 		function handleSubmit(event) {
+			if(!confirm('회원가입을 진행하시겠습니까?? ')){
+				return;
+			}
+			
 			event.preventDefault();
 
 			const stName_1 = $('#stName_1').val();
