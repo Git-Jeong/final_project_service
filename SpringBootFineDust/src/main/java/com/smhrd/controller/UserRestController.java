@@ -51,4 +51,13 @@ public class UserRestController {
         service.setUserInfo(vo);
         return "success";
     }
+    
+    @PostMapping("/checkEmailNick")
+    public String checkEmailNick(@RequestBody User vo) {
+    	String userName = null;
+    	if((vo != null) && (vo.getUsrNick() != null) && (vo.getUsrEmail() != null)) {
+            userName = service.findByEmailForNickEmail(vo);
+    	}
+        return userName;
+    }
 }
