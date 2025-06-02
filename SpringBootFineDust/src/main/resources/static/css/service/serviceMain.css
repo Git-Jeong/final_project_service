@@ -32,11 +32,8 @@ body {
 
 .logout-button{
 	border: none;
-	background-color: transparent;
-}
-
-.logout-icon{
 	font-size: 20px;
+	background-color: transparent;
 }
 
 .serviceChart-header h2 {
