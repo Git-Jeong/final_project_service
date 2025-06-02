@@ -65,7 +65,7 @@ new Vue({
 		chartOptions: {
 			chart: {
 				id: 'realtime',
-				height: 350,
+				height: '100%',
 				type: 'line',
 				animations: {
 					enabled: true,

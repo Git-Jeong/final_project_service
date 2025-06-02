@@ -207,3 +207,8 @@ body {
 	height : 100%;
 	width: 100%;
 }
+
+.serviceChart_apexchart{
+	height: 100%;
+	overflow: hidden;
+}
