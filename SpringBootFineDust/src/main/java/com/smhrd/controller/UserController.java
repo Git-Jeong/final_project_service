@@ -101,7 +101,14 @@ public class UserController {
     
     @PostMapping("/resetpw")
     public String resetPassword(User vo) {
-    	
+    	if((vo != null) && (vo.getUsrPw() != null)) {
+    		String aesPw = AesUtils.encrypt(vo.getUsrPw());
+    		if(aesPw == null) {
+                return "redirect:/resetpw";
+    		}
+			vo.setUsrPw(aesPw);
+    	}
+		
     	boolean result = service.resetPassword(vo);
     	if (result == true) {
             return "redirect:/login";
