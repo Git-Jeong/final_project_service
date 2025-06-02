@@ -82,7 +82,10 @@ public class UserController {
         if (!token.isUserLoggedIn(request)) {
             return "redirect:/main";
         }
-        User m = token.extractUserFromJwt(request);
+        String userName = token.extractUserFromJwt(request);
+        User m = new User();
+        m.setUsrEmail(userName);
+        
         User vo = service.getUserInfo(m);
         model.addAttribute("vo", vo);
         return "user/update";
