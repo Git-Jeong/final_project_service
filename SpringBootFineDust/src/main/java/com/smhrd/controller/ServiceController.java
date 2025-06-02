@@ -28,8 +28,8 @@ public class ServiceController {
         String getName = token.extractUserFromJwt(request);
         String userName = getName.substring(0, getName.indexOf('@'));
 
-        Station stationList = stService.getStInfo(userName);
-        
+        Station stationList = stService.getStInfo(getName);
+       
         System.out.println("stationList = " +stationList);
         
         model.addAttribute("userName", userName);

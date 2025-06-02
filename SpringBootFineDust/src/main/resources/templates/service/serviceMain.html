@@ -55,6 +55,10 @@
 					<h2>실내공기질 측정시스템</h2>
 				</div>
 				<div class="serviceChart-header-right">
+					<button class="mypage-button" onclick="location.href='update'">
+					  <span>마이페이지</span>
+					  <i class="bi-person-circle mypage-icon"></i>
+					</button>
 					<button class="logout-button" onclick="goLogout()">
 						<span>로그아웃</span>
 						<i class="bi-box-arrow-right logout-icon"></i>
@@ -64,9 +68,14 @@
 
 			<div class="serviceChart-headeroption">
 				<select class="serviceChart-select">
-					<option>서울역</option>
-					<option>강남역</option>
-					<option>신촌역</option>
+					<th:block th:each="station : ${stationList}">
+						<option th:text="${#strings.isEmpty(station.stName_1) ? '' : station.stName_1}" 
+								th:if="${!#strings.isEmpty(station.stName_1)}"></option>
+						<option th:text="${#strings.isEmpty(station.stName_2) ? '' : station.stName_2}" 
+								th:if="${!#strings.isEmpty(station.stName_2)}"></option>
+						<option th:text="${#strings.isEmpty(station.stName_3) ? '' : station.stName_3}" 
+								th:if="${!#strings.isEmpty(station.stName_3)}"></option>
+					</th:block>
 				</select>
 				<input type="datetime-local" class="serviceChart-date" />
 				<button class="serviceChart-button">예측 vs 실제</button>
