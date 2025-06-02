@@ -2,7 +2,6 @@ package com.smhrd.service;
 
 import java.util.ArrayList;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +46,6 @@ public class UserService {
 	    }
 	}
 
-
 	public User getUserInfo(User vo) {
 		Optional<User> m = repository.findByUsrEmail(vo.getUsrEmail());
 		if(m.isPresent()) {
@@ -70,5 +68,31 @@ public class UserService {
 		}
 		return m;
 	}
+	
+    public String findByEmailForNickEmail(User vo) {
+    	User user = repository.findByUsrEmailAndUsrNick(vo.getUsrEmail(), vo.getUsrNick());
+    	if((user != null) && (user.getUsrEmail() != null)) {
+    		return "success";
+    	}
+        return "fail";
+    }
+
+    public boolean resetPassword(User vo) {
+        // 1. 이메일로 사용자 조회
+        Optional<User> optionalUser = repository.findByUsrEmail(vo.getUsrEmail());
+        if (optionalUser.isEmpty()) {
+            return false; // 사용자 없으면 false 반환
+        }
+        
+        // 2. 비밀번호 갱신
+        User user = optionalUser.get();
+        user.setUsrPw(vo.getUsrPw());
+        
+        // 3. 변경사항 저장
+        repository.save(user);
+        
+        return true;
+    }
+
 	
 }

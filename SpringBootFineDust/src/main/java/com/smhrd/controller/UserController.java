@@ -73,7 +73,7 @@ public class UserController {
             return "redirect:/service";
         }
         else {
-        	return "user/login";
+            return "redirect:/login";
         }
     }
 
@@ -99,6 +99,18 @@ public class UserController {
         return "user/resetpw";
     }
     
+    @PostMapping("/resetpw")
+    public String resetPassword(User vo) {
+    	
+    	boolean result = service.resetPassword(vo);
+    	if (result == true) {
+            return "redirect:/login";
+    	}
+    	else {
+        	return null;
+    	}
+    }
+    
     @GetMapping("/logout")
     public String logout(HttpServletResponse response) {
         Cookie cookie = new Cookie(token_login, null);
@@ -107,4 +119,5 @@ public class UserController {
         response.addCookie(cookie);
         return "redirect:/main";
     }
+    
 }
