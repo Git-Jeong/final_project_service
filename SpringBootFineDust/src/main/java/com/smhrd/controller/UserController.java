@@ -91,6 +91,14 @@ public class UserController {
         return "user/update";
     }
 
+    @GetMapping("/resetpw")
+    public String resetpw(HttpServletRequest request) {
+        //if (token.isUserLoggedIn(request)) {
+        //    return "redirect:/main";
+        //}
+        return "user/resetpw";
+    }
+    
     @GetMapping("/logout")
     public String logout(HttpServletResponse response) {
         Cookie cookie = new Cookie(token_login, null);
