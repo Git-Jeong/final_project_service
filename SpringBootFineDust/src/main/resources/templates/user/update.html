@@ -63,6 +63,15 @@
 		</div>
 	</div>
 	<script>
+	document.getElementById('user-form').addEventListener('submit', async function (e) {
+		  e.preventDefault();
+		  if (!confirm("회원정보를 저장하시겠습니까?")) return;
+
+		  const formData = getData();
+		  await sendData(formData);
+		});
+
+	
 	document.addEventListener('DOMContentLoaded', async function () {
 	    const usrEmail = document.getElementById('usrEmail').value.trim();
 
@@ -106,65 +115,52 @@
 	    });
 
 	  });
-  document.getElementById('user-form').addEventListener('submit', async function (e) {
-	  e.preventDefault();
-	  if (!confirm("회원정보를 저장하시겠습니까?")){
-		  return;
+	
+
+	// 데이터 전송 함수
+	async function sendData(data) {
+	  const { usrIdx, usrEmail, usrNick, usrPw, usrPwCheck, stId, stName_1, stName_2, stName_3 } = data;
+
+	  // 유효성 검사
+	  if (!usrPw || !usrPwCheck) return alert("비밀번호와 확인을 모두 입력해 주세요.");
+	  if (usrPw !== usrPwCheck) return alert("비밀번호가 일치하지 않습니다.");
+	  if (usrPw.length < 8 || usrPw.length > 20) return alert("비밀번호는 8~20자로 입력해 주세요.");
+	  if (!usrNick) return alert("닉네임을 입력해 주세요.");
+	  if (!stName_1) return alert("지하철역의 첫 번째 칸은 필수로 입력해 주세요.");
+
+	  try {
+	    const userRes = await fetch('/updateUserInfo', {
+	      method: 'POST',
+	      headers: { 'Content-Type': 'application/json' },
+	      body: JSON.stringify({ usrIdx, usrEmail, usrPw, usrNick })
+	    });
+
+	    const userResult = await userRes.text();
+
+	    if (userResult !== 'success') {
+	      alert('회원정보 수정 실패: ' + userResult);
+	      return;
+	    }
+
+	    const stationRes = await fetch('/updateStationInfo', {
+	      method: 'POST',
+	      headers: { 'Content-Type': 'application/json' },
+	      body: JSON.stringify({ stId, usrEmail, stName_1, stName_2, stName_3 })
+	    });
+
+	    const stationResult = await stationRes.text();
+
+	    if (stationResult === 'success') {
+	      alert('회원정보가 성공적으로 수정되었습니다.');
+	    } else {
+	      alert('역 정보 수정 실패: ' + stationResult);
+	    }
+
+	  } catch (err) {
+	    alert('서버 통신 오류: ' + err.message);
 	  }
+	}
 
-	const usrIdx = document.getElementById('usrIdx').value.trim();
-    const usrEmail = document.getElementById('usrEmail').value.trim();
-    const usrNick = document.getElementById('usrNick').value.trim();
-    const usrPw = document.getElementById('usrPw').value;
-    const usrPwCheck = document.getElementById('usrPwCheck').value;
-	const stId = document.getElementById('stId').value.trim();
-    const stName_1 = document.getElementById('stName_1').value.trim();
-    const stName_2 = document.getElementById('stName_2').value.trim();
-    const stName_3 = document.getElementById('stName_3').value.trim();
-
-    // 비밀번호 검증
-    if (!usrPw || !usrPwCheck) return alert("비밀번호와 확인을 모두 입력해 주세요.");
-    if (usrPw !== usrPwCheck) return alert("비밀번호가 일치하지 않습니다.");
-    if (usrPw.length < 8 || usrPw.length > 20) return alert("비밀번호는 8~20자로 입력해 주세요.");
-    if (!usrNick) return alert("닉네임을 입력해 주세요.");
-    if (!stName_1) return alert("지하철역의 첫 번째 칸은 필수로 입력해 주세요.");
-
-    try {
-      // 1단계: 유저 정보 전송
-      const userRes = await fetch('/updateUserInfo', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ usrIdx, usrEmail, usrPw, usrNick })
-      });
-
-      const userResult = await userRes.text();
-
-      if (userResult !== 'success') {
-        alert('회원정보 수정 실패: ' + userResult);
-        return;
-      }
-
-      // 2단계: 역 정보 전송
-      const stationRes = await fetch('/updateStationInfo', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ stId, usrEmail, stName_1, stName_2, stName_3 })
-      });
-
-      const stationResult = await stationRes.text();
-
-      if (stationResult === 'success') {
-        alert('회원정보가 성공적으로 수정되었습니다.');
-        
-      } else {
-        alert('역 정보 수정 실패: ' + stationResult);
-      }
-
-    } catch (err) {
-      alert('서버 통신 오류: ' + err.message);
-    }
-  });
-  
   const backBtn = () => {
 	  if(confirm("정말 뒤로 가시겠습니까? ")){
 		  history.back()
