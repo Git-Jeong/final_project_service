@@ -3,6 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ApexCharts 및 Vue -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-apexcharts"></script>
+
+<!-- 차트 컴포넌트 스타일/스크립트 -->
+<link rel="stylesheet" href="/css/chartComponent.css" />
+
+<script>
+	window.Promise ||
+		document.write(
+			'<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"><\/script>'
+		)
+	window.Promise ||
+		document.write(
+			'<script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20171210/classList.min.js"><\/script>'
+		)
+	window.Promise ||
+		document.write(
+			'<script src="https://cdn.jsdelivr.net/npm/findindex_polyfill_mdn"><\/script>'
+		)
+</script>
+    
 <title>실내공기질 측정시스템</title>
 <link rel="stylesheet" href="/css/service/sideBar.css" />
 <style>
@@ -44,24 +68,47 @@ body {
 	margin: 0;
 }
 
-.headeroption{
-
+.headeroption {
 	flex: 1;
 	min-height: 0;
-	padding: 1rem;
-	border: 1px solid #333;
 	border-radius: 10px;
-	display: flex;
-
+	display : flex;
+	align-items : center;
+	gap : 5rem;
 }
-
-
-
-.header select, .header input[type="date"], .header button {
+ 
+.headeroption select, .headeroption input[type="date"] {
 	margin: 0.25rem;
-	padding: 0.5rem;
-	font-size: 1rem;
+	margin-right : 1rem;
+	
+	
+	border: 0.25px solid #ccc;
+	font-size: 1rem;	
+	border-radius : 10px;
+	padding: 1px 10px;
+	display: flex;
 }
+    .buttons {
+      display: flex;
+      border: 0.25px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      width: fit-content;
+    }
+
+    .buttons button {
+      flex: 1;
+      padding: 1px 10px;
+      border: none;
+      background-color: white;
+      font-size: 0.7ren;
+      cursor: pointer;
+    }
+
+    .buttons button + button {
+      border-left: 1px solid #ccc;
+    }
+
 
 .charts {
 	display: flex;
@@ -185,84 +232,103 @@ body {
 		display: none;
 	}
 }
+
+#app{
+	width : 100%;
+	
+	}
 </style>
 </head>
 <body>
 
 	<div id="sidebar-container"></div>
 	<script th:inline="javascript">
-	  window.model = {
-	    userName: '[[${userName}]]'
-	  };
+		window.model = {
+			userName : '[[${userName}]]'
+		};
 	</script>
 	<script src="/js/sideBar.js"></script>
 	<main class="main-content">
 		<div class="header">
 			<h2>실내공기질 측정시스템</h2>
-		</div>	
-			<div class="headeroption">
-				<select>
-					<option>서울역</option>
-				</select> <input type="date" value="2024-04-24">
-				<button style="border-radius:5px;">예측 vs 실제</button>
-				<button style="border-radius:5px;">미세먼지</button>
-				<button style="border-radius:5px;">유해가스</button>
-			</div>
+		</div>
 		
+		<div class="headeroption">
+			<select style="border-radius: 5px;">
+				<option>서울역</option>
+			</select> <input type="date" value="2024-04-24">
+			<button style="border-radius: 5px; background-color: white;">예측 vs 실제</button>
+			<div class="buttons">
+			<button style="border-radius: 5px; background-color: white;">미세먼지</button>
+			<button style="border-radius: 5px; background-color: white;">유해가스</button>
+			</div>
+		</div>
 
-		<div class="charts">
-			<div class="chart-top">
-				<div class="chart-top-left">
-					<!-- 예측 vs 실제 차트 -->
-					<div class="charts"></div>
-				</div>
-				<div class="chart-top-right">
-				
-					<div class="air-quality-box">
-						<ul class="pmbold">
-							<li>PM1.0 <span style="color: grey; margin: 0 10px;">|</span> 10</li>
-						</ul>
-						<br>
-						<div class="air-quality-box pm1">Good</div>
-					</div>
-					
-					
-					
-					<div class="air-quality-box">
-						<ul class="pmbold">
-							<li>PM2.5 <span style="color: grey; margin: 0 10px;">|</span> 12</li>
-						</ul>
-						<br>
-						<div class="air-quality-box pm2">Moderate</div>
-					</div>
-					<div class="air-quality-box">
-						<ul class="pmbold">
-							 <li>PM10 <span style="color: grey; margin: 0 10px;">|</span> 28</li>
-						</ul>
-						<br>
-						<div class="air-quality-box pm10">Poor</div>
-						
-					</div>
+<div class="chart-top">
+		<div class="chart-top-left">
+			<!-- 예측 vs 실제 차트 -->
+			<div id="app">
+				<div id="chart">
+					<apexchart type="line" height="350" ref="chart"
+						:options="chartOptions" :series="series"></apexchart>
 				</div>
 			</div>
-
-			<div class="chart-bottom">
-				<div class="chart-box">
-					<!-- PM1.0 시간별 차트 -->
-				</div>
-				<div class="chart-box">
-					<!-- PM2.5 시간별 차트 -->
-				</div>
-				<div class="chart-box">
-					<!-- PM10 시간별 차트 -->
-				</div>
-				<div class="chart-box">
-					<!-- PM2.5 시간별 차트 -->
-				</div>
-				<div class="chart-box">
-					<!-- PM10 시간별 차트 -->
-				</div>
+		</div>
+		<script src="/js/charts/chartMain.js"></script>
+		
+		<div class="chart-top-right">
+			<div class="air-quality-box">
+				<ul class="pmbold">
+					<li>PM1.0 <span style="color: grey; margin: 0 10px;">|</span>
+						10
+					</li>
+				</ul>
+				<br>
+				<div class="air-quality-box pm1">Good</div>
 			</div>
+
+
+
+			<div class="air-quality-box">
+				<ul class="pmbold">
+					<li>PM2.5 <span style="color: grey; margin: 0 10px;">|</span>
+						12
+					</li>
+				</ul>
+				<br>
+				<div class="air-quality-box pm2">Moderate</div>
+			</div>
+			<div class="air-quality-box">
+				<ul class="pmbold">
+					<li>PM10 <span style="color: grey; margin: 0 10px;">|</span>
+						28
+					</li>
+				</ul>
+				<br>
+				<div class="air-quality-box pm10">Poor</div>
+
+			</div>
+		</div>
+		
+		</div>
+
+		<div class="chart-bottom">
+			<div class="chart-box">
+				<!-- PM1.0 시간별 차트 -->
+			</div>
+			<div class="chart-box">
+				<!-- PM2.5 시간별 차트 -->
+			</div>
+			<div class="chart-box">
+				<!-- PM10 시간별 차트 -->
+			</div>
+			<div class="chart-box">
+				<!-- PM2.5 시간별 차트 -->
+			</div>
+			<div class="chart-box">
+				<!-- PM10 시간별 차트 -->
+			</div>
+		</div>
 		</div>
 	</main>
 
