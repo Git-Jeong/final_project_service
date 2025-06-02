@@ -73,7 +73,7 @@ new Vue({
 					dynamicAnimation: { speed: 1000 }
 				},
 				toolbar: { show: true },
-				zoom: { enabled: true }
+				zoom: { enabled: false }
 			},
 			dataLabels: { enabled: true },
 			title: {
