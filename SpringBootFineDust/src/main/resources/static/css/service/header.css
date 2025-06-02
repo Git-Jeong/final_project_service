@@ -1,0 +1,73 @@
+.serviceChart-header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+.serviceChart-header-right{
+	margin-left: auto;
+}
+
+.notification-button,
+.mypage-button,
+.logout-button{
+	border: none;
+	font-size: 20px;
+	background-color: transparent;
+}
+
+.logout-button:hover {
+	cursor: pointer;
+	color: #dc3545; /* 붉은색 */
+}
+
+.mypage-button:hover {
+	cursor: pointer;
+	color: #007bff; /* 파란색 */
+}
+
+.notification-button:hover {
+	cursor: pointer;
+	color: #ffc107; /* 노란색 */
+}
+
+.serviceChart-header h2 {
+	margin: 0;
+}
+
+.notification-dropdown {
+  position: absolute;
+  top: 70px;
+  right: 30px;
+  width: 350px;
+  max-height: 500px;
+  overflow-y: auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 999;
+  padding: 15px;
+}
+
+.notification-dropdown.hidden {
+  display: none;
+}
+
+.notification-card {
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.notification-card.error {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.notification-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}

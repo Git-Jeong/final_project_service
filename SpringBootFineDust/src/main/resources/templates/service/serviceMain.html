@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="./css/Common.css" />
 <link rel="stylesheet" href="./css/service/sideBar.css" />
 <link rel="stylesheet" href="./css/service/serviceMain.css">
+<link rel="stylesheet" href="./css/service/header.css">
 
 <!-- 부트스트랩 CSS -->
 <link
@@ -50,22 +51,20 @@
 	<div class="service-main-page">
 		<div id="sidebar-container"></div>
 		<main class="serviceChart-main-content">
-			<div class="serviceChart-header">
-				<div class="serviceChart-header-left">
-					<h2>실내공기질 측정시스템</h2>
-				</div>
-				<div class="serviceChart-header-right">
-					<button class="mypage-button" onclick="location.href='update'">
-					  <span>마이페이지</span>
-					  <i class="bi-person-circle mypage-icon"></i>
-					</button>
-					<button class="logout-button" onclick="goLogout()">
-						<span>로그아웃</span>
-						<i class="bi-box-arrow-right logout-icon"></i>
-					</button>
-				</div>
+			<div id="serviceChart-header">
+				<!-- js를 통해 여기에 헤더를 만들어 둠. -->
 			</div>
-
+			<div id="notificationDropdown" class="notification-dropdown hidden">
+			  <div class="notification-card error">
+			    <div class="notification-title"><i class="bi-exclamation-triangle-fill"></i> 교대역 센서 오류 - 3시간 전</div>
+			    <ul>
+			      <li>시간: 2024.04.13 15:20</li>
+			      <li>오류 내용: 미세먼지 값 수신 안됨</li>
+			      <li>상태: 점검 대기중</li>
+			    </ul>
+			  </div>
+			</div>
+			
 			<div class="serviceChart-headeroption">
 				<select class="serviceChart-select">
 					<th:block th:each="station : ${stationList}">
@@ -141,6 +140,7 @@
 					<!-- PM10 시간별 차트 -->
 				</div>
 			</div>
+		<script type="text/javascript" src="./js/header.js"></script>
 		</main>
 	</div>
 	<script>
@@ -172,7 +172,6 @@
 		    }
 		  }, 1000);
 		});
-
 	</script>
 </body>
 </html>

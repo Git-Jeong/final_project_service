@@ -18,40 +18,6 @@ body {
 	gap: 1rem;
 }
 
-.serviceChart-header {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	border-radius: 10px;
-	padding: 1rem;
-}
-
-.serviceChart-header-right{
-	margin-left: auto;
-}
-
-.mypage-button,
-.logout-button{
-	border: none;
-	font-size: 20px;
-	background-color: transparent;
-}
-
-.logout-button:hover {
-	cursor: pointer;
-	color: #dc3545; /* 붉은색 */
-}
-
-.mypage-button:hover {
-	cursor: pointer;
-	color: #007bff; /* 파란색 */
-}
-
-
-.serviceChart-header h2 {
-	margin: 0;
-}
-
 .serviceChart-headeroption {
 	flex: 1;
 	min-height: 0;
