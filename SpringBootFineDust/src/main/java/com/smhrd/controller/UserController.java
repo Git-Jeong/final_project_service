@@ -73,7 +73,7 @@ public class UserController {
             return "redirect:/service";
         }
         else {
-        	return "user/login";
+            return "redirect:/login";
         }
     }
 
@@ -91,6 +91,33 @@ public class UserController {
         return "user/update";
     }
 
+    @GetMapping("/resetpw")
+    public String resetpw(HttpServletRequest request) {
+        //if (token.isUserLoggedIn(request)) {
+        //    return "redirect:/main";
+        //}
+        return "user/resetpw";
+    }
+    
+    @PostMapping("/resetpw")
+    public String resetPassword(User vo) {
+    	if((vo != null) && (vo.getUsrPw() != null)) {
+    		String aesPw = AesUtils.encrypt(vo.getUsrPw());
+    		if(aesPw == null) {
+                return "redirect:/resetpw";
+    		}
+			vo.setUsrPw(aesPw);
+    	}
+		
+    	boolean result = service.resetPassword(vo);
+    	if (result == true) {
+            return "redirect:/login";
+    	}
+    	else {
+        	return null;
+    	}
+    }
+    
     @GetMapping("/logout")
     public String logout(HttpServletResponse response) {
         Cookie cookie = new Cookie(token_login, null);
@@ -99,4 +126,5 @@ public class UserController {
         response.addCookie(cookie);
         return "redirect:/main";
     }
+    
 }
