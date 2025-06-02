@@ -14,6 +14,12 @@ sidebar.appendChild(logo);
 const profile = document.createElement('div');
 profile.className = 'sidebar-profile';
 
+const img = document.createElement('img');
+img.src = "https://cdn-icons-png.flaticon.com/512/847/847969.png";
+img.alt = "profile icon";
+
+profile.appendChild(img);
+
 // 환영 메시지
 const welcome = document.createElement('div');
 welcome.className = 'sidebar-welcome';
