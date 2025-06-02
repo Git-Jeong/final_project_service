@@ -10,26 +10,36 @@
 }
 
 .sidebar-logo, .sidebar-welcome {
-      margin-bottom: 2rem;
+	margin-bottom: 2rem;
+	text-align: center;
 }
 
+.sidebar-profile img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover; /* 이미지 비율 유지하며 채우기 */
+  display: block;    /* inline 이미지 여백 제거 */
+}
+
+
 .sidebar-profile {
-      width: 80px;
-      height: 80px;
-      background-color: white;
-      border-radius: 50%;
-      margin: 1rem 0;
+	width: 80px;
+	height: 80px;
+	background-color: white;
+	border-radius: 50%;
+	margin: 1rem 0;
 }
 
 .sidebar-button {
-      width: 100%;
-      padding: 0.75rem;
-      margin: 0.25rem 0;
-      background-color: #2d5d8c;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+	width: 100%;
+	padding: 0.75rem;
+	margin: 0.25rem 0;
+	background-color: #2d5d8c;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
 }
 
 .sidebar-button:hover {
