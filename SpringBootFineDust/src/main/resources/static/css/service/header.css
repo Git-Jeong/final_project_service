@@ -42,8 +42,8 @@
   top: 70px;
   right: 30px;
   width: 350px;
-  max-height: 500px;
-  overflow-y: auto;
+  max-height: 1200px;
+  overflow: scrollx;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -59,7 +59,6 @@
   border: 2px solid #ccc;
   border-radius: 10px;
   padding: 10px;
-  margin-bottom: 10px;
 }
 
 .notification-card.error {
