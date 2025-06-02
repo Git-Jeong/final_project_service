@@ -10,307 +10,97 @@
 <script src="https://cdn.jsdelivr.net/npm/vue-apexcharts"></script>
 
 <!-- 차트 컴포넌트 스타일/스크립트 -->
-<link rel="stylesheet" href="/css/chartComponent.css" />
-
+<link rel="stylesheet" href="./css/service/sideBar.css" />
+<link rel="stylesheet" href="./css/service/serviceMain.css">
 <script>
-	window.Promise ||
-		document.write(
-			'<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"><\/script>'
-		)
-	window.Promise ||
-		document.write(
-			'<script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20171210/classList.min.js"><\/script>'
-		)
-	window.Promise ||
-		document.write(
-			'<script src="https://cdn.jsdelivr.net/npm/findindex_polyfill_mdn"><\/script>'
-		)
+	window.Promise
+			|| document
+					.write('<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"><\/script>')
+	window.Promise
+			|| document
+					.write('<script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20171210/classList.min.js"><\/script>')
+	window.Promise
+			|| document
+					.write('<script src="https://cdn.jsdelivr.net/npm/findindex_polyfill_mdn"><\/script>')
 </script>
-    
+
 <title>실내공기질 측정시스템</title>
 <link rel="stylesheet" href="/css/service/sideBar.css" />
-<style>
-* {
-	box-sizing: border-box;
-}
-
-html, body {
-	height: auto;
-	min-height: 100vh;
-	overflow-y: auto;
-	margin: 0;
-	font-family: 'Segoe UI', sans-serif;
-}
-
-body {
-	display: flex;
-	flex-direction: row;
-}
-
-.main-content {
-	flex: 1;
-	padding: 1rem;
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-}
-
-.header {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: center;
-	border-radius: 10px;
-	padding: 1rem;
-}
-
-.header h2 {
-	margin: 0;
-}
-
-.headeroption {
-	flex: 1;
-	min-height: 0;
-	border-radius: 10px;
-	display : flex;
-	align-items : center;
-	gap : 5rem;
-}
- 
-.headeroption select, .headeroption input[type="date"] {
-	margin: 0.25rem;
-	margin-right : 1rem;
-	
-	
-	border: 0.25px solid #ccc;
-	font-size: 1rem;	
-	border-radius : 10px;
-	padding: 1px 10px;
-	display: flex;
-}
-    .buttons {
-      display: flex;
-      border: 0.25px solid #ccc;
-      border-radius: 10px;
-      overflow: hidden;
-      width: fit-content;
-    }
-
-    .buttons button {
-      flex: 1;
-      padding: 1px 10px;
-      border: none;
-      background-color: white;
-      font-size: 0.7ren;
-      cursor: pointer;
-    }
-
-    .buttons button + button {
-      border-left: 1px solid #ccc;
-    }
-
-
-.charts {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-}
-
-.chart-top {
-	display: flex;
-	flex-direction: row;
-	gap: 1rem;
-	height: 100%; /* 필요 시 높이 지정 */
-}
-
-.chart-top-left {
-	flex: 3;
-	background-color: #f2f2f2;
-	border-radius: 10px;
-	padding: 1rem;
-	display: flex;
-}
-
-.chart-top-right {
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	gap: 0.5rem;
-}
-
-.air-quality-box {
-	flex: 1;
-	min-height: 0;
-	padding: 1rem;
-	border: 1px solid #333;
-	border-radius: 10px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-}
-
-.pmbold {
-	display: inline-flex; /* li들을 가로로 배치 */
-	list-style: none; /* 기본 불릿 제거 */
-	padding-right: 1rem;
-	padding-left: 0;
-	margin: 0;
-	align-items: center; /* 세로 정렬 중앙 */
-	gap: 0;
-	font-weight: bold;
-	font-size: 20px;
-}
-
-.pmbold li+li::before {
-	content: "|"; /* 사이에 넣을 기호 */
-	margin: 0.5rem; /* 기호 좌우 여백 */
-	color: #888; /* 기호 색상 */
-}
-
-.pm1 {
-	background-color: #3498db;
-	color: white;
-	font-size: 20px;
-	border: none;
-	width: 100%;
-	padding-top: 0;
-	padding-right: 4rem;
-	padding-left: 4rem;
-	padding-bottom: 0;
-}
-
-.pm2 {
-	background-color: #f1c40f;
-	color: white;
-	font-size: 20px;
-	border: none;
-	width: 100%;
-	padding-top: 0;
-	padding-right: 4rem;
-	padding-left: 4rem;
-	padding-bottom: 0;
-}
-
-.pm10 {
-	background-color: #e74c3c;
-	color: white;
-	font-size: 20px;
-	border: none;
-	width: 100%;
-	padding-top: 0;
-	padding-right: 4rem;
-	padding-left: 4rem;
-	padding-bottom: 0;
-}
-
-.chart-bottom {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1rem;
-}
-
-.chart-box {
-	flex: 1;
-	min-width: 200px;
-	background-color: #f9f9f9;
-	border-radius: 10px;
-	height: 200px;
-	padding: 1rem;
-}
-
-@media ( max-width : 768px) {
-	.chart-top {
-		flex-direction: column;
-	}
-	.chart-bottom {
-		flex-direction: column;
-	}
-	.sidebar {
-		display: none;
-	}
-}
-
-#app{
-	width : 100%;
-	
-	}
-</style>
 </head>
 <body>
-
 	<div id="sidebar-container"></div>
+
 	<script th:inline="javascript">
 		window.model = {
 			userName : '[[${userName}]]'
 		};
 	</script>
+
 	<script src="/js/sideBar.js"></script>
+
 	<main class="main-content">
 		<div class="header">
 			<h2>실내공기질 측정시스템</h2>
 		</div>
-		
+
 		<div class="headeroption">
 			<select style="border-radius: 5px;">
 				<option>서울역</option>
 			</select> <input type="date" value="2024-04-24">
-			<button style="border-radius: 5px; background-color: white;">예측 vs 실제</button>
+			<button style="border-radius: 5px; background-color: white;">예측
+				vs 실제</button>
 			<div class="buttons">
-			<button style="border-radius: 5px; background-color: white;">미세먼지</button>
-			<button style="border-radius: 5px; background-color: white;">유해가스</button>
+				<button style="border-radius: 5px; background-color: white;">미세먼지</button>
+				<button style="border-radius: 5px; background-color: white;">유해가스</button>
 			</div>
 		</div>
 
-<div class="chart-top">
-		<div class="chart-top-left">
-			<!-- 예측 vs 실제 차트 -->
-			<div id="app">
-				<div id="chart">
-					<apexchart type="line" height="350" ref="chart"
-						:options="chartOptions" :series="series"></apexchart>
+		<div class="chart-top">
+			<div class="chart-top-left">
+				<!-- 예측 vs 실제 차트 -->
+				<div id="app">
+					<div id="chart">
+						<apexchart type="line" height="350" ref="chart"
+							:options="chartOptions" :series="series"></apexchart>
+					</div>
+				</div>
+			</div>
+
+			<script src="/js/charts/chartMain.js"></script>
+
+			<div class="chart-top-right">
+				<div class="air-quality-box">
+					<ul class="pmbold">
+						<li>PM1.0 <span style="color: grey; margin: 0 10px;">|</span>
+							10
+						</li>
+					</ul>
+					<br>
+					<div class="air-quality-box pm1">Good</div>
+				</div>
+
+				<div class="air-quality-box">
+					<ul class="pmbold">
+						<li>PM2.5 <span style="color: grey; margin: 0 10px;">|</span>
+							12
+						</li>
+					</ul>
+					<br>
+					<div class="air-quality-box pm2">Moderate</div>
+				</div>
+
+				<div class="air-quality-box">
+					<ul class="pmbold">
+						<li>PM10 <span style="color: grey; margin: 0 10px;">|</span>
+							28
+						</li>
+					</ul>
+					<br>
+					<div class="air-quality-box pm10">Poor</div>
 				</div>
 			</div>
 		</div>
-		<script src="/js/charts/chartMain.js"></script>
-		
-		<div class="chart-top-right">
-			<div class="air-quality-box">
-				<ul class="pmbold">
-					<li>PM1.0 <span style="color: grey; margin: 0 10px;">|</span>
-						10
-					</li>
-				</ul>
-				<br>
-				<div class="air-quality-box pm1">Good</div>
-			</div>
-
-
-
-			<div class="air-quality-box">
-				<ul class="pmbold">
-					<li>PM2.5 <span style="color: grey; margin: 0 10px;">|</span>
-						12
-					</li>
-				</ul>
-				<br>
-				<div class="air-quality-box pm2">Moderate</div>
-			</div>
-			<div class="air-quality-box">
-				<ul class="pmbold">
-					<li>PM10 <span style="color: grey; margin: 0 10px;">|</span>
-						28
-					</li>
-				</ul>
-				<br>
-				<div class="air-quality-box pm10">Poor</div>
-
-			</div>
-		</div>
-		
-		</div>
+		<!-- 닫히지 않았던 chart-top 닫기 -->
 
 		<div class="chart-bottom">
 			<div class="chart-box">
@@ -329,8 +119,7 @@ body {
 				<!-- PM10 시간별 차트 -->
 			</div>
 		</div>
-		</div>
 	</main>
-
 </body>
+
 </html>
