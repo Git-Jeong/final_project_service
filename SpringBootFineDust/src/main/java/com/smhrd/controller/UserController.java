@@ -68,7 +68,7 @@ public class UserController {
             Cookie cookie = new Cookie(token_login, jwt);
             cookie.setHttpOnly(true);
             cookie.setPath("/");
-            cookie.setMaxAge(60 * 60 * 8); // 1시간
+            cookie.setMaxAge(60 * 60 * 8); 
             response.addCookie(cookie);
             return "redirect:/service";
         }

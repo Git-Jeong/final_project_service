@@ -49,6 +49,9 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   z-index: 999;
   padding: 15px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2px;
 }
 
 .notification-dropdown.hidden {
@@ -58,15 +61,40 @@
 .notification-card {
   border: 2px solid #ccc;
   border-radius: 10px;
-  padding: 10px;
 }
 
 .notification-card.error {
   border-color: #dc3545;
   color: #dc3545;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* 요소 간 여백 */
 }
 
 .notification-title {
   font-weight: bold;
-  margin-bottom: 5px;
+}
+
+.notification-title-box {
+  display: flex;
+}
+
+.notification-title-left-box{
+	padding-left : 14px;
+	margin-right: auto;
+	display: flex;
+	gap : 10px;
+}
+
+.notification-title-time{
+	padding-right : 10px;
+	margin-left: auto;
+}
+
+.notification-content-box{
+	margin-bottom: 0; /* 혹시 모를 기본 마진 제거 */
+  padding-bottom: 0;
 }
