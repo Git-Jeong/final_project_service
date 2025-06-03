@@ -6,13 +6,11 @@
 	padding: 1rem;
 }
 
-.serviceChart-header-right{
+.serviceChart-header-right {
 	margin-left: auto;
 }
 
-.notification-button,
-.mypage-button,
-.logout-button{
+.notification-button, .mypage-button, .logout-button {
 	border: none;
 	font-size: 20px;
 	background-color: transparent;
@@ -38,63 +36,95 @@
 }
 
 .notification-dropdown {
-  position: absolute;
-  top: 70px;
-  right: 30px;
-  width: 350px;
-  max-height: 1200px;
-  overflow: scrollx;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  z-index: 999;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  row-gap: 2px;
+	position: absolute;
+	top: 70px;
+	right: 30px;
+	width: 350px;
+	max-height: 1200px;
+	overflow: scrollx;
+	padding: 10px;
+	backdrop-filter: blur(10px);
+	background-color: rgba(255, 255, 255, 0.2);
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	border-radius: 10px;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+	z-index: 999;
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
 }
 
 .notification-dropdown.hidden {
-  display: none;
+	display: none;
+}
+
+.notificationDropdown_header {
+	display: flex;
+	justify-content: center;
+	align-items: center; /* 세로 가운데 정렬도 필요 시 */
+	position: relative;
+}
+
+.notificationDropdown_close {
+	position: absolute;
+	left: 0;
+}
+
+.notificationDropdown_close_btn{
+	border: none;
+	background-color: transparent;
+}
+
+.notificationDropdown_close_btn:hover{
+	color: #dc3545;
+}
+
+.notificationDropdown_header_txt{
+	align-items: center; /* 세로 가운데 정렬도 필요 시 */
 }
 
 .notification-card {
-  border: 2px solid #ccc;
-  border-radius: 10px;
+	border: 2px solid #ccc;
+	background-color : #ffffff;
+	border-radius: 10px;
+}
+.notification-card:hover {
+	background-color: #f3f3f3;
 }
 
 .notification-card.error {
-  border-color: #dc3545;
-  color: #dc3545;
-  padding: 10px;
-  border-radius: 10px;
-  border: 2px solid #ccc;
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* 요소 간 여백 */
+	border-color: #dc3545;
+	color: #dc3545;
+	padding: 10px;
+	border-radius: 10px;
+	border: 2px solid #ccc;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+	gap: 10px; /* 요소 간 여백 */
 }
 
 .notification-title {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 .notification-title-box {
-  display: flex;
-}
-
-.notification-title-left-box{
-	padding-left : 14px;
-	margin-right: auto;
 	display: flex;
-	gap : 10px;
 }
 
-.notification-title-time{
-	padding-right : 10px;
+.notification-title-left-box {
+	padding-left: 14px; margin-right : auto;
+	display: flex;
+	gap: 10px;
+	margin-right: auto;
+}
+
+.notification-title-time {
+	padding-right: 10px;
 	margin-left: auto;
 }
 
-.notification-content-box{
+.notification-content-box {
 	margin-bottom: 0; /* 혹시 모를 기본 마진 제거 */
-  padding-bottom: 0;
+	padding-bottom: 0;
 }
