@@ -38,7 +38,7 @@ public class JwtUtil {
 		        .claim(secretVal_2, vo.getUsrEmail())
 		        .claim(secretVal_3, UUID.randomUUID().toString())
 		        .setIssuedAt(new Date())
-		        .setExpiration(new Date(currentMillis + 60 * 60 * 1000))
+		        .setExpiration(new Date(currentMillis + 8 * 60 * 60 * 1000))
 		        .signWith(SignatureAlgorithm.HS256, secretKey.getBytes())
 		        .compact();
 	}

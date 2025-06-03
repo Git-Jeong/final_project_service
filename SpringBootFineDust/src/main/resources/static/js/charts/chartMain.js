@@ -2,7 +2,7 @@
 
 var lastDate = 0;
 var data = [], data2 = [];
-var TICKINTERVAL = 1000;
+var TICKINTERVAL = 100220;
 let XAXISRANGE = 59000;
 
 function getDayWiseTimeSeries(baseval, count, yrange) {
@@ -65,14 +65,14 @@ new Vue({
 		chartOptions: {
 			chart: {
 				id: 'realtime',
-				height: 350,
+				minHeight: "100px",
 				type: 'line',
 				animations: {
 					enabled: true,
 					easing: 'linear',
-					dynamicAnimation: { speed: 1000 }
+					dynamicAnimation: { speed: 1200 }
 				},
-				toolbar: { show: false },
+				toolbar: { show: true },
 				zoom: { enabled: false }
 			},
 			dataLabels: { enabled: false },
@@ -86,6 +86,11 @@ new Vue({
 				range: XAXISRANGE,
 				tickAmount: 1
 			},
+			stroke: {
+			    curve: 'smooth',
+			    width: 3,
+  				lineCap: 'round'
+			  },
 			yaxis: {
 				max: 110,
 				labels: {
@@ -95,7 +100,7 @@ new Vue({
 				}
 			}
 			,
-			legend: { show: false }
+			legend: { show: true }
 		}
 	},
 	mounted: function() {
