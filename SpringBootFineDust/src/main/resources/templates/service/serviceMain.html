@@ -22,6 +22,7 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
 	rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
 <script src="./js/logout.js"></script>
 <script>
@@ -55,7 +56,58 @@
 				<!-- js를 통해 여기에 헤더를 만들어 둠. -->
 			</div>
 			<div id="notificationDropdown" class="notification-dropdown hidden">
+				<div class="notificationDropdown_header">
+					<div class="notificationDropdown_close">
+						<button class="notificationDropdown_close_btn" onclick="notificationDropdown_close()">
+							<h4><i class="fas fa-times"></i></h4>
+						  
+						</button>
+					</div>
+					<div class="notificationDropdown_header_txt">
+						<h3>오류 알림</h3>
+					</div>
+				</div>
 			<!-- 여기서부터 -->
+			  <div class="notification-card error">
+			    <div class="notification-title-box">
+			    	<div class="notification-title-left-box">
+			    		<div class="notification-title-icon">
+				    		<i class="bi-exclamation-triangle-fill"></i>
+				    	</div>
+				    	<div class="notification-title-content">
+					    	 교대역 센서 오류
+				    	</div>
+			    	</div>
+			    	<div class="notification-title-time">
+				    	 3시간 전
+			    	</div>
+			    </div>
+			    <ul class="notification-content-box">
+			      <li class="notification-time">시간: 2024.04.13 15:20</li>
+			      <li class="notification-content">오류 내용: 미세먼지 값 수신 안됨</li>
+			      <li class="notification-state">상태: 점검 대기중</li>
+			    </ul>
+			  </div>
+			  <div class="notification-card error">
+			    <div class="notification-title-box">
+			    	<div class="notification-title-left-box">
+			    		<div class="notification-title-icon">
+				    		<i class="bi-exclamation-triangle-fill"></i>
+				    	</div>
+				    	<div class="notification-title-content">
+					    	 교대역 센서 오류
+				    	</div>
+			    	</div>
+			    	<div class="notification-title-time">
+				    	 3시간 전
+			    	</div>
+			    </div>
+			    <ul class="notification-content-box">
+			      <li class="notification-time">시간: 2024.04.13 15:20</li>
+			      <li class="notification-content">오류 내용: 미세먼지 값 수신 안됨</li>
+			      <li class="notification-state">상태: 점검 대기중</li>
+			    </ul>
+			  </div>
 			  <div class="notification-card error">
 			    <div class="notification-title-box">
 			    	<div class="notification-title-left-box">

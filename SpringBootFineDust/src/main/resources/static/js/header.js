@@ -3,6 +3,11 @@ function toggleNotificationDropdown() {
   dropdown.classList.toggle("hidden");
 }
 
+function notificationDropdown_close() {
+  const dropdown = document.getElementById("notificationDropdown");
+  dropdown.classList.add("hidden");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const headerHTML = `
     <div class="serviceChart-header">

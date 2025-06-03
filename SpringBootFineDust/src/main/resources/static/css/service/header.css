@@ -42,22 +42,45 @@
 	width: 350px;
 	max-height: 1200px;
 	overflow: scrollx;
-	background-color: #fff;
+	padding: 10px;
+	backdrop-filter: blur(10px);
+	background-color: rgba(255, 255, 255, 0.2);
+	border: 1px solid rgba(255, 255, 255, 0.3);
 	border-radius: 10px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 	z-index: 999;
-	padding: 15px;
 	display: flex;
 	flex-direction: column;
-	row-gap: 2px;
+	row-gap: 10px;
 }
 
 .notification-dropdown.hidden {
 	display: none;
 }
 
+.notificationDropdown_header {
+	display: flex;
+	justify-content: center;
+	align-items: center; /* 세로 가운데 정렬도 필요 시 */
+	position: relative;
+}
+
+.notificationDropdown_close {
+	position: absolute;
+	left: 0;
+}
+
+.notificationDropdown_close_btn{
+	border: none;
+	background-color: transparent;
+}
+
+.notificationDropdown_header_txt{
+	align-items: center; /* 세로 가운데 정렬도 필요 시 */
+}
 .notification-card {
 	border: 2px solid #ccc;
+	background-color : #ffffff;
 	border-radius: 10px;
 }
 
