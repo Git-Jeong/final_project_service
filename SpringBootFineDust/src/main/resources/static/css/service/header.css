@@ -75,13 +75,21 @@
 	background-color: transparent;
 }
 
+.notificationDropdown_close_btn:hover{
+	color: #dc3545;
+}
+
 .notificationDropdown_header_txt{
 	align-items: center; /* 세로 가운데 정렬도 필요 시 */
 }
+
 .notification-card {
 	border: 2px solid #ccc;
 	background-color : #ffffff;
 	border-radius: 10px;
+}
+.notification-card:hover {
+	background-color: #f3f3f3;
 }
 
 .notification-card.error {
