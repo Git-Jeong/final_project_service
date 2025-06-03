@@ -1,6 +1,7 @@
 package com.smhrd.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +12,9 @@ import com.smhrd.config.AESUtils;
 import com.smhrd.entity.User;
 import com.smhrd.service.UserService;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+
 @RestController
 public class UserRestController {
 
@@ -19,6 +23,9 @@ public class UserRestController {
 
     @Autowired
     private AESUtils AesUtils;
+    
+    @Value("${jwt.cookie.name}")
+    private String token_login;
     
 	@GetMapping("/idCheck")
 	public boolean idCheck(@RequestParam("usrEmail") String usrEmail) {
@@ -59,5 +66,14 @@ public class UserRestController {
             userName = service.findByEmailForNickEmail(vo);
     	}
         return userName;
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie(token_login, null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        return "success";
     }
 }
