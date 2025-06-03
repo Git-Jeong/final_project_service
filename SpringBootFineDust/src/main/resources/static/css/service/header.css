@@ -6,13 +6,11 @@
 	padding: 1rem;
 }
 
-.serviceChart-header-right{
+.serviceChart-header-right {
 	margin-left: auto;
 }
 
-.notification-button,
-.mypage-button,
-.logout-button{
+.notification-button, .mypage-button, .logout-button {
 	border: none;
 	font-size: 20px;
 	background-color: transparent;
@@ -38,63 +36,64 @@
 }
 
 .notification-dropdown {
-  position: absolute;
-  top: 70px;
-  right: 30px;
-  width: 350px;
-  max-height: 1200px;
-  overflow: scrollx;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  z-index: 999;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  row-gap: 2px;
+	position: absolute;
+	top: 70px;
+	right: 30px;
+	width: 350px;
+	max-height: 1200px;
+	overflow: scrollx;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	z-index: 999;
+	padding: 15px;
+	display: flex;
+	flex-direction: column;
+	row-gap: 2px;
 }
 
 .notification-dropdown.hidden {
-  display: none;
+	display: none;
 }
 
 .notification-card {
-  border: 2px solid #ccc;
-  border-radius: 10px;
+	border: 2px solid #ccc;
+	border-radius: 10px;
 }
 
 .notification-card.error {
-  border-color: #dc3545;
-  color: #dc3545;
-  padding: 10px;
-  border-radius: 10px;
-  border: 2px solid #ccc;
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* 요소 간 여백 */
+	border-color: #dc3545;
+	color: #dc3545;
+	padding: 10px;
+	border-radius: 10px;
+	border: 2px solid #ccc;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+	gap: 10px; /* 요소 간 여백 */
 }
 
 .notification-title {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 .notification-title-box {
-  display: flex;
-}
-
-.notification-title-left-box{
-	padding-left : 14px;
-	margin-right: auto;
 	display: flex;
-	gap : 10px;
 }
 
-.notification-title-time{
-	padding-right : 10px;
+.notification-title-left-box {
+	padding-left: 14px; margin-right : auto;
+	display: flex;
+	gap: 10px;
+	margin-right: auto;
+}
+
+.notification-title-time {
+	padding-right: 10px;
 	margin-left: auto;
 }
 
-.notification-content-box{
+.notification-content-box {
 	margin-bottom: 0; /* 혹시 모를 기본 마진 제거 */
-  padding-bottom: 0;
+	padding-bottom: 0;
 }
