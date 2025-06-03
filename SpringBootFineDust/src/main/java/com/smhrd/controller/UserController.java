@@ -68,7 +68,7 @@ public class UserController {
             Cookie cookie = new Cookie(token_login, jwt);
             cookie.setHttpOnly(true);
             cookie.setPath("/");
-            cookie.setMaxAge(60 * 60 * 8); // 1시간
+            cookie.setMaxAge(60 * 60 * 8); 
             response.addCookie(cookie);
             return "redirect:/service";
         }
@@ -116,15 +116,6 @@ public class UserController {
     	else {
         	return null;
     	}
-    }
-    
-    @GetMapping("/logout")
-    public String logout(HttpServletResponse response) {
-        Cookie cookie = new Cookie(token_login, null);
-        cookie.setMaxAge(0);
-        cookie.setPath("/");
-        response.addCookie(cookie);
-        return "redirect:/main";
     }
     
 }

@@ -4,8 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import com.smhrd.config.TokenCheck;
+import com.smhrd.entity.Station;
+import com.smhrd.service.StationService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -14,6 +15,9 @@ public class ServiceController {
 
     @Autowired
     private TokenCheck token;
+    
+    @Autowired
+    private StationService stService;
     
 	@GetMapping("/service")
 	public String mainFisrtPage(HttpServletRequest request, Model model) {
@@ -24,7 +28,12 @@ public class ServiceController {
         String getName = token.extractUserFromJwt(request);
         String userName = getName.substring(0, getName.indexOf('@'));
 
+        Station stationList = stService.getStInfo(getName);
+       
+        System.out.println("stationList = " +stationList);
+        
         model.addAttribute("userName", userName);
+        model.addAttribute("stationList", stationList);
 		return "service/serviceMain";
 	}
 
