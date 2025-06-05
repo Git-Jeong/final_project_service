@@ -5,10 +5,15 @@
   background-repeat: no-repeat;
   background-position: center;
   width: 100vw;
+  display: flex;
+  justify-content: center;   /* 수평 중앙 정렬 */
+  align-items: center;       /* 수직 중앙 정렬 */
+  min-height: 100vh;         /* 화면 높이 전체 사용 */
+  margin: 0;
   height: 100vh; 
 }
  
-.signup-right-container {
+.signup-right-container {	
   max-width: 600px;
   width: 100%;
   background-color: #fdf6ed;
