@@ -140,7 +140,7 @@
 							th:if="${!#strings.isEmpty(station.stName_3)}"></option>
 					</th:block>
 				</select> <input type="datetime-local" class="serviceChart-date" />
-				<button class="serviceChart-button" th:onclick="'getStationDust(' + ${stationList.stId} + ')'">예측 vs 실제</button>
+				<button class="serviceChart-button">예측 vs 실제</button>
 				<div class="serviceChart-buttons">
 					<button class="serviceChart-button">미세먼지</button>
 					<button class="serviceChart-button">유해가스</button>
@@ -159,7 +159,8 @@
 				</div>
 
 				<script src="/js/charts/chartMain.js"></script>
-
+<!--  span tag에 실제 값 기입하기 언젠가는  -->
+<!--  신호등   -->
 				<div class="serviceChart-chart-top-right">
 					<div class="serviceChart-air-quality-box">
 						<ul class="serviceChart-pmbold">
@@ -190,12 +191,33 @@
 			<div class="serviceChart-chart-bottom">
 				<div class="serviceChart-chart-box">
 					<!-- PM1.0 시간별 차트 -->
+					<div id="app2" class="serviceChart-box">
+						<div id="chart2" class="serviceChart_apexchart">
+							<apexchart type="line" ref="chart" :options="chartOptions"
+								:series="series" height="100%"> </apexchart>
+						</div>
+					</div>
+					<script src="/js/charts/chartpm1.js"></script>
 				</div>
 				<div class="serviceChart-chart-box">
 					<!-- PM2.5 시간별 차트 -->
+					<div id="app3" class="serviceChart-box">
+						<div id="chart3" class="serviceChart_apexchart">
+							<apexchart type="line" ref="chart" :options="chartOptions"
+								:series="series" height="100%"> </apexchart>
+						</div>
+					</div>
+					<script src="/js/charts/chartpm2_5.js"></script>
 				</div>
 				<div class="serviceChart-chart-box">
 					<!-- PM10 시간별 차트 -->
+					<div id="app4" class="serviceChart-box">
+						<div id="chart4" class="serviceChart_apexchart">
+							<apexchart type="line" ref="chart" :options="chartOptions"
+								:series="series" height="100%"> </apexchart>
+						</div>
+					</div>
+					<script src="/js/charts/chartpm10.js"></script>
 				</div>
 			</div>
 			<script type="text/javascript" src="./js/header.js"></script>
@@ -231,22 +253,65 @@
 		  }, 1000);
 		});
 	
-	const getStationDust = (stId) =>{
-		//alert(stId);
-	    $.ajax({
-	        url : "getStationDust",
-	        type : "get",
-	        data : { "stId" : stId }, 
-	        success : function(data) {
-	            console.log("불러온 데이터?? :", data);
-	            // 받은 데이터 활용 코드 작성
-	        },
-	        error : function(err) {
-	            console.error("데이터 불러오기 실패:", err);
-	        }
-	    });
-	}
+	document.addEventListener('DOMContentLoaded', () => {
+		  const pmBoxes = document.querySelectorAll('.pm-box');
 
+		  pmBoxes.forEach(box => {
+		    const type = box.getAttribute('data-type'); // pm1 / pm2 / pm10
+		    const value = parseInt(box.querySelector('.pm-value').textContent);
+		    const statusEl = box.querySelector('.pm-status');
+
+		    let className = '';
+		    let statusText = '';
+
+		    // 공통: 좋음, 보통, 나쁨 기준 
+		    if (type === 'pm1') {
+		      if (value <= 15) {
+		        className = 'serviceChart-good';
+		        statusText = '좋음';
+		      } else if (value <= 35) {
+		        className = 'serviceChart-moderate';
+		        statusText = '보통';
+		      } else {
+		        className = 'serviceChart-bad';
+		        statusText = '나쁨';
+		      }
+		    }
+
+		    if (type === 'pm2') {
+		      if (value <= 15) {
+		        className = 'serviceChart-good';
+		        statusText = '좋음';
+		      } else if (value <= 35) {
+		        className = 'serviceChart-moderate';
+		        statusText = '보통';
+		      } else {
+		        className = 'serviceChart-bad';
+		        statusText = '나쁨';
+		      }
+		    }
+
+		    if (type === 'pm10') {
+		      if (value <= 30) {
+		        className = 'serviceChart-good';
+		        statusText = '좋음';
+		      } else if (value <= 50) {
+		        className = 'serviceChart-moderate';
+		        statusText = '보통';
+		      } else {
+		        className = 'serviceChart-bad';
+		        statusText = '나쁨';
+		      }
+		    }
+
+		    // 클래스 적용
+		    box.classList.remove('serviceChart-good', 'serviceChart-moderate', 'serviceChart-bad');
+		    box.classList.add(className);
+
+		    // 상태 텍스트 적용
+		    statusEl.textContent = ` (${statusText})`;
+		  });
+		});
 	</script>
 </body>
 </html>

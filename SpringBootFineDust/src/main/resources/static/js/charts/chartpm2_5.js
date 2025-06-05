@@ -1,18 +1,16 @@
-/* 
-이거 복사붙여넣기 해라
-*/
+
 
 function ChartModule() {
     let lastDate = 0;
-    let data = [];
+    let data2 = [];
     const TICKINTERVAL = 100220;
     const XAXISRANGE = 59000;
 
-    function getDayWiseTimeSeries(baseval, count, yrange) {
+    function getDay2WiseTimeSeries(baseval, count, yrange) {
         for (let i = 0; i < count; i++) {
             let x = baseval;
             let y = (yrange.max - yrange.min) / 2 * Math.cos((i / 30) * Math.PI) + (yrange.max - yrange.min) / 2 + yrange.min;
-            data.push({ x, y });
+            data2.push({ x, y });
             lastDate = baseval;
             baseval += TICKINTERVAL;
         }
@@ -26,26 +24,26 @@ function ChartModule() {
 	
 
 	
-		data.push({
+		data2.push({
 			x: newDate,
-			y: (yrange.max - yrange.min) / 2 * Math.cos(((Date_ - newDate) / 30000) * Math.PI) + (yrange.max - yrange.min) / 2 + yrange.min
+			y: (yrange.max - yrange.min) / 2 * Math.sin(((Date_ - newDate + 30000) / 30000) * Math.PI) + (yrange.max - yrange.min) / 2 + yrange.min
 		});
 
 	}
 	function resetData() {
-		data = data.slice(data.length - 60);
+		data2 = data2.slice(data2.length - 60);
 		
 	}
 	
-	getDayWiseTimeSeries(new Date('06 Dec 2019 GMT').getTime(), 60, { min: 10, max: 90 });
+	getDay2WiseTimeSeries(new Date('06 Dec 2019 GMT').getTime(), 60, { min: 10, max: 90 });
 	
 	
 	new Vue({
-		el: '#app2',
+		el: '#app3',
 		components: { apexchart: VueApexCharts },
 		data: {
 			series: [
-				{ name: 'Cosine1', data: data.slice() }
+				{ name: 'Cosine1', data: data2.slice() }
 				
 			],
 			chartOptions: {
@@ -63,7 +61,7 @@ function ChartModule() {
 				},
 				dataLabels: { enabled: false },
 				title: {
-					text: 'PM1',
+					text: 'PM2',
 					align: 'left'
 				},
 				markers: { size: 0 },
@@ -94,21 +92,22 @@ function ChartModule() {
 			setInterval(() => {
 				getNewSeries(lastDate, { min: 10, max: 90 });
 				me.$refs.chart.updateSeries([
-					{ name: 'Cosine1', data: data }
+					{ name: 'Sine', data: data2 }
 					
 				]);
-			}, 10000);
+			}, 1000);
 	
 			setInterval(() => {
 				resetData();
 				me.$refs.chart.updateSeries([
-					{ name: 'Cosine1', data: data }
+					{ name: 'Sine', data: data2 }
 					
 				], false, true);
-			}, 600000);
+			}, 60000);
 		}
 	});
 } 
 
 ChartModule();
 
+ 
