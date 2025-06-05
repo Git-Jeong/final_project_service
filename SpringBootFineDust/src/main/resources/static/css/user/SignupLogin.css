@@ -10,7 +10,7 @@
   align-items: center;       /* 수직 중앙 정렬 */
   min-height: 100vh;         /* 화면 높이 전체 사용 */
   margin: 0;
-  height: 100vh; 
+  min-height: 100vh; 
 }
  
 .signup-login-center-container {	
@@ -21,8 +21,8 @@
   max-height : 100%;
   background-color: #fdf6ed;
   padding: 50px 40px;
-  border-radius: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  border : 3px #CED4DA solid; 
   text-align: center;
   font-size: 16px;
   line-height: 1.5;
@@ -34,6 +34,7 @@
   font-size: 28px; /* 제목 크기도 약간 키움 */
   font-weight: bold;
   margin-bottom: 30px;
+  color: #2C3E50;
 }
 
 .form-group {
