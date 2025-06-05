@@ -13,9 +13,12 @@
   height: 100vh; 
 }
  
-.signup-right-container {	
-  max-width: 600px;
+.signup-center-container {	
+  min-width: 600px;
   width: 100%;
+  max-width : 1300px;
+  min-height : 600px;
+  max-height : 100%;
   background-color: #fdf6ed;
   padding: 50px 40px;
   border-radius: 20px;
