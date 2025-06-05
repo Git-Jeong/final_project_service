@@ -36,10 +36,9 @@
 								<div class="d-flex gap-3">
 									<input placeholder="이메일을 입력하세요" type="text" id="usrEmail"
 										name="usrEmail" required maxlength="30"
-										pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
 										title="영어, 숫자, 특수문자(@, ., _, %, +, -)만 가능하며, 올바른 이메일 형식이어야 합니다."
 										class="form-control form-control-lg signup-form-control" />
-									<button onclick="idCheck()" type="button"
+									<button id="idCheckTest" onclick="idCheck()" type="button"
 										class="btn signup-login-btn-primary" style="white-space: nowrap;">중복체크</button>
 								</div>
 							</div>
@@ -205,6 +204,8 @@
 					} else {
 						alert("해당 ID는 사용 가능한 ID입니다.");
 						idCheckPassed = true;
+						document.getElementById("idCheckTest").disabled = true;
+						document.getElementById("usrEmail").readOnly = true;
 						document.getElementById("usrNick").readOnly = false;
 						document.getElementById("usrPw").readOnly = false;
 						document.getElementById("usrPwCheck").readOnly = false;
