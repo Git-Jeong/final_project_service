@@ -4,12 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <!-- ApexCharts 및 Vue -->
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue-apexcharts"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- 차트 컴포넌트 스타일/스크립트 -->
 <link rel="stylesheet" href="./css/Common.css" />
@@ -140,7 +139,11 @@
 							th:if="${!#strings.isEmpty(station.stName_3)}"></option>
 					</th:block>
 				</select> <input type="datetime-local" class="serviceChart-date" />
-				<button class="serviceChart-button">예측 vs 실제</button>
+				<button class="serviceChart-button"
+				        th:onclick="'getStationDust(' + ${stationList.stId} + ')'">
+				    예측 vs 실제
+				</button>
+
 				<div class="serviceChart-buttons">
 					<button class="serviceChart-button">미세먼지</button>
 					<button class="serviceChart-button">유해가스</button>
@@ -159,32 +162,34 @@
 				</div>
 
 				<script src="/js/charts/chartMain.js"></script>
-<!--  span tag에 실제 값 기입하기 언젠가는  -->
-<!--  신호등   -->
+				<!--  span tag에 실제 값 기입하기 언젠가는,,  -->
+				<!--  신호등   -->
 				<div class="serviceChart-chart-top-right">
+
 					<div class="serviceChart-air-quality-box">
 						<ul class="serviceChart-pmbold">
-							<li>PM1.0 <span class="serviceChart-divider">|</span> 10
-							</li>
+							<li>PM1.0 <span class="serviceChart-divider">|</span> <span
+								class="pm-value">10</span></li>
 						</ul>
-						<div class="serviceChart-quality serviceChart-pm1">Good</div>
+						<div class="serviceChart-quality" data-type="pm1"></div>
 					</div>
 
 					<div class="serviceChart-air-quality-box">
 						<ul class="serviceChart-pmbold">
-							<li>PM2.5 <span class="serviceChart-divider">|</span> 12
-							</li>
+							<li>PM2.5 <span class="serviceChart-divider">|</span> <span
+								class="pm-value">12</span></li>
 						</ul>
-						<div class="serviceChart-quality serviceChart-pm2">Moderate</div>
+						<div class="serviceChart-quality" data-type="pm2"></div>
 					</div>
 
 					<div class="serviceChart-air-quality-box">
 						<ul class="serviceChart-pmbold">
-							<li>PM10 <span class="serviceChart-divider">|</span> 28
-							</li>
+							<li>PM10 <span class="serviceChart-divider">|</span> <span
+								class="pm-value">28</span></li>
 						</ul>
-						<div class="serviceChart-quality serviceChart-pm10">Poor</div>
+						<div class="serviceChart-quality" data-type="pm10"></div>
 					</div>
+
 				</div>
 			</div>
 
@@ -253,6 +258,7 @@
 		  }, 1000);
 		});
 	
+	
 	document.addEventListener('DOMContentLoaded', () => {
 		  const pmBoxes = document.querySelectorAll('.pm-box');
 
@@ -264,12 +270,12 @@
 		    let className = '';
 		    let statusText = '';
 
-		    // 공통: 좋음, 보통, 나쁨 기준 
+		     
 		    if (type === 'pm1') {
-		      if (value <= 15) {
+		      if (value <= 30) {
 		        className = 'serviceChart-good';
 		        statusText = '좋음';
-		      } else if (value <= 35) {
+		      } else if (value <= 60) {
 		        className = 'serviceChart-moderate';
 		        statusText = '보통';
 		      } else {
@@ -279,10 +285,10 @@
 		    }
 
 		    if (type === 'pm2') {
-		      if (value <= 15) {
+		      if (value <= 30) {
 		        className = 'serviceChart-good';
 		        statusText = '좋음';
-		      } else if (value <= 35) {
+		      } else if (value <= 60) {
 		        className = 'serviceChart-moderate';
 		        statusText = '보통';
 		      } else {
@@ -295,7 +301,7 @@
 		      if (value <= 30) {
 		        className = 'serviceChart-good';
 		        statusText = '좋음';
-		      } else if (value <= 50) {
+		      } else if (value <= 60) {
 		        className = 'serviceChart-moderate';
 		        statusText = '보통';
 		      } else {
@@ -312,6 +318,24 @@
 		    statusEl.textContent = ` (${statusText})`;
 		  });
 		});
+
+		// 데이터 불러오는 함수
+	const getStationDust = (stId) =>{
+		alert(stId);
+	    $.ajax({
+	        url : "getStationDust",
+	        type : "get",
+	        data : { "stId" : stId }, 
+	        success : function(data) {
+	            console.log("불러온 데이터?? :", data);
+	            // 받은 데이터 활용 코드 작성
+	        },
+	        error : function(err) {
+	            console.error("데이터 불러오기 실패:", err);
+	        }
+	    });
+	}
+	
 	</script>
 </body>
 </html>

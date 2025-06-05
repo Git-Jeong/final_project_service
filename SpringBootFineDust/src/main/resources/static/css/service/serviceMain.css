@@ -119,41 +119,27 @@ body {
 	margin: 0.serviceChart-5rem; /* 기호 좌우 여백 */
 	color: #888; /* 기호 색상 */
 }
-
+/* ===== 상태 표시 영역 ===== */
+.serviceChart-quality {
+  margin-top: 0.5rem;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+}
 .serviceChart-good {
-	background-color: #3498db;
-	color: white;
-	font-size: 20px;
-	border: none;
-	width: 100%;
-	padding-top: 0;
-	padding-right: 4rem;
-	padding-left: 4rem;
-	padding-bottom: 0;
+  background-color: #3498db; /* 파랑: 좋음 */
+  color: white;
 }
 
 .serviceChart-moderate {
-	background-color: #f1c40f;
-	color: white;
-	font-size: 20px;
-	border: none;
-	width: 100%;
-	padding-top: 0;
-	padding-right: 4rem;
-	padding-left: 4rem;
-	padding-bottom: 0;
+  background-color: #f1c40f; /* 노랑: 보통 */
+  color: white;
 }
 
 .serviceChart-bad {
-	background-color: #e74c3c;
-	color: white;
-	font-size: 20px;
-	border: none;
-	width: 100%;
-	padding-top: 0;
-	padding-right: 4rem;
-	padding-left: 4rem;
-	padding-bottom: 0;
+  background-color: #e74c3c; /* 빨강: 나쁨 */
+  color: white;
 }
 /* pm1,2,10 -> good, moderate, bad 로 바꿈  */
 
