@@ -96,6 +96,9 @@
 ## Use Case Diagram
 ![UCD](Document/IMG/UCD.png)
 
+## Flow Chart
+![UCD](Document/IMG/flowchart.png)
+
 ## System Architecture
 ![시스템 아키텍처 UCD](Document/IMG/System_Architecture.png)
 ---
