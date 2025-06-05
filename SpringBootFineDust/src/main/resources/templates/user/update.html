@@ -147,12 +147,12 @@
 	const spinner = document.getElementById('loading-spinner');
 
 	const getAllDate = () => {
-	  const usrEmail = '[[${userName}]]';
+	  const userEmail = '[[${userEmail}]]';
 	  spinner.classList.add('show');
 
 	  Promise.all([
-	    getUserInfo(usrEmail),
-	    getStationInfo(usrEmail)
+	    getUserInfo(userEmail),
+	    getStationInfo(userEmail)
 	  ]).finally(() => {
 		    spinner.classList.remove('show');
 		    document.getElementsByClassName('update-buttons')[0].style.visibility = 'visible';

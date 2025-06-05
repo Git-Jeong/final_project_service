@@ -82,8 +82,8 @@ public class UserController {
         if (!token.isUserLoggedIn(request)) {
             return "redirect:/main";
         }
-        String userName = token.extractUserFromJwt(request);
-        model.addAttribute("userName", userName);
+        String userEmail = token.extractUserFromJwt(request);
+        model.addAttribute("userEmail", userEmail);
         return "user/update";
     }
 
