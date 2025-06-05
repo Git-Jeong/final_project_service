@@ -25,6 +25,6 @@ public class Station {
     @Column(nullable = true, length = 60)
     private String stName_3;
 
-    @Column(name = "usrEmail", nullable = false, length = 100)
+    @Column(nullable = false, length = 100)
     private String usrEmail;
 }
