@@ -11,66 +11,71 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link rel="stylesheet" href="./css/user/SignupLogin.css" />
-<link rel="stylesheet" href="./css/common.css" />
+<link rel="stylesheet" href="./css/Common.css" />
 </head>
 
 <body>
-	<div class="signup-page-container">
-
-		<!-- 좌측 이미지 영역 -->
-		<div class="col-md-6">
-			<img src="img/subway.png" alt="subway.png"
-				class="signup-left-image" />
-		</div>
+	<div class="signup-login-page-container">
 
 		<!-- 우측 로그인 폼 영역 -->
-		<div class="col-md-6">
-			<form id="login-form" method="post" action="login">
-				<div class="card-body p-md-5 text-black">
-					<div class="signup-right-container">
-						<div class="signup-head-title">
-							<h3 class="signup-h3 mb-5">로그인</h3>
-						</div>
-						<div class="signup-middle-content">
-							<div class="mb-4">
-								<div class="signup-form-label mb-2 d-flex align-items-center">
-									<label for="usrEmail" class="me-1 mb-0">이메일</label> <span
-										style="color: #FF0858;">*</span>
-								</div>
-								<input placeholder="이메일을 입력하세요" type="text" id="usrEmail"
-									name="usrEmail" required="required" maxlength="30"
-									pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
-									title="영어, 숫자, 특수문자(@, ., _, %, +, -)만 가능하며, 올바른 이메일 형식이어야 합니다."
-									class="form-control form-control-lg signup-form-control" />
-							</div>
+		<form id="login-form" method="post" action="login">
+			<div class="card-body p-md-5 text-black">
+				<div class="signup-login-center-container">
+					<div class="signup-login-head-title">
+						<h3 class="signup-login-h3 mb-5">로그인</h3>
+					</div>
+					<div class="signup-login-middle-content">
 
-							<div class="mb-4">
-								<div class="signup-form-label mb-2">
-									<label for="usrPw">비밀번호</label> <span style="color: #FF0858;">*</span>
-								</div>
-								<input placeholder="비밀번호를 입력해주세요" type="password" id="usrPw"
-									name="usrPw" required="required" maxlength="20"
-									class="form-control form-control-lg signup-form-control" />
-							</div>
+						<!-- 입력폼처럼 보이게 하는 빈 영역 -->
+						<div class="bg-transparent border-0" style="height: 40px;"></div>
 
-							<div align="center">
-								<button type="submit" class="btn signup-next-btn btn-lg">로그인</button>
+						<div class="mb-4">
+							<div
+								class="signup-login-form-label mb-2 d-flex align-items-center">
+								<label for="usrEmail" class="me-1 mb-0">이메일</label> <span
+									style="color: #FF0858;">*</span>
 							</div>
+							<input placeholder="이메일을 입력하세요" type="text" id="usrEmail"
+								name="usrEmail" required="required" maxlength="30"
+								title="영어, 숫자, 특수문자(@, ., _, %, +, -)만 가능하며, 올바른 이메일 형식이어야 합니다."
+								class="form-control form-control-lg signup-form-control" />
 						</div>
-						
-						<div class="signup-bottom-content" style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; row-gap: 1px; align-items: center; text-align: right; width: fit-content; margin: 0 auto;">
+
+						<div class="mb-4">
+							<div class="signup-login-form-label mb-2">
+								<label for="usrPw">비밀번호</label> <span style="color: #FF0858;">*</span>
+							</div>
+							<input placeholder="비밀번호를 입력해주세요" type="password" id="usrPw"
+								name="usrPw" required="required" maxlength="20"
+								class="form-control form-control-lg signup-form-control" />
+						</div>
+
+						<!-- 입력폼처럼 보이게 하는 빈 영역 -->
+						<div class="bg-transparent border-0" style="height: 10px;"></div>
+					</div>
+
+					<div class="signup-login-bottom-content">
+						<div align="center">
+							<button type="submit" class="btn signup-login-next-btn btn-lg">로그인</button>
+						</div>
+						<!-- 입력폼처럼 보이게 하는 빈 영역 -->
+						<div class="bg-transparent border-0" style="height: 30px;"></div>
+						<div
+							style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; row-gap: 1px; align-items: center; text-align: right; width: fit-content; margin: 0 auto;">
 							<div>아직 계정이 없나요?</div>
-							<div style="text-align: left;"><a style="font-weight: 600" href="signup">회원가입</a></div>
+							<div style="text-align: left;">
+								<a style="font-weight: 600" href="signup">회원가입</a>
+							</div>
 							<div>비밀번호 잊으셨나요?</div>
-							<div style="text-align: left;"><a style="font-weight: 600" href="resetpw">비밀번호 찾기</a></div>
+							<div style="text-align: left;">
+								<a style="font-weight: 600" href="resetpw">비밀번호 찾기</a>
+							</div>
 						</div>
-							<br>
+
 					</div>
 				</div>
-			</form>
-		</div>
-		<!-- col-md-6 -->
-
+			</div>
+		</form>
 	</div>
 	<!-- signup-page-container -->
 </body>

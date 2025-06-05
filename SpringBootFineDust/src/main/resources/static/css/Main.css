@@ -1,6 +1,6 @@
+
 .main-wrapper {
 	width: 100vw;
-	display: fix;
 	justify-content: center;
 	align-items: center;
 	transform-origin: top left;
@@ -181,9 +181,24 @@
   text-align: center;
 }
 
-
 @media (max-width: 768px) {
+	.main-top-banner {
+		padding: 40px 20px;
+		text-align: center;
+	}
+
+	.main-top-banner h2,
+	.main-top-banner h1,
+	.main-top-banner p {
+		word-break: keep-all; /* 줄 단위 깨짐 방지 */
+	}
+
 	.main-info-card {
 		width: 90%;
+	}
+	
+	.main-start-button {
+		width: 80%;
+		max-width: 300px;
 	}
 }
