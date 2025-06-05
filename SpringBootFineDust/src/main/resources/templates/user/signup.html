@@ -16,9 +16,9 @@
 
 <body>
 	<div class="signup-page-container">
-	
+
 		<!-- 우측 입력 폼 영역 -->
-		<div >
+		<div>
 			<form id="step1-form" method="post">
 				<!-- Step 1 -->
 				<div id="signup1" style="display: block"
@@ -45,10 +45,10 @@
 							</div>
 
 
-							<div class="form-outline mb-4">
-								<label class="signup-form-label mb-2" for="nick">닉네임</label><span
-									style="color: #FF0858;">*</span> <input
-									placeholder="닉네임을 입력해주세요" type="text" id="usrNick"
+							<div class="mb-4">
+								<label class="signup-form-label mb-2" for="nick"> 닉네임 <span
+									style="color: #FF0858;">*</span>
+								</label><input placeholder="닉네임을 입력해주세요" type="text" id="usrNick"
 									name="usrNick" maxlength="30" required="required"
 									class="form-control form-control-lg signup-form-control" />
 							</div>
@@ -259,10 +259,10 @@
 		}
 
 		function handleSubmit(event) {
-			if(!confirm('회원가입을 진행하시겠습니까?? ')){
+			if (!confirm('회원가입을 진행하시겠습니까?? ')) {
 				return;
 			}
-			
+
 			event.preventDefault();
 
 			const stName_1 = $('#stName_1').val();
