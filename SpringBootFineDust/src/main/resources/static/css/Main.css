@@ -7,8 +7,16 @@
 	overflow: hidden;
 }
 
-.main-top-banner {
+.main-top-container{ 
+	display: flex; /* Flex 컨테이너 지정 */
+	justify-content: center; /* 내부 요소 가운데 정렬 */
 	background: rgba(217, 217, 217, 0.5);
+}
+
+.main-top-banner {
+	min-width : 500px;
+	width: 80vw;
+	max-width : 2080px;
 	padding: 80px 200px;
 }
 
@@ -50,7 +58,7 @@
 	justify-content: center;
 	flex-wrap: wrap;
 	gap: 50px;
-	min-height: 100vh;
+	min-height: 1100px;
 }
 
 .section-title{
