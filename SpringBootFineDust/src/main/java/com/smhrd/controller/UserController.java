@@ -83,11 +83,7 @@ public class UserController {
             return "redirect:/main";
         }
         String userName = token.extractUserFromJwt(request);
-        User m = new User();
-        m.setUsrEmail(userName);
-        
-        User vo = service.getUserInfo(m);
-        model.addAttribute("vo", vo);
+        model.addAttribute("userName", userName);
         return "user/update";
     }
 

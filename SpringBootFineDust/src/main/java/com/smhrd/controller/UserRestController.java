@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smhrd.config.AESUtils;
+import com.smhrd.entity.Station;
 import com.smhrd.entity.User;
 import com.smhrd.service.UserService;
 
@@ -44,6 +45,14 @@ public class UserRestController {
     	}
         service.join(vo);
         return "success";
+    }
+    
+    @GetMapping("/getUserInfo")
+    public User getStationInfo(@RequestParam String usrEmail) {
+    	User m = new User();
+        m.setUsrEmail(usrEmail);
+        User vo = service.getUserInfo(m);
+    	return vo;
     }
     
     @PostMapping("/updateUserInfo")
