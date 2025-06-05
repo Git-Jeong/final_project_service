@@ -29,8 +29,6 @@ public class ServiceController {
         String userName = getName.substring(0, getName.indexOf('@'));
 
         Station stationList = stService.getStInfo(getName);
-       
-        System.out.println("stationList = " +stationList);
         
         model.addAttribute("userName", userName);
         model.addAttribute("stationList", stationList);

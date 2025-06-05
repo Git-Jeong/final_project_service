@@ -7,7 +7,9 @@
 	padding: 1rem;
 	width: 20%;
 	min-width: 200px;
-	height: 100vh;
+	min-height: 100vh;
+	height: 130vh;
+	overflow: hidden;
 }
 
 .sidebar-logo, .sidebar-welcome {
