@@ -98,8 +98,7 @@
 ---
 
 ## Entity Relationship Diagram
-![ERD_1](Document/IMG/ERD_1.png)
-![ERD_2](Document/IMG/ERD_2.png)
+![ERD_1](Document/IMG/ERD.png)
 
 ## Use Case Diagram
 ![UCD](Document/IMG/UCD.png)
