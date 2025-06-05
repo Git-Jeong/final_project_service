@@ -12,7 +12,8 @@ public class Sensor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer snsrId;
+    @Column(name = "snsrId")
+    private int snsrId;
 
     @Column(nullable = false)
     private LocalDateTime dtime;
@@ -26,20 +27,24 @@ public class Sensor {
     private BigDecimal temp;
 
     private BigDecimal humidity;
-
+    
     private BigDecimal atmosphericPress;
 
+    @Column(name = "pm1")
     private Integer pm1;
+    
+    @Column(name = "pm25")
+    private Integer pm25;
 
-    private Integer pm2_5;
-
+    @Column(name = "pm10")
     private Integer pm10;
 
+    @Column(name = "coden")
     private BigDecimal coden;
 
+    @Column(name = "co2den")
     private BigDecimal co2den;
 
-    @ManyToOne
-    @JoinColumn(name = "st_id", nullable = false)
-    private Station station;
+    @Column(name = "st_Id")
+    private int stId;
 }

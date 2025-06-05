@@ -13,14 +13,15 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "usrIdx")
 	private Long usrIdx;
 
-	@Column(length = 30, unique = true, nullable = false)
+	@Column(length = 30, unique = true, nullable = false, name = "usrEmail")
 	private String usrEmail;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, name = "usrPw")
 	private String usrPw;
 
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false, length = 30, name = "usrNick")
 	private String usrNick;
 }
