@@ -1,5 +1,5 @@
  
-.signup-page-container {
+.signup-login-page-container {
   background-image: url('/img/subway2.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -13,7 +13,7 @@
   height: 100vh; 
 }
  
-.signup-center-container {	
+.signup-login-center-container {	
   min-width: 600px;
   width: 100%;
   max-width : 1300px;
@@ -30,7 +30,7 @@
   margin-right: auto;
 }
 
-.signup-h3.mb-5 {
+.signup-login-h3.mb-5 {
   font-size: 28px; /* 제목 크기도 약간 키움 */
   font-weight: bold;
   margin-bottom: 30px;
@@ -41,7 +41,7 @@
   text-align: left;
 }
 
-.signup-form-label {
+.signup-login-form-label {
   display: block;
   font-size: 14px;
   font-weight: bold;
@@ -50,7 +50,7 @@
 }
 
 
-.signup-form-control {
+.signup-login-form-control {
   width: 100%;
   padding: 12px 14px; /* 기존보다 조금 더 넉넉하게 */
   font-size: 16px;    /* 입력 폰트 크기 키움 */
@@ -58,7 +58,7 @@
   border-radius: 8px;
 }
 
-.signup-form-control::placeholder {
+.signup-login-form-control::placeholder {
   color: rgba(0, 0, 0, 0.5);
 }
 
@@ -67,7 +67,7 @@
   gap: 10px;
 }
 
-.signup-btn-primary {
+.signup-login-btn-primary {
   background-color: orange;
   color: white;
   font-size: 14px;
@@ -79,11 +79,11 @@
   white-space: nowrap;
 }
 
-.signup-btn-primary:hover {
+.signup-login-btn-primary:hover {
   background-color: #e69500;
 }
 
-.signup-next-btn {
+.signup-login-next-btn {
   background-color: #00b894;
   border: none;
   font-size: 16px;
@@ -95,13 +95,13 @@
   margin-top: 10px;
 }
 
-.signup-bottom-content {
+.signup-login-bottom-content {
   font-size: 14px;
   margin-top: 20px;
   text-align: center;
 }
 
-.signup-bottom-content a {
+.signup-login-bottom-content a {
   font-weight: bold;
   color: black;
   text-decoration: none;
