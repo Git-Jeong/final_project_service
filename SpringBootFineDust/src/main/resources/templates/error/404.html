@@ -1,40 +1,75 @@
 <!-- src/main/resources/templates/error/404.html -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8" />
     <title>404 오류</title>
     <style>
         body {
-            background: linear-gradient(135deg, #f8cdda, #1d2b64);
-            color: #fff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            height: 100vh;
             margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff8ee;
+            color: #4a2f1a;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
+            text-align: center;   
+            
+            background-image: url('img/err.jpg');
+            padding : 0;          
+			height: 100vh;
+			overflow: hidden;
+			
+			background-size:90%;
+			                   
+        } 
+                        
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            gap: 40px;
         }
+
+        .content {
+            max-width: 400px;
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 20px;
+        }
+
         h1 {
-            font-size: 4rem;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
-        }
-        p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
-        }
-        .countdown {
-            font-size: 2rem;
+            font-size: 1.4rem;
             font-weight: bold;
-            background: rgba(255,255,255,0.2);
-            padding: 0.5rem 1.5rem;
-            border-radius: 25px;
-            box-shadow: 0 0 10px rgba(255,255,255,0.4);
-            user-select: none;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .countdown-box {
+            background-color: #ffe08c;
+            color: #4a2f1a;
+            padding: 0.7rem 1.5rem;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .character {
+            width: 140px;
+            height: auto;
         }
     </style>
     <script>
@@ -51,9 +86,16 @@
         window.onload = updateCountdown;
     </script>
 </head>
+   
 <body>
-    <h1>페이지를 찾을 수 없습니다.</h1>
-    <p>입력하신 주소를 다시 확인해주세요.</p>
-    <div class="countdown"><span id="countdown">5</span>초 후 메인 페이지로 이동합니다.</div>
+     
+    <div class="container">
+        <div class="content">
+        <img src="img/err-2.png" style="width: 100px; height: auto;" />   
+            <h1>요청하신 페이지를 찾을 수 없습니다.</h1>
+            <p>주소가 잘못되었거나, 서버 오류가 발생했습니다.</p>
+            
+        </div>       
+    </div>
 </body>
 </html>
