@@ -50,7 +50,7 @@
 									style="color: #FF0858;">*</span>
 								</label><input placeholder="닉네임을 입력해주세요" type="text" id="usrNick"
 									name="usrNick" maxlength="30" required="required"
-									class="form-control form-control-lg signup-form-control" />
+									class="form-control form-control-lg signup-form-control" readonly="readonly"/>
 							</div>
 
 							<div class="mb-4">
@@ -62,13 +62,13 @@
 									<div class="w-100">
 										<input placeholder="비밀번호를 입력해주세요" type="password" id="usrPw"
 											name="usrPw" maxlength="20" required="required"
-											class="form-control form-control-lg signup-form-control" />
+											class="form-control form-control-lg signup-form-control" readonly="readonly"/>
 									</div>
 									<div class="w-100">
 										<input placeholder="비밀번호를 재입력해주세요" type="password"
 											id="usrPwCheck" name="usrPwCheck" maxlength="20"
 											required="required"
-											class="form-control form-control-lg signup-form-control" />
+											class="form-control form-control-lg signup-form-control" readonly="readonly"/>
 									</div>
 								</div>
 							</div>
@@ -186,7 +186,7 @@
 				return;
 			}
 
-			const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,}$/;
+			const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z0-9-]{1,}$/;
 			if (!emailPattern.test(usrEmail)) {
 				alert("올바른 이메일 형식이 아닙니다.");
 				return;
@@ -205,6 +205,9 @@
 					} else {
 						alert("해당 ID는 사용 가능한 ID입니다.");
 						idCheckPassed = true;
+						document.getElementById("usrNick").readOnly = false;
+						document.getElementById("usrPw").readOnly = false;
+						document.getElementById("usrPwCheck").readOnly = false;
 					}
 				},
 				error : function() {
