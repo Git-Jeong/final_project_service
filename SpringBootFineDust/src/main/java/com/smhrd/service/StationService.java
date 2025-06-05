@@ -1,4 +1,5 @@
 package com.smhrd.service;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,6 @@ public class StationService {
 	}
 
 	public Station getStInfo(String usrEmail) {
-		// TODO Auto-generated method stub
 		Station st = repository.findByUsrEmail(usrEmail);
 		if(st == null) {
 		    return new Station();
@@ -30,10 +30,6 @@ public class StationService {
 	}
 
 	public void setStInfo(Station st) {
-		// TODO Auto-generated method stub
 		repository.save(st);
 	}
-
-	
-	
 }
