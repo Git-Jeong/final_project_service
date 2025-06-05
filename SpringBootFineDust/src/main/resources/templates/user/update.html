@@ -20,18 +20,23 @@
 				<div class="update-title">개인정보 수정</div>
 			</div>
 
+			<div id="loading-spinner" class="loading-spinner">
+			  <div class="spinner-border text-primary" role="status">
+			    <span class="visually-hidden">Loading...</span>
+			  </div>
+			</div>
+
 			<form id="user-form" class="update-form">
-				
-				<div class="update-left-form">
-					
-				</div>
+
+				<div class="update-left-form"></div>
 				<div class="update-right-form"></div>
 
 
-				<div class="update-buttons">
+				<div class="update-buttons" style="visibility: hidden">
 					<div class="update-buttons-wide">
 						<button type="button" class="update-btn-back" onclick="backBtn()">뒤로가기</button>
-						<button type="button" class="update-btn-cancel" onclick="resetBtn()">취소</button>
+						<button type="button" class="update-btn-cancel"
+							onclick="resetBtn()">취소</button>
 					</div>
 					<button type="submit" class="update-btn-submit">수정</button>
 				</div>
@@ -39,102 +44,121 @@
 		</div>
 	</div>
 	<script>
-	
-	async function getStationInfo(usrEmail) {
-	  if (!usrEmail) return;
 
-	  $.ajax({
-	    url: '/getStationInfo',
-	    type: 'GET',
-	    data: { usrEmail: usrEmail },
-	    dataType: 'json',
-	    success: function(data) {
-	      const stationHtml = `
-	        <div>
-	          <label for="stName_1">지하철역</label>
-	          <input type="text" id="stName_1" name="stName_1"
-	                 placeholder="지하철역을 입력해 주세요."
-	                 value="${data.stName_1 || ''}" />
-	        </div>
-	        <div>
-	          <label for="stName_2" style="visibility: hidden;">지하철역</label>
-	          <input type="text" id="stName_2" name="stName_2"
-	                 placeholder="지하철역을 입력해 주세요."
-	                 value="${data.stName_2 || ''}" />
-	        </div>
-	        <div>
-	          <label for="stName_3" style="visibility: hidden;">지하철역</label>
-	          <input type="text" id="stName_3" name="stName_3"
-	                 placeholder="지하철역을 입력해 주세요."
-	                 value="${data.stName_3 || ''}" />
-	        </div>
-	        <input type="hidden" id="stId" name="stId" value="${data.stId || ''}" />
-	      `;
 
-	      $('.update-right-form').html(stationHtml);
-	    },
-	    error: function(xhr, status, error) {
-	      console.error('역 정보 불러오기 실패:', error);
-	      alert('역 정보 로딩 중 오류가 발생했습니다.');
-	    }
-	  });
-	}
+	function getUserInfo(usrEmail) {
+		  if (!usrEmail) return Promise.resolve();
 
-	async function getUserInfo(usrEmail) {
-		  if (!usrEmail) return;
-
-		  $.ajax({
-		    url: '/getUserInfo',
-		    type: 'GET',
-		    data: { usrEmail: usrEmail },
-		    dataType: 'json',
-		    success: function(data) {
-		      const userHtml = `
-		    	  <input type="text" id="usrIdx" name="usrIdx" required
-					value="${data.usrIdx|| ''}" readonly style="display: none" />
-		    	<div>
-					<label for="usrEmail">이메일</label> 
-						<input type="email" id="usrEmail" name="usrEmail" required value="${data.usrEmail || ''}"
-						readonly autocomplete="username" />
-				</div>
-				<div>
-					<label>비밀번호 <span style="color: red;">*</span> 
-						<span style="color: black;">(문자, 숫자, 특수문자 포함 8~20자)</span>
-					</label>
-					<div class="update-password-group">
-						<input type="password" id="usrPw" name="usrPw"
-							placeholder="비밀번호를 입력해 주세요." required maxlength="20"
-							autocomplete="new-password" /> <input type="password"
-							id="usrPwCheck" name="usrPwCheck" placeholder="비밀번호를 재입력해 주세요."
-							required autocomplete="new-password" />
+		  return new Promise((resolve, reject) => {
+		    $.ajax({
+		      url: '/getUserInfo',
+		      type: 'GET',
+		      data: { usrEmail },
+		      dataType: 'json',
+		      success: function(data) {
+		    	  const userHtml = `
+			    	  <input type="text" id="usrIdx" name="usrIdx" required
+						value="${data.usrIdx|| ''}" readonly style="display: none" />
+			    	<div>
+						<label for="usrEmail">이메일</label> 
+							<input type="email" id="usrEmail" name="usrEmail" required value="${data.usrEmail || ''}"
+							readonly autocomplete="username" />
 					</div>
-				</div>
+					<div>
+						<label>비밀번호 <span style="color: red;">*</span> 
+							<span style="color: black;">(문자, 숫자, 특수문자 포함 8~20자)</span>
+						</label>
+						<div class="update-password-group">
+							<input type="password" id="usrPw" name="usrPw"
+								placeholder="비밀번호를 입력해 주세요." required maxlength="20"
+								autocomplete="new-password" /> <input type="password"
+								id="usrPwCheck" name="usrPwCheck" placeholder="비밀번호를 재입력해 주세요."
+								required autocomplete="new-password" />
+						</div>
+					</div>
 
-				<div>
-					<label for="usrNick">닉네임</label> <input type="text" id="usrNick"
-						name="usrNick" placeholder="닉네임을 입력해 주세요." required
-						value="${data.usrNick || ''}" />
-				</div>
-		      `;
-
-		      $('.update-left-form').html(userHtml);
-		    },
-		    error: function(xhr, status, error) {
-		      console.error('유저 정보 불러오기 실패:', error);
-		      alert('유저 정보 로딩 중 오류가 발생했습니다.');
-		    }
+					<div>
+						<label for="usrNick">닉네임</label> <input type="text" id="usrNick"
+							name="usrNick" placeholder="닉네임을 입력해 주세요." required
+							value="${data.usrNick || ''}" />
+					</div>
+			      `;
+		        $('.update-left-form').html(userHtml);
+		        resolve();
+		      },
+		      error: function(xhr, status, error) {
+		        console.error('유저 정보 불러오기 실패:', error);
+		        alert('유저 정보 로딩 중 오류가 발생했습니다.');
+		        reject(error);
+		      }
+		    });
 		  });
 		}
+
+		function getStationInfo(usrEmail) {
+		  if (!usrEmail) return Promise.resolve();
+
+		  return new Promise((resolve, reject) => {
+		    $.ajax({
+		      url: '/getStationInfo',
+		      type: 'GET',
+		      data: { usrEmail },
+		      dataType: 'json',
+		      success: function(data) {
+		    	  const stationHtml = `
+		  	        <div>
+		  	          <label for="stName_1">지하철역</label>
+		  	          <input type="text" id="stName_1" name="stName_1"
+		  	                 placeholder="지하철역을 입력해 주세요."
+		  	                 value="${data.stName_1 || ''}" />
+		  	        </div>
+		  	        <div>
+		  	          <label for="stName_2" style="visibility: hidden;">지하철역</label>
+		  	          <input type="text" id="stName_2" name="stName_2"
+		  	                 placeholder="지하철역을 입력해 주세요."
+		  	                 value="${data.stName_2 || ''}" />
+		  	        </div>
+		  	        <div>
+		  	          <label for="stName_3" style="visibility: hidden;">지하철역</label>
+		  	          <input type="text" id="stName_3" name="stName_3"
+		  	                 placeholder="지하철역을 입력해 주세요."
+		  	                 value="${data.stName_3 || ''}" />
+		  	        </div>
+		  	        <input type="hidden" id="stId" name="stId" value="${data.stId || ''}" />
+		  	      `;
+		        $('.update-right-form').html(stationHtml);
+		        resolve();
+		      },
+		      error: function(xhr, status, error) {
+		        console.error('역 정보 불러오기 실패:', error);
+		        alert('역 정보 로딩 중 오류가 발생했습니다.');
+		        reject(error);
+		      }
+		    });
+		  });
+		}
+
+		
 	// DOMContentLoaded에서 함수 호출하도록 수정
 	document.addEventListener('DOMContentLoaded', function () {
 		getAllDate();
 	});
 
+	const spinner = document.getElementById('loading-spinner');
+
 	const getAllDate = () => {
-		  const usrEmail = '[[${userName}]]';
-		  getUserInfo(usrEmail);
-		  getStationInfo(usrEmail);
-	}
+	  const usrEmail = '[[${userName}]]';
+	  spinner.classList.add('show');
+
+	  Promise.all([
+	    getUserInfo(usrEmail),
+	    getStationInfo(usrEmail)
+	  ]).finally(() => {
+		    spinner.classList.remove('show');
+		    document.getElementsByClassName('update-buttons')[0].style.visibility = 'visible';
+	  });
+	};
+
 	
   	document.getElementById('user-form').addEventListener('submit', async function (e) {
 	  e.preventDefault();
