@@ -227,36 +227,7 @@
 			<script type="text/javascript" src="./js/header.js"></script>
 		</main>
 	</div>
-	<script>
-	document.addEventListener('DOMContentLoaded', () => {
-		  const input = document.querySelector('.serviceChart-date');
-
-		  function updateKoreanDatetimeLocal() {
-		    const now = new Date();
-		    const krDate = new Date(now.getTime());
-
-		    const year = krDate.getFullYear();
-		    const month = String(krDate.getMonth() + 1).padStart(2, '0');
-		    const day = String(krDate.getDate()).padStart(2, '0');
-		    const hour = String(krDate.getHours()).padStart(2, '0');
-		    const minute = String(krDate.getMinutes()).padStart(2, '0');
-
-		    const formatted = `${year}-${month}-${day}T${hour}:${minute}`;
-
-		    input.value = formatted;
-		    input.max = formatted;
-		  }
-
-		  updateKoreanDatetimeLocal();
-
-		  setInterval(() => {
-		    const now = new Date();
-		    if (now.getSeconds() === 0) {
-		      updateKoreanDatetimeLocal();
-		    }
-		  }, 1000);
-		});
-	
+	<script>  
 	
 	document.addEventListener('DOMContentLoaded', () => {
 		  const pmBoxes = document.querySelectorAll('.pm-box');

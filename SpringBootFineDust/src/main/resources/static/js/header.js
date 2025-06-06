@@ -1,17 +1,17 @@
 const pageTitle = window.model?.headerText || '서비스 페이지';
 
 function toggleNotificationDropdown() {
-  const dropdown = document.getElementById("notificationDropdown");
-  dropdown.classList.toggle("hidden");
+	const dropdown = document.getElementById("notificationDropdown");
+	dropdown.classList.toggle("hidden");
 }
 
 function notificationDropdown_close() {
-  const dropdown = document.getElementById("notificationDropdown");
-  dropdown.classList.add("hidden");
+	const dropdown = document.getElementById("notificationDropdown");
+	dropdown.classList.add("hidden");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const headerHTML = `
+	const headerHTML = `
     <div class="serviceChart-header">
       <div class="serviceChart-header-left">
         <h2>${pageTitle}</h2>
@@ -33,8 +33,37 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
   `;
 
-  const headerContainer = document.getElementById("serviceChart-header");
-  if (headerContainer) {
-    headerContainer.innerHTML = headerHTML;
-  }
+	const headerContainer = document.getElementById("serviceChart-header");
+	if (headerContainer) {
+		headerContainer.innerHTML = headerHTML;
+	}
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+	const input = document.querySelector('.serviceChart-date');
+
+	function updateKoreanDatetimeLocal() {
+		const now = new Date();
+		const krDate = new Date(now.getTime());
+
+		const year = krDate.getFullYear();
+		const month = String(krDate.getMonth() + 1).padStart(2, '0');
+		const day = String(krDate.getDate()).padStart(2, '0');
+		const hour = String(krDate.getHours()).padStart(2, '0');
+		const minute = String(krDate.getMinutes()).padStart(2, '0');
+
+		const formatted = `${year}-${month}-${day}T${hour}:${minute}`;
+
+		input.value = formatted;
+		input.max = formatted;
+	}
+
+	updateKoreanDatetimeLocal();
+
+	setInterval(() => {
+		const now = new Date();
+		if (now.getSeconds() === 0) {
+			updateKoreanDatetimeLocal();
+		}
+	}, 1000);
 });
