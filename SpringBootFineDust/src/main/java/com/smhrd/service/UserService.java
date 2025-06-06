@@ -68,14 +68,6 @@ public class UserService {
 		}
 		return m;
 	}
-	
-    public String findByEmailForNickEmail(User vo) {
-    	User user = repository.findByUsrEmailAndUsrNick(vo.getUsrEmail(), vo.getUsrNick());
-    	if((user != null) && (user.getUsrEmail() != null)) {
-    		return "success";
-    	}
-        return "fail";
-    }
 
     public boolean resetPassword(User vo) {
         // 1. 이메일로 사용자 조회
