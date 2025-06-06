@@ -34,7 +34,7 @@
 }
 
 .signup-login-head-title {
-  flex: 2; /* 전체 중 2 */
+  flex: 1; /* 전체 중 2 */
 }
 
 .signup-login-h3.mb-5 {
@@ -124,7 +124,8 @@
   min-height: 100px;
   display: flex;         /* 추가 */
   flex-direction: column;/* 추가: 세로 방향 정렬 */
-  justify-content: space-between;
+  justify-content: center;
+  gap : 10px;
 }
 
 .signup-login-bottom-content a {
