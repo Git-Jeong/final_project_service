@@ -1,10 +1,32 @@
+body {
+	background-image: url('/img/subway2.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center; /* 수평 중앙 정렬 */
+}
+
 .update-page-container {
-	padding: 40px;
+	background-color: red;
+	min-width: 700px;
+	width: 100%;
+	max-width: 1300px;
+	min-height : 722px;
+	background-color: #fdf6ed;
+	padding: 50px 40px;
+	border-radius: 16px;
+	border: 3px #CED4DA solid;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #usrEmail[readonly] {
-  background-color: #e9ecef;
-  color: #6c757d;
+	background-color: #e9ecef;
+	color: #6c757d;
 }
 
 .update-password-group {
@@ -35,7 +57,7 @@
 .update-title {
 	font-size: 24px;
 	font-weight: 700;
-	color: #000;
+	color: #2C3E50;
 }
 
 .update-form {
@@ -65,7 +87,7 @@
 .update-buttons-wide {
 	width: 730px;
 	display: flex;
-	gap :10px;
+	gap: 10px;
 }
 
 .update-buttons {
@@ -100,10 +122,10 @@
 	border: none;
 }
 
-.update-btn-back{
+.update-btn-back {
 	background-color: #6c757d;
 }
 
-.update-btn-cancel{
+.update-btn-cancel {
 	background-color: #dc3545;
 }
