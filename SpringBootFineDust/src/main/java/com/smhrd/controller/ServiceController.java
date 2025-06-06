@@ -34,11 +34,21 @@ public class ServiceController {
         model.addAttribute("stationList", stationList);
 		return "service/serviceMain";
 	}
+	 
+		@GetMapping("/servicePred")
+		public String servicePredPage(HttpServletRequest request, Model model) {
+	        if (!token.isUserLoggedIn(request)) {
+	            return "redirect:/main";
+	        }
+	        String getName = token.extractUserFromJwt(request);
+	        String userName = getName.substring(0, getName.indexOf('@'));
 
-
-
-
-
+	        Station stationList = stService.getStInfo(getName);
+	        
+	        model.addAttribute("userName", userName);
+	        model.addAttribute("stationList", stationList);
+			return "service/servicePred";
+		}
 
 }
 
