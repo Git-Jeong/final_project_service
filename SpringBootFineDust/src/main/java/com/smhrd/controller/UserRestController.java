@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.smhrd.config.AESUtils;
+import com.smhrd.config.PasswordUtils;
 import com.smhrd.config.TokenCheck;
 import com.smhrd.entity.User;
 import com.smhrd.service.UserService;
@@ -24,7 +24,7 @@ public class UserRestController {
 	private UserService service;
 
     @Autowired
-    private AESUtils AesUtils;
+    private PasswordUtils passwordUtils;
     
     @Autowired
     private TokenCheck token;
@@ -41,7 +41,7 @@ public class UserRestController {
     @PostMapping("/signup")
     public String join(@RequestBody User vo) {
     	if((vo != null) && (vo.getUsrPw() != null)) {
-    		String aesPw = AesUtils.encrypt(vo.getUsrPw());
+    		String aesPw = passwordUtils.encrypt(vo.getUsrPw());
     		if(aesPw == null) {
                 return "redirect:/update";
     		}
@@ -62,7 +62,7 @@ public class UserRestController {
     @PostMapping("/updateUserInfo")
     public String updateUserInfo(@RequestBody User vo, HttpServletRequest request) {
     	if((vo != null) && (vo.getUsrPw() != null)) {
-    		String aesPw = AesUtils.encrypt(vo.getUsrPw());
+    		String aesPw = passwordUtils.encrypt(vo.getUsrPw());
     		String userEmail = token.extractUserFromJwt(request);
     		if((aesPw == null) || (userEmail == null)) {
     	        return "err";

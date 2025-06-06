@@ -94,5 +94,15 @@ public class UserService {
         return true;
     }
 
+	public User findByUsrEmailForLogin(String usrEmail) {
+		Optional<User> m = repository.findByUsrEmail(usrEmail);
+		if(m.isPresent()) {
+			return m.get();
+		}
+		else {
+			return new User();
+		}
+	}
+
 	
 }
