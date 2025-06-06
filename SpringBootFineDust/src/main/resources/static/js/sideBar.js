@@ -48,7 +48,7 @@ function goMonitoringPage() {
 }
 
 function onIndoorAirPredictClick() {
-  window.location.href = '#';
+  window.location.href = '/servicePred';
 }
 
 

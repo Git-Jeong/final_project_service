@@ -38,16 +38,15 @@
 			|| document
 					.write('<script src="https://cdn.jsdelivr.net/npm/findindex_polyfill_mdn"><\/script>')
 </script>
-
+<script th:inline="javascript">
+	window.model = {
+		userName : '[[${userName}]]',
+		headerText : '실내공기질 측정 시스템'
+	};
+</script>
 <title>실내공기질 측정시스템</title>
 </head>
 <body>
-
-	<script th:inline="javascript">
-		window.model = {
-			userName : '[[${userName}]]'
-		};
-	</script>
 	<script src="/js/sideBar.js"></script>
 
 

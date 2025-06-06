@@ -1,3 +1,5 @@
+const pageTitle = window.model?.headerText || '서비스 페이지';
+
 function toggleNotificationDropdown() {
   const dropdown = document.getElementById("notificationDropdown");
   dropdown.classList.toggle("hidden");
@@ -12,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const headerHTML = `
     <div class="serviceChart-header">
       <div class="serviceChart-header-left">
-        <h2>실내공기질 측정시스템</h2>
+        <h2>${pageTitle}</h2>
       </div>
       <div class="serviceChart-header-right">
         <button class="mypage-button" onclick="location.href='update'">
