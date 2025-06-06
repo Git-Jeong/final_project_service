@@ -19,7 +19,7 @@
 	</div>
 	<div class="update-page-container">
 		<div class="update-container">
-			<div class="update-header">
+			<div class="update-header" style="visibility: hidden">
 				<img src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
 					alt="profile icon" />
 				<div class="update-title">개인정보 수정</div>
@@ -49,8 +49,6 @@
 		</div>
 	</div>
 	<script>
-
-
 	function getUserInfo(usrEmail) {
 		  if (!usrEmail) return Promise.resolve();
 
@@ -83,7 +81,7 @@
 					</div>
 
 					<div>
-						<label for="usrNick">닉네임</label> <input type="text" id="usrNick"
+						<label for="usrNick">닉네임 <span style="color: red;">*</span> </label> <input type="text" id="usrNick"
 							name="usrNick" placeholder="닉네임을 입력해 주세요." required
 							value="${data.usrNick || ''}" />
 					</div>
@@ -112,7 +110,7 @@
 		      success: function(data) {
 		    	  const stationHtml = `
 		  	        <div>
-		  	          <label for="stName_1">지하철역</label>
+		  	          <label for="stName_1">지하철역 <span style="color: red;">*</span> </label>
 		  	          <input type="text" id="stName_1" name="stName_1"
 		  	                 placeholder="지하철역을 입력해 주세요."
 		  	                 value="${data.stName_1 || ''}" />
@@ -161,6 +159,7 @@
 	  ]).finally(() => {
 		    spinner.classList.remove('show');
 		    document.getElementsByClassName('update-buttons')[0].style.visibility = 'visible';
+		    document.getElementsByClassName('update-header')[0].style.visibility = 'visible';
 	  });
 	};
 
