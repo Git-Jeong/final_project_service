@@ -43,24 +43,47 @@ profileWrapper.appendChild(profileLink);
 // profileWrapper를 사이드바에 추가
 sidebar.appendChild(profileWrapper);
 
-// 버튼들
+function onRealTimeDataClick() {
+  console.log('실시간 데이터 차트 버튼 클릭됨');
+  window.location.href = '/service';
+}
+
+function onIndoorAirPredictClick() {
+  console.log('실내공기 예측 차트 버튼 클릭됨');
+  window.location.href = '#';
+}
+
+function onIndoorAirSummaryClick() {
+  console.log('실내공기 종합 차트 버튼 클릭됨');
+  window.location.href = '#';
+}
+
+function onHistoryMonitoringClick() {
+  console.log('역사/시간대별 모니터링 버튼 클릭됨');
+  window.location.href = '#';
+}
+
+function onTrendAnalysisClick() {
+  console.log('트렌드 분석 버튼 클릭됨');
+  window.location.href = '#';
+}
+
 const buttons = [
-  '실시간 데이터 차트',
-  '실내공기 예측 차트',
-  '실내공기 종합 차트',
-  '역사/시간대별 모니터링',
-  '트렌드 분석'
+  { text: '실시간 데이터 차트', onClick: onRealTimeDataClick },
+  { text: '실내공기 예측 차트', onClick: onIndoorAirPredictClick },
+  { text: '실내공기 종합 차트', onClick: onIndoorAirSummaryClick },
+  { text: '역사/시간대별 모니터링', onClick: onHistoryMonitoringClick },
+  { text: '트렌드 분석', onClick: onTrendAnalysisClick }
 ];
 
-buttons.forEach(text => {
+buttons.forEach(({ text, onClick }) => {
   const button = document.createElement('button');
   button.className = 'sidebar-button';
   button.textContent = text;
-  button.addEventListener('click', () => {
-    console.log(`${text} 버튼 클릭됨`);
-  });
+  button.onclick = onClick;
   sidebar.appendChild(button);
 });
+
 
 // 생성된 사이드바를 body에 추가
 document.body.appendChild(sidebar);
