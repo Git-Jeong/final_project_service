@@ -89,6 +89,11 @@
   height: 100%;
 }
 
+.main-info-card p {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
 .main-circle {
   width: 60px;
   height: 60px;
