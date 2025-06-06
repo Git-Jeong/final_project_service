@@ -94,9 +94,9 @@ public class UserController {
 
     @GetMapping("/resetpw")
     public String resetpw(HttpServletRequest request) {
-        //if (token.isUserLoggedIn(request)) {
-        //    return "redirect:/main";
-        //}
+        if (token.isUserLoggedIn(request)) {
+            return "redirect:/service";
+        }
         return "user/resetpw";
     }
     
