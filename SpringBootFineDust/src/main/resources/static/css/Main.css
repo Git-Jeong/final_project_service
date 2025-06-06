@@ -1,4 +1,3 @@
-
 .main-wrapper {
 	width: 100vw;
 	justify-content: center;
@@ -7,16 +6,16 @@
 	overflow: hidden;
 }
 
-.main-top-container{ 
+.main-top-container {
 	display: flex; /* Flex 컨테이너 지정 */
 	justify-content: center; /* 내부 요소 가운데 정렬 */
 	background: rgba(217, 217, 217, 0.5);
 }
 
 .main-top-banner {
-	min-width : 500px;
+	min-width: 500px;
 	width: 80vw;
-	max-width : 2080px;
+	max-width: 2080px;
 	padding: 80px 200px;
 }
 
@@ -61,18 +60,18 @@
 	min-height: 900px;
 }
 
-.section-title{
-  font-size: clamp(24px, 3vw, 40px);
-  font-weight: 800;
-  margin-bottom: 50px;
-  text-align: center;
+.section-title {
+	font-size: clamp(24px, 3vw, 40px);
+	font-weight: 800;
+	margin-bottom: 50px;
+	text-align: center;
 }
 
-.main-dev-info-section{
+.main-dev-info-section {
 	padding: 60px 20px;
 }
 
-.main-dev-info-list{
+.main-dev-info-list {
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
@@ -80,27 +79,31 @@
 }
 
 .main-info-card {
-  width: 220px;
-  padding: 1.5rem;
-  background-color: #f9fafb;
-  border-radius: 1rem;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  height: 100%;
+	width: 220px;
+	padding: 1.5rem;
+	background-color: #f9fafb;
+	border-radius: 1rem;
+	text-align: center;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	height: 100%;
+}
+
+.main-info-card p {
+	word-break: keep-all;
+	overflow-wrap: break-word;
 }
 
 .main-circle {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #e5e7eb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8rem;
-  margin: 0 auto 1rem auto;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-color: #e5e7eb;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.8rem;
+	margin: 0 auto 1rem auto;
 }
-
 
 .main-dev-circle {
 	width: 150px;
@@ -113,14 +116,14 @@
 
 .main-dev-circle:hover {
 	transform: scale(1.4);
-	border : 1px solid #cfcfcf;
+	border: 1px solid #cfcfcf;
 	transition: transform 0.3s ease;
 }
 
-.main-dev-img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.main-dev-img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 .main-info-card h3 {
@@ -136,85 +139,80 @@
 }
 
 .main-tech-section {
-  background: #f5f7fa;
-  padding: 80px 20px;
-  text-align: center;
+	background: #f5f7fa;
+	padding: 80px 20px;
+	text-align: center;
 }
 
 .tech-category {
-  margin-bottom: 60px;
+	margin-bottom: 60px;
 }
 
 .tech-category h3 {
-  font-size: clamp(20px, 2.2vw, 28px);
-  font-weight: 700;
-  margin-bottom: 30px;
-  color: #333;
+	font-size: clamp(20px, 2.2vw, 28px);
+	font-weight: 700;
+	margin-bottom: 30px;
+	color: #333;
 }
 
 .main-tech-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 25px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 25px;
 }
 
 .main-tech-item {
-  width: 120px;
-  height: 150px;
-  background: white;
-  border-radius: 15px;
-  padding: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  transition: transform 0.2s ease;
+	width: 120px;
+	height: 150px;
+	background: white;
+	border-radius: 15px;
+	padding: 10px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	transition: transform 0.2s ease;
 }
 
 .main-tech-item:hover {
-  transform: scale(1.05);
+	transform: scale(1.05);
 }
 
 .main-tech-item img {
-  width: 50px;
-  height: 50px;
-  flex: 0 0 70%;
-  object-fit: contain;
-  margin-bottom: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	width: 50px;
+	height: 50px;
+	flex: 0 0 70%;
+	object-fit: contain;
+	margin-bottom: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .main-tech-item span {
-  flex: 0 0 30%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 600;
-  color: #444;
-  text-align: center;
+	flex: 0 0 30%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	font-weight: 600;
+	color: #444;
+	text-align: center;
 }
 
-@media (max-width: 768px) {
+@media ( max-width : 768px) {
 	.main-top-banner {
 		padding: 40px 20px;
 		text-align: center;
 	}
-
-	.main-top-banner h2,
-	.main-top-banner h1,
-	.main-top-banner p {
+	.main-top-banner h2, .main-top-banner h1, .main-top-banner p {
 		word-break: keep-all; /* 줄 단위 깨짐 방지 */
 	}
-
 	.main-info-card {
 		width: 90%;
 	}
-	
 	.main-start-button {
 		width: 80%;
 		max-width: 300px;
