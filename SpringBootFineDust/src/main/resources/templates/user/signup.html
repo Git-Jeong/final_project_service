@@ -78,9 +78,10 @@
 						</div>
 
 						<div class="signup-login-bottom-content">
-							<div align="center">
-								<button type="button" onclick="goNext()"
-									class="btn signup-login-next-btn btn-lg">다음</button>
+							<div align="center" title="이메일 중복체크를 해주세요." >
+								<button type="button" id="goNextBtn" onclick="goNext()" 
+								class="btn signup-login-next-btn btn-lg" 
+								disabled>다음</button>
 							</div>
 							<div
 								style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; row-gap: 1px; align-items: center; text-align: right; width: fit-content; margin: 0 auto;">
@@ -223,9 +224,11 @@
 					if (data) {
 						alert("해당 ID는 사용할 수 없습니다.");
 					} else {
-						alert("해당 ID는 사용 가능한 ID입니다.");
+						alert("해당 ID는 사용 가능한 ID입니다."); 
 						idCheckPassed = true;
 						document.getElementById("idCheckTest").disabled = true;
+						document.getElementById("goNextBtn").disabled = false;
+						document.querySelector('#goNextBtn').parentElement.removeAttribute('title');
 						document.getElementById("usrEmail").readOnly = true;
 						document.getElementById("usrNick").readOnly = false;
 						document.getElementById("usrPw").readOnly = false;
