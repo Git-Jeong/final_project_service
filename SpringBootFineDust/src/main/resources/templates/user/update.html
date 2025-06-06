@@ -59,7 +59,7 @@
 		      data: { usrEmail },
 		      dataType: 'json',
 		      success: function(data) {
-		    	  const userHtml = `
+		    	  userHtml = `
 			    	  <input type="text" id="usrIdx" name="usrIdx" required
 						value="${data.usrIdx|| ''}" readonly style="display: none" />
 			    	<div>
@@ -86,7 +86,6 @@
 							value="${data.usrNick || ''}" />
 					</div>
 			      `;
-		        $('.update-left-form').html(userHtml);
 		        resolve();
 		      },
 		      error: function(xhr, status, error) {
@@ -108,7 +107,7 @@
 		      data: { usrEmail },
 		      dataType: 'json',
 		      success: function(data) {
-		    	  const stationHtml = `
+		    	  stationHtml = `
 		  	        <div>
 		  	          <label for="stName_1">지하철역 <span style="color: red;">*</span> </label>
 		  	          <input type="text" id="stName_1" name="stName_1"
@@ -129,7 +128,6 @@
 		  	        </div>
 		  	        <input type="hidden" id="stId" name="stId" value="${data.stId || ''}" />
 		  	      `;
-		        $('.update-right-form').html(stationHtml);
 		        resolve();
 		      },
 		      error: function(xhr, status, error) {
@@ -145,23 +143,40 @@
 	// DOMContentLoaded에서 함수 호출하도록 수정
 	document.addEventListener('DOMContentLoaded', function () {
 		getAllDate();
+		const stationHtml = '';
+		const userHtml = '';
 	});
 
 	const spinner = document.getElementById('loading-spinner');
 
-	const getAllDate = () => {
-	  const userEmail = '[[${userEmail}]]';
-	  spinner.classList.add('show');
+	const getAllDate = async () => {
+		  const userEmail = '[[${userEmail}]]';
 
-	  Promise.all([
-	    getUserInfo(userEmail),
-	    getStationInfo(userEmail)
-	  ]).finally(() => {
+		  spinner.classList.add('show');
+		  document.querySelector('.update-left-form').innerHTML = '';
+		  document.querySelector('.update-right-form').innerHTML = '';
+		  document.querySelector('.update-buttons').style.visibility = 'hidden';
+		  document.querySelector('.update-header').style.visibility = 'hidden';
+
+		  try {
+		    // 데이터 미리 받아놓기
+		    const [_, userData, stationData] = await Promise.all([
+		      new Promise(res => setTimeout(res, 1)), 
+		      getUserInfo(userEmail, true),     
+		      getStationInfo(userEmail, true)
+		    ]);
+
+		    $('.update-left-form').html(userHtml);
+		    $('.update-right-form').html(stationHtml);
+		    document.querySelector('.update-buttons').style.visibility = 'visible';
+		    document.querySelector('.update-header').style.visibility = 'visible';
+		  } catch (e) {
+		    alert('정보를 불러오는 데 실패했습니다.');
+		  } finally {
 		    spinner.classList.remove('show');
-		    document.getElementsByClassName('update-buttons')[0].style.visibility = 'visible';
-		    document.getElementsByClassName('update-header')[0].style.visibility = 'visible';
-	  });
-	};
+		  }
+		};
+
 
 	
   	document.getElementById('user-form').addEventListener('submit', async function (e) {
