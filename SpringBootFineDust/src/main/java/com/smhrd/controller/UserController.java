@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.smhrd.config.PasswordUtils;
+import com.smhrd.config.EncryptionUtil;
 import com.smhrd.config.JwtUtil;
 import com.smhrd.config.TokenCheck;
 import com.smhrd.entity.User;
@@ -29,7 +29,7 @@ public class UserController {
     private JwtUtil jwtUtil;
 
     @Autowired
-    private PasswordUtils passwordUtils;
+    private EncryptionUtil EncryptionUtil;
 
     @Value("${jwt.secret.val.2}")
     private String secretVal_2;
@@ -63,7 +63,7 @@ public class UserController {
 	        }
     		
     		// 2. 비밀번호 검증
-            boolean matches = passwordUtils.verifyPassword(vo.getUsrPw(), dbUser.getUsrPw());
+            boolean matches = EncryptionUtil.verifyPassword(vo.getUsrPw(), dbUser.getUsrPw());
             if (!matches) {
                 return "redirect:/login";  // 비밀번호 불일치
             }
@@ -103,7 +103,7 @@ public class UserController {
     @PostMapping("/resetpw")
     public String resetPassword(User vo) {
     	if((vo != null) && (vo.getUsrPw() != null)) {
-    		String aesPw = passwordUtils.encrypt(vo.getUsrPw());
+    		String aesPw = EncryptionUtil.encrypt(vo.getUsrPw());
     		if(aesPw == null) {
                 return "redirect:/resetpw";
     		}
