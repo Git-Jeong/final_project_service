@@ -1,3 +1,12 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	display: flex;
+	flex-direction: row;
+} 
+
 .serviceChart-header {
 	display: flex;
 	flex-wrap: wrap;
@@ -127,4 +136,58 @@
 .notification-content-box {
 	margin-bottom: 0; /* 혹시 모를 기본 마진 제거 */
 	padding-bottom: 0;
+}
+
+
+.service-main-page{
+	width: 100vw;
+}
+
+.serviceChart-main-content {
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.serviceChart-headeroption {
+	flex: 1;
+	min-height: 0;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	column-gap: 5rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.serviceChart-headeroption select, .serviceChart-headeroption input[type="date"] {
+	margin: 0.serviceChart-25rem;
+	margin-right: 1rem;
+	border: 0.serviceChart-25px solid #ccc;
+	font-size: 1rem;
+	border-radius: 10px;
+	padding: 1px 10px;
+	display: flex;
+}
+
+.serviceChart-buttons {
+	display: flex;
+	border: 0.serviceChart-25px solid #ccc;
+	border-radius: 10px;
+	overflow: hidden;
+	width: fit-content;
+}
+
+.serviceChart-buttons button {
+	flex: 1;
+	padding: 1px 10px;
+	border: none;
+	background-color: white;
+	font-size: 0.serviceChart-7ren;
+	cursor: pointer;
+}
+
+.serviceChart-buttons button+button {
+	border-left: 1px solid #ccc;
 }
