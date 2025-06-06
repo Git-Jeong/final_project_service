@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.smhrd</groupId>
 	<artifactId>SpringMVC</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.3-SNAPSHOT</version>
 	<name>SpringMVC</name>
 	<description>JeongJIn project for Spring Boot</description>
 	<url/>
