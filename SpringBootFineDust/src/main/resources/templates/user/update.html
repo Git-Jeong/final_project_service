@@ -222,11 +222,18 @@
 	    }
 	  });
   
-  const backBtn = () => {
-	  if(confirm("정말 뒤로 가시겠습니까? ")){
-		  location.href = "/service";
-	  }
-  }
+  	const backBtn = () => {
+  	  if (confirm("정말 뒤로 가시겠습니까? ")) {
+  	    const referrer = document.referrer;
+  	    if (referrer) {
+  	      const url = new URL(referrer);
+  	      const path = url.pathname.split('/')[1];
+  	      window.location.href = path ? `/${path}` : '/service';
+  	    } else {
+  	      window.location.href = '/service';
+  	    }
+  	  }
+  	}
   
   const resetBtn = () => {
 	  if (confirm("정말 초기화하시겠습니까?")) {
