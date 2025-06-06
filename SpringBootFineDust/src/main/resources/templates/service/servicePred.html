@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- 차트 컴포넌트 스타일/스크립트 -->
+<link rel="stylesheet" href="./css/Common.css" />
+<link rel="stylesheet" href="./css/service/serviceCommon.css" />
+
+<!-- 부트스트랩 CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+<script src="./js/logout.js"></script>
+<script th:inline="javascript">
+	window.model = {
+		userName : '[[${userName}]]',
+	    headerText : '실내공기질 예측 시스템'
+	};
+</script>
+</head>
+<body>
+	<script src="/js/serviceSidebar.js"></script>
+	
+	<div class="service-main-page">
+		<div id="sidebar-container"></div>
+
+		<main class="serviceChart-main-content">
+			<div id="serviceChart-header">
+				<!-- js를 통해 여기에 헤더를 만들어 둠 -->
+			</div>
+
+			<div id="notificationDropdown" class="notification-dropdown hidden">
+				<div class="notificationDropdown_header">
+					<div class="notificationDropdown_close">
+						<button class="notificationDropdown_close_btn"
+							onclick="notificationDropdown_close()">
+							<h4>
+								<i class="fas fa-times"></i>
+							</h4>
+						</button>
+					</div>
+					<div class="notificationDropdown_header_txt">
+						<h3>오류 알림</h3>
+					</div>
+				</div>
+
+				<!-- 반복되는 알림 카드 시작 -->
+				<div class="notification-card error">
+					<div class="notification-title-box">
+						<div class="notification-title-left-box">
+							<div class="notification-title-icon">
+								<i class="bi-exclamation-triangle-fill"></i>
+							</div>
+							<div class="notification-title-content">교대역 센서 오류</div>
+						</div>
+						<div class="notification-title-time">3시간 전</div>
+					</div>
+					<ul class="notification-content-box">
+						<li class="notification-time">시간: 2024.04.13 15:20</li>
+						<li class="notification-content">오류 내용: 미세먼지 값 수신 안됨</li>
+						<li class="notification-state">상태: 점검 대기중</li>
+					</ul>
+				</div>
+				<!-- 반복되는 알림 카드 끝 (DB 기반 반복 예정) -->
+			</div>
+
+			<div class="serviceChart-headeroption">
+				<select class="serviceChart-select">
+					<th:block th:each="station : ${stationList}">
+						<option
+							th:text="${#strings.isEmpty(station.stName_1) ? '' : station.stName_1}"
+							th:if="${!#strings.isEmpty(station.stName_1)}"></option>
+						<option
+							th:text="${#strings.isEmpty(station.stName_2) ? '' : station.stName_2}"
+							th:if="${!#strings.isEmpty(station.stName_2)}"></option>
+						<option
+							th:text="${#strings.isEmpty(station.stName_3) ? '' : station.stName_3}"
+							th:if="${!#strings.isEmpty(station.stName_3)}"></option>
+					</th:block>
+				</select> <input type="datetime-local" class="serviceChart-date" />
+
+				<button class="serviceChart-button"
+					th:onclick="'getStationDust(' + ${stationList.stId} + ')'">
+					예측 vs 실제</button>
+
+				<div class="serviceChart-buttons">
+					<button class="serviceChart-button">미세먼지</button>
+					<button class="serviceChart-button">유해가스</button>
+				</div>
+			</div>
+			
+			
+			
+			
+			<!-- 여기가 그래프 들어갈 공간인가? 그렇지 -->
+			
+			
+			
+			
+			<script type="text/javascript" src="./js/ServiceHeader.js"></script>
+		</main>
+	</div>
+</body>
+</html>
