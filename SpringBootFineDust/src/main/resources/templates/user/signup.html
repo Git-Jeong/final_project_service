@@ -12,6 +12,10 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link rel="stylesheet" href="./css/user/SignupLogin.css" />
 <link rel="stylesheet" href="./css/Common.css" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
 </head>
 
 <body>
@@ -141,9 +145,12 @@
 							</div>
 
 							<div class="signup-login-btn-list-plus-minus">
-								<button type="button" class="btn btn-plus" onclick="formPlus()">+</button>
-								<button type="button" class="btn btn-minus"
-									onclick="formMinus()">-</button>
+							    <button type="button" id="plusButton" class="btn btn-plus" onclick="formPlus()">
+							        <i class="fa fa-plus"></i>
+							    </button>
+							    <button type="button" id="minusButton" class="btn btn-minus" style="visibility: hidden;" onclick="formMinus()">
+							        <i class="fa fa-minus"></i>
+							    </button>
 							</div>
 
 							<div align="center">
@@ -179,11 +186,17 @@
 	<script>
 		let subwayIndex = 1;
 		let idCheckPassed = false;
-
+		
+		function updateButtons() {
+		    document.getElementById("minusButton").style.visibility = subwayIndex === 1 ? "hidden" : "visible";
+		    document.getElementById("plusButton").style.visibility = subwayIndex === 3 ? "hidden" : "visible";
+		}
+		
 		function formPlus() {
 			if (subwayIndex < 3) {
 				subwayIndex++;
 				document.getElementById(`insert-subway-${subwayIndex}`).style.visibility = "visible";
+				updateButtons();
 			}
 		}
 
@@ -191,6 +204,7 @@
 			if (subwayIndex > 1) {
 				document.getElementById(`insert-subway-${subwayIndex}`).style.visibility = "hidden";
 				subwayIndex--;
+				updateButtons();
 			}
 		}
 

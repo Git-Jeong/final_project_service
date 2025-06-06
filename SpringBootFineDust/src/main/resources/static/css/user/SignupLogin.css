@@ -133,3 +133,23 @@
   color: black;
   text-decoration: none;
 }
+
+.btn-plus, .btn-minus {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #333;
+  transition: color 0.3s ease;
+  outline: none; /* 클릭 시 기본 포커스 테두리 제거 */
+}
+
+.btn-plus:hover, .btn-minus:hover {
+  color: #007bff; /* 호버 시 색상 변경 */
+  border: none;
+}
+
+.btn-plus:focus, .btn-minus:focus {
+  outline: none; /* 클릭(포커스) 시 테두리 제거 */
+  border: none;
+}
