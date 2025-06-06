@@ -7,6 +7,7 @@
 * 비밀번호 초기화
 * 머신러닝 기반 예측값 제공
 * 미세먼지 단위(PM1, PM2.5, PM10)별 모니터링 및 예측값 확인
+* 구글 메일 연동을 통한 이메일 인증
 
 ---
 ## ⛏ 기술스택
@@ -28,7 +29,7 @@
     <tr>
         <td>프레임워크 & 라이브러리</td>
         <td>
-            <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"/>
+            <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=white"/>
             <img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white"/>
             <img src="https://img.shields.io/badge/BootStrap-7952B3?style=for-the-badge&logo=BootStrap&logoColor=white"/>
         </td>
@@ -57,7 +58,7 @@
         <td>보안</td>
         <td>
             <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge"/>
-            <img src="https://img.shields.io/badge/AES-007396?style=for-the-badge&logo=security&logoColor=white"/>
+            <img src="https://img.shields.io/badge/BCrypt-00599C?style=for-the-badge&logo=security&logoColor=white"/>
         </td>
     </tr>
     <tr>
@@ -68,6 +69,13 @@
             <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white"/>
         </td>
     </tr>
+    <tr>
+       <td>이메일 전송</td>
+       <td>
+           <img src="https://img.shields.io/badge/Gmail-4285F4?style=for-the-badge&logo=Gmail&logoColor=white"/>
+           <img src="https://img.shields.io/badge/JavaMail-007396?style=for-the-badge&logo=maildotru&logoColor=white"/>
+       </td>
+   </tr>
 </table>
 
 ---
@@ -81,6 +89,7 @@
 - ✔️ 공공장소의 공기질 데이터를 기반으로 한 사용자 맞춤형 정보 제공 시스템 구축  
 - ✔️ 대중교통을 이용하는 시민의 건강 보호 및 쾌적한 이동 환경 제공에 기여함  
 - ✔️ 백엔드 중심의 데이터 수집·분석·예측 파이프라인을 직접 구현하여 실무 역량 강화
+- ✔️ 구글 메일 연동을 통한 이메일 인증 시스템으로 사용자 계정 보안 강화
 
 
 ## 🏁 기대 효과
