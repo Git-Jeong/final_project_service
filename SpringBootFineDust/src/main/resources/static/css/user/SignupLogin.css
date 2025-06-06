@@ -6,6 +6,7 @@
   background-position: center;
   width: 100vw;
   display: flex;
+  flex-direction: column;
   justify-content: center;   /* 수평 중앙 정렬 */
   align-items: center;       /* 수직 중앙 정렬 */
   min-height: 100vh;         /* 화면 높이 전체 사용 */
@@ -14,11 +15,12 @@
 }
  
 .signup-login-center-container {	
-  min-width: 600px;
+  min-width: 700px;
   width: 100%;
   max-width : 1300px;
-  min-height : 600px;
-  max-height : 100%;
+  min-height : 300px;
+  height : 100%;
+  max-height : 1200px;
   background-color: #fdf6ed;
   padding: 50px 40px;
   border-radius: 16px;
@@ -28,6 +30,11 @@
   line-height: 1.5;
   margin-left: auto;
   margin-right: auto;
+  overflow: auto;
+}
+
+.signup-login-head-title {
+  flex: 2; /* 전체 중 2 */
 }
 
 .signup-login-h3.mb-5 {
@@ -93,13 +100,31 @@
   padding: 14px;
   border-radius: 8px;
   color: #ffffff;
-  margin-top: 10px;
+}
+
+.signup-login-middle-content {
+  flex: 7; /* 전체 중 6 */
+  overflow-y: auto; /* 내용 많으면 스크롤 가능 */
+  display: flex;           /* flex 적용 */
+  flex-direction: column;  /* 세로 정렬 */
+  min-height : 303px;
+  height: 100%;            /* 부모 높이 100% */
+  justify-content: center;
+}
+
+.signup-login-middle-content > .flex-grow-1 {
+  flex-grow: 1; /* 빈 공간 차지 */
 }
 
 .signup-login-bottom-content {
-  font-size: 14px;
-  margin-top: 20px;
+  flex: 1; /* 전체 중 2 */
   text-align: center;
+  margin-top: auto; /* 하단 붙이기 */
+  font-size: 14px;
+  min-height: 100px;
+  display: flex;         /* 추가 */
+  flex-direction: column;/* 추가: 세로 방향 정렬 */
+  justify-content: space-between;
 }
 
 .signup-login-bottom-content a {

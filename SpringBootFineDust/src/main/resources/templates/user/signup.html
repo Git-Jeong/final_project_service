@@ -10,8 +10,8 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/css/user/SignupLogin.css" />
-<link rel="stylesheet" href="/css/common.css" />
+<link rel="stylesheet" href="./css/user/SignupLogin.css" />
+<link rel="stylesheet" href="./css/Common.css" />
 </head>
 
 <body>
@@ -21,15 +21,15 @@
 		<div>
 			<form id="step1-form" method="post">
 				<!-- Step 1 -->
-				<div id="signup1" style="display: block"
-					class="card-body text-black">
+				<div id="signup1" style="display: block" class="card-body text-black">
 					<div class="signup-login-center-container">
 						<div id="fixed-title" class="signup-login-head-title">
 							<h3 class="signup-login-h3 mb-5">회원가입</h3>
 						</div>
 						<div class="signup-login-middle-content">
 							<div class="mb-4">
-								<div class="signup-login-form-label mb-2 d-flex align-items-center">
+								<div
+									class="signup-login-form-label mb-2 d-flex align-items-center">
 									<label for="usrEmail" class="me-1 mb-0">이메일</label> <span
 										style="color: #FF0858;">*</span>
 								</div>
@@ -39,17 +39,19 @@
 										title="영어, 숫자, 특수문자(@, ., _, %, +, -)만 가능하며, 올바른 이메일 형식이어야 합니다."
 										class="form-control form-control-lg signup-form-control" />
 									<button id="idCheckTest" onclick="idCheck()" type="button"
-										class="btn signup-login-btn-primary" style="white-space: nowrap;">중복체크</button>
+										class="btn signup-login-btn-primary"
+										style="white-space: nowrap;">중복체크</button>
 								</div>
 							</div>
 
 
 							<div class="mb-4">
-								<label class="signup-login-form-label mb-2" for="nick"> 닉네임 <span
-									style="color: #FF0858;">*</span>
+								<label class="signup-login-form-label mb-2" for="nick">
+									닉네임 <span style="color: #FF0858;">*</span>
 								</label><input placeholder="닉네임을 입력해주세요" type="text" id="usrNick"
 									name="usrNick" maxlength="30" required="required"
-									class="form-control form-control-lg signup-form-control" readonly="readonly"/>
+									class="form-control form-control-lg signup-form-control"
+									readonly="readonly" />
 							</div>
 
 							<div class="mb-4">
@@ -61,24 +63,25 @@
 									<div class="w-100">
 										<input placeholder="비밀번호를 입력해주세요" type="password" id="usrPw"
 											name="usrPw" maxlength="20" required="required"
-											class="form-control form-control-lg signup-form-control" readonly="readonly"/>
+											class="form-control form-control-lg signup-form-control"
+											readonly="readonly" />
 									</div>
 									<div class="w-100">
 										<input placeholder="비밀번호를 재입력해주세요" type="password"
 											id="usrPwCheck" name="usrPwCheck" maxlength="20"
 											required="required"
-											class="form-control form-control-lg signup-form-control" readonly="readonly"/>
+											class="form-control form-control-lg signup-form-control"
+											readonly="readonly" />
 									</div>
 								</div>
-							</div>
-
-							<div align="center">
-								<button type="button" onclick="goNext()"
-									class="btn signup-login-next-btn btn-lg">다음</button>
 							</div>
 						</div>
 
 						<div class="signup-login-bottom-content">
+							<div align="center">
+								<button type="button" onclick="goNext()"
+									class="btn signup-login-next-btn btn-lg">다음</button>
+							</div>
 							<div align="center">
 								계정이 이미 있나요? <a style="font-weight: 600" href="login">로그인</a>
 							</div>
@@ -102,27 +105,28 @@
 						</div>
 						<div class="signup-login-middle-content">
 							<div class="form-outline mb-4">
-								<div class="signup-login-form-label mb-2 d-flex align-items-center">
+								<div
+									class="signup-login-form-label mb-2 d-flex align-items-center">
 									<label for="usrEmail" class="me-1 mb-0">지하철역 등록</label> <span
 										style="color: #FF0858;">*</span>
-								</div>	 <input
-									placeholder="(필수)지하철역을 입력해주세요" type="text" id="stName_1"
+								</div>
+								<input placeholder="(필수)지하철역을 입력해주세요" type="text" id="stName_1"
 									name="stName_1" maxlength="60" required="required"
 									class="form-control form-control-lg signup-form-control" />
 							</div>
 
 							<div class="form-outline mb-4" id="insert-subway-2"
 								style="visibility: hidden;">
-								<label class="signup-login-form-label mb-2" for="subway2"></label> <input
-									placeholder="지하철역을 입력해주세요" type="text" id="stName_2"
+								<label class="signup-login-form-label mb-2" for="subway2"></label>
+								<input placeholder="지하철역을 입력해주세요" type="text" id="stName_2"
 									name="stName_2" maxlength="60"
 									class="form-control form-control-lg signup-form-control" />
 							</div>
 
 							<div class="form-outline mb-4" id="insert-subway-3"
 								style="visibility: hidden;">
-								<label class="signup-login-form-label mb-2" for="subway3"></label> <input
-									placeholder="지하철역을 입력해주세요" type="text" id="stName_3"
+								<label class="signup-login-form-label mb-2" for="subway3"></label>
+								<input placeholder="지하철역을 입력해주세요" type="text" id="stName_3"
 									name="stName_3" maxlength="60"
 									class="form-control form-control-lg signup-form-control" />
 							</div>
@@ -132,6 +136,7 @@
 								<button type="button" class="btn btn-minus"
 									onclick="formMinus()">-</button>
 							</div>
+
 							<div align="center">
 								<button type="button" onclick="handleSubmit(event)"
 									class="btn signup-login-next-btn btn-lg">회원가입</button>

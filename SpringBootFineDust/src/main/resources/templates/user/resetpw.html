@@ -33,10 +33,6 @@
 					<h3 class="signup-login-h3 mb-5">비밀번호 찾기</h3>
 				</div>
 				<div class="signup-login-middle-content" id="identity-section">
-
-					<!-- 입력폼처럼 보이게 하는 빈 영역 -->
-					<div class="bg-transparent border-0" style="height: 40px;"></div>
-
 					<!-- 이메일 -->
 					<div class="mb-4">
 						<div
@@ -62,20 +58,22 @@
 							placeholder="닉네임을 입력하세요" maxlength="20"
 							class="form-control form-control-lg signup-form-control" />
 					</div>
- 
-
-
-
-					<div class="signup-login-bottom-content">
-						<!-- 입력폼처럼 보이게 하는 빈 영역 -->
-						<div class="bg-transparent border-0" style="height: 30px;"></div>
-						<!-- 확인 버튼 -->
-						<div align="center" class="mb-4">
-							<button type="button" id="verify-btn"
-								class="btn signup-login-next-btn btn-lg">확인</button>
+				</div>
+				<div class="signup-login-bottom-content">
+					<!-- 확인 버튼 -->
+					<div align="center">
+						<button type="button" id="verify-btn"
+							class="btn signup-login-next-btn btn-lg">확인</button>
+					</div>
+					<div
+						style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; row-gap: 1px; align-items: center; text-align: right; width: fit-content; margin: 0 auto;">
+						<div>아직 계정이 없나요?</div>
+						<div style="text-align: left;">
+							<a style="font-weight: 600" href="signup">회원가입</a>
 						</div>
-						<div style="text-align: center;">
-							<a href="javascript:history.back()" style="font-weight: 600;">뒤로가기</a>
+						<div>계정이 이미 있나요?</div>
+						<div style="text-align: left;">
+							<a style="font-weight: 600" href="login">로그인</a>
 						</div>
 					</div>
 				</div>
@@ -87,7 +85,7 @@
 	<form id="reset-form" method="post" action="resetpw"
 		class="hidden-section">
 
-		<div class="card-body p-md-5 text-black">
+		<div class="card-body text-black">
 			<div class="signup-login-center-container">
 				<div class="signup-login-head-title">
 					<h3 class="signup-login-h3 mb-5">비밀번호 재설정</h3>
@@ -117,12 +115,20 @@
 							class="form-control form-control-lg signup-form-control" />
 					</div>
 
+				</div>
+				<div class="signup-login-bottom-content">
 					<div align="center">
 						<button type="submit" class="btn signup-login-next-btn btn-lg">재설정</button>
 					</div>
-					<div class="signup-login-bottom-content">
-						<div align="center">
-							계정이 이미 있나요? <a style="font-weight: 600" href="login">로그인</a>
+					<div
+						style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; row-gap: 1px; align-items: center; text-align: right; width: fit-content; margin: 0 auto;">
+						<div>아직 계정이 없나요?</div>
+						<div style="text-align: left;">
+							<a style="font-weight: 600" href="signup">회원가입</a>
+						</div>
+						<div>계정이 이미 있나요?</div>
+						<div style="text-align: left;">
+							<a style="font-weight: 600" href="login">로그인</a>
 						</div>
 					</div>
 				</div>
