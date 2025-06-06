@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Component
-public class PasswordUtils {
+public class EncryptionUtil {
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     
