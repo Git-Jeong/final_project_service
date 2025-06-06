@@ -191,3 +191,54 @@ body {
 .serviceChart-buttons button+button {
 	border-left: 1px solid #ccc;
 }
+
+.sidebar {
+	background-color: #0a3d62;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 1rem;
+	width: 20%;
+	min-width: 200px;
+	min-height: 100vh;
+	height: 130vh;
+	overflow: hidden;
+}
+
+.sidebar-logo, .sidebar-welcome {
+	margin-bottom: 2rem;
+	text-align: center;
+}
+
+.sidebar-profile img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover; /* 이미지 비율 유지하며 채우기 */
+  display: block;    /* inline 이미지 여백 제거 */
+}
+
+
+.sidebar-profile {
+	width: 80px;
+	height: 80px;
+	background-color: white;
+	border-radius: 50%;
+	margin: 1rem 0;
+}
+
+.sidebar-button {
+	width: 100%;
+	padding: 0.75rem;
+	margin: 0.25rem 0;
+	background-color: #2d5d8c;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.sidebar-button:hover {
+	background-color: #e0e0e0;
+}
