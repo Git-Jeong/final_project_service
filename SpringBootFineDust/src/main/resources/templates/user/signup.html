@@ -31,7 +31,7 @@
 							<h3 class="signup-login-h3 mb-5">회원가입</h3>
 						</div>
 						<div class="signup-login-middle-content">
-							<div class="mb-4">
+							<div class="mb-4"  id="email_input_box" style="display: block;">
 								<div
 									class="signup-login-form-label mb-2 d-flex align-items-center">
 									<label for="usrEmail" class="me-1 mb-0">이메일</label> <span
@@ -44,10 +44,24 @@
 										class="form-control form-control-lg signup-form-control" />
 									<button id="idCheckTest" onclick="idCheck()" type="button"
 										class="btn signup-login-btn-primary"
-										style="white-space: nowrap;">중복체크</button>
+										style="white-space: nowrap;">이메일 인증</button>
 								</div>
 							</div>
-
+							<div class="mb-4" id="email_code_check_box" style="display: none">
+								<div
+									class="signup-login-form-label mb-2 d-flex align-items-center">
+									<label for="verificationCode" class="me-1 mb-0">인증코드</label> <span
+										style="color: #FF0858;">*</span>
+								</div>
+								<div class="d-flex gap-3">
+									<input type="text" id="verificationCode" name="verificationCode"
+										placeholder="이메일로 받은 인증 코드를 입력하세요" maxlength="6"
+										class="form-control form-control-lg signup-form-control" />
+									<button id="codeCheckTest" onclick="codeVerify()" type="button"
+										class="btn signup-login-btn-primary"
+										style="white-space: nowrap;">인증코드 확인</button>
+								</div>
+							</div>
 
 							<div class="mb-4">
 								<label class="signup-login-form-label mb-2" for="nick">
@@ -208,6 +222,45 @@
 			}
 		}
 
+		
+
+		const codeVerify = () =>{
+			const usrEmail = $('#usrEmail').val();
+			const code = $('#verificationCode').val();
+
+			if (!code) {
+				alert("인증 코드를 입력해 주세요.");
+				return;
+			}
+
+			$.ajax({
+				type : "POST",
+				url : "/verify-code",
+				data : {
+					usrEmail : usrEmail,
+					code : code
+				},
+				success : function(response) {
+					alert("인증 성공");
+					idCheckPassed = true; 
+					document.getElementById("codeCheckTest").disabled = true;
+				    document.getElementById("email_code_check_box").style.display = "none";
+				    document.getElementById("email_input_box").style.display = "block";
+					document.getElementById("goNextBtn").disabled = false;
+					document.querySelector('#goNextBtn').parentElement.removeAttribute('title');
+					document.getElementById("usrNick").readOnly = false;
+					document.getElementById("usrPw").readOnly = false;
+					document.getElementById("usrPwCheck").readOnly = false;
+				},
+				error : function(xhr) {
+					if (xhr.status === 400) {
+						alert("인증 실패: 인증 코드가 올바르지 않습니다.");
+					} else {
+						alert("서버 오류: " + xhr.statusText);
+					}
+				}
+			});
+		}
 		function idCheck() {
 			const usrEmail = $('#usrEmail').val();
 			if (!usrEmail) {
@@ -215,7 +268,6 @@
 				return;
 			}
 
-			// 글자수 30자 제한 체크
 			if (usrEmail.length > 30) {
 				alert("이메일은 30자 이하로 입력해 주세요.");
 				return;
@@ -227,30 +279,40 @@
 				return;
 			}
 
+			const $btn = $('#idCheckTest');
+			const originalHTML = $btn.html();
+			$btn.data('original-html', originalHTML);
+			$btn.prop('disabled', true).addClass('disabled');
+			$btn.html('<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>전송 중...');
+			$('#usrEmail').prop('readonly', true);
+
 			$.ajax({
-				url : "idCheck",
-				type : "get",
-				dataType : "json",
-				data : {
-					"usrEmail" : usrEmail
-				},
-				success : function(data) {
-					if (data) {
-						alert("해당 ID는 사용할 수 없습니다.");
-					} else {
-						alert("해당 ID는 사용 가능한 ID입니다."); 
-						idCheckPassed = true;
-						document.getElementById("idCheckTest").disabled = true;
-						document.getElementById("goNextBtn").disabled = false;
-						document.querySelector('#goNextBtn').parentElement.removeAttribute('title');
-						document.getElementById("usrEmail").readOnly = true;
-						document.getElementById("usrNick").readOnly = false;
-						document.getElementById("usrPw").readOnly = false;
-						document.getElementById("usrPwCheck").readOnly = false;
+				type: "POST",
+				url: "/new-send-code",
+				contentType: "application/json",
+				data: JSON.stringify({ "usrEmail": usrEmail }),
+				dataType: "text",
+				success: function (responseText) {
+					const response = JSON.parse(responseText);
+					if (response.status === "success") {
+						alert("인증 코드가 이메일로 전송되었습니다.");
+						$('#email_code_check_box').show();
+						$('#email_input_box').hide();
+					} else if (response.status === "fail") {
+						alert("중복된 계정입니다.");
+						$('#usrEmail').prop('readonly', false);
 					}
 				},
-				error : function() {
+				error: function () {
 					alert("에러가 발생했습니다.");
+					$('#usrEmail').prop('readonly', false);
+				},
+				complete: function () {
+					// 성공 시에는 버튼 비활성 유지, 실패 시에만 복구
+					if ($('#email_input_box').is(':visible')) {
+						$btn.prop('disabled', false).removeClass('disabled');
+					}
+					$btn.html($btn.data('original-html'));
 				}
 			});
 		}
