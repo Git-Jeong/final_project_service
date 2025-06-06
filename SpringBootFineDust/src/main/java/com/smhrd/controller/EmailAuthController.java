@@ -27,6 +27,19 @@ public class EmailAuthController {
     @Autowired
     private UserService userService;
     
+    @PostMapping("/new-send-code")
+    public ResponseEntity<?> newUserCode(@RequestBody Map<String, String> requestBody) {
+        String usrEmail = requestBody.get("usrEmail");
+        User usr = userService.findByUsrEmailForLogin(usrEmail);
+
+        if ((usr != null) && (usr.getUsrEmail() != null)) {
+            return ResponseEntity.ok(Map.of("status", "fail", "message", "이미 있는 계정입니다."));
+        }
+        emailAuthService.sendVerificationCode(usrEmail);
+        // 명시적으로 성공 메시지 전달
+        return ResponseEntity.ok(Map.of("status", "success", "message", "인증코드 전송됨"));
+    }
+    
     @PostMapping("/send-code")
     public ResponseEntity<?> sendCode(@RequestBody Map<String, String> requestBody) {
         String usrEmail = requestBody.get("usrEmail");
