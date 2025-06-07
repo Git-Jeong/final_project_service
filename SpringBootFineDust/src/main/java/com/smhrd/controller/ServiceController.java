@@ -25,11 +25,12 @@ public class ServiceController {
             return "redirect:/main";
         }
 
-        String getName = token.extractUserFromJwt(request);
-        String userName = getName.substring(0, getName.indexOf('@'));
+        String usrEmail = token.extractUserFromJwt(request);
+        String userName = token.getNameFromJwt(request);
 
-        Station stationList = stService.getStInfo(getName);
-        
+        Station stationList = stService.getStInfo(usrEmail);
+
+        //model.addAttribute("usrEmail", usrEmail);
         model.addAttribute("userName", userName);
         model.addAttribute("stationList", stationList);
 		return "service/serviceMain";
@@ -40,11 +41,12 @@ public class ServiceController {
 	        if (!token.isUserLoggedIn(request)) {
 	            return "redirect:/main";
 	        }
-	        String getName = token.extractUserFromJwt(request);
-	        String userName = getName.substring(0, getName.indexOf('@'));
+	        String usrEmail = token.extractUserFromJwt(request);
+	        String userName = token.getNameFromJwt(request);
 
-	        Station stationList = stService.getStInfo(getName);
-	        
+	        Station stationList = stService.getStInfo(usrEmail);
+
+	        //model.addAttribute("usrEmail", usrEmail);
 	        model.addAttribute("userName", userName);
 	        model.addAttribute("stationList", stationList);
 			return "service/servicePred";

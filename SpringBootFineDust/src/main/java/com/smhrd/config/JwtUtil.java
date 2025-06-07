@@ -25,7 +25,7 @@ public class JwtUtil {
     @Value("${jwt.secret.val.3}")
     private String secretVal_3;
     
-	public String generateToken(User vo) {
+	public String generateToken(User dbUser) {
 		long currentMillis = System.currentTimeMillis();
 		long uuidNum = Math.abs(UUID.randomUUID().getMostSignificantBits());
 		int randomNum = new Random().nextInt(10000) + 1;  // 1~10000 난수
@@ -33,10 +33,12 @@ public class JwtUtil {
 		long combinedVal = currentMillis * uuidNum * randomNum;
 
 		return Jwts.builder()
-		        .setSubject(vo.getUsrEmail())
+		        .setSubject(dbUser.getUsrEmail())
 		        .claim(secretVal_1, combinedVal)
-		        .claim(secretVal_2, vo.getUsrEmail())
-		        .claim(secretVal_3, UUID.randomUUID().toString())
+		        .claim(secretVal_2+secretVal_1, UUID.randomUUID().toString())
+		        .claim(secretVal_2, dbUser.getUsrEmail())
+		        .claim(secretVal_3+secretVal_2, UUID.randomUUID().toString())
+		        .claim(secretVal_3, dbUser.getUsrNick())
 		        .setIssuedAt(new Date())
 		        .setExpiration(new Date(currentMillis + 8 * 60 * 60 * 1000))
 		        .signWith(SignatureAlgorithm.HS256, secretKey.getBytes())
