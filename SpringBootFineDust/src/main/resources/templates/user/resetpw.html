@@ -50,7 +50,7 @@
 						<div
 							class="signup-login-form-label mb-2 d-flex align-items-center">
 							<label for="verificationCode" class="me-1 mb-0">인증 코드</label> <span
-								style="color: #FF0858;">*</span>
+								style="color: #FF0858;">*  </span><span id="codeTime" style="color: #FF0858;">유효시간 : </span>
 						</div>
 						<input type="text" id="verificationCode" name="verificationCode"
 							placeholder="이메일로 받은 인증 코드를 입력하세요" maxlength="6"
@@ -141,6 +141,32 @@
 <!-- signup-page-container -->
 
 <script>
+	let countdownInterval;
+	const startCountdown = (duration) => {
+	  clearInterval(countdownInterval);
+	  let timeLeft = duration;
+	
+	  const updateTimer = () => {
+	    const minutes = Math.floor(timeLeft / 60);
+	    const seconds = timeLeft % 60;
+	    const formatted = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+	    document.getElementById('codeTime').textContent = `유효시간 : ${formatted}`;
+	
+	    if (timeLeft <= 0) {
+		  clearInterval(countdownInterval);
+	      alert('인증 시간이 만료되었습니다. 다시 시도해 주세요.');
+	      // 인증 코드 입력 폼 숨기기, 이메일 입력폼 다시 보이기 등 처리 
+	      window.location.href = '/resetpw';
+	      return;
+	    }
+	    timeLeft--;
+	    console.log(timeLeft);
+	  };
+	
+	  updateTimer();
+	  countdownInterval = setInterval(updateTimer, 1000);
+	}
+	
 	$('#verify-btn').on('click', function() {
 
 		const usrEmail = $('#usrEmail').val();
@@ -177,6 +203,7 @@
 			success : function(responseText) {
 				const response = JSON.parse(responseText);
 				if (response.status === "success") {
+					startCountdown(300); 
 					alert("인증 코드가 이메일로 전송되었습니다.");
 					document.getElementById("usrEmail").readOnly = true;
 				    document.getElementById("code-section").style.visibility = "visible";
@@ -216,6 +243,7 @@
 				code : code
 			},
 			success : function(response) {
+				clearInterval(countdownInterval);
 				alert("인증 성공");
 				// 기존 success 처리 (ex: 폼 숨기고 다음 단계 표시)
 
