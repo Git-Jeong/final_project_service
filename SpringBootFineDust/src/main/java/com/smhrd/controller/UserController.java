@@ -69,7 +69,7 @@ public class UserController {
             }
             
             // 3. 인증 성공 시 로그인 처리
-            String jwt = jwtUtil.generateToken(vo);
+            String jwt = jwtUtil.generateToken(dbUser);
             Cookie cookie = new Cookie(token_login, jwt);
             cookie.setHttpOnly(true);
             cookie.setPath("/");
