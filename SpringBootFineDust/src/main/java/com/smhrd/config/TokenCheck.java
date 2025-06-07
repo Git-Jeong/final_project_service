@@ -21,6 +21,9 @@ public class TokenCheck {
 
     @Value("${jwt.secret.val.2}")
     private String secretVal_2;
+    
+    @Value("${jwt.secret.val.3}")
+    private String secretVal_3;
 
     @Value("${jwt.cookie.name}")
     private String token_login;
@@ -59,5 +62,22 @@ public class TokenCheck {
             }
         }
         return email;
+    }
+    
+    public String getNameFromJwt(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        String userName = null;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (token_login.equals(cookie.getName())) {
+                    String token = cookie.getValue();
+                    Claims claims = jwtUtil.validateTokenAndGetClaims(token);
+                    if (claims != null) {
+                    	userName = claims.get(secretVal_3, String.class);
+                    }
+                }
+            }
+        }
+        return userName;
     }
 }
