@@ -36,7 +36,7 @@ public class Notification {
     private int isRead = 0;                         // 읽음 여부 (0 또는 1, 기본값 0)
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "st_id", referencedColumnName = "st_id", nullable = false)
+    @JoinColumn(name = "st_id", referencedColumnName = "st_id", nullable = true)
     private Station station;
 
     @Column(name = "noti_unit")
