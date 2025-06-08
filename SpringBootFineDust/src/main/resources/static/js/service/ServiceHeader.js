@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const headerHTML = `
     <div class="serviceChart-header">
       <div class="serviceChart-header-left">
-        <h2>${pageTitle}</h2>
+        <h2>실내공기질 ${pageTitle}</h2>
       </div>
       <div class="serviceChart-header-right">
         <button class="mypage-button" onclick="location.href='update'">

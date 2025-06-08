@@ -18,7 +18,7 @@
 	<div class="signup-login-page-container">
 
 		<!-- 우측 로그인 폼 영역 -->
-		<form id="login-form" method="post" action="login">
+		<form id="login-form" >
 			<div class="card-body text-black">
 				<div class="signup-login-center-container">
 					<div class="signup-login-head-title">
@@ -49,7 +49,7 @@
 						
 					<div class="signup-login-bottom-content">
 						<div align="center">
-							<button type="submit" class="btn signup-login-next-btn btn-lg">로그인</button>
+							<button type="button" class="btn signup-login-next-btn btn-lg" onclick="goLogin()">로그인</button>
 						</div>
 						<div
 							style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; row-gap: 1px; align-items: center; text-align: right; width: fit-content; margin: 0 auto;">
@@ -68,5 +68,40 @@
 		</form>
 	</div>
 	<!-- signup-page-container -->
+	<script type="text/javascript">
+	const goLogin = () => { 
+		const usrEmail = $('#usrEmail').val();
+		const usrPw = $('#usrPw').val();
+
+		if(usrEmail == null){
+			alert("이메일을 입력해 주세요. ");
+			return;
+		}
+		
+		if(usrPw == null){
+			alert("비밀번호를 입력해 주세요. ");
+			return;
+		}
+		
+		$.ajax({
+			url: "/login",
+			type: "POST",
+			contentType: "application/json",
+			data: JSON.stringify({"usrEmail":usrEmail, "usrPw":usrPw}),
+			success: function(data){
+				if(data.status === "success"){
+					window.location.href = "/service";
+				}
+				else{
+					alert(data.message);
+				}
+			},
+			error : function(xhr, status, error) {
+				alert("서버 오류: " + error);
+			}
+		})
+		
+	}
+	</script>
 </body>
 </html>
