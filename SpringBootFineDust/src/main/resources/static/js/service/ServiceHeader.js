@@ -87,3 +87,39 @@ const goLogout = () => {
 		});
 	}
 }
+
+function toggleNotificationDropdown() {
+  const dropdown = document.getElementById("notificationDropdown");
+  dropdown.classList.toggle("hidden");
+
+  // 드롭다운 열릴 때만 읽지 않은 알림 처리
+  if (!dropdown.classList.contains("hidden")) {
+    // 현재 화면에 있는 알림 중 isRead == 0인 noti_id 수집
+    const unreadIds = [];
+
+    // 이전에 불러온 알림 데이터 접근 (전역 변수로 저장 필요)
+    if (window.cachedNotifications) {
+      window.cachedNotifications.forEach(noti => {
+        if (noti.isRead === 0) {
+          unreadIds.push(noti.noti_id);
+        }
+      });
+    }
+
+    if (unreadIds.length > 0) {
+      $.ajax({
+        url: "/notifyRead", // 서버에서 처리할 엔드포인트
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ notiIds: unreadIds }),
+        success: function () {
+          $(".notification-button").removeClass("notify-alert");
+        },
+        error: function (err) {
+          console.error("알림 읽음 처리 실패:", err);
+        }
+      });
+    }
+  }
+}
+

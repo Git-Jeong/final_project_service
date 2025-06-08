@@ -242,3 +242,32 @@ body {
 .sidebar-button:hover {
 	background-color: #e0e0e0;
 }
+
+.notify-alert {
+  position: relative;
+  animation: pulse 1s infinite;
+  color: #dc3545 !important; /* 빨간색 아이콘 강조 */
+}
+
+.notify-alert .notification-icon::after {
+  content: '';
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  animation: blink 1s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
