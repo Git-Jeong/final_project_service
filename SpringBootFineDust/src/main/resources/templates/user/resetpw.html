@@ -34,16 +34,21 @@
 				</div>
 				<div class="signup-login-middle-content" id="identity-section">
 					<!-- 이메일 -->
-					<div class="mb-4">
+					<div class="mb-4" >
 						<div
 							class="signup-login-form-label mb-2 d-flex align-items-center">
 							<label for="usrEmail" class="me-1 mb-0">이메일</label> <span
 								style="color: #FF0858;">*</span>
 						</div>
-						<input type="text" id="usrEmail" name="usrEmail"
-							placeholder="이메일을 입력하세요" maxlength="30"
-							title="올바른 이메일 형식을 입력하세요."
-							class="form-control form-control-lg signup-form-control" />
+						<div class="d-flex gap-3">
+							<input placeholder="이메일을 입력하세요" type="text" id="usrEmail"
+								name="usrEmail" required maxlength="30"
+								title="영어, 숫자만 가능하며, 올바른 이메일 형식이어야 합니다."
+								class="form-control form-control-lg signup-form-control" />
+							<button id="verify-btn" onclick="idCheck()" type="button"
+								class="btn signup-login-btn-primary"
+								style="white-space: nowrap;">이메일 인증</button>
+						</div>
 					</div>
 					<!-- 인증코드 입력 폼 (초기엔 숨김) -->
 					<div class="mb-4 section" id="code-section" style="visibility: hidden;">
@@ -61,10 +66,8 @@
 				<div class="signup-login-bottom-content">
 					<!-- 확인 버튼 -->
 					<div align="center">
-						<button type="button" id="verify-code-btn" style="display: none"
-							class="btn signup-login-next-btn btn-lg">인증 확인</button>
-						<button type="button" id="verify-btn" style="display: block;"
-							class="btn signup-login-next-btn btn-lg">인증번호 발송</button>
+						<button type="button" id="verify-code-btn"
+							class="btn signup-login-next-btn btn-lg" disabled="disabled">인증 확인</button>
 					</div>
 					<div
 						style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; row-gap: 1px; align-items: center; text-align: right; width: fit-content; margin: 0 auto;">
@@ -166,8 +169,8 @@
 	  countdownInterval = setInterval(updateTimer, 1000);
 	}
 	
-	$('#verify-btn').on('click', function() {
-
+	const idCheck = () => {
+		
 		const usrEmail = $('#usrEmail').val();
 
 		if (!usrEmail) {
@@ -185,12 +188,14 @@
 			alert("올바른 이메일 형식이 아닙니다.");
 			return;
 		}
-		
-		const $btn = $(this);
-		$btn.prop('disabled', true);
-		const originalText = $btn.html();
-		$btn.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> 전송 중...');
 
+		const $btn = $('#verify-btn');
+		const originalHTML = $btn.html();
+		$btn.data('original-html', originalHTML);
+		$btn.prop('disabled', true).addClass('disabled');
+		$btn.html('<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>전송 중...');
+		$('#usrEmail').prop('readonly', true);
+		
 		$.ajax({
 			type : "POST",
 			url : "/send-code",
@@ -206,23 +211,24 @@
 					alert("인증 코드가 이메일로 전송되었습니다.");
 					document.getElementById("usrEmail").readOnly = true;
 				    document.getElementById("code-section").style.visibility = "visible";
-				    document.getElementById("verify-code-btn").style.display = "block";
-				    document.getElementById("verify-btn").style.display = "none";
+				    document.getElementById("verify-code-btn").disabled = false;
 				} else if (response.status === "fail") {
+				    $btn.prop('disabled', false);
 					alert( "일치하는 회원이 없습니다."); //
 				}
 	
 			},
 			error : function(xhr, status, error) {
+			    $btn.prop('disabled', false);
 				alert("서버 오류: " + error);
 			},
 			complete: function () {
 				// 완료 후 버튼 원상복구
 				$btn.prop('disabled', false);
-				$btn.html(originalText);
+				$btn.html($btn.data('original-html'));
 			}
 		});
-	});
+	};
 	
 	// 인증 코드 확인 버튼 이벤트
 	$('#verify-code-btn').on('click',function() {
@@ -264,6 +270,8 @@
 			}
 		});
 	});
+	
+	
 	document.getElementById('reset-form').addEventListener('submit',
 			function(e) {
 				e.preventDefault();
