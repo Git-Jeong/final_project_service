@@ -25,6 +25,7 @@
 	    headerText : '실내공기질 예측 시스템'
 	};
 </script>
+<script src="/js/service/ServiceGetData.js"></script> <!-- 여기서 먼지 데이터, 알림 데이터를 자동으로 불러오는 중 -->
 </head>
 <body>
 	<script src="/js/service/ServiceSidebar.js"></script>
@@ -57,14 +58,10 @@
 					</th:block>
 				</select> <input type="datetime-local" class="serviceChart-date" />
 
-				<button class="serviceChart-button"
-					th:onclick="'getStationDust(' + ${stationList.stId} + ')'">
-					예측 vs 실제</button>
-
-				<div class="serviceChart-buttons">
-					<button class="serviceChart-button">미세먼지</button>
-					<button class="serviceChart-button">유해가스</button>
-				</div>
+				<button class="serviceChart-button" style="display: none"
+				        th:onclick="'getStationDust(' + ${stationList.stId} + ')'">
+				    검색
+				</button> 
 			</div>
 			
 			

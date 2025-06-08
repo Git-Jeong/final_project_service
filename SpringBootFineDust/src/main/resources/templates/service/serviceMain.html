@@ -42,6 +42,7 @@
 		headerText : '실내공기질 측정 시스템'
 	};
 </script>
+<script src="/js/service/ServiceGetData.js"></script> <!-- 여기서 먼지 데이터, 알림 데이터를 자동으로 불러오는 중 -->
 <title>실내공기질 측정시스템</title>
 </head>
 <body>
@@ -74,15 +75,10 @@
 							th:if="${!#strings.isEmpty(station.stName_3)}"></option>
 					</th:block>
 				</select> <input type="datetime-local" class="serviceChart-date" />
-				<button class="serviceChart-button"
+				<button class="serviceChart-button" style="display: none"
 				        th:onclick="'getStationDust(' + ${stationList.stId} + ')'">
-				    예측 vs 실제
-				</button>
-
-				<div class="serviceChart-buttons">
-					<button class="serviceChart-button">미세먼지</button>
-					<button class="serviceChart-button">유해가스</button>
-				</div>
+				    검색
+				</button> 
 			</div>
 
 			<div class="serviceChart-chart-top">
@@ -225,22 +221,7 @@
 		  });
 		});
 
-		// 데이터 불러오는 함수
-	const getStationDust = (stId) =>{
-	    $.ajax({
-	        url : "getStationDust",
-	        type : "get",
-	        data : { "stId" : stId }, 
-	        success : function(data) {
-	            console.log("불러온 데이터?? :", data);
-	            // 받은 데이터 활용 코드 작성
-	        },
-	        error : function(err) {
-	            console.error("데이터 불러오기 실패:", err);
-	        }
-	    });
-	}
-	
+
 	</script>
 </body>
 </html>
