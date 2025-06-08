@@ -7,12 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.smhrd.config.EncryptionUtil;
 import com.smhrd.config.TokenCheck;
 import com.smhrd.entity.User;
 import com.smhrd.service.UserService;
-
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -21,8 +19,8 @@ import jakarta.servlet.http.HttpServletResponse;
 public class UserRestController {
 
 	@Autowired
-	private UserService service;
-
+	private UserService userService;
+	
     @Autowired
     private EncryptionUtil EncryptionUtil;
     
@@ -34,7 +32,7 @@ public class UserRestController {
     
 	@GetMapping("/idCheck")
 	public boolean idCheck(@RequestParam("usrEmail") String usrEmail) {
-		boolean m = service.idCheck(usrEmail);
+		boolean m = userService.idCheck(usrEmail);
 		return m;
 	}
 
@@ -47,7 +45,7 @@ public class UserRestController {
     		}
 			vo.setUsrPw(aesPw);
     	}
-        service.join(vo);
+    	userService.join(vo);
         return "success";
     }
     
@@ -55,7 +53,7 @@ public class UserRestController {
     public User getStationInfo(@RequestParam String usrEmail) {
     	User m = new User();
         m.setUsrEmail(usrEmail);
-        User vo = service.getUserInfo(m);
+        User vo = userService.getUserInfo(m);
     	return vo;
     }
     
@@ -71,7 +69,7 @@ public class UserRestController {
     		//만약을 대비하여 유저 닉네임은 다시 처리
 			vo.setUsrPw(aesPw);
     	}
-        service.setUserInfo(vo);
+    	userService.setUserInfo(vo);
         return "success";
     }
 
