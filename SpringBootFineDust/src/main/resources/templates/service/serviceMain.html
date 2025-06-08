@@ -55,39 +55,9 @@
 				<!-- js를 통해 여기에 헤더를 만들어 둠. -->
 				<!-- 헤더에는 '실내공기질 측정시스템'을 포함하여 '마이페이지', '알림', '로그아웃' 기능이 들어 있음. -->
 			</div>
-			<div id="notificationDropdown" class="notification-dropdown hidden">
-				<div class="notificationDropdown_header">
-					<div class="notificationDropdown_close">
-						<button class="notificationDropdown_close_btn"
-							onclick="notificationDropdown_close()">
-							<h4>
-								<i class="fas fa-times"></i>
-							</h4>
-
-						</button>
-					</div>
-					<div class="notificationDropdown_header_txt">
-						<h3>오류 알림</h3>
-					</div>
-				</div>
-				<!-- 여기서부터 -->
-				<div class="notification-card error">
-					<div class="notification-title-box">
-						<div class="notification-title-left-box">
-							<div class="notification-title-icon">
-								<i class="bi-exclamation-triangle-fill"></i> //noti_type이 'error', 'info', 'warning'인 경우에 따라 각각 다르게 표현
-							</div>
-							<div class="notification-title-content">notiTitle</div>
-						</div>
-						<div class="notification-title-time">3시간 전</div> //notiTime - 현재시간 notiTime의 경우 2025-06-08 16:14:50 양식임
-					</div>
-					<ul class="notification-content-box">
-						<li class="notification-time">시간: notiTime</li>
-						<li class="notification-content">내용: notiContent_1</li>
-						<li class="notification-state">상태: notiContent_2</li>
-					</ul>
-				</div>
+			<div id="notificationDropdown" class="notification-dropdown hidden"> 
 				<!-- 여기까지 실제 DB에서 데이터를 불러와서 출럭을 해야 됨. 즉 db에 값이 있으면 위의 코드를 반복하는 것 -->
+				<!-- js를 통해 여기에 알림 베너를 만들어 둠. -->
 			</div>
 
 			<div class="serviceChart-headeroption">

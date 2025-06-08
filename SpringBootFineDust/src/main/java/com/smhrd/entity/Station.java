@@ -1,5 +1,7 @@
 package com.smhrd.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;
 import jakarta.persistence.Column;
@@ -13,6 +15,7 @@ import lombok.Data;
 @Data
 @Entity
 @Access(AccessType.FIELD)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "station")
 public class Station {
 

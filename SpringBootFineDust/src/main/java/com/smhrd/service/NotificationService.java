@@ -152,7 +152,7 @@ public class NotificationService {
     }
 
     public List<Notification> getAllNotify(String usrEmail) {
-        List<Notification> getAllList = notificationRepository.findAllByUsrEmail(usrEmail);
+        List<Notification> getAllList = notificationRepository.findTop10ByUsrEmailOrderByNotiTimeDesc(usrEmail);
         return getAllList != null ? getAllList : new ArrayList<>();
     }
 

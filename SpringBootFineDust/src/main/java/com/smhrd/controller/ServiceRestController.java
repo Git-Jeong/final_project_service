@@ -1,6 +1,7 @@
 package com.smhrd.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,11 +73,12 @@ public class ServiceRestController {
 
     @GetMapping("/getAllNotify")
     public List<Notification> getAllNotify(HttpServletRequest request) {
-    	String usrEmail = token.extractUserFromJwt(request);
-    	if(usrEmail == null) {
-    		return null;
-    	} 
-    	List<Notification> getAllList =  notifyService.getAllNotify(usrEmail); 
-    	return getAllList;
+        String usrEmail = token.extractUserFromJwt(request);
+        if(usrEmail == null) {
+            return Collections.emptyList();  // null 대신 빈 리스트 반환 권장
+        }
+        List<Notification> getAllList = notifyService.getAllNotify(usrEmail);
+        return getAllList;
     }
+
 }
