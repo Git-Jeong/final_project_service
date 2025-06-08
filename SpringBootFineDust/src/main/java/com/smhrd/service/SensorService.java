@@ -18,7 +18,6 @@ public class SensorService {
 	@Autowired
 	private SensorRepository snsrRepository;
 
-	
 	@Autowired
 	private PredRepository prRepository;
 

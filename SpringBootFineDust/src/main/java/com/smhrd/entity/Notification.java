@@ -22,22 +22,29 @@ public class Notification {
 
     @Column(nullable = false, length = 255)
     private String noti_title;                      // 알림 제목
-    
+
     @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime noti_time;			// 발생 시간
+    private LocalDateTime noti_time;                // 발생 시간 (DB 서버 타임존이 Asia/Seoul이어야 한국시간 적용)
 
     @Column(nullable = false, columnDefinition = "TEXT")
-    private String noti_content;                    // 알림 내용
+    private String noti_content_1;                    // 알림 내용
 
-    @Column(length = 100)
-    private String noti_state = "대기중";           // 상태
-
-    @Column(nullable = false)
-    private Boolean is_read = false;                 // 읽음 여부
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String noti_content_2;                    // 알림 내용
+    
+    @Column(nullable = false, columnDefinition = "INT NOT NULL DEFAULT 0 CHECK (is_read IN (0,1))")
+    private int is_read = 0;                         // 읽음 여부 (0 또는 1, 기본값 0)
 
     public enum NotiType {
         error,
         info,
         warning
+    }
+    
+    @PrePersist
+    public void prePersist() {
+        if (noti_time == null) {
+            noti_time = LocalDateTime.now();
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.smhrd.service;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -20,8 +21,11 @@ public class EmailService {
     
     @Value("${spring.mail.username}")
     private String sendEmailAddress;
-
+    
+    @Autowired
     private final EmailAuthRepository emailAuthRepository;
+    
+    @Autowired
     private final JavaMailSender mailSender;
     
     public void sendEmail(String to, String subject, String text) {
