@@ -1,20 +1,16 @@
 package com.smhrd.controller;
 
 import org.springframework.http.ResponseEntity;
-
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.smhrd.entity.User;
 import com.smhrd.service.EmailAuthService;
 import com.smhrd.service.UserService;
-
 import lombok.RequiredArgsConstructor;
 
 @RestController
