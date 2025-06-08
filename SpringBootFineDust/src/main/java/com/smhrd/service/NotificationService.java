@@ -38,7 +38,8 @@ public class NotificationService {
         }
 
         notification.setNotiContent_2("PM1 : " + pm1);
-        if (isDuplicateNotification(usrEmail, notification.getNotiTitle())) return;
+        notification.setNotiUnit("pm1");
+        if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) return;
         notificationRepository.save(notification);
     }
     
@@ -63,7 +64,8 @@ public class NotificationService {
         }
 
         notification.setNotiContent_2("pm25 : " + pm25);
-        if (isDuplicateNotification(usrEmail, notification.getNotiTitle())) return;
+        notification.setNotiUnit("pm25");
+        if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) return;
         notificationRepository.save(notification);
     }
     
@@ -88,13 +90,15 @@ public class NotificationService {
         }
 
         notification.setNotiContent_2("pm10 : " + pm10);
-        if (isDuplicateNotification(usrEmail, notification.getNotiTitle())) return;
+        notification.setNotiUnit("pm10");
+        if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) return;
         notificationRepository.save(notification);
     }
     
-    private boolean isDuplicateNotification(String usrEmail, String stationName) {
+    
+    private boolean isDuplicateNotification(int stId, Notification.NotiType notiType, String notiUnit) {
         LocalDateTime oneHourAgo = LocalDateTime.now().minusHours(1);
-        return notificationRepository.findTopByUsrEmailAndNotiTitleOrderByNotiTimeDesc(usrEmail, stationName)
+        return notificationRepository.findTopByStIdAndNotiTypeAndNotiUnitOrderByNotiTimeDesc(stId, notiType, notiUnit)
             .filter(n -> n.getNotiTime().isAfter(oneHourAgo))
             .isPresent();
     }

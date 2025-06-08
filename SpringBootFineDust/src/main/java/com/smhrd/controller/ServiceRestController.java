@@ -27,6 +27,7 @@ public class ServiceRestController {
     
     @GetMapping("/getStationDust")
     public ArrayList<Sensor> getStationInfo(@RequestParam int stId, HttpServletRequest request) {
+    	int originStId = stId;
     	stId = 1; //현재는 모든 데이터가 1번으로 저장되어 있어서 이걸로 처리'
 
     	String usrEmail = token.extractUserFromJwt(request);
@@ -35,30 +36,33 @@ public class ServiceRestController {
     	}
     	
     	ArrayList<Sensor> snsr = (ArrayList<Sensor>) snsrService.getStDust(stId);
+
+    	// 더미데이터를 불러 왔으니, 다시 stId값을 복구
+    	stId = originStId;
+    	//알림기능 테스트룰 위한 더미 센싱값
+    	snsr.get(0).setPm1(221);
+    	snsr.get(0).setPm25(231);
+    	snsr.get(0).setPm10(421);
     	
-    	System.out.println("시간\t\t\tPM1\t\tPM2.5\tPM10");
-    	for (int i = 0; i < snsr.size(); i++) {
-    		System.out.println(snsr.get(i).getTimeHms() + "\t\t" + snsr.get(i).getPm1() + "\t\t" + snsr.get(i).getPm25() + "\t\t" + snsr.get(i).getPm10());
-    	}
-    	
+    	System.out.println(stId + "센서값 불러와짐.");
     	if((snsr != null) && (snsr.get(0) != null) && (snsr.get(0).getPm1() != null)) {
     		if(snsr.get(0).getPm1() >= 20) {
     			//초미세먼지 경고 알림 보내기
-    			notifyService.sendPm1Notify(stId, usrEmail,snsr.get(0).getPm1());
+    			notifyService.sendPm1Notify(stId, usrEmail, snsr.get(0).getPm1());
     		}
     	}    	
     	
     	if((snsr != null) && (snsr.get(0) != null) && (snsr.get(0).getPm25() != null)) {
     		if(snsr.get(0).getPm25() >= 20) {
     			//초미세먼지 경고 알림 보내기
-    			notifyService.sendPm25Notify(stId, usrEmail,snsr.get(0).getPm25());
+    			notifyService.sendPm25Notify(stId, usrEmail, snsr.get(0).getPm25());
     		}
     	}
     	
     	if((snsr != null) && (snsr.get(0) != null) && (snsr.get(0).getPm10() != null)) {
     		if(snsr.get(0).getPm10() >= 20) {
     			//미세먼지 경고 알림 보내기
-    			notifyService.sendPm10Notify(stId, usrEmail,snsr.get(0).getPm10());
+    			notifyService.sendPm10Notify(stId, usrEmail, snsr.get(0).getPm10());
     		}
     	}
     	

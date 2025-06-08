@@ -46,6 +46,6 @@ public class Sensor {
     @Column(name = "co2den")
     private BigDecimal co2den;
 
-    @Column(name = "st_Id")
+    @Column(name = "st_id")
     private int stId;
 }

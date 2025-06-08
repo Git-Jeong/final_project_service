@@ -26,6 +26,6 @@ public class Pred {
     @Column(name = "pm10")
     private Integer pm10;
 
-    @Column(name = "st_Id")
+    @Column(name = "st_id")
     private int stId;
 }

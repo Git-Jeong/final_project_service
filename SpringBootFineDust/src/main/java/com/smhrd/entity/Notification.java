@@ -35,6 +35,12 @@ public class Notification {
     @Column(nullable = false, columnDefinition = "INT NOT NULL DEFAULT 0 CHECK (is_read IN (0,1))", name = "is_read")
     private int isRead = 0;                         // 읽음 여부 (0 또는 1, 기본값 0)
 
+    @Column(name = "st_id")
+    private int stId;
+
+    @Column(name = "noti_unit")
+    private String notiUnit;
+    
     public enum NotiType {
         error,
         info,
@@ -48,3 +54,5 @@ public class Notification {
         }
     }
 }
+
+

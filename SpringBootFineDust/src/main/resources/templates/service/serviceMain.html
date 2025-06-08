@@ -75,48 +75,16 @@
 					<div class="notification-title-box">
 						<div class="notification-title-left-box">
 							<div class="notification-title-icon">
-								<i class="bi-exclamation-triangle-fill"></i>
+								<i class="bi-exclamation-triangle-fill"></i> //noti_type이 'error', 'info', 'warning'인 경우에 따라 각각 다르게 표현
 							</div>
-							<div class="notification-title-content">교대역 센서 오류</div>
+							<div class="notification-title-content">notiTitle</div>
 						</div>
-						<div class="notification-title-time">3시간 전</div>
+						<div class="notification-title-time">3시간 전</div> //notiTime - 현재시간 notiTime의 경우 2025-06-08 16:14:50 양식임
 					</div>
 					<ul class="notification-content-box">
-						<li class="notification-time">시간: 2024.04.13 15:20</li>
-						<li class="notification-content">오류 내용: 미세먼지 값 수신 안됨</li>
-						<li class="notification-state">상태: 점검 대기중</li>
-					</ul>
-				</div>
-				<div class="notification-card error">
-					<div class="notification-title-box">
-						<div class="notification-title-left-box">
-							<div class="notification-title-icon">
-								<i class="bi-exclamation-triangle-fill"></i>
-							</div>
-							<div class="notification-title-content">교대역 센서 오류</div>
-						</div>
-						<div class="notification-title-time">3시간 전</div>
-					</div>
-					<ul class="notification-content-box">
-						<li class="notification-time">시간: 2024.04.13 15:20</li>
-						<li class="notification-content">오류 내용: 미세먼지 값 수신 안됨</li>
-						<li class="notification-state">상태: 점검 대기중</li>
-					</ul>
-				</div>
-				<div class="notification-card error">
-					<div class="notification-title-box">
-						<div class="notification-title-left-box">
-							<div class="notification-title-icon">
-								<i class="bi-exclamation-triangle-fill"></i>
-							</div>
-							<div class="notification-title-content">교대역 센서 오류</div>
-						</div>
-						<div class="notification-title-time">3시간 전</div>
-					</div>
-					<ul class="notification-content-box">
-						<li class="notification-time">시간: 2024.04.13 15:20</li>
-						<li class="notification-content">오류 내용: 미세먼지 값 수신 안됨</li>
-						<li class="notification-state">상태: 점검 대기중</li>
+						<li class="notification-time">시간: notiTime</li>
+						<li class="notification-content">내용: notiContent_1</li>
+						<li class="notification-state">상태: notiContent_2</li>
 					</ul>
 				</div>
 				<!-- 여기까지 실제 DB에서 데이터를 불러와서 출럭을 해야 됨. 즉 db에 값이 있으면 위의 코드를 반복하는 것 -->
