@@ -37,7 +37,7 @@ public class NotificationService {
             return; // 알림 생성하지 않음 (pm1 20 미만은 무시)
         }
 
-        notification.setNotiContent_2(stationName + " PM1 : " + pm1);
+        notification.setNotiContent_2("PM1 : " + pm1);
         if (isDuplicateNotification(usrEmail, notification.getNotiTitle())) return;
         notificationRepository.save(notification);
     }
@@ -62,7 +62,7 @@ public class NotificationService {
             return; // 알림 생성하지 않음 (pm1 20 미만은 무시)
         }
 
-        notification.setNotiContent_2(stationName + " pm25 : " + pm25);
+        notification.setNotiContent_2("pm25 : " + pm25);
         if (isDuplicateNotification(usrEmail, notification.getNotiTitle())) return;
         notificationRepository.save(notification);
     }
@@ -87,14 +87,14 @@ public class NotificationService {
             return; // 알림 생성하지 않음 (pm1 20 미만은 무시)
         }
 
-        notification.setNotiContent_2(stationName + " pm10 : " + pm10);
+        notification.setNotiContent_2("pm10 : " + pm10);
         if (isDuplicateNotification(usrEmail, notification.getNotiTitle())) return;
         notificationRepository.save(notification);
     }
     
-    private boolean isDuplicateNotification(String usrEmail, String title) {
+    private boolean isDuplicateNotification(String usrEmail, String stationName) {
         LocalDateTime oneHourAgo = LocalDateTime.now().minusHours(1);
-        return notificationRepository.findTopByUsrEmailAndNotiTitleOrderByNotiTimeDesc(usrEmail, title)
+        return notificationRepository.findTopByUsrEmailAndNotiTitleOrderByNotiTimeDesc(usrEmail, stationName)
             .filter(n -> n.getNotiTime().isAfter(oneHourAgo))
             .isPresent();
     }
