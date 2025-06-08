@@ -15,6 +15,30 @@ body {
 	padding: 1rem;
 }
 
+.serviceChart-button,
+.serviceChart-date,
+.serviceChart-select{
+	height: 40px;
+	width : 300px;
+	text-align :center;
+	border : 1px solid;
+	margin: 0;
+}
+
+.serviceChart-date{
+	border-radius : 9px;
+}
+
+.serviceChart-select{
+	border-radius : 5px;
+}
+
+.serviceChart-button,
+.serviceChart-date:hover,
+.serviceChart-select:hover{
+	background-color: #f3f3f3;
+}
+
 .serviceChart-header-right {
 	margin-left: auto;
 }
@@ -49,8 +73,8 @@ body {
 	top: 70px;
 	right: 30px;
 	width: 350px;
-	max-height: 1200px;
-	overflow: scrollx;
+	max-height: 60vh;
+	overflow-y: auto;
 	padding: 10px;
 	backdrop-filter: blur(10px);
 	background-color: rgba(255, 255, 255, 0.2);
@@ -113,6 +137,30 @@ body {
 	gap: 10px; /* 요소 간 여백 */
 }
 
+.notification-card.warning{
+	border-color: #FF9900;
+	color:#FF9900;
+	padding: 10px;
+	border-radius: 10px;
+	border: 2px solid #ccc;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+	gap: 10px; /* 요소 간 여백 */
+}
+
+.notification-card.info{
+	border-color: #149EFF;
+	color:#149EFF;
+	padding: 10px;
+	border-radius: 10px;
+	border: 2px solid #ccc;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+	gap: 10px; /* 요소 간 여백 */
+}
+
 .notification-title {
 	font-weight: bold;
 }
@@ -151,6 +199,7 @@ body {
 }
 
 .serviceChart-headeroption {
+	height : 40px;
 	flex: 1;
 	min-height: 0;
 	border-radius: 10px;
