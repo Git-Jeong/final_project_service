@@ -1,12 +1,15 @@
 package com.smhrd.controller;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smhrd.config.TokenCheck;
+import com.smhrd.entity.Notification;
 import com.smhrd.entity.Sensor;
 import com.smhrd.service.NotificationService;
 import com.smhrd.service.SensorService;
@@ -64,8 +67,16 @@ public class ServiceRestController {
     			notifyService.sendPm10Notify(stId, usrEmail, snsr.get(0).getPm10());
     		}
     	}
-    	
     	return snsr;
     }
 
+    @GetMapping("/getAllNotify")
+    public List<Notification> getAllNotify(HttpServletRequest request) {
+    	String usrEmail = token.extractUserFromJwt(request);
+    	if(usrEmail == null) {
+    		return null;
+    	} 
+    	List<Notification> getAllList =  notifyService.getAllNotify(usrEmail); 
+    	return getAllList;
+    }
 }

@@ -3,6 +3,9 @@ package com.smhrd.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.smhrd.entity.Notification;
 import com.smhrd.entity.Station;
 import com.smhrd.repository.NotificationRepository;
@@ -146,6 +149,11 @@ public class NotificationService {
 		}
         
         return result;
+    }
+
+    public List<Notification> getAllNotify(String usrEmail) {
+        List<Notification> getAllList = notificationRepository.findAllByUsrEmail(usrEmail);
+        return getAllList != null ? getAllList : new ArrayList<>();
     }
 
 
