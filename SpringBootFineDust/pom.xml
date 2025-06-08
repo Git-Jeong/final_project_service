@@ -12,7 +12,7 @@
 	<artifactId>SpringMVC</artifactId>
 	<version>1.1.1-SNAPSHOT</version>
 	<name>SpringMVC</name>
-	<description>Spring Boot of JeongJin Temp project</description>
+	<description>The JeongJin Temp project using Spring Boot</description>
 	<url/>
 	<licenses>
 		<license/>
