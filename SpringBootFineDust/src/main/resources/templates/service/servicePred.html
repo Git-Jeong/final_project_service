@@ -58,7 +58,7 @@
 					</th:block>
 				</select> <input type="datetime-local" class="serviceChart-date" />
 
-				<button class="serviceChart-button" style="display: none"
+				<button id="serviceChartSearchButton" class="serviceChart-button" style="display: none"
 				        th:onclick="'getStationDust(' + ${stationList.stId} + ')'">
 				    검색
 				</button> 

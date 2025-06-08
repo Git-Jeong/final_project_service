@@ -15,7 +15,7 @@ const getStationDust = (stId) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-	const button = document.querySelector('.serviceChart-button');
+	const button = document.getElementById('serviceChartSearchButton');
 
 	setInterval(() => {
 		if (button) button.click();
