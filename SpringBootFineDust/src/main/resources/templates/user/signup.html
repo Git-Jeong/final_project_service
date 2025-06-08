@@ -326,7 +326,7 @@
 				success: function (responseText) {
 					const response = JSON.parse(responseText);
 					if (response.status === "success") {
-						startCountdown(5); 
+						startCountdown(300); 
 						alert("인증 코드가 이메일로 전송되었습니다.");
 						$('#email_code_check_box').show();
 						$('#email_input_box').hide();
