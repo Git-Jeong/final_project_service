@@ -3,9 +3,14 @@ package com.smhrd.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -79,6 +84,22 @@ public class ServiceRestController {
         }
         List<Notification> getAllList = notifyService.getAllNotify(usrEmail);
         return getAllList;
+    }
+    
+    @PostMapping("/notifyRead")
+    public ResponseEntity<?> markNotificationsAsRead(@RequestBody Map<String, List<Integer>> payload) {
+        List<Integer> notiIds = payload.get("notiIds");
+        if (notiIds == null || notiIds.isEmpty()) {
+            return ResponseEntity.ok(Map.of("status", "fail", "message", "알림 ID가 없습니다."));
+        }
+
+        try {
+        	notifyService.markNotificationsAsRead(notiIds);
+            return ResponseEntity.ok(Map.of("status", "success", "message", "읽음 처리를 완료하였습니다."));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("status", "error", "message", "서버 오류 발생", "detail", e.getMessage()));
+            }
     }
 
 }

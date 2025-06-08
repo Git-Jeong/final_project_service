@@ -156,5 +156,11 @@ public class NotificationService {
         return getAllList != null ? getAllList : new ArrayList<>();
     }
 
-
+    public void markNotificationsAsRead(List<Integer> notiIds) {
+        List<Notification> notifications = notificationRepository.findAllById(notiIds);
+        for (Notification noti : notifications) {
+            noti.setIsRead(1); // 또는 true, 저장 방식에 따라 다름
+        }
+        notificationRepository.saveAll(notifications);
+    }
 }
