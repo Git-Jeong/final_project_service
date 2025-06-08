@@ -32,7 +32,7 @@ public class NotificationService {
         } else if (pm1 >= 20) {
             notification.setNoti_type(Notification.NotiType.warning);
             notification.setNoti_title(stationName + " 초미세먼지 알림");
-            notification.setNoti_content_1(stationName + " 초미세먼지 값이 높음");
+            notification.setNoti_content_1(stationName + " pm1 값이 높음");
         } else {
             return; // 알림 생성하지 않음 (pm1 20 미만은 무시)
         }
@@ -56,7 +56,7 @@ public class NotificationService {
         } else if (pm25 >= 20) {
             notification.setNoti_type(Notification.NotiType.warning);
             notification.setNoti_title(stationName + " 초미세먼지 알림");
-            notification.setNoti_content_1(stationName + " 초미세먼지 값이 높음");
+            notification.setNoti_content_1(stationName + " pm2.5 값이 높음");
         } else {
             return; // 알림 생성하지 않음 (pm1 20 미만은 무시)
         }
@@ -76,11 +76,11 @@ public class NotificationService {
         if (pm10 >= 40) {
             notification.setNoti_type(Notification.NotiType.error);
             notification.setNoti_title(stationName + " 미세먼지 경고");
-            notification.setNoti_content_1(stationName + " 미세먼지 값이 너무 높음");
+            notification.setNoti_content_1(stationName + " 값이 너무 높음");
         } else if (pm10 >= 20) {
             notification.setNoti_type(Notification.NotiType.warning);
             notification.setNoti_title(stationName + " 미세먼지 알림");
-            notification.setNoti_content_1(stationName + " 미세먼지 값이 높음");
+            notification.setNoti_content_1(stationName + " pm10 미세먼지 값이 높음");
         } else {
             return; // 알림 생성하지 않음 (pm1 20 미만은 무시)
         }
