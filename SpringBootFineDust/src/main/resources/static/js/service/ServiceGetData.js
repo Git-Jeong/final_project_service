@@ -15,7 +15,7 @@ const getStationDust = (stId) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-	const button = document.querySelector('.serviceChart-button');
+	const button = document.getElementById('serviceChartSearchButton');
 
 	setInterval(() => {
 		if (button) button.click();
@@ -85,7 +85,7 @@ function renderNotifications(notifications) {
         </button>
       </div>
       <div class="notificationDropdown_header_txt">
-        <h3>오류 알림</h3>
+        <h3>시스템 알림</h3>
       </div>
     </div>
   `);
@@ -106,9 +106,9 @@ function renderNotifications(notifications) {
           <div class="notification-title-time">${timeText}</div>
         </div>
         <ul class="notification-content-box">
-          <li class="notification-time">시간: ${noti.notiTime.replace("T", " ")}</li>
-          <li class="notification-content">내용: ${noti.notiContent_1}</li>
-          <li class="notification-state">상태: ${noti.notiContent_2}</li>
+          <li class="notification-time">시간 : ${noti.notiTime.replace("T", " ")}</li>
+          <li class="notification-content">내용 : ${noti.notiContent_1}</li>
+          <li class="notification-state">${noti.notiContent_2}</li>
         </ul>
       </div>
     `;

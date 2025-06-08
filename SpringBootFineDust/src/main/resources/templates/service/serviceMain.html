@@ -75,7 +75,7 @@
 							th:if="${!#strings.isEmpty(station.stName_3)}"></option>
 					</th:block>
 				</select> <input type="datetime-local" class="serviceChart-date" />
-				<button class="serviceChart-button" style="display: none"
+				<button id="serviceChartSearchButton" class="serviceChart-button" style="visibility: hidden;"
 				        th:onclick="'getStationDust(' + ${stationList.stId} + ')'">
 				    검색
 				</button> 
@@ -96,7 +96,6 @@
 				<!--  span tag에 실제 값 기입하기 언젠가는,,  -->
 				<!--  신호등   -->
 				<div class="serviceChart-chart-top-right">
-
 					<div class="serviceChart-air-quality-box">
 						<ul class="serviceChart-pmbold">
 							<li>PM1.0 <span class="serviceChart-divider">|</span> <span
