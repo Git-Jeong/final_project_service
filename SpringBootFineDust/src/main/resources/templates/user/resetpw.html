@@ -59,7 +59,7 @@
 						</div>
 						<input type="text" id="verificationCode" name="verificationCode"
 							placeholder="이메일로 받은 인증 코드를 입력하세요" maxlength="6"
-							class="form-control form-control-lg signup-form-control" />
+							class="form-control form-control-lg signup-form-control" readonly="readonly"/>
 					</div>
 
 				</div>
@@ -159,7 +159,14 @@
 		  clearInterval(countdownInterval);
 	      alert('인증 시간이 만료되었습니다. 다시 시도해 주세요.');
 	      // 인증 코드 입력 폼 숨기기, 이메일 입력폼 다시 보이기 등 처리 
-	      window.location.href = '/resetpw';
+		  $('#usrEmail').prop('readonly', false);
+	      document.getElementById("verify-btn").removeAttribute("disabled");
+	  	  document.getElementById("verify-btn").classList.remove("disabled");
+		  document.getElementById("code-section").style.visibility = "hidden";
+		  document.getElementById("verify-code-btn").disabled = true;
+	      document.getElementById("verificationCode").readOnly = true;
+
+	      //window.location.href = '/resetpw';
 	      return;
 	    }
 	    timeLeft--;
@@ -207,9 +214,10 @@
 			success : function(responseText) {
 				const response = JSON.parse(responseText);
 				if (response.status === "success") {
-					startCountdown(300); 
+					startCountdown(300);    
 					alert("인증 코드가 이메일로 전송되었습니다.");
 					document.getElementById("usrEmail").readOnly = true;
+					document.getElementById("verificationCode").readOnly = false;
 				    document.getElementById("code-section").style.visibility = "visible";
 				    document.getElementById("verify-code-btn").disabled = false;
 				} else if (response.status === "fail") {
