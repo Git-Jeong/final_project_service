@@ -2,7 +2,6 @@ package com.smhrd.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.smhrd.entity.Station;
 import com.smhrd.repository.StationRepository;
 
@@ -10,11 +9,11 @@ import com.smhrd.repository.StationRepository;
 public class StationService {
 
 	@Autowired
-	private StationRepository repository;
-
+	private StationRepository stRepository;
+	
 	public boolean insertSt(Station st) {
 	    try {
-	        repository.save(st);
+	    	stRepository.save(st);
 	        return true;
 	    } catch (Exception e) {
 	        return false;
@@ -22,7 +21,7 @@ public class StationService {
 	}
 
 	public Station getStInfo(String usrEmail) {
-		Station st = repository.findByUsrEmail(usrEmail);
+		Station st = stRepository.findByUsrEmail(usrEmail);
 		if(st == null) {
 		    return new Station();
 		}
@@ -30,6 +29,6 @@ public class StationService {
 	}
 
 	public void setStInfo(Station st) {
-		repository.save(st);
+		stRepository.save(st);
 	}
 }

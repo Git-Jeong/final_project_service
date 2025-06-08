@@ -36,21 +36,21 @@ public class ServiceController {
 		return "service/serviceMain";
 	}
 	 
-		@GetMapping("/servicePred")
-		public String servicePredPage(HttpServletRequest request, Model model) {
-	        if (!token.isUserLoggedIn(request)) {
-	            return "redirect:/main";
-	        }
-	        String usrEmail = token.extractUserFromJwt(request);
-	        String userName = token.getNameFromJwt(request);
+	@GetMapping("/servicePred")
+	public String servicePredPage(HttpServletRequest request, Model model) {
+        if (!token.isUserLoggedIn(request)) {
+            return "redirect:/main";
+        }
+        String usrEmail = token.extractUserFromJwt(request);
+        String userName = token.getNameFromJwt(request);
 
-	        Station stationList = stService.getStInfo(usrEmail);
+        Station stationList = stService.getStInfo(usrEmail);
 
-	        //model.addAttribute("usrEmail", usrEmail);
-	        model.addAttribute("userName", userName);
-	        model.addAttribute("stationList", stationList);
-			return "service/servicePred";
-		}
+        //model.addAttribute("usrEmail", usrEmail);
+        model.addAttribute("userName", userName);
+        model.addAttribute("stationList", stationList);
+		return "service/servicePred";
+	}
 
 }
 

@@ -22,7 +22,7 @@
 <script th:inline="javascript">
 	window.model = {
 		userName : '[[${userName}]]',
-	    headerText : '실내공기질 예측 시스템'
+	    headerText : '서비스 페이지 템플릿'
 	};
 </script>
 <script src="/js/service/ServiceGetData.js"></script> <!-- 여기서 먼지 데이터, 알림 데이터를 자동으로 불러오는 중 -->
@@ -37,7 +37,6 @@
 			<div id="serviceChart-header">
 				<!-- js를 통해 여기에 헤더를 만들어 둠 -->
 			</div>
-
 			<div id="notificationDropdown" class="notification-dropdown hidden"> 
 				<!-- 여기까지 실제 DB에서 데이터를 불러와서 출럭을 해야 됨. 즉 db에 값이 있으면 위의 코드를 반복하는 것 -->
 				<!-- js를 통해 여기에 알림 베너를 만들어 둠. -->
