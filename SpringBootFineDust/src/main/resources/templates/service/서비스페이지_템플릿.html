@@ -42,7 +42,7 @@
 				<!-- js를 통해 여기에 알림 베너를 만들어 둠. -->
 			</div>
 
-			<div class="serviceChart-headeroption">
+						<div class="serviceChart-headeroption">
 				<select class="serviceChart-select">
 					<th:block th:each="station : ${stationList}">
 						<option
@@ -56,8 +56,7 @@
 							th:if="${!#strings.isEmpty(station.stName_3)}"></option>
 					</th:block>
 				</select> <input type="datetime-local" class="serviceChart-date" />
-
-				<button id="serviceChartSearchButton" class="serviceChart-button" style="display: none"
+				<button id="serviceChartSearchButton" class="serviceChart-button" style="visibility: hidden;"
 				        th:onclick="'getStationDust(' + ${stationList.stId} + ')'">
 				    검색
 				</button> 
