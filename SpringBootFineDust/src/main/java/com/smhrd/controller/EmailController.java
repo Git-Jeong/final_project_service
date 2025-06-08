@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.smhrd.entity.User;
-import com.smhrd.service.EmailAuthService;
+import com.smhrd.service.EmailService;
 import com.smhrd.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class EmailAuthController {
+public class EmailController {
 
     @Autowired
-    private final EmailAuthService emailAuthService;
+    private final EmailService emailService;
 
     @Autowired
     private UserService userService;
@@ -34,7 +34,7 @@ public class EmailAuthController {
         if ((usr != null) && (usr.getUsrEmail() != null)) {
             return ResponseEntity.ok(Map.of("status", "fail", "message", "이미 있는 계정입니다."));
         }
-        emailAuthService.sendVerificationCode(usrEmail);
+        emailService.sendVerificationCode(usrEmail);
         // 명시적으로 성공 메시지 전달
         return ResponseEntity.ok(Map.of("status", "success", "message", "인증코드 전송됨", "codeValidSeconds", codeValidSeconds));
     }
@@ -44,7 +44,7 @@ public class EmailAuthController {
         String usrEmail = requestBody.get("usrEmail");
         User usr = userService.findByUsrEmailForLogin(usrEmail);
         if ((usr != null) && (usr.getUsrEmail() != null)) {
-            emailAuthService.sendVerificationCode(usrEmail);
+            emailService.sendVerificationCode(usrEmail);
             // 명시적으로 성공 메시지 전달
             return ResponseEntity.ok(Map.of("status", "success", "message", "인증코드 전송됨", "codeValidSeconds", codeValidSeconds));
         } else {
@@ -55,7 +55,7 @@ public class EmailAuthController {
 
     @PostMapping("/verify-code")
     public ResponseEntity<?> verifyCode(@RequestParam String usrEmail, @RequestParam String code) {
-        boolean isValid = emailAuthService.verifyCode(usrEmail, code);
+        boolean isValid = emailService.verifyCode(usrEmail, code);
         if (isValid) {
             return ResponseEntity.ok("인증 성공");
         }

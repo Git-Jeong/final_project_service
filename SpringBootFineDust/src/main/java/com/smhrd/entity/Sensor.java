@@ -8,6 +8,7 @@ import java.time.LocalTime;
 
 @Data
 @Entity
+@Table(name = "sensor")
 public class Sensor {
 
     @Id

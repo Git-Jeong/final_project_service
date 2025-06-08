@@ -45,7 +45,7 @@
 <title>실내공기질 측정시스템</title>
 </head>
 <body>
-	<script src="/js/ServiceSidebar.js"></script>
+	<script src="/js/service/ServiceSidebar.js"></script>
 
 
 	<div class="service-main-page">
@@ -222,7 +222,7 @@
 					<script src="/js/charts/chartpm10.js"></script>
 				</div>
 			</div>
-			<script type="text/javascript" src="/js/ServiceHeader.js"></script>
+			<script type="text/javascript" src="/js/service/ServiceHeader.js"></script>
 		</main>
 	</div>
 	<script>  
@@ -289,7 +289,6 @@
 
 		// 데이터 불러오는 함수
 	const getStationDust = (stId) =>{
-		alert(stId);
 	    $.ajax({
 	        url : "getStationDust",
 	        type : "get",
