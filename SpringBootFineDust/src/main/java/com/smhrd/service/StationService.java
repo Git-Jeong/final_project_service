@@ -9,11 +9,11 @@ import com.smhrd.repository.StationRepository;
 public class StationService {
 
 	@Autowired
-	private StationRepository repository;
-
+	private StationRepository stRepository;
+	
 	public boolean insertSt(Station st) {
 	    try {
-	        repository.save(st);
+	    	stRepository.save(st);
 	        return true;
 	    } catch (Exception e) {
 	        return false;
@@ -21,7 +21,7 @@ public class StationService {
 	}
 
 	public Station getStInfo(String usrEmail) {
-		Station st = repository.findByUsrEmail(usrEmail);
+		Station st = stRepository.findByUsrEmail(usrEmail);
 		if(st == null) {
 		    return new Station();
 		}
@@ -29,6 +29,6 @@ public class StationService {
 	}
 
 	public void setStInfo(Station st) {
-		repository.save(st);
+		stRepository.save(st);
 	}
 }
