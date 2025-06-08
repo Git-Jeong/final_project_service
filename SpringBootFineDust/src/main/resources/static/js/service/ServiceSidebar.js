@@ -1,13 +1,14 @@
 // 사이드바 생성
-const userName = window.model?.userName || '사용자';
-  
+const userNameSide = window.model?.userName || '사용자';
+const pageTitleSide = window.model?.headerText || '서비스 페이지';
+
 const sidebar = document.createElement('aside');
 sidebar.className = 'sidebar';
 
 // 로고
 const logo = document.createElement('div');
 logo.className = 'sidebar-logo';
-logo.innerHTML = '<strong>실내공기질<br>측정시스템</strong>';
+logo.innerHTML = `<strong>실내공기질<br>${pageTitleSide}</strong>`;
 sidebar.appendChild(logo);
 
 // 프로필 영역
@@ -23,7 +24,7 @@ profile.appendChild(img);
 // 환영 메시지
 const welcome = document.createElement('div');
 welcome.className = 'sidebar-welcome';
-welcome.innerHTML = `<strong>${userName}님<br>환영합니다!</strong>`;
+welcome.innerHTML = `<strong>${userNameSide}님<br>환영합니다!</strong>`;
 
 // 프로필과 환영 메시지를 감싸는 div 생성
 const profileWrapper = document.createElement('div');

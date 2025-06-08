@@ -7,13 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.smhrd.config.EncryptionUtil;
-import com.smhrd.config.JwtUtil;
 import com.smhrd.config.TokenCheck;
 import com.smhrd.entity.User;
 import com.smhrd.service.UserService;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class UserController {
@@ -23,9 +20,6 @@ public class UserController {
 
     @Autowired
     private TokenCheck token;
-    
-    @Autowired
-    private JwtUtil jwtUtil;
 
     @Autowired
     private EncryptionUtil EncryptionUtil;
@@ -50,36 +44,7 @@ public class UserController {
             return "redirect:/service";
         }
         return "user/login";
-    }
-
-    @PostMapping("/login")
-    public String login(User vo, HttpServletResponse response) {
-    	if((vo != null) && (vo.getUsrPw() != null)) {
-    		User dbUser = service.findByUsrEmailForLogin(vo.getUsrEmail());
-    		
-    		if (dbUser == null) {
-	            return "redirect:/login";  // 사용자 없음
-	        }
-    		
-    		// 2. 비밀번호 검증
-            boolean matches = EncryptionUtil.verifyPassword(vo.getUsrPw(), dbUser.getUsrPw());
-            if (!matches) {
-                return "redirect:/login";  // 비밀번호 불일치
-            }
-            
-            // 3. 인증 성공 시 로그인 처리
-            String jwt = jwtUtil.generateToken(dbUser);
-            Cookie cookie = new Cookie(token_login, jwt);
-            cookie.setHttpOnly(true);
-            cookie.setPath("/");
-            cookie.setMaxAge(60 * 60 * 8);
-            response.addCookie(cookie);
-            return "redirect:/service";
-    	} 
-        else {
-            return "redirect:/login";
-        }
-    }
+    }  
 
     @GetMapping("/update")
     public String update(HttpServletRequest request, Model model) {
