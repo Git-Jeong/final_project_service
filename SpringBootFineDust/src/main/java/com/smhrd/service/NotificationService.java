@@ -40,8 +40,12 @@ public class NotificationService {
         notification.setNotiContent_2("PM1 : " + pm1);
         notification.setNotiUnit("pm1");
         notification.setStation(station);
-        if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) return;
-        notificationRepository.save(notification);
+        if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) {
+        	return;
+        }
+        else {
+            notificationRepository.save(notification);
+		}
     }
     
     public void sendPm25Notify(int stId, String usrEmail, Integer pm25) {
@@ -67,8 +71,12 @@ public class NotificationService {
         notification.setNotiContent_2("pm25 : " + pm25);
         notification.setNotiUnit("pm25");
         notification.setStation(station);
-        if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) return;
-        notificationRepository.save(notification);
+        if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) {
+        	return;
+        }
+        else {
+            notificationRepository.save(notification);
+		}
     }
     
     public void sendPm10Notify(int stId, String usrEmail, Integer pm10) {
@@ -94,15 +102,51 @@ public class NotificationService {
         notification.setNotiContent_2("pm10 : " + pm10);
         notification.setNotiUnit("pm10");
         notification.setStation(station);
-        if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) return;
-        notificationRepository.save(notification);
+        if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) {
+        	return;
+        }
+        else {
+            notificationRepository.save(notification);
+		}
     }
     
     
     private boolean isDuplicateNotification(int stId, Notification.NotiType notiType, String notiUnit) {
+        boolean result = false;
         LocalDateTime oneHourAgo = LocalDateTime.now().minusHours(1);
-        return notificationRepository.findTopByStation_StIdAndNotiTypeAndNotiUnitOrderByNotiTimeDesc(stId, notiType, notiUnit)
-            .filter(n -> n.getNotiTime().isAfter(oneHourAgo))
-            .isPresent(); 
+        
+        Notification getNotify = notificationRepository.findTopByStation_StIdAndNotiUnitOrderByNotiTimeDesc(stId, notiUnit);
+        
+        if (getNotify == null || getNotify.getNotiType().name() == null) {
+            return result; // 알림 없음 → 중복 아님
+        }
+
+        if (getNotify.getNotiTime().isBefore(oneHourAgo)) {
+            return result; // 1시간 이전 알림 → 중복 아님
+        }
+        
+        String inputType = notiType.name();
+        String findType = getNotify.getNotiType().name();
+        
+        if(findType.equals("error")) {
+        	result = true; 
+        }
+        else if(findType.equals("warning")) {
+        	if(inputType.equals("warning")) {
+            	result = true; 
+        	}
+        	else if(inputType.equals("info")) {
+            	result = true; 
+        	}
+		}
+        else if(findType.equals("info")) {
+        	if(inputType.equals("info")) {
+            	result = true; 
+        	}
+		}
+        
+        return result;
     }
+
+
 }

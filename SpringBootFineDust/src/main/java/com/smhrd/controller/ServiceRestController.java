@@ -40,11 +40,10 @@ public class ServiceRestController {
     	// 더미데이터를 불러 왔으니, 다시 stId값을 복구
     	stId = originStId;
     	//알림기능 테스트룰 위한 더미 센싱값
-    	snsr.get(0).setPm1(221);
-    	snsr.get(0).setPm25(231);
-    	snsr.get(0).setPm10(421);
-    	
-    	System.out.println(stId + "센서값 불러와짐.");
+//    	snsr.get(0).setPm1(21);
+//    	snsr.get(0).setPm25(21);
+//    	snsr.get(0).setPm10(21);
+
     	if((snsr != null) && (snsr.get(0) != null) && (snsr.get(0).getPm1() != null)) {
     		if(snsr.get(0).getPm1() >= 20) {
     			//초미세먼지 경고 알림 보내기
