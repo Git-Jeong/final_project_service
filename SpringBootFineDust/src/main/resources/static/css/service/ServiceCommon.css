@@ -113,6 +113,30 @@ body {
 	gap: 10px; /* 요소 간 여백 */
 }
 
+.notification-card.warning{
+	border-color: #FF9900;
+	color:#FF9900;
+	padding: 10px;
+	border-radius: 10px;
+	border: 2px solid #ccc;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+	gap: 10px; /* 요소 간 여백 */
+}
+
+.notification-card.info{
+	border-color: #149EFF;
+	color:#149EFF;
+	padding: 10px;
+	border-radius: 10px;
+	border: 2px solid #ccc;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+	gap: 10px; /* 요소 간 여백 */
+}
+
 .notification-title {
 	font-weight: bold;
 }
