@@ -36,3 +36,8 @@ a {
   opacity: 1;
   visibility: visible;
 }
+
+.form-control:focus {
+  box-shadow: none;
+  border: 1px solid #ff3232;
+}
