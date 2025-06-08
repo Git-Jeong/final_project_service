@@ -35,8 +35,9 @@ public class Notification {
     @Column(nullable = false, columnDefinition = "INT NOT NULL DEFAULT 0 CHECK (is_read IN (0,1))", name = "is_read")
     private int isRead = 0;                         // 읽음 여부 (0 또는 1, 기본값 0)
 
-    @Column(name = "st_id")
-    private int stId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "st_id", referencedColumnName = "st_id", nullable = false)
+    private Station station;
 
     @Column(name = "noti_unit")
     private String notiUnit;

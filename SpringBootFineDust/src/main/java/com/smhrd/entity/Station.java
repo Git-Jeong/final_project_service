@@ -18,7 +18,7 @@ public class Station {
 
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "st_Id")
+    @Column(name = "st_id")
     private int stId;
 
     @Column(nullable = false, length = 60)

@@ -8,6 +8,5 @@ import com.smhrd.entity.Notification.NotiType;
 
 public interface NotificationRepository extends JpaRepository<Notification, Integer> {
 	
-	Optional<Notification> findTopByStIdAndNotiTypeAndNotiUnitOrderByNotiTimeDesc(int stId, NotiType notiType,
-			String notiUnit);
+	//Optional<Notification> findTopByStIdAndNotiTypeAndNotiUnitOrderByNotiTimeDesc(int stId, NotiType notiType, String notiUnit);
 }

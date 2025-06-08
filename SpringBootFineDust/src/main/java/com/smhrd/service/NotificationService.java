@@ -98,8 +98,9 @@ public class NotificationService {
     
     private boolean isDuplicateNotification(int stId, Notification.NotiType notiType, String notiUnit) {
         LocalDateTime oneHourAgo = LocalDateTime.now().minusHours(1);
-        return notificationRepository.findTopByStIdAndNotiTypeAndNotiUnitOrderByNotiTimeDesc(stId, notiType, notiUnit)
-            .filter(n -> n.getNotiTime().isAfter(oneHourAgo))
-            .isPresent();
+//        return notificationRepository.findTopByStIdAndNotiTypeAndNotiUnitOrderByNotiTimeDesc(stId, notiType, notiUnit)
+//            .filter(n -> n.getNotiTime().isAfter(oneHourAgo))
+//            .isPresent();
+        return false;
     }
 }
