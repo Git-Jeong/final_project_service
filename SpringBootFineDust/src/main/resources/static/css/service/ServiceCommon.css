@@ -15,6 +15,30 @@ body {
 	padding: 1rem;
 }
 
+.serviceChart-button,
+.serviceChart-date,
+.serviceChart-select{
+	height: 40px;
+	width : 300px;
+	text-align :center;
+	border : 1px solid;
+	margin: 0;
+}
+
+.serviceChart-date{
+	border-radius : 9px;
+}
+
+.serviceChart-select{
+	border-radius : 5px;
+}
+
+.serviceChart-button,
+.serviceChart-date:hover,
+.serviceChart-select:hover{
+	background-color: #f3f3f3;
+}
+
 .serviceChart-header-right {
 	margin-left: auto;
 }
@@ -175,6 +199,7 @@ body {
 }
 
 .serviceChart-headeroption {
+	height : 40px;
 	flex: 1;
 	min-height: 0;
 	border-radius: 10px;

@@ -75,7 +75,7 @@
 							th:if="${!#strings.isEmpty(station.stName_3)}"></option>
 					</th:block>
 				</select> <input type="datetime-local" class="serviceChart-date" />
-				<button id="serviceChartSearchButton" class="serviceChart-button" style="display: none"
+				<button id="serviceChartSearchButton" class="serviceChart-button" style="visibility: hidden;"
 				        th:onclick="'getStationDust(' + ${stationList.stId} + ')'">
 				    검색
 				</button> 

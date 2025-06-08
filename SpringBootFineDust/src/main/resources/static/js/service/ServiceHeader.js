@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener('DOMContentLoaded', () => {
 	const input = document.querySelector('.serviceChart-date');
-
+	
 	function updateKoreanDatetimeLocal() {
 		const now = new Date();
 		const krDate = new Date(now.getTime());
@@ -53,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		const minute = String(krDate.getMinutes()).padStart(2, '0');
 
 		const formatted = `${year}-${month}-${day}T${hour}:${minute}`;
-
 		input.value = formatted;
 		input.max = formatted;
 	}
