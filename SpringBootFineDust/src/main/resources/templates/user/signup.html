@@ -236,7 +236,15 @@
 		    if (timeLeft <= 0) {
 		      clearInterval(countdownInterval);
 		      alert('인증 시간이 만료되었습니다. 다시 시도해 주세요.');
-		      window.location.href = '/signup';
+
+		      $('#email_code_check_box').hide();
+		      $('#email_input_box').show();
+		      $('#usrEmail').prop('readonly', false);
+		      document.getElementById("idCheckTest").removeAttribute("disabled");
+		      document.getElementById("idCheckTest").classList.remove("disabled");
+
+		      
+		      //window.location.href = '/signup';
 		      return;
 		    }
 		    timeLeft--;
@@ -284,7 +292,7 @@
 				}
 			});
 		}
-		function idCheck() {
+		const idCheck = () => {
 			const usrEmail = $('#usrEmail').val();
 			if (!usrEmail) {
 				alert("이메일을 입력해 주세요.");
@@ -318,7 +326,7 @@
 				success: function (responseText) {
 					const response = JSON.parse(responseText);
 					if (response.status === "success") {
-						startCountdown(300); 
+						startCountdown(5); 
 						alert("인증 코드가 이메일로 전송되었습니다.");
 						$('#email_code_check_box').show();
 						$('#email_input_box').hide();
