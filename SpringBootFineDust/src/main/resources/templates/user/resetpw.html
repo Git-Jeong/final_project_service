@@ -213,7 +213,7 @@
 			success : function(responseText) {
 				const response = JSON.parse(responseText);
 				if (response.status === "success") {
-					startCountdown(300);    
+					startCountdown(response.codeValidSeconds);    
 					alert("인증 코드가 이메일로 전송되었습니다.");
 					document.getElementById("usrEmail").readOnly = true;
 					document.getElementById("verificationCode").readOnly = false;

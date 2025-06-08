@@ -27,6 +27,9 @@ public class EmailAuthController {
     @Autowired
     private UserService userService;
     
+    // email 유효시간 300초
+    private int codeValidSeconds = 300;
+    
     @PostMapping("/new-send-code")
     public ResponseEntity<?> newUserCode(@RequestBody Map<String, String> requestBody) {
         String usrEmail = requestBody.get("usrEmail");
@@ -37,7 +40,7 @@ public class EmailAuthController {
         }
         emailAuthService.sendVerificationCode(usrEmail);
         // 명시적으로 성공 메시지 전달
-        return ResponseEntity.ok(Map.of("status", "success", "message", "인증코드 전송됨"));
+        return ResponseEntity.ok(Map.of("status", "success", "message", "인증코드 전송됨", "codeValidSeconds", codeValidSeconds));
     }
     
     @PostMapping("/send-code")
@@ -47,7 +50,7 @@ public class EmailAuthController {
         if ((usr != null) && (usr.getUsrEmail() != null)) {
             emailAuthService.sendVerificationCode(usrEmail);
             // 명시적으로 성공 메시지 전달
-            return ResponseEntity.ok(Map.of("status", "success", "message", "인증코드 전송됨"));
+            return ResponseEntity.ok(Map.of("status", "success", "message", "인증코드 전송됨", "codeValidSeconds", codeValidSeconds));
         } else {
             // 이메일이 존재하지 않음 → 200 OK + 실패 상태 전달
             return ResponseEntity.ok(Map.of("status", "fail", "message", "일치하는 회원이 없습니다."));
