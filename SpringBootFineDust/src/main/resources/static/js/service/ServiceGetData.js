@@ -17,7 +17,8 @@ const getStationDust = (stId) => {
 			if (dustStack.length > 10) {
 				dustStack.shift();
 			}
-			drawDustChart(dustStack);
+			//drawDustChart(dustStack);
+			drawDustEChart(dustStack);
 			console.log("현재 스택:", dustStack);
 		},
 		error: function(err) {
