@@ -31,6 +31,17 @@ public class SensorService {
 		);
 	}
 
+	public Sensor getStDustOne(int stId) {
+		LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
+		String weekday = now.getDayOfWeek().toString(); // 예: MONDAY
+		LocalTime timeHms = now.toLocalTime();
+
+		return snsrRepository.findTop1ByStIdAndWeekdayAndTimeHmsLessThanEqualOrderByTimeHmsDesc(
+			stId, weekday, timeHms
+		);
+	}
+	
+
 	// 현재 시각 기준, 과거(이전 또는 같은 시각)의 예측 정보 10개 조회 (최근 → 과거 순)
 	public ArrayList<Pred> getPastPredInfo(int stId) {
 		LocalDateTime pmTime = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
@@ -46,5 +57,4 @@ public class SensorService {
 				stId, pmTime
 		);
 	}
-	
 }

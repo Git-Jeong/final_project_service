@@ -9,7 +9,10 @@
 .main-top-container {
 	display: flex; /* Flex 컨테이너 지정 */
 	justify-content: center; /* 내부 요소 가운데 정렬 */
-	background: rgba(217, 217, 217, 0.5);
+	background-image: url('/img/mainPageBack.png');
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .main-top-banner {
