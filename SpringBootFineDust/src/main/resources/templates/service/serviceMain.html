@@ -74,9 +74,9 @@
 
 			<div class="serviceChart-chart-top">
 				<div class="serviceChart-chart-top-left" id="main-wide-chart">
-					<div id="chart-dust-main-echarts" style="width: 100%; height: 100%;"></div>
-
-
+					<div id="chart-dust-main-echarts" style="height: 100%; width: 100%">
+						<div id="chart-loading-main" class="chart-loading-spinner"></div>
+					</div>
 				</div>
 
 				<!--  신호등   -->
@@ -86,7 +86,9 @@
 							<li>PM1.0 <span class="serviceChart-divider">|</span> <span
 								class="pm-value"> </span></li>
 						</ul>
-						<div class="serviceChart-quality" data-type="pm1"></div>
+						<div class="serviceChart-quality" data-type="pm1">
+							<div id="chart-loading-quality-1" class="chart-loading-spinner"></div>
+						</div>
 					</div>
 
 					<div class="serviceChart-air-quality-box">
@@ -94,7 +96,9 @@
 							<li>PM2.5 <span class="serviceChart-divider">|</span> <span
 								class="pm-value"> </span></li>
 						</ul>
-						<div class="serviceChart-quality" data-type="pm2"></div>
+						<div class="serviceChart-quality" data-type="pm2">
+							<div id="chart-loading-quality-2" class="chart-loading-spinner"></div>
+						</div>
 					</div>
 
 					<div class="serviceChart-air-quality-box">
@@ -102,7 +106,9 @@
 							<li>PM10 <span class="serviceChart-divider">|</span> <span
 								class="pm-value"> </span></li>
 						</ul>
-						<div class="serviceChart-quality" data-type="pm10"></div>
+						<div class="serviceChart-quality" data-type="pm10">
+							<div id="chart-loading-quality-10" class="chart-loading-spinner"></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -113,21 +119,27 @@
 					<div class="serviceChart-box">
 						PM1
 					</div>
-					<div id="mini-pm1-chart"></div>
+					<div id="mini-pm1-chart">
+						<div id="chart-loading-pm1" class="chart-loading-spinner"></div>
+					</div>
 				</div>
 				<div class="serviceChart-chart-box">
 					<!-- PM2.5 시간별 차트 -->
 					<div class="serviceChart-box">
 						PM2.5
 					</div>
-					<div id="mini-pm25-chart"></div>
+					<div id="mini-pm25-chart">
+						<div id="chart-loading-pm25" class="chart-loading-spinner"></div>
+					</div>
 				</div>
 				<div class="serviceChart-chart-box">
 					<!-- PM10 시간별 차트 -->
 					<div class="serviceChart-box">
 						PM10
 					</div>
-					<div id="mini-pm10-chart"></div>
+					<div id="mini-pm10-chart">
+						<div id="chart-loading-pm10" class="chart-loading-spinner"></div>
+					</div>
 				</div>
 			</div>
 			<div class="serviceChart-chart-bottom">
@@ -136,14 +148,18 @@
 					<div class="serviceChart-box">
 						이산화탄소
 					</div>
-					<div id="mini-co2-chart"></div>
+					<div id="mini-co2-chart">
+						<div id="chart-loading-co2" class="chart-loading-spinner"></div>
+					</div>
 				</div>
 				<div class="serviceChart-chart-box">
 					<!-- Co 시간별 차트 -->
 					<div class="serviceChart-box">
 						일산화탄소
 					</div>
-					<div id="mini-co-chart"></div>
+					<div id="mini-co-chart">
+						<div id="chart-loading-co" class="chart-loading-spinner"></div>
+					</div>
 				</div>
 			</div>
 			<script type="text/javascript" src="/js/service/ServiceHeader.js"></script>
