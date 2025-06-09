@@ -17,20 +17,25 @@ const getStationDust = (stId) => {
 			if (dustStack.length > 10) {
 				dustStack.shift();
 			}
+
 			updateAirQualitySignal(dto)
 			
 			const dustMainChartData = {
 				timeHms: [],
 				pm1Data: [],
 				pm25Data: [],
-				pm10Data: []
+				pm10Data: [],
+			    codenData: [],
+  				co2denData: []
 			};
-
+			
 			dustStack.forEach(d => {
 				dustMainChartData.timeHms.push(d.timeHms);
 				dustMainChartData.pm1Data.push(d.pm1);
 				dustMainChartData.pm25Data.push(d.pm25);
 				dustMainChartData.pm10Data.push(d.pm10);
+				dustMainChartData.codenData.push(d.coden);   
+  				dustMainChartData.co2denData.push(d.co2den);  
 			});
 
 			const dustPm1ChartData = {
@@ -47,12 +52,23 @@ const getStationDust = (stId) => {
 				timeHms: dustMainChartData.timeHms,
 				pm10Data: dustMainChartData.pm10Data,
 			};
+			
+			const codenChartData = {
+			  timeHms: dustMainChartData.timeHms,
+			  codenData: dustMainChartData.codenData
+			};
+			
+			const co2denChartData = {
+			  timeHms: dustMainChartData.timeHms,
+			  co2denData: dustMainChartData.co2denData
+			};
 
 			drawDustMainEChart(dustMainChartData);
 			drawDustPm1EChart(dustPm1ChartData);
 			drawDustPm25EChart(dustPm25ChartData);
 			drawDustPm10EChart(dustPm10ChartData);
-
+			drawCodenChart(codenChartData);
+			drawCo2denChart(co2denChartData);
 		},
 		error: function(err) {
 			console.error("데이터 불러오기 실패:", err);
