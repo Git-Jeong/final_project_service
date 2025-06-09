@@ -17,9 +17,33 @@ const getStationDust = (stId) => {
 			if (dustStack.length > 10) {
 				dustStack.shift();
 			}
-			//drawDustChart(dustStack);
-			drawDustEChart(dustStack);
-			console.log("현재 스택:", dustStack);
+			updateAirQualitySignal(dto)
+			
+			const dustMainChartData = {
+			   timeHms: dustStack.map(d => d.timeHms),
+			   pm1Data: dustStack.map(d => d.pm1),
+			   pm25Data: dustStack.map(d => d.pm25),
+			   pm10Data: dustStack.map(d => d.pm10),
+			 };
+		
+			const dustPm1ChartData = {
+			   timeHms: dustStack.map(d => d.timeHms),
+			   pm1Data: dustStack.map(d => d.pm1),
+			 };
+		
+			const dustPm25ChartData = {
+			   timeHms: dustStack.map(d => d.timeHms),
+			   pm25Data: dustStack.map(d => d.pm25),
+			 };
+		
+			const dustPm10ChartData = {
+			   timeHms: dustStack.map(d => d.timeHms),
+			   pm10Data: dustStack.map(d => d.pm10),
+			 };
+			
+			 drawDustMainEChart(dustMainChartData);
+			 drawDustPm1EChart(dustStack); 
+
 		},
 		error: function(err) {
 			console.error("데이터 불러오기 실패:", err);
@@ -129,3 +153,4 @@ function renderNotifications(notifications) {
     container.append(card);
   });
 }
+
