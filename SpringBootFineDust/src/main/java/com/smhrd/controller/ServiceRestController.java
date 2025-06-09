@@ -76,6 +76,49 @@ public class ServiceRestController {
     	return snsr;
     }
 
+
+    @GetMapping("/getStationDustOne")
+    public Sensor getStationOneInfo(@RequestParam int stId, HttpServletRequest request) {
+    	int originStId = stId;
+    	stId = 1; //현재는 모든 데이터가 1번으로 저장되어 있어서 이걸로 처리'
+
+    	String usrEmail = token.extractUserFromJwt(request);
+    	if(usrEmail == null) {
+    		return null;
+    	}
+    	
+    	Sensor snsr = snsrService.getStDustOne(stId);
+
+    	// 더미데이터를 불러 왔으니, 다시 stId값을 복구
+    	stId = originStId;
+    	//알림기능 테스트룰 위한 더미 센싱값
+//    	snsr.get(0).setPm1(21);
+//    	snsr.get(0).setPm25(21);
+//    	snsr.get(0).setPm10(21);
+
+    	if((snsr != null) && (snsr.getPm1() != null)) {
+    		if(snsr.getPm1() >= 20) {
+    			//초미세먼지 경고 알림 보내기
+    			notifyService.sendPm1Notify(stId, usrEmail, snsr.getPm1());
+    		}
+    	}    	
+    	
+    	if((snsr != null) && (snsr.getPm25() != null)) {
+    		if(snsr.getPm25() >= 20) {
+    			//초미세먼지 경고 알림 보내기
+    			notifyService.sendPm25Notify(stId, usrEmail, snsr.getPm25());
+    		}
+    	}
+    	
+    	if((snsr != null) && (snsr.getPm10() != null)) {
+    		if(snsr.getPm10() >= 20) {
+    			//미세먼지 경고 알림 보내기
+    			notifyService.sendPm10Notify(stId, usrEmail, snsr.getPm10());
+    		}
+    	}
+    	return snsr;
+    }
+    
     @GetMapping("/getAllNotify")
     public List<Notification> getAllNotify(HttpServletRequest request) {
         String usrEmail = token.extractUserFromJwt(request);

@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- ApexCharts 및 Vue -->
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue-apexcharts"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script src="/js/service/ServiceMainChartRenderer.js"></script>
+<script src="/js/service/ServiceGetData.js"></script>
+
 
 <!-- 차트 컴포넌트 스타일/스크립트 -->
 <link rel="stylesheet" href="/css/Common.css" />
@@ -24,25 +26,14 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-	
-<script>
-	window.Promise
-			|| document
-					.write('<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"><\/script>')
-	window.Promise
-			|| document
-					.write('<script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20171210/classList.min.js"><\/script>')
-	window.Promise
-			|| document
-					.write('<script src="https://cdn.jsdelivr.net/npm/findindex_polyfill_mdn"><\/script>')
-</script>
+
 <script th:inline="javascript">
 	window.model = {
 		userName : '[[${userName}]]',
 		headerText : '측정 시스템'
 	};
 </script>
-<script src="/js/service/ServiceGetData.js"></script> <!-- 여기서 먼지 데이터, 알림 데이터를 자동으로 불러오는 중 -->
+<!-- 여기서 먼지 데이터, 알림 데이터를 자동으로 불러오는 중 -->
 <title>실내공기질 측정시스템</title>
 </head>
 <body>
@@ -56,7 +47,7 @@
 				<!-- js를 통해 여기에 헤더를 만들어 둠. -->
 				<!-- 헤더에는 '실내공기질 측정시스템'을 포함하여 '마이페이지', '알림', '로그아웃' 기능이 들어 있음. -->
 			</div>
-			<div id="notificationDropdown" class="notification-dropdown hidden"> 
+			<div id="notificationDropdown" class="notification-dropdown hidden">
 				<!-- 여기까지 실제 DB에서 데이터를 불러와서 출럭을 해야 됨. 즉 db에 값이 있으면 위의 코드를 반복하는 것 -->
 				<!-- js를 통해 여기에 알림 베너를 만들어 둠. -->
 			</div>
@@ -75,152 +66,104 @@
 							th:if="${!#strings.isEmpty(station.stName_3)}"></option>
 					</th:block>
 				</select> <input type="datetime-local" class="serviceChart-date" />
-				<button id="serviceChartSearchButton" class="serviceChart-button" style="visibility: hidden;"
-				        th:onclick="'getStationDust(' + ${stationList.stId} + ')'">
-				    검색
-				</button> 
+				<button id="serviceChartSearchButton" class="serviceChart-button"
+					style="visibility: hidden;"
+					th:onclick="'getStationDust(' + ${stationList.stId} + ')'">
+					검색</button>
 			</div>
 
 			<div class="serviceChart-chart-top">
-				<div class="serviceChart-chart-top-left">
-					<!-- 예측 vs 실제 차트 -->
-					<div id="app" class="serviceChart-box">
-						<div id="chart" class="serviceChart_apexchart">
-							<apexchart type="line" ref="chart" :options="chartOptions"
-								:series="series" height="100%"> </apexchart>
-						</div>
+				<div class="serviceChart-chart-top-left" id="main-wide-chart">
+					<div id="chart-dust-main-echarts" style="height: 100%; width: 100%">
+						<div id="chart-loading-main" class="chart-loading-spinner"></div>
 					</div>
 				</div>
 
-				<script src="/js/charts/chartMain.js"></script>
-				<!--  span tag에 실제 값 기입하기 언젠가는,,  -->
 				<!--  신호등   -->
 				<div class="serviceChart-chart-top-right">
 					<div class="serviceChart-air-quality-box">
 						<ul class="serviceChart-pmbold">
 							<li>PM1.0 <span class="serviceChart-divider">|</span> <span
-								class="pm-value">10</span></li>
+								class="pm-value"> </span></li>
 						</ul>
-						<div class="serviceChart-quality" data-type="pm1"></div>
+						<div class="serviceChart-quality" data-type="pm1">
+							<div id="chart-loading-quality-1" class="chart-loading-spinner"></div>
+						</div>
 					</div>
 
 					<div class="serviceChart-air-quality-box">
 						<ul class="serviceChart-pmbold">
 							<li>PM2.5 <span class="serviceChart-divider">|</span> <span
-								class="pm-value">12</span></li>
+								class="pm-value"> </span></li>
 						</ul>
-						<div class="serviceChart-quality" data-type="pm2"></div>
+						<div class="serviceChart-quality" data-type="pm2">
+							<div id="chart-loading-quality-2" class="chart-loading-spinner"></div>
+						</div>
 					</div>
 
 					<div class="serviceChart-air-quality-box">
 						<ul class="serviceChart-pmbold">
 							<li>PM10 <span class="serviceChart-divider">|</span> <span
-								class="pm-value">28</span></li>
+								class="pm-value"> </span></li>
 						</ul>
-						<div class="serviceChart-quality" data-type="pm10"></div>
+						<div class="serviceChart-quality" data-type="pm10">
+							<div id="chart-loading-quality-10" class="chart-loading-spinner"></div>
+						</div>
 					</div>
-
 				</div>
 			</div>
 
 			<div class="serviceChart-chart-bottom">
 				<div class="serviceChart-chart-box">
 					<!-- PM1.0 시간별 차트 -->
-					<div id="app2" class="serviceChart-box">
-						<div id="chart2" class="serviceChart_apexchart">
-							<apexchart type="line" ref="chart" :options="chartOptions"
-								:series="series" height="100%"> </apexchart>
-						</div>
+					<div class="serviceChart-box">
+						PM1
 					</div>
-					<script src="/js/charts/chartpm1.js"></script>
+					<div id="mini-pm1-chart">
+						<div id="chart-loading-pm1" class="chart-loading-spinner"></div>
+					</div>
 				</div>
 				<div class="serviceChart-chart-box">
 					<!-- PM2.5 시간별 차트 -->
-					<div id="app3" class="serviceChart-box">
-						<div id="chart3" class="serviceChart_apexchart">
-							<apexchart type="line" ref="chart" :options="chartOptions"
-								:series="series" height="100%"> </apexchart>
-						</div>
+					<div class="serviceChart-box">
+						PM2.5
 					</div>
-					<script src="/js/charts/chartpm2_5.js"></script>
+					<div id="mini-pm25-chart">
+						<div id="chart-loading-pm25" class="chart-loading-spinner"></div>
+					</div>
 				</div>
 				<div class="serviceChart-chart-box">
 					<!-- PM10 시간별 차트 -->
-					<div id="app4" class="serviceChart-box">
-						<div id="chart4" class="serviceChart_apexchart">
-							<apexchart type="line" ref="chart" :options="chartOptions"
-								:series="series" height="100%"> </apexchart>
-						</div>
+					<div class="serviceChart-box">
+						PM10
 					</div>
-					<script src="/js/charts/chartpm10.js"></script>
+					<div id="mini-pm10-chart">
+						<div id="chart-loading-pm10" class="chart-loading-spinner"></div>
+					</div>
+				</div>
+			</div>
+			<div class="serviceChart-chart-bottom">
+				<div class="serviceChart-chart-box">
+					<!-- Co2 시간별 차트 -->
+					<div class="serviceChart-box">
+						이산화탄소
+					</div>
+					<div id="mini-co2-chart">
+						<div id="chart-loading-co2" class="chart-loading-spinner"></div>
+					</div>
+				</div>
+				<div class="serviceChart-chart-box">
+					<!-- Co 시간별 차트 -->
+					<div class="serviceChart-box">
+						일산화탄소
+					</div>
+					<div id="mini-co-chart">
+						<div id="chart-loading-co" class="chart-loading-spinner"></div>
+					</div>
 				</div>
 			</div>
 			<script type="text/javascript" src="/js/service/ServiceHeader.js"></script>
 		</main>
 	</div>
-	<script>  
-	
-	document.addEventListener('DOMContentLoaded', () => {
-		  const pmBoxes = document.querySelectorAll('.pm-box');
-
-		  pmBoxes.forEach(box => {
-		    const type = box.getAttribute('data-type'); // pm1 / pm2 / pm10
-		    const value = parseInt(box.querySelector('.pm-value').textContent);
-		    const statusEl = box.querySelector('.pm-status');
-
-		    let className = '';
-		    let statusText = '';
-
-		     
-		    if (type === 'pm1') {
-		      if (value <= 30) {
-		        className = 'serviceChart-good';
-		        statusText = '좋음';
-		      } else if (value <= 60) {
-		        className = 'serviceChart-moderate';
-		        statusText = '보통';
-		      } else {
-		        className = 'serviceChart-bad';
-		        statusText = '나쁨';
-		      }
-		    }
-
-		    if (type === 'pm2') {
-		      if (value <= 30) {
-		        className = 'serviceChart-good';
-		        statusText = '좋음';
-		      } else if (value <= 60) {
-		        className = 'serviceChart-moderate';
-		        statusText = '보통';
-		      } else {
-		        className = 'serviceChart-bad';
-		        statusText = '나쁨';
-		      }
-		    }
-
-		    if (type === 'pm10') {
-		      if (value <= 30) {
-		        className = 'serviceChart-good';
-		        statusText = '좋음';
-		      } else if (value <= 60) {
-		        className = 'serviceChart-moderate';
-		        statusText = '보통';
-		      } else {
-		        className = 'serviceChart-bad';
-		        statusText = '나쁨';
-		      }
-		    }
-
-		    // 클래스 적용
-		    box.classList.remove('serviceChart-good', 'serviceChart-moderate', 'serviceChart-bad');
-		    box.classList.add(className);
-
-		    // 상태 텍스트 적용
-		    statusEl.textContent = ` (${statusText})`;
-		  });
-		});
-
-
-	</script>
 </body>
 </html>
