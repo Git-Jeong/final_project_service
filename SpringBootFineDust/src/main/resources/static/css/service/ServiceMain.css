@@ -133,7 +133,9 @@
 	}
 }
 
-#mini-pm1-chart {
+#mini-pm1-chart,
+#mini-pm25-chart,
+#mini-pm10-chart {
   width: 100%;
   height: 200px; /* 또는 원하는 높이 */
 }

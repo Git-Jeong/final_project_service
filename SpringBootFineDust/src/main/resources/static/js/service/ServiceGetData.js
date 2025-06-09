@@ -20,29 +20,38 @@ const getStationDust = (stId) => {
 			updateAirQualitySignal(dto)
 			
 			const dustMainChartData = {
-			   timeHms: dustStack.map(d => d.timeHms),
-			   pm1Data: dustStack.map(d => d.pm1),
-			   pm25Data: dustStack.map(d => d.pm25),
-			   pm10Data: dustStack.map(d => d.pm10),
-			 };
-		
+				timeHms: [],
+				pm1Data: [],
+				pm25Data: [],
+				pm10Data: []
+			};
+
+			dustStack.forEach(d => {
+				dustMainChartData.timeHms.push(d.timeHms);
+				dustMainChartData.pm1Data.push(d.pm1);
+				dustMainChartData.pm25Data.push(d.pm25);
+				dustMainChartData.pm10Data.push(d.pm10);
+			});
+
 			const dustPm1ChartData = {
-			   timeHms: dustStack.map(d => d.timeHms),
-			   pm1Data: dustStack.map(d => d.pm1),
-			 };
-		
+				timeHms: dustMainChartData.timeHms,
+				pm1Data: dustMainChartData.pm1Data,
+			};
+
 			const dustPm25ChartData = {
-			   timeHms: dustStack.map(d => d.timeHms),
-			   pm25Data: dustStack.map(d => d.pm25),
-			 };
-		
+				timeHms: dustMainChartData.timeHms,
+				pm25Data: dustMainChartData.pm25Data,
+			};
+
 			const dustPm10ChartData = {
-			   timeHms: dustStack.map(d => d.timeHms),
-			   pm10Data: dustStack.map(d => d.pm10),
-			 };
-			
-			 drawDustMainEChart(dustMainChartData);
-			 drawDustPm1EChart(dustStack); 
+				timeHms: dustMainChartData.timeHms,
+				pm10Data: dustMainChartData.pm10Data,
+			};
+
+			drawDustMainEChart(dustMainChartData);
+			drawDustPm1EChart(dustPm1ChartData);
+			drawDustPm25EChart(dustPm25ChartData);
+			drawDustPm10EChart(dustPm10ChartData);
 
 		},
 		error: function(err) {
@@ -61,60 +70,60 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 $(document).ready(function() {
-  function fetchNotifications() {
-    $.ajax({
-      url: "/getAllNotify",
-      method: "GET",
-      success: function(data) {
-		window.cachedNotifications = data;
-        const hasUnread = data.some(noti => noti.isRead === 0);
-        const $btn = $(".notification-button");
-        if (hasUnread) {
-          $btn.addClass("notify-alert");
-        } else {
-          $btn.removeClass("notify-alert");
-        }
-        renderNotifications(data);
-      },
-      error: function(error) {
-        console.error("알림 조회 실패:", error);
-      }
-    });
-  }
+	function fetchNotifications() {
+		$.ajax({
+			url: "/getAllNotify",
+			method: "GET",
+			success: function(data) {
+				window.cachedNotifications = data;
+				const hasUnread = data.some(noti => noti.isRead === 0);
+				const $btn = $(".notification-button");
+				if (hasUnread) {
+					$btn.addClass("notify-alert");
+				} else {
+					$btn.removeClass("notify-alert");
+				}
+				renderNotifications(data);
+			},
+			error: function(error) {
+				console.error("알림 조회 실패:", error);
+			}
+		});
+	}
 
-  fetchNotifications();
-  setInterval(fetchNotifications, 32000);
+	fetchNotifications();
+	setInterval(fetchNotifications, 32000);
 });
 
 
 
 // notiType에 따른 아이콘 클래스 매핑
 const iconMap = {
-  error: "bi-exclamation-triangle-fill",
-  warning: "bi-exclamation-circle-fill",
-  info: "bi-info-circle-fill"
+	error: "bi-exclamation-triangle-fill",
+	warning: "bi-exclamation-circle-fill",
+	info: "bi-info-circle-fill"
 };
 
 // 시간차 계산 함수 (현재 시간 - notiTime)
 function timeAgo(notiTime) {
-  const now = new Date(); // 현재 시간 사용
-  const past = new Date(notiTime);
-  const diffMs = now - past;
-  const diffMinutes = Math.floor(diffMs / 1000 / 60);
+	const now = new Date(); // 현재 시간 사용
+	const past = new Date(notiTime);
+	const diffMs = now - past;
+	const diffMinutes = Math.floor(diffMs / 1000 / 60);
 
-  if (diffMinutes < 1) return "방금 전";
-  if (diffMinutes < 60) return `${diffMinutes}분 전`;
-  const diffHours = Math.floor(diffMinutes / 60);
-  if (diffHours < 24) return `${diffHours}시간 전`;
-  const diffDays = Math.floor(diffHours / 24);
-  return `${diffDays}일 전`;
+	if (diffMinutes < 1) return "방금 전";
+	if (diffMinutes < 60) return `${diffMinutes}분 전`;
+	const diffHours = Math.floor(diffMinutes / 60);
+	if (diffHours < 24) return `${diffHours}시간 전`;
+	const diffDays = Math.floor(diffHours / 24);
+	return `${diffDays}일 전`;
 }
 
 function renderNotifications(notifications) {
-  const container = $("#notificationDropdown");
-  container.empty();
+	const container = $("#notificationDropdown");
+	container.empty();
 
-  container.append(`
+	container.append(`
     <div class="notificationDropdown_header">
       <div class="notificationDropdown_close">
         <button class="notificationDropdown_close_btn" onclick="notificationDropdown_close()">
@@ -127,11 +136,11 @@ function renderNotifications(notifications) {
     </div>
   `);
 
-  notifications.forEach(noti => {
-    const iconClass = iconMap[noti.notiType] || "bi-info-circle-fill";
-    const timeText = timeAgo(noti.notiTime);
+	notifications.forEach(noti => {
+		const iconClass = iconMap[noti.notiType] || "bi-info-circle-fill";
+		const timeText = timeAgo(noti.notiTime);
 
-    const card = `
+		const card = `
       <div class="notification-card ${noti.notiType}">
         <div class="notification-title-box">
           <div class="notification-title-left-box">
@@ -150,7 +159,7 @@ function renderNotifications(notifications) {
       </div>
     `;
 
-    container.append(card);
-  });
+		container.append(card);
+	});
 }
 

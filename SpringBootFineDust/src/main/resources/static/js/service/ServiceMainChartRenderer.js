@@ -24,7 +24,8 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 		},
 		legend: {
 			data: ['PM1', 'PM2.5', 'PM10'],
-			top: '10%'
+			top: 0,
+			right: 0
 		},
 		grid: {
 		left: '3%',    // 좌측 여백 (기본값 보통 10~15%)
@@ -85,8 +86,7 @@ const updateAirQualitySignal = (data) => {
   });
 };
 
-
-function drawDustPm1EChart(dataArray) {
+const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
   const container = document.getElementById('mini-pm1-chart');
   if (!container) return;
 
@@ -94,16 +94,13 @@ function drawDustPm1EChart(dataArray) {
     pm1EChart = echarts.init(container);
   }
 
-  const times = dataArray.map(d => d.timeHms);
-  const pm1Values = dataArray.map(d => d.pm1);
-
   const option = {
     tooltip: {
       trigger: 'axis'
     },
     xAxis: {
       type: 'category',
-      data: times,
+      data: timeHms,
       boundaryGap: false,
       axisLine: { onZero: false }
     },
@@ -115,12 +112,12 @@ function drawDustPm1EChart(dataArray) {
       left: '5%',
       right: '5%',
       bottom: '10%',
-      top: '20%'
+      top: '10%'
     },
     series: [{
       name: 'PM1',
       type: 'line',
-      data: pm1Values,
+      data: pm1Data,
       smooth: true,
       itemStyle: { color: '#FF6B6B' }
     }]
@@ -128,4 +125,88 @@ function drawDustPm1EChart(dataArray) {
 
   pm1EChart.setOption(option);
   pm1EChart.resize();
+}
+
+
+const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
+  const container = document.getElementById('mini-pm25-chart');
+  if (!container) return;
+
+  if (!pm25EChart) {
+    pm25EChart = echarts.init(container);
+  }
+
+  const option = {
+    tooltip: {
+      trigger: 'axis'
+    },
+    xAxis: {
+      type: 'category',
+      data: timeHms,
+      boundaryGap: false,
+      axisLine: { onZero: false }
+    },
+    yAxis: {
+      type: 'value',
+      min: 0
+    },
+    grid: {
+      left: '5%',
+      right: '5%',
+      bottom: '10%',
+      top: '10%'
+    },
+    series: [{
+      name: 'PM25',
+      type: 'line',
+      data: pm25Data,
+      smooth: true,
+      itemStyle: { color: '#4ECDC4' } 
+    }]
+  };
+
+  pm25EChart.setOption(option);
+  pm25EChart.resize();
+}
+
+
+const drawDustPm10EChart = ({ timeHms, pm10Data }) => {
+  const container = document.getElementById('mini-pm10-chart');
+  if (!container) return;
+
+  if (!pm10EChart) {
+    pm10EChart = echarts.init(container);
+  }
+
+  const option = {
+    tooltip: {
+      trigger: 'axis'
+    },
+    xAxis: {
+      type: 'category',
+      data: timeHms,
+      boundaryGap: false,
+      axisLine: { onZero: false }
+    },
+    yAxis: {
+      type: 'value',
+      min: 0
+    },
+    grid: {
+      left: '5%',
+      right: '5%',
+      bottom: '10%',
+      top: '10%'
+    },
+    series: [{
+      name: 'PM10',
+      type: 'line',
+      data: pm10Data,
+      smooth: true,
+      itemStyle: { color: '#1A535C' } 
+    }]
+  };
+
+  pm10EChart.setOption(option);
+  pm10EChart.resize();
 }
