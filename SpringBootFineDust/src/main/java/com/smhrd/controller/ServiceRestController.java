@@ -99,7 +99,7 @@ public class ServiceRestController {
     	if((snsr != null) && (snsr.getPm1() != null)) {
     		if(snsr.getPm1() >= 20) {
     			//초미세먼지 경고 알림 보내기
-    			notifyService.sendPm1Notify(stId, usrEmail, snsr..getPm1());
+    			notifyService.sendPm1Notify(stId, usrEmail, snsr.getPm1());
     		}
     	}    	
     	

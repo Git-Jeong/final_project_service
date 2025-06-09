@@ -1,11 +1,11 @@
 // 데이터 불러오는 함수
 const getStationDust = (stId) => {
 	$.ajax({
-		url: "getStationDust",
+		url: "getStationDustOne",
 		type: "get",
 		data: { "stId": stId },
 		success: function(data) {
-			console.log("불러온 데이터?? :", data);
+			console.log(" getStationDustOne 불러온 데이터?? :", data);
 			// 받은 데이터 활용 코드 작성
 		},
 		error: function(err) {
