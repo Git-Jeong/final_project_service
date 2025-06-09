@@ -107,7 +107,8 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: 1rem;
-	height: 30vh;
+	height: 100%;
+	margin-top: 20px;
 }
 
 .serviceChart-chart-box {
@@ -135,7 +136,9 @@
 
 #mini-pm1-chart,
 #mini-pm25-chart,
-#mini-pm10-chart {
+#mini-pm10-chart,
+#mini-co2-chart,
+#mini-co-chart {
   width: 100%;
   height: 200px; /* 또는 원하는 높이 */
 }
