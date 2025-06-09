@@ -9,11 +9,17 @@
 	flex-direction: row;
 	gap: 1rem;
 	height: 40vh;
+	min-height : 150px;
+	max-height: 700px;
 }
 
 .serviceChart-chart-top-left {
 	flex: 3;
+	min-width : 300px;
 	width : 60vw;
+	min-height : 150px;
+	height: 40vh;
+	max-height: 700px;
 	background-color: #f2f2f2;
 	border-radius: 10px;
 	padding: 1rem;
@@ -29,15 +35,15 @@
 
 .serviceChart-air-quality-box {
 	flex: 1;
-	min-height: 0;
+	min-height: auto;
 	padding: 1rem;
 	border: 1px solid #333;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	align-items: center; 
 	text-align: center;
+	overflow: hidden; /* 스크롤 시 내부 요소 넘침 방지 */
 }
 
 .serviceChart-pmbold {
@@ -49,51 +55,72 @@
 	align-items: center; /* 세로 정렬 중앙 */
 	gap: 0;
 	font-weight: bold;
-	font-size: 20px;
+    font-size: 1.2rem;
 }
 
 .serviceChart-pmbold li+li::before {
+	flex : 1;
 	content: "|"; /* 사이에 넣을 기호 */
 	margin: 0.serviceChart-5rem; /* 기호 좌우 여백 */
 	color: #888; /* 기호 색상 */
 }
+
 /* ===== 상태 표시 영역 ===== */
 .serviceChart-quality {
+  flex : 1;
   margin-top: 0.5rem;
-  font-size: 18px;
+  font-size: 1.5rem;
   font-weight: bold;
   padding: 0.4rem 1rem;
-  border-radius: 20px;
-}
-.serviceChart-good {
-  background-color: #3498db; /* 파랑: 좋음 */
-  color: white;
+  border-radius: 20px; 
+  width: 100%;
+  align-content: center;
 }
 
-.serviceChart-moderate {
-  background-color: #f1c40f; /* 노랑: 보통 */
+/* 신호등 색상 스타일 */
+.serviceChart-quality.red {
+  background-color: #e74c3c; /* 빨강 계열 */
   color: white;
+  text-align: center;
+  padding: 0.3rem 0;
+  border-radius: 5px;
+  font-weight: bold;
 }
 
-.serviceChart-bad {
-  background-color: #e74c3c; /* 빨강: 나쁨 */
-  color: white;
+.serviceChart-quality.yellow {
+  background-color: #f1c40f; /* 노랑 계열 */
+  color: black;
+  text-align: center;
+  padding: 0.3rem 0;
+  border-radius: 5px;
+  font-weight: bold;
 }
-/* pm1,2,10 -> good, moderate, bad 로 바꿈  */
+
+.serviceChart-quality.blue {
+  background-color: #3498db; /* 파랑 계열 */
+  color: white;
+  text-align: center;
+  padding: 0.3rem 0;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
 
 .serviceChart-chart-bottom {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 1rem;
-	height: 30vh;
+	height: 100%;
+	margin-top: 20px;
 }
 
 .serviceChart-chart-box {
 	flex: 1;
-	min-width: 200px;
+	min-width: 300px;
+	width : 10vw;
 	background-color: #f9f9f9;
 	border-radius: 10px;
-	min-height : 300px; 
+	height : 250px; 
 	padding: 1rem;
 	overflow: hidden;
 }
@@ -110,23 +137,11 @@
 	}
 }
 
-#chart {
-  height: 100% !important;
-  width: 59svw !important;
+#mini-pm1-chart,
+#mini-pm25-chart,
+#mini-pm10-chart,
+#mini-co2-chart,
+#mini-co-chart {
+  width: 100%;
+  height: 200px; /* 또는 원하는 높이 */
 }
-
-#chart2 { 
-  width: 25vw !important;
-  min-height : 300px !important;
-  height: 25vh !important;
-} 
-#chart3 { 
-  width: 25vw !important;
-  min-height : 300px !important;
-  height: 25vh !important;
-} 
-#chart4 { 
-  width: 25vw !important;
-  min-height : 300px !important;
-  height: 25vh !important;
-} 
