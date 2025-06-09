@@ -1,13 +1,24 @@
+const dustStack = [];
+
 // 데이터 불러오는 함수
 const getStationDust = (stId) => {
 	$.ajax({
-		url: "getStationDust",
+		url: "getStationDustOne",
 		type: "get",
 		data: { "stId": stId },
 		success: function(data) {
-			console.log("불러온 데이터?? :", data);
-			ChartModule(data);
-			// 받은 데이터 활용 코드 작성
+			// 스택에 데이터 추가
+			const dto = Array.isArray(data) ? data[0] : data;
+
+			// 스택에 데이터 추가
+			dustStack.push(dto);
+
+			// 크기 초과 시 가장 오래된 데이터 제거
+			if (dustStack.length > 10) {
+				dustStack.shift();
+			}
+			drawDustChart(dustStack);
+			console.log("현재 스택:", dustStack);
 		},
 		error: function(err) {
 			console.error("데이터 불러오기 실패:", err);
