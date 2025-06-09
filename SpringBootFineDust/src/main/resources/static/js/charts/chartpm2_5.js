@@ -1,6 +1,6 @@
 
 
-function ChartModule() {
+function ChartModule25() {
     let lastDate = 0;
     let data2 = [];
     const TICKINTERVAL = 100220;
@@ -108,6 +108,6 @@ function ChartModule() {
 	});
 } 
 
-ChartModule();
+ChartModule25();
 
  

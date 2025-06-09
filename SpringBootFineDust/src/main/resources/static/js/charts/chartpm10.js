@@ -10,7 +10,7 @@
 이거 복사붙여넣기 해라
 */
 
-function ChartModule() {
+function ChartModule10() {
     let lastDate = 0;
     let data3 = [];
     const TICKINTERVAL = 100220;
@@ -118,6 +118,6 @@ function ChartModule() {
 	});
 } 
 
-ChartModule();
+ChartModule10();
 
  

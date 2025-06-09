@@ -6,6 +6,7 @@ const getStationDust = (stId) => {
 		data: { "stId": stId },
 		success: function(data) {
 			console.log("불러온 데이터?? :", data);
+			ChartModule(data);
 			// 받은 데이터 활용 코드 작성
 		},
 		error: function(err) {
