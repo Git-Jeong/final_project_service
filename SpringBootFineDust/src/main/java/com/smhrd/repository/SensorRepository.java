@@ -9,4 +9,7 @@ public interface SensorRepository extends JpaRepository<Sensor, Integer> {
 
 	ArrayList<Sensor> findTop10ByStIdAndWeekdayAndTimeHmsLessThanEqualOrderByTimeHmsDesc(int stId, String weekday,
 	        LocalTime timeHms);
+
+	Sensor findTop1ByStIdAndWeekdayAndTimeHmsLessThanEqualOrderByTimeHmsDesc(int stId, String weekday,
+			LocalTime timeHms);
 }
