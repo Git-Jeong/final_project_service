@@ -9,6 +9,8 @@
 	flex-direction: row;
 	gap: 1rem;
 	height: 40vh;
+	min-height : 150px;
+	max-height: 700px;
 }
 
 .serviceChart-chart-top-left {
@@ -17,6 +19,7 @@
 	width : 60vw;
 	min-height : 150px;
 	height: 40vh;
+	max-height: 700px;
 	background-color: #f2f2f2;
 	border-radius: 10px;
 	padding: 1rem;
@@ -32,15 +35,15 @@
 
 .serviceChart-air-quality-box {
 	flex: 1;
-	min-height: 0;
+	min-height: auto;
 	padding: 1rem;
 	border: 1px solid #333;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	align-items: center; 
 	text-align: center;
+	overflow: hidden; /* 스크롤 시 내부 요소 넘침 방지 */
 }
 
 .serviceChart-pmbold {
@@ -52,7 +55,7 @@
 	align-items: center; /* 세로 정렬 중앙 */
 	gap: 0;
 	font-weight: bold;
-    font-size: 2rem;
+    font-size: 1.2rem;
 }
 
 .serviceChart-pmbold li+li::before {
@@ -66,7 +69,7 @@
 .serviceChart-quality {
   flex : 1;
   margin-top: 0.5rem;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   padding: 0.4rem 1rem;
   border-radius: 20px; 
