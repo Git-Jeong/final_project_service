@@ -58,8 +58,9 @@ window.model = {
 			              th:text="${station.stName_1}"></option>
 			    </th:block>
 			  </select>
-			  <input type="datetime-local" class="serviceChart-date" />
-			  <button id="serviceChartSearchButton" class="serviceChart-button" style="visibility: visible;">
+			  <input type="datetime-local" class="serviceChart-date" name="startDateTIme" style="visibility: hidden;"/>
+			  <input type="datetime-local" class="serviceChart-date" name="DateTIme" style="visibility: hidden;"/>
+			  <button id="serviceChartSearchButton" class="serviceChart-button" style="visibility: hidden;">
 			    검색
 			  </button>
 			</div>
