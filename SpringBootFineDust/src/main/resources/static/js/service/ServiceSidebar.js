@@ -5,6 +5,13 @@ document.addEventListener("DOMContentLoaded", function() {
     const sidebar = document.createElement('aside');
     sidebar.className = 'sidebar'; 
 
+	const sidebar_button_1 = document.createElement('div');
+	sidebar_button_1.className = 'sidebar_button_container';
+    sidebar_button_1.innerHTML = `<button id="toggleSidebarBtn" class="toggleSidebarBtn_sidebar">
+	  <i class="bi bi-layout-sidebar"></i>
+	</button>`;
+	sidebar.appendChild(sidebar_button_1);
+	
     const logo = document.createElement('div');
     logo.className = 'sidebar-logo';
     logo.innerHTML = `<strong>실내공기질<br>${pageTitleSide}</strong>`;
