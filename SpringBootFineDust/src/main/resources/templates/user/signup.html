@@ -426,6 +426,7 @@
 				dataType : "text",
 				success : function(response) {
 					if (response === 'success') {
+						console.log("유저정보 변경 성공 ");
 						insertStationList(usrEmail);
 					} else {
 						alert("회원정보 생성 실패: " + response);
@@ -458,7 +459,10 @@
 			        }),
 			        dataType : "text",
 			        success : function(response) {
-			            if (response !== 'success') {
+			            if (response === 'success') {
+			            	console.log("지하철역 정보 수정 성공 ");
+			            }
+			            else{
 			                alert("회원정보 생성 실패: " + response);
 			                return false;
 			            }
@@ -467,11 +471,9 @@
 			            alert("서버 오류: " + error);
 			        }
 			    });
-
-			    alert(stName_1);
 			    
 			    if(i === 3){
-			        window.location.href = '/login';
+			         alert("최종 성공~");
 			    }
 			    
 			}

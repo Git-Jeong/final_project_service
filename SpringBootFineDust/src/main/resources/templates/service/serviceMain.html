@@ -53,7 +53,7 @@
 			</div>
 
 			<div class="serviceChart-headeroption">
-			  <select id="stationSelect">
+			  <select id="stationSelect" class="serviceChart-select">
 			    <th:block th:each="station : ${stationList}">
 			      <option th:if="${!#strings.isEmpty(station.stName_1)}"
 			              th:value="${station.stId}"
