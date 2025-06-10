@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const welcome = document.createElement('div');
     welcome.className = 'sidebar-welcome';
-    welcome.innerHTML = `<strong>${userNameSide}님<br>환영합니다!</strong>`;
+    welcome.innerHTML = `<h5>${userNameSide}님<br>환영합니다!</h5>`;
 
     const profileWrapper = document.createElement('div');
     profileWrapper.className = 'sidebar-profile-wrapper';
