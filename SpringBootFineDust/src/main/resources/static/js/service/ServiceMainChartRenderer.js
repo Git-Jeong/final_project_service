@@ -108,8 +108,7 @@ const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
 			axisLine: { onZero: false }
 		},
 		yAxis: {
-			type: 'value',
-			min: 0
+			type: 'value'
 		},
 		grid: {
 			left: '5%',
@@ -118,7 +117,7 @@ const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
 			top: '10%'
 		},
 		series: [{
-			name: 'PM1',
+			name: 'PM1.0',
 			type: 'line',
 			data: pm1Data,
 			smooth: true,
@@ -150,8 +149,7 @@ const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
 			axisLine: { onZero: false }
 		},
 		yAxis: {
-			type: 'value',
-			min: 0
+			type: 'value'
 		},
 		grid: {
 			left: '5%',
@@ -192,8 +190,7 @@ const drawDustPm10EChart = ({ timeHms, pm10Data }) => {
 			axisLine: { onZero: false }
 		},
 		yAxis: {
-			type: 'value',
-			min: 0
+			type: 'value'
 		},
 		grid: {
 			left: '5%',
@@ -284,7 +281,7 @@ const drawCo2denChart = (co2denChartData) => {
 		},
 		yAxis: {
 			type: 'value',
-			name: 'CO',
+			name: 'CO2',
 			min: 0
 		},
 		grid: {
