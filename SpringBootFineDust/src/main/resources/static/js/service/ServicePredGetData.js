@@ -14,7 +14,7 @@ const getStationDust = (stId) => {
 			dustStack.push(dto);
 
 			// 크기 초과 시 가장 오래된 데이터 제거
-			if (dustStack.length > 10) {
+			if (dustStack.length > 1) {
 				dustStack.shift();
 			}
 
