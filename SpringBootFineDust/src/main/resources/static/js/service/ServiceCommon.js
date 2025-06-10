@@ -115,11 +115,11 @@ document.addEventListener("DOMContentLoaded", () => {
     profile.className = 'sidebar-profile';
 
     const img = document.createElement('img');
-    img.src = "https://cdn-icons-png.flaticon.com/512/847/847969.png";
+    img.src = "./img/profile.png";
     img.alt = "profile icon";
     profile.appendChild(img);
 
-    const welcome = document.createElement('div');
+	    const welcome = document.createElement('div');
     welcome.className = 'sidebar-welcome';
     welcome.innerHTML = `<h5>${userNameSide}님<br>환영합니다!</h5>`;
 
