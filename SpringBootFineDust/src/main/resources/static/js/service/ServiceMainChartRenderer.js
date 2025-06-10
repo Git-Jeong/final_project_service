@@ -52,7 +52,23 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 	}
 
 	const option = {
-		title: { text: '미세먼지 추이', left: 'center' },
+		title: [
+        {
+            text: '미세먼지 추이',
+            left: 'center'
+        },
+        {
+            // 시간 표시용 부제 추가
+            id: 'clock', // 업데이트를 위한 id
+            text: `기준시간: ${new Date().toTimeString().substring(0, 8)}`, // 초기 시간 설정
+            right: 0,   // 우측 여백
+            top: 0,     // 상단 여백
+            textStyle: {
+                fontSize: 12,
+                color: '#000000'
+	            }
+	        }
+	    ],
 		tooltip: { trigger: 'axis' },
 		xAxis: {
 			type: 'category',
