@@ -82,6 +82,8 @@
   background-color: #e74c3c; /* 빨강 계열 */
   color: white;
   text-align: center;
+  align-content: top;
+  margin-bottom : 1rem;
 
 }
 
