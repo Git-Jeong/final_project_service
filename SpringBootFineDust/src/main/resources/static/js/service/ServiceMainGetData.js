@@ -1,4 +1,6 @@
 const dustStack = [];
+const stackSize = 30;
+
 
 // 데이터 불러오는 함수
 const getStationDust = (stId) => {
@@ -14,7 +16,7 @@ const getStationDust = (stId) => {
 			dustStack.push(dto);
 
 			// 크기 초과 시 가장 오래된 데이터 제거
-			if (dustStack.length > 10) {
+			if (dustStack.length > stackSize) {
 				dustStack.shift();
 			}
 
