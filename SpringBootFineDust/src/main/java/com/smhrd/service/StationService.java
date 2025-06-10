@@ -15,10 +15,12 @@ public class StationService {
 	private StationRepository stRepository;
 	
 	public boolean insertSt(Station st) {
-	    try {
+		st.setStId(null);
+		try {
 	    	stRepository.save(st);
 	        return true;
 	    } catch (Exception e) {
+	        e.printStackTrace(); // 예외 메시지 출력 추가
 	        return false;
 	    }
 	}

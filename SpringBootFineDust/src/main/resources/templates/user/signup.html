@@ -412,8 +412,8 @@
 			if (!stName_1) {
 				alert("역을 하나는 입력해 주세요.");
 				return;
-			}
-
+			} 
+			
 			$.ajax({
 				type : "POST",
 				url : "/signup",
@@ -435,6 +435,7 @@
 					alert("서버 오류: " + error);
 				}
 			});
+			
 		}
 		
 		const insertStationList = (usrEmail) =>{ 
@@ -444,11 +445,36 @@
 				value : usrEmail
 			}))
 
-			const stName_1 = $('#stName_1').val();
-			const stName_2 = $('#stName_2').val();
-			const stName_3 = $('#stName_3').val();
-			
-			
+			for(let i = 1; i <= 3; i++){
+			    const stName_1 = $(`#stName_${i}`).val();
+				
+			    $.ajax({
+			        type : "POST",
+			        url : "/insertSt",
+			        contentType : "application/json",
+			        data : JSON.stringify({
+			            "stName_1" : stName_1,
+			            "usrEmail" : usrEmail
+			        }),
+			        dataType : "text",
+			        success : function(response) {
+			            if (response !== 'success') {
+			                alert("회원정보 생성 실패: " + response);
+			                return false;
+			            }
+			        },
+			        error : function(xhr, status, error) {
+			            alert("서버 오류: " + error);
+			        }
+			    });
+
+			    alert(stName_1);
+			    
+			    if(i === 3){
+			        window.location.href = '/login';
+			    }
+			    
+			}
 		}
 	</script>
 </body>

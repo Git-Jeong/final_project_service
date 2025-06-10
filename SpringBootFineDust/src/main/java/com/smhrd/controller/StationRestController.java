@@ -33,11 +33,12 @@ public class StationRestController {
     @PostMapping("/insertSt")
     public String insertSt(@RequestBody Station st) {
     	boolean result = stService.insertSt(st);
+    	System.out.println(st + "DB Insert 결과 : " + result);
     	if(result) {
             return "success";
     	}
     	else {
-            return "fail..";
+            return "fail";
     	}
     }
 }
