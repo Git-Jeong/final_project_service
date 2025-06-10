@@ -113,7 +113,7 @@
 	border-radius: 10px;
 	height : 250px; 
 	padding: 1rem;
-	overflow: hidden;
+	overflow: visible;
 }
 
 @media ( max-width : 768px) {
