@@ -77,10 +77,10 @@ const getStationDust = (stId) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-	const button = document.getElementById('serviceChartSearchButton');
 
 	setInterval(() => {
-		if (button) button.click();
+		const selectedValue = document.getElementById('stationSelect').value;
+		getStationDust(selectedValue);
 	}, 1000);
 });
 

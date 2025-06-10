@@ -41,7 +41,7 @@
 }
 
 .main-start-button {
-	background: #66A3FF;
+	background: #1ABC9C;
 	color: white;
 	font-size: clamp(18px, 1.8vw, 25px);
 	font-weight: 700;
@@ -52,7 +52,7 @@
 }
 
 .main-start-button:hover {
-	background: #5591e6;
+	background: #139d82;
 }
 
 .main-info-section {
