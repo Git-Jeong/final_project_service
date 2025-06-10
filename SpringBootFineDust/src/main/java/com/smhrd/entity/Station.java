@@ -27,12 +27,6 @@ public class Station {
     @Column(nullable = false, length = 60)
     private String stName_1;
 
-    @Column(nullable = true, length = 60)
-    private String stName_2;
-    
-    @Column(nullable = true, length = 60)
-    private String stName_3;
-
     @Column(nullable = false, length = 100)
     private String usrEmail;
 }

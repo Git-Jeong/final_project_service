@@ -1,5 +1,7 @@
 package com.smhrd.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +30,7 @@ public class ServiceController {
         String usrEmail = token.extractUserFromJwt(request);
         String userName = token.getNameFromJwt(request);
 
-        Station stationList = stService.getStInfo(usrEmail);
+        ArrayList<Station> stationList = (ArrayList<Station>) stService.getStInfo(usrEmail);
 
         //model.addAttribute("usrEmail", usrEmail);
         model.addAttribute("userName", userName);
@@ -44,7 +46,7 @@ public class ServiceController {
         String usrEmail = token.extractUserFromJwt(request);
         String userName = token.getNameFromJwt(request);
 
-        Station stationList = stService.getStInfo(usrEmail);
+        ArrayList<Station> stationList = (ArrayList<Station>) stService.getStInfo(usrEmail);
 
         //model.addAttribute("usrEmail", usrEmail);
         model.addAttribute("userName", userName);

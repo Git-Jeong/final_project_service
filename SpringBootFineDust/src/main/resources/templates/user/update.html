@@ -108,26 +108,14 @@
 		      dataType: 'json',
 		      success: function(data) {
 		    	  stationHtml = `
-		  	        <div>
-		  	          <label for="stName_1">지하철역 <span style="color: red;">*</span> </label>
-		  	          <input type="text" id="stName_1" name="stName_1"
-		  	                 placeholder="지하철역을 입력해 주세요."
-		  	                 value="${data.stName_1 || ''}" />
-		  	        </div>
-		  	        <div>
-		  	          <label for="stName_2" style="visibility: hidden;">지하철역</label>
-		  	          <input type="text" id="stName_2" name="stName_2"
-		  	                 placeholder="지하철역을 입력해 주세요."
-		  	                 value="${data.stName_2 || ''}" />
-		  	        </div>
-		  	        <div>
-		  	          <label for="stName_3" style="visibility: hidden;">지하철역</label>
-		  	          <input type="text" id="stName_3" name="stName_3"
-		  	                 placeholder="지하철역을 입력해 주세요."
-		  	                 value="${data.stName_3 || ''}" />
-		  	        </div>
-		  	        <input type="hidden" id="stId" name="stId" value="${data.stId || ''}" />
-		  	      `;
+		    		  <div>
+		    		    <label for="stName_1">지하철역 <span style="color: red;">*</span> </label>
+		    		    <input type="text" id="stName_1" name="stName_1"
+		    		           placeholder="지하철역을 입력해 주세요."
+		    		           value="${data.stName_1 || ''}" />
+		    		  </div>
+		    		  <input type="hidden" id="stId" name="stId" value="${data.stId || ''}" />
+		    		`;
 		        resolve();
 		      },
 		      error: function(xhr, status, error) {

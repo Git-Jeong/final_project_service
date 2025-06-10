@@ -33,6 +33,7 @@
 							</div>
 							<input placeholder="이메일을 입력하세요" type="text" id="usrEmail"
 								name="usrEmail" required="required" maxlength="30"
+  								autocomplete="username"
 								title="영어, 숫자, 특수문자(@, ., _, %, +, -)만 가능하며, 올바른 이메일 형식이어야 합니다."
 								class="form-control form-control-lg signup-form-control" />
 						</div>
@@ -41,7 +42,8 @@
 								<label for="usrPw">비밀번호</label> <span style="color: #FF0858;">*</span>
 							</div>
 							<input placeholder="비밀번호를 입력해주세요" type="password" id="usrPw"
-								name="usrPw" required="required" maxlength="20"
+								name="usrPw" required="required" maxlength="20" 
+								autocomplete="current-password" 
 								class="form-control form-control-lg signup-form-control" />
 						</div>
 					</div>
@@ -49,7 +51,7 @@
 						
 					<div class="signup-login-bottom-content">
 						<div align="center">
-							<button type="button" class="btn signup-login-next-btn btn-lg" onclick="goLogin()">로그인</button>
+							<button type="button" class="signup-login-next-btn btn-lg" onclick="goLogin()">로그인</button>
 						</div>
 						<div
 							style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; row-gap: 1px; align-items: center; text-align: right; width: fit-content; margin: 0 auto;">

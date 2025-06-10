@@ -119,7 +119,7 @@
 			</form>
 
 			<!-- Step 2 -->
-			<form id="step2-form" method="post" action="insertSt">
+			<form id="step2-form">
 				<div id="signup2" style="display: none"
 					class="card-body p-md-5 text-black">
 
@@ -426,19 +426,29 @@
 				dataType : "text",
 				success : function(response) {
 					if (response === 'success') {
-						$('#step2-form').append($('<input>').attr({
-							type : 'hidden',
-							name : 'usrEmail',
-							value : usrEmail
-						})).submit();
+						insertStationList(usrEmail);
 					} else {
-						alert("1단계 실패: " + response);
+						alert("회원정보 생성 실패: " + response);
 					}
 				},
 				error : function(xhr, status, error) {
 					alert("서버 오류: " + error);
 				}
 			});
+		}
+		
+		const insertStationList = (usrEmail) =>{ 
+			$('#step2-form').append($('<input>').attr({
+				type : 'hidden',
+				name : 'usrEmail',
+				value : usrEmail
+			}))
+
+			const stName_1 = $('#stName_1').val();
+			const stName_2 = $('#stName_2').val();
+			const stName_3 = $('#stName_3').val();
+			
+			
 		}
 	</script>
 </body>
