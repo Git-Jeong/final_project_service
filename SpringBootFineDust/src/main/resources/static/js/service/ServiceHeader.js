@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	const headerHTML = `
     <div class="serviceChart-header">
       <div class="serviceChart-header-left">
+      	<button class="toggleSidebarBtn_header" id="toggleSidebarBtn_2">
+		  <i class="bi bi-layout-sidebar"></i>
+		</button>
         <h2>실내공기질 ${pageTitle}</h2>
       </div>
       <div class="serviceChart-header-right">

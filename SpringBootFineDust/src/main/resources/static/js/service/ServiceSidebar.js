@@ -68,16 +68,18 @@ document.addEventListener("DOMContentLoaded", function() {
     const container = document.getElementById('sidebar-container');
     container.appendChild(sidebar);
 
-    const toggleBtn = document.getElementById("toggleSidebarBtn");
+    const toggleBtn_sidebar = document.getElementById("toggleSidebarBtn");
+    const toggleBtn_header = document.getElementById("toggleSidebarBtn_2");
 
-    // 사이드바 상태 업데이트 함수
     function updateSidebarState(isOpen) {
         if (isOpen) {
+			toggleBtn_header.style.visibility = "hidden";
             container.classList.add("active");
             mainPage.style.marginLeft = "clamp(200px, 20vw, 300px)";
             // CSS calc() 문자열 할당. JavaScript에서 직접 계산은 복잡하므로 CSS에 맡김.
             document.getElementById('chart-dust-main-echarts').style.width = 'calc(100% - clamp(200px, 20vw, 300px))';
         } else {
+			toggleBtn_header.style.visibility = "visible";
             container.classList.remove("active");
             mainPage.style.marginLeft = "0";
             document.getElementById('chart-dust-main-echarts').style.width = "100%";
@@ -103,10 +105,18 @@ document.addEventListener("DOMContentLoaded", function() {
     updateSidebarState(isSidebarOpen);
 
     // 토글 버튼 클릭 이벤트
-    toggleBtn.addEventListener("click", function() {
+    toggleBtn_sidebar.addEventListener("click", function() {
+		sidebarOpenButton();
+    })
+    
+    toggleBtn_header.addEventListener("click", function() {
+		sidebarOpenButton();
+    })
+    
+    const sidebarOpenButton = () => {
         const currentlyOpen = container.classList.contains("active");
         const newState = !currentlyOpen; // 새로운 상태 (토글)
         updateSidebarState(newState); // UI 업데이트
         localStorage.setItem('sidebarOpen', newState); // 로컬 스토리지에 새로운 상태 저장
-    });
+	}
 });

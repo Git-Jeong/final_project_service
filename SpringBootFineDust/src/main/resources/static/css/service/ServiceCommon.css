@@ -36,6 +36,25 @@ body {
 	background-color: #f3f3f3;
 }
 
+.serviceChart-header-left {
+    display: flex;
+    padding: 0;
+    height: 70px; /* 이 부분을 추가하거나 기존 height를 min-height로 변경 */
+    align-items: center; /* 버튼과 H2를 세로 중앙에 정렬 */
+    justify-content: flex-start; /* 왼쪽 정렬 유지 */
+}
+
+.toggleSidebarBtn_header {
+    border: none;
+    background: transparent;
+    font-size: 2em;
+    line-height: normal;
+    vertical-align: middle;
+    /* 버튼의 실제 너비에 따라 조절. 예를 들어 아이콘이 폰트사이즈 2em이므로 약 32px 정도 될 수 있습니다. */
+    width: 2em; /* 버튼의 너비를 고정하여 공간을 확보 */
+    flex-shrink: 0; /* flex 아이템이 줄어들지 않도록 함 */
+}
+
 .serviceChart-header-right {
 	margin-left: auto;
 }
@@ -245,17 +264,17 @@ body {
 }
 
 .sidebar_button_container{
-	padding-top: 1rem;
+    padding-top: 2rem; /* 기존 패딩 유지 */
     margin-left: auto;
     display: flex;
-    align-items: center;
-    height: 55px; 
+    height: 70px; /* 헤더 버튼 컨테이너와 동일한 높이로 설정 */ 
 }
 
 .toggleSidebarBtn_sidebar {
 	border :none;
 	font-size: 2em;
 	background: transparent;
+    line-height: normal; /* 텍스트 라인 높이 조절 */
 }
 
 #sidebar-container {
