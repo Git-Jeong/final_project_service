@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📅 달력 및 일정</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    table {
+      width: 100%;
+      text-align: center;
+    }
+    .day-circle {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 50%;
+      margin: auto;
+    }
+    .calendar-box {
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    .schedule-card {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mb-5">
+    <div class="row">
+      <!-- 달력 영역 -->
+      <div class="col-md-8 mb-4">
+        <div class="calendar-box">
+          <h4 class="d-flex align-items-center justify-content-between">
+            <div>
+              <button class="btn btn-outline-secondary btn-sm me-2" onclick="changeMonth(-1)">←</button>
+              <span id="month-year"></span>
+              <button class="btn btn-outline-secondary btn-sm ms-2" onclick="changeMonth(1)">→</button>
+            </div>
+            <button class="btn btn-primary rounded-pill px-3" type="button" id="check-attendance">출석</button>
+          </h4>
+          <table class="table table-bordered mt-3">
+            <thead>
+              <tr>
+                <th style="color: red;">일</th>
+                <th>월</th>
+                <th>화</th>
+                <th>수</th>
+                <th>목</th>
+                <th>금</th>
+                <th>토</th>
+              </tr>
+            </thead>
+            <tbody id="calendar-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 접수 일정 영역 -->
+      <div class="col-md-4">
+        <div class="card schedule-card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span>📌 접수</span>
+          </div>
+          <div class="card-body" id="exam-schedule">
+            <!-- 동적 삽입 예정 -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Thymeleaf를 사용하는 경우 서버에서 렌더링 시 아래 배열을 동적으로 채움
+    const examPeriods = [
+      {
+        title: "정보처리기사",
+        appStd: "2025-06-10",
+        appEd: "2025-06-13"
+      },
+      {
+        title: "전기기사",
+        appStd: "2025-06-18",
+        appEd: "2025-06-20"
+      }
+    ];
+
+    const examDates = [];
+    const examScheduleEl = document.getElementById("exam-schedule");
+
+    examPeriods.forEach(exam => {
+      const start = new Date(exam.appStd);
+      const end = new Date(exam.appEd);
+      let d = new Date(start);
+
+      // i 태그로 전환해서 -> 요약 카드 표시
+      const examEl = document.createElement("div");
+      const titleEl = document.createElement("h5");
+      titleEl.textContent = exam.title;
+      examEl.appendChild(titleEl);
+
+      const rangeEl = document.createElement("p");
+      rangeEl.textContent = `${exam.appStd} ~ ${exam.appEd}`;
+      examEl.appendChild(rangeEl);
+
+      examScheduleEl.appendChild(examEl);
+
+      // 날짜 배열 생성
+      while (d <= end) {
+        const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        examDates.push({ date: dateStr, title: exam.title });
+        d.setDate(d.getDate() + 1);
+      }
+    });
+
+    const calendarBody = document.getElementById("calendar-body");
+    const monthYear = document.getElementById("month-year");
+    const checkAttendanceBtn = document.getElementById("check-attendance");
+    let currentDate = new Date();
+
+    function pad(num) {
+      return String(num).padStart(2, '0');
+    }
+
+    function renderCalendar(date) {
+      calendarBody.innerHTML = "";
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const firstDay = new Date(year, month, 1).getDay();
+      const lastDate = new Date(year, month + 1, 0).getDate();
+
+      monthYear.textContent = `📅 ${year}년 ${month + 1}월`;
+
+      let day = 1;
+      for (let i = 0; i < 6; i++) {
+        const row = document.createElement("tr");
+        for (let j = 0; j < 7; j++) {
+          const cell = document.createElement("td");
+
+          if (i === 0 && j < firstDay || day > lastDate) {
+            cell.innerHTML = "";
+          } else {
+            const thisDate = new Date(year, month, day);
+            const dateStr = `${year}-${pad(month + 1)}-${pad(day)}`;
+            const dayCircle = document.createElement("div");
+            dayCircle.classList.add("day-circle");
+            dayCircle.textContent = day;
+            dayCircle.addEventListener("click", () => {
+            	  const data = dustData[dateStr];
+
+            	  const title = document.getElementById("collapse-title");
+            	  const detail = document.getElementById("dust-detail");
+
+            	  if (data) {
+            	    const am = data.slice(0, 12);
+            	    const pm = data.slice(12, 24);
+            	    const avg = arr => arr.reduce((a, b) => a + b, 0) / arr.length;
+
+            	    const amAvg = avg(am).toFixed(2);
+            	    const pmAvg = avg(pm).toFixed(2);
+
+            	    title.textContent = `📅 ${dateStr} 미세먼지 평균`;
+            	    detail.innerHTML = `
+            	      <p><strong>오전 평균:</strong> ${amAvg} µg/m³</p>
+            	      <p><strong>오후 평균:</strong> ${pmAvg} µg/m³</p>
+            	    `;
+            	  } else {
+            	    title.textContent = `📅 ${dateStr}`;
+            	    detail.innerHTML = `<p>미세먼지 데이터가 없습니다.</p>`;
+            	  }
+
+            	  // Collapse 열기
+            	  const collapseEl = document.getElementById('collapseDust');
+            	  const bsCollapse = new bootstrap.Collapse(collapseEl, {
+            	    toggle: true
+            	  });
+            	});
+
+            
+
+
+            // 일정 있는 날짜에 배경색 표시
+            const hasExam = examDates.find(exam => exam.date === dateStr);
+            if (hasExam) {
+              dayCircle.style.backgroundColor = "#f8d7da";
+              dayCircle.title = hasExam.title;
+            }
+
+            cell.appendChild(dayCircle);
+            day++;
+          }
+
+          row.appendChild(cell);
+        }
+        calendarBody.appendChild(row);
+        if (day > lastDate) break;
+      }
+    }
+
+    function changeMonth(step) {
+      currentDate.setMonth(currentDate.getMonth() + step);
+      renderCalendar(currentDate);
+    }
+
+    renderCalendar(currentDate);
+  </script>
+</body>
+</html>
