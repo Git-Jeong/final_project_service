@@ -221,30 +221,4 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         console.error("ID 'toggleSidebarBtn_2'를 가진 헤더 버튼을 찾을 수 없습니다.");
     }
-    
-    // --- 5. 날짜/시간 업데이트 로직 (기존 위치 유지) ---
-    const input = document.querySelector('.serviceChart-date');
-    if (input) { // input 요소가 있을 때만 실행
-        function updateKoreanDatetimeLocal() {
-            const now = new Date();
-            const krDate = new Date(now.getTime());
-
-            const year = krDate.getFullYear();
-            const month = String(krDate.getMonth() + 1).padStart(2, '0');
-            const day = String(krDate.getDate()).padStart(2, '0');
-            const hour = String(krDate.getHours()).padStart(2, '0');
-            const minute = String(krDate.getMinutes()).padStart(2, '0');
-
-            const formatted = `${year}-${month}-${day}T${hour}:${minute}`;
-            input.value = formatted;
-            input.max = formatted;
-        }
-        updateKoreanDatetimeLocal();
-        setInterval(() => {
-            const now = new Date();
-            if (now.getSeconds() === 0) {
-                updateKoreanDatetimeLocal();
-            }
-        }, 1000);
-    }
 });	
