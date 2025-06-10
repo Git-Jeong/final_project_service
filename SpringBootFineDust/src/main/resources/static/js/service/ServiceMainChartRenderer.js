@@ -28,7 +28,7 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 		legend: {
 			data: ['PM1', 'PM2.5', 'PM10'],
 			top: 0,
-			right: 0
+			left: 0
 		},
 		grid: {
 			left: '3%',    // 좌측 여백 (기본값 보통 10~15%)
@@ -308,4 +308,9 @@ const drawCo2denChart = (co2denChartData) => {
 
 window.addEventListener('resize', () => {
 	if (dustEChart) dustEChart.resize();
+	if (pm1EChart) pm1EChart.resize();
+	if (pm25EChart) pm25EChart.resize();
+	if (pm10EChart) pm10EChart.resize();
+	if (codenEChart) codenEChart.resize();
+	if (co2denEChart) co2denEChart.resize();
 });

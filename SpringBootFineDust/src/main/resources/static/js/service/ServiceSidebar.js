@@ -65,15 +65,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	const toggleBtn = document.getElementById("toggleSidebarBtn");
 		toggleBtn.addEventListener("click", function() {
-			container.classList.toggle("active");
+		container.classList.toggle("active");
 		if (container.classList.contains("active")) {
 			mainPage.style.marginLeft = "clamp(200px, 20vw, 300px)";
 			document.getElementById('chart-dust-main-echarts').style.width = `calc(100% - clamp(200px, 20vw, 300px))`;
 		} else {
 			mainPage.style.marginLeft = "0";
 			document.getElementById('chart-dust-main-echarts').style.width = "100%";
-		} 
-		//외 않 되 
-		//않이.. 
+		}
+		 
+		setTimeout(() => {
+			if (dustEChart) dustEChart.resize();
+			if (pm1EChart) pm1EChart.resize();
+			if (pm25EChart) pm25EChart.resize();
+			if (pm10EChart) pm10EChart.resize();
+			if (codenEChart) codenEChart.resize();
+			if (co2denEChart) co2denEChart.resize();
+		}, 1);  // 또는 requestAnimationFrame 사용
 	});
-});
+
+}); 
