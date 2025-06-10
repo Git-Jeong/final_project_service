@@ -31,49 +31,45 @@
 	display: flex;
 	grid-gap : 10px;
 	flex-direction: column;
+	min-height : 150px;
+	height: 40vh;
+	max-height: 700px;
 }
 
 .serviceChart-air-quality-box {
 	flex: 1;
-	min-height: auto;
-	padding: 1rem;
+    height: auto; /* 또는 고정값 지정 */
 	border: 1px solid #333;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
 	align-items: center; 
 	text-align: center;
-	overflow: hidden; /* 스크롤 시 내부 요소 넘침 방지 */
+    overflow: hidden;
 }
 
 .serviceChart-pmbold {
-	display: inline-flex; /* li들을 가로로 배치 */
 	list-style: none; /* 기본 불릿 제거 */
 	padding-right: 1rem;
 	padding-left: 0;
-	margin: 0;
-	align-items: center; /* 세로 정렬 중앙 */
+	margin: 0; 
 	gap: 0;
 	font-weight: bold;
     font-size: 1.2rem;
 }
 
 .serviceChart-pmbold li+li::before {
-	flex : 1;
 	content: "|"; /* 사이에 넣을 기호 */
-	margin: 0.serviceChart-5rem; /* 기호 좌우 여백 */
 	color: #888; /* 기호 색상 */
 }
 
 /* ===== 상태 표시 영역 ===== */
 .serviceChart-quality {
-  flex : 1;
   margin-top: 0.5rem;
   font-size: 1.5rem;
   font-weight: bold;
-  padding: 0.4rem 1rem;
-  border-radius: 20px; 
   width: 100%;
+  height : 100%;
   align-content: center;
 }
 
