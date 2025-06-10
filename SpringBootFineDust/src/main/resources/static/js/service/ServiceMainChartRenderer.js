@@ -45,11 +45,6 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 	dustEChart.setOption(option);
 };
 
-
-window.addEventListener('resize', () => {
-	if (dustEChart) dustEChart.resize();
-});
-
 const updateAirQualitySignal = (data) => {
 	const signals = [
 		{ type: 'pm1', value: data.pm1 },
@@ -309,3 +304,8 @@ const drawCo2denChart = (co2denChartData) => {
 	co2denEChart.setOption(option);
 	co2denEChart.resize();
 }
+
+
+window.addEventListener('resize', () => {
+	if (dustEChart) dustEChart.resize();
+});

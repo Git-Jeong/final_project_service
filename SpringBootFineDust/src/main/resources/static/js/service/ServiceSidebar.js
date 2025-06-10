@@ -64,14 +64,14 @@ document.addEventListener("DOMContentLoaded", function() {
 	container.appendChild(sidebar);
 
 	const toggleBtn = document.getElementById("toggleSidebarBtn");
-	toggleBtn.addEventListener("click", function() {
-		container.classList.toggle("active");
+		toggleBtn.addEventListener("click", function() {
+			container.classList.toggle("active");
 		if (container.classList.contains("active")) {
-			// 사이드바 열림 → margin-left 복구
 			mainPage.style.marginLeft = "clamp(200px, 20vw, 300px)";
+			document.getElementById('chart-dust-main-echarts').style.width = `calc(100% - clamp(200px, 20vw, 300px))`;
 		} else {
-			// 사이드바 닫힘 → margin-left 제거
 			mainPage.style.marginLeft = "0";
-		}
+			document.getElementById('chart-dust-main-echarts').style.width = "100%";
+		} 
 	});
 });
