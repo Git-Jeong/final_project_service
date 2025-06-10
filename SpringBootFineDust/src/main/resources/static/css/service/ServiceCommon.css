@@ -186,7 +186,8 @@ body {
 }
 
 .service-main-page {
-	margin-left: clamp(200px, 20vw, 300px);
+	/*  margin-left: clamp(200px, 20vw, 300px);  */
+	transition: margin-left 0.3s ease;
 	min-height: 100vh;
 	width: 100vw;
 }
