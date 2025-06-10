@@ -69,8 +69,8 @@ body {
 	position: absolute;
 	top: 70px;
 	right: 30px;
-	width: 350px;
-	max-height: 60vh;
+	width: 450px;
+	max-height: 80vh;
 	overflow-y: auto;
 	padding: 10px;
 	backdrop-filter: blur(10px);
