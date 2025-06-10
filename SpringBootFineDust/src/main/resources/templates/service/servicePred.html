@@ -2,13 +2,26 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script th:inline="javascript">
+window.model = {
+		headerText : '예측 시스템',
+		userName : '[[${userName}]]'
+};
+</script>
+<!-- ApexCharts 및 Vue -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script src="/js/service/ServiceMainChartRenderer.js"></script>
+<script src="/js/service/ServicePredGetData.js"></script>
+<script src="/js/service/ServiceCommon.js"></script>
+
 
 <!-- 차트 컴포넌트 스타일/스크립트 -->
 <link rel="stylesheet" href="/css/Common.css" />
-<link rel="stylesheet" href="/css/service/ServiceCommon.css" />
+<link rel="stylesheet" href="/css/service/ServiceCommon.css">
 
 <!-- 부트스트랩 CSS -->
 <link
@@ -19,51 +32,38 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-<script th:inline="javascript">
-	window.model = {
-		userName : '[[${userName}]]',
-		headerText : '예측 시스템'
-	};
-</script>
-<script src="/js/service/ServiceGetData.js"></script>
+
 <!-- 여기서 먼지 데이터, 알림 데이터를 자동으로 불러오는 중 -->
+<title>실내공기질 예측 시스템</title>
 </head>
 <body>
-	<script src="/js/service/ServiceSidebar.js"></script>
-
 	<div class="service-main-page">
 		<div id="sidebar-container"></div>
-
 		<main class="serviceChart-main-content">
 			<div id="serviceChart-header">
-				<!-- js를 통해 여기에 헤더를 만들어 둠 -->
+				<!-- js를 통해 여기에 헤더를 만들어 둠. -->
+				<!-- 헤더에는 '실내공기질 측정시스템'을 포함하여 '마이페이지', '알림', '로그아웃' 기능이 들어 있음. -->
 			</div>
-
 			<div id="notificationDropdown" class="notification-dropdown hidden">
 				<!-- 여기까지 실제 DB에서 데이터를 불러와서 출럭을 해야 됨. 즉 db에 값이 있으면 위의 코드를 반복하는 것 -->
 				<!-- js를 통해 여기에 알림 베너를 만들어 둠. -->
 			</div>
 
 			<div class="serviceChart-headeroption">
-				<select id="stationSelect" class="serviceChart-select">
-					<th:block th:each="station : ${stationList}">
-						<option th:if="${!#strings.isEmpty(station.stName_1)}"
-							th:value="${station.stId}" th:text="${station.stName_1}"></option>
-					</th:block>
-				</select> <input type="datetime-local" class="serviceChart-date" />
-				<button id="serviceChartSearchButton" class="serviceChart-button"
-					style="visibility: visible;">검색</button>
+			  <select id="stationSelect" class="serviceChart-select">
+			    <th:block th:each="station : ${stationList}">
+			      <option th:if="${!#strings.isEmpty(station.stName_1)}"
+			              th:value="${station.stId}"
+			              th:text="${station.stName_1}"></option>
+			    </th:block>
+			  </select>
+			  <input type="datetime-local" class="serviceChart-date" />
+			  <button id="serviceChartSearchButton" class="serviceChart-button" style="visibility: visible;">
+			    검색
+			  </button>
 			</div>
 
-
-
-
-			<!-- 여기가 그래프 들어갈 공간인가? 그렇지 -->
-
-
-
-
-			<script type="text/javascript" src="/js/service/ServiceHeader.js"></script>
+			
 		</main>
 	</div>
 </body>

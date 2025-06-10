@@ -5,12 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<script th:inline="javascript">
+window.model = {
+		headerText : '측정 시스템',
+		userName : '[[${userName}]]'
+};
+</script>
 <!-- ApexCharts 및 Vue -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 <script src="/js/service/ServiceMainChartRenderer.js"></script>
-<script src="/js/service/ServiceGetData.js"></script>
-			<script type="text/javascript" src="/js/service/ServiceHeader.js"></script>
+<script src="/js/service/ServiceMainGetData.js"></script>
+<script src="/js/service/ServiceCommon.js"></script>
 
 
 <!-- 차트 컴포넌트 스타일/스크립트 -->
@@ -28,19 +34,10 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-<script th:inline="javascript">
-	window.model = {
-		userName : '[[${userName}]]',
-		headerText : '측정 시스템'
-	};
-</script>
 <!-- 여기서 먼지 데이터, 알림 데이터를 자동으로 불러오는 중 -->
 <title>실내공기질 측정시스템</title>
 </head>
 <body>
-	<script src="/js/service/ServiceSidebar.js"></script>
-
-
 	<div class="service-main-page">
 		<div id="sidebar-container"></div>
 		<main class="serviceChart-main-content">

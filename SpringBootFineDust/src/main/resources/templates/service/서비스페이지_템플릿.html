@@ -3,8 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<script th:inline="javascript">
+window.model = {
+		headerText : '페이지 템플릿',
+		userName : '[[${userName}]]'
+};
+</script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/js/service/ServiceHeader.js"></script>
 
 <!-- 차트 컴포넌트 스타일/스크립트 -->
 <link rel="stylesheet" href="/css/Common.css" />
@@ -19,16 +25,9 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-<script th:inline="javascript">
-	window.model = {
-		userName : '[[${userName}]]',
-	    headerText : '페이지 템플릿'
-	};
-</script>
 <script src="/js/service/ServiceGetData.js"></script> <!-- 여기서 먼지 데이터, 알림 데이터를 자동으로 불러오는 중 -->
 </head>
 <body>
-	
 	<script src="/js/service/ServiceSidebar.js"></script>
 	
 	<div class="service-main-page">
@@ -62,7 +61,6 @@
 			
 			
 			
-			<script type="text/javascript" src="/js/service/ServiceHeader.js"></script>
 		</main>
 	</div>
 </body>
