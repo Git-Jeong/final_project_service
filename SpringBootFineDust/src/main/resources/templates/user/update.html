@@ -9,6 +9,11 @@
 <link rel="stylesheet" href="/css/user/Update.css" />
 <link rel="stylesheet" href="/css/Common.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+
+let stationHtml = '';
+let userHtml = '';
+</script>
 </head>
 
 <body>
@@ -107,16 +112,22 @@
 		      data: { usrEmail },
 		      dataType: 'json',
 		      success: function(data) {
-		    	  stationHtml = `
-		    		  <div>
-		    		    <label for="stName_1">지하철역 <span style="color: red;">*</span> </label>
-		    		    <input type="text" id="stName_1" name="stName_1"
-		    		           placeholder="지하철역을 입력해 주세요."
-		    		           value="${data.stName_1 || ''}" />
-		    		  </div>
-		    		  <input type="hidden" id="stId" name="stId" value="${data.stId || ''}" />
-		    		`;
-		        resolve();
+		    	 console.log(data);
+		    	 $.each(data, function(index, station) {
+	    		    const num = index + 1;
+	    		    stationHtml += `
+    		    	  <div>
+    		    	    <label for="stName_${num}" ${num > 1 ? 'style="visibility: hidden;"' : ''}>
+    		    	      지하철역 <span style="color: red;">*</span>
+    		    	    </label>
+    		    	    <input type="text" id="stName_${num}" name="stName_${num}"
+    		    	           placeholder="지하철역을 입력해 주세요."
+    		    	           value="${station.stName_1 || ''}" />
+    		    	  </div>
+    		    	  <input type="hidden" id="stId_${num}" name="stId_${num}" value="${station.stId || ''}" />
+    		    	`;
+	    		  });
+	    		  resolve();
 		      },
 		      error: function(xhr, status, error) {
 		        console.error('역 정보 불러오기 실패:', error);
@@ -131,8 +142,6 @@
 	// DOMContentLoaded에서 함수 호출하도록 수정
 	document.addEventListener('DOMContentLoaded', function () {
 		getAllDate();
-		const stationHtml = '';
-		const userHtml = '';
 	});
 
 	const spinner = document.getElementById('loading-spinner');
