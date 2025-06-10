@@ -5,7 +5,7 @@
 body {
 	display: flex;
 	flex-direction: row;
-} 
+}
 
 .serviceChart-header {
 	display: flex;
@@ -15,27 +15,24 @@ body {
 	padding: 1rem;
 }
 
-.serviceChart-button,
-.serviceChart-date,
-.serviceChart-select{
+.serviceChart-button, .serviceChart-date, .serviceChart-select {
 	height: 40px;
-	width : 300px;
-	text-align :center;
-	border : 1px solid;
+	width: 300px;
+	text-align: center;
+	border: 1px solid;
 	margin: 0;
 }
 
-.serviceChart-date{
-	border-radius : 9px;
+.serviceChart-date {
+	border-radius: 9px;
 }
 
-.serviceChart-select{
-	border-radius : 5px;
+.serviceChart-select {
+	border-radius: 5px;
 }
 
-.serviceChart-button,
-.serviceChart-date:hover,
-.serviceChart-select:hover{
+.serviceChart-button, .serviceChart-date:hover, .serviceChart-select:hover
+	{
 	background-color: #f3f3f3;
 }
 
@@ -103,24 +100,25 @@ body {
 	left: 0;
 }
 
-.notificationDropdown_close_btn{
+.notificationDropdown_close_btn {
 	border: none;
 	background-color: transparent;
 }
 
-.notificationDropdown_close_btn:hover{
+.notificationDropdown_close_btn:hover {
 	color: #dc3545;
 }
 
-.notificationDropdown_header_txt{
+.notificationDropdown_header_txt {
 	align-items: center; /* 세로 가운데 정렬도 필요 시 */
 }
 
 .notification-card {
 	border: 2px solid #ccc;
-	background-color : #ffffff;
+	background-color: #ffffff;
 	border-radius: 10px;
 }
+
 .notification-card:hover {
 	background-color: #f3f3f3;
 }
@@ -137,9 +135,9 @@ body {
 	gap: 10px; /* 요소 간 여백 */
 }
 
-.notification-card.warning{
+.notification-card.warning {
 	border-color: #FF9900;
-	color:#FF9900;
+	color: #FF9900;
 	padding: 10px;
 	border-radius: 10px;
 	border: 2px solid #ccc;
@@ -149,9 +147,9 @@ body {
 	gap: 10px; /* 요소 간 여백 */
 }
 
-.notification-card.info{
+.notification-card.info {
 	border-color: #149EFF;
-	color:#149EFF;
+	color: #149EFF;
 	padding: 10px;
 	border-radius: 10px;
 	border: 2px solid #ccc;
@@ -170,7 +168,8 @@ body {
 }
 
 .notification-title-left-box {
-	padding-left: 14px; margin-right : auto;
+	padding-left: 14px;
+	margin-right: auto;
 	display: flex;
 	gap: 10px;
 	margin-right: auto;
@@ -186,10 +185,9 @@ body {
 	padding-bottom: 0;
 }
 
-
-.service-main-page{
+.service-main-page {
 	margin-left: clamp(200px, 20vw, 300px);
-	min-height : 100vh;
+	min-height: 100vh;
 	width: 100vw;
 }
 
@@ -201,7 +199,7 @@ body {
 }
 
 .serviceChart-headeroption {
-	height : 40px;
+	height: 40px;
 	flex: 1;
 	min-height: 0;
 	border-radius: 10px;
@@ -212,7 +210,8 @@ body {
 	margin-right: auto;
 }
 
-.serviceChart-headeroption select, .serviceChart-headeroption input[type="date"] {
+.serviceChart-headeroption select, .serviceChart-headeroption input[type="date"]
+	{
 	margin: 0.serviceChart-25rem;
 	margin-right: 1rem;
 	border: 0.serviceChart-25px solid #ccc;
@@ -243,20 +242,42 @@ body {
 	border-left: 1px solid #ccc;
 }
 
+.toggleSidebarBtn-1 {
+	position: fixed;
+	font-size : 1.7rem;
+	top : 30px;
+	left: 30px;
+	z-index: 1001;
+	background: transparent; 
+	border: none;
+}
+
+#sidebar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 20vw;
+  min-width: 200px;
+  max-width: 300px;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+#sidebar-container.active {
+  transform: translateX(0);
+}
+
 .sidebar {
-	background-color: #0a3d62;
-	color: white;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 1rem;
-	width: 20%;
-	min-width: 200px;
-	width : 20vw;
-	max-width : 300px;
-	height: 100vh;
-	overflow: auto;
-	position : fixed;
+  background-color: #f0f0f0;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  height: 100%;
+  overflow: auto;
 }
 
 .sidebar-logo, .sidebar-welcome {
@@ -264,18 +285,17 @@ body {
 	text-align: center;
 }
 
-.sidebar-logo{
-	margin-top : 10vh;
+.sidebar-logo {
+	margin-top: 10vh;
 }
 
 .sidebar-profile img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover; /* 이미지 비율 유지하며 채우기 */
-  display: block;    /* inline 이미지 여백 제거 */
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	object-fit: cover; /* 이미지 비율 유지하며 채우기 */
+	display: block; /* inline 이미지 여백 제거 */
 }
-
 
 .sidebar-profile {
 	width: 80px;
@@ -301,62 +321,85 @@ body {
 }
 
 .notify-alert {
-  position: relative;
-  animation: pulse 1s infinite;
-  color: #dc3545 !important; /* 빨간색 아이콘 강조 */
+	position: relative;
+	animation: pulse 1s infinite;
+	color: #dc3545 !important; /* 빨간색 아이콘 강조 */
 }
 
 .notify-alert .notification-icon::after {
-  content: '';
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  width: 10px;
-  height: 10px;
-  background-color: red;
-  border-radius: 50%;
-  animation: blink 1s infinite;
+	content: '';
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 10px;
+	height: 10px;
+	background-color: red;
+	border-radius: 50%;
+	animation: blink 1s infinite;
 }
 
-.chart-loading-spinner{
-  width: 40px;
-  height: 40px;
-  border: 4px solid #eee;
-  border-top-color: #3498db;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: auto; 
-  position: relative; 
-  top: 50%; 
-  transform: translateY(-50%);
-  box-shadow: 0 0 10px rgba(52, 152, 219, 0.6);
+.chart-loading-spinner {
+	width: 40px;
+	height: 40px;
+	border: 4px solid #eee;
+	border-top-color: #3498db;
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+	margin: auto;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	box-shadow: 0 0 10px rgba(52, 152, 219, 0.6);
 }
 
-.chart-loading-mini-spinner{
-  width: 40px;
-  height: 40px;
-  border: 4px solid #eee;
-  border-top-color: #3498db;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: auto; 
-  position: relative;  
-  transform: translateY(-50%);
-  box-shadow: 0 0 10px rgba(52, 152, 219, 0.6);
+.chart-loading-mini-spinner {
+	width: 40px;
+	height: 40px;
+	border: 4px solid #eee;
+	border-top-color: #3498db;
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+	margin: auto;
+	position: relative;
+	transform: translateY(-50%);
+	box-shadow: 0 0 10px rgba(52, 152, 219, 0.6);
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes scale {
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg);}
-  100% { transform: rotate(360deg);}
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

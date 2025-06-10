@@ -1,71 +1,69 @@
-// 사이드바 생성
-const userNameSide = window.model?.userName || '사용자';
-const pageTitleSide = window.model?.headerText || '서비스 페이지';
+document.addEventListener("DOMContentLoaded", function () {
+  // DOM 완전 로드 후에 실행되도록 이동
 
-const sidebar = document.createElement('aside');
-sidebar.className = 'sidebar';
+  const userNameSide = window.model?.userName || '사용자';
+  const pageTitleSide = window.model?.headerText || '서비스 페이지';
 
-// 로고
-const logo = document.createElement('div');
-logo.className = 'sidebar-logo';
-logo.innerHTML = `<strong>실내공기질<br>${pageTitleSide}</strong>`;
-sidebar.appendChild(logo);
+  const sidebar = document.createElement('aside');
+  sidebar.className = 'sidebar';
 
-// 프로필 영역
-const profile = document.createElement('div');
-profile.className = 'sidebar-profile';
+  const logo = document.createElement('div');
+  logo.className = 'sidebar-logo';
+  logo.innerHTML = `<strong>실내공기질<br>${pageTitleSide}</strong>`;
+  sidebar.appendChild(logo);
 
-const img = document.createElement('img');
-img.src = "https://cdn-icons-png.flaticon.com/512/847/847969.png";
-img.alt = "profile icon";
+  const profile = document.createElement('div');
+  profile.className = 'sidebar-profile';
 
-profile.appendChild(img);
+  const img = document.createElement('img');
+  img.src = "https://cdn-icons-png.flaticon.com/512/847/847969.png";
+  img.alt = "profile icon";
+  profile.appendChild(img);
 
-// 환영 메시지
-const welcome = document.createElement('div');
-welcome.className = 'sidebar-welcome';
-welcome.innerHTML = `<strong>${userNameSide}님<br>환영합니다!</strong>`;
+  const welcome = document.createElement('div');
+  welcome.className = 'sidebar-welcome';
+  welcome.innerHTML = `<strong>${userNameSide}님<br>환영합니다!</strong>`;
 
-// 프로필과 환영 메시지를 감싸는 div 생성
-const profileWrapper = document.createElement('div');
-profileWrapper.className = 'sidebar-profile-wrapper';
+  const profileWrapper = document.createElement('div');
+  profileWrapper.className = 'sidebar-profile-wrapper';
 
-// a 태그 생성 및 설정
-const profileLink = document.createElement('a');
-profileLink.href = '/update';
-profileLink.style.textDecoration = 'none';
-profileLink.style.color = 'inherit';
+  const profileLink = document.createElement('a');
+  profileLink.href = '/update';
+  profileLink.style.textDecoration = 'none';
+  profileLink.style.color = 'inherit';
 
-// profile과 welcome을 profileWrapper에 추가
-profileLink.appendChild(profile);
-profileLink.appendChild(welcome);
-profileWrapper.appendChild(profileLink);
+  profileLink.appendChild(profile);
+  profileLink.appendChild(welcome);
+  profileWrapper.appendChild(profileLink);
 
-// profileWrapper를 사이드바에 추가
-sidebar.appendChild(profileWrapper);
+  sidebar.appendChild(profileWrapper);
 
-function goMonitoringPage() {
-  window.location.href = '/service';
-}
+  function goMonitoringPage() {
+    window.location.href = '/service';
+  }
 
-function onIndoorAirPredictClick() {
-  window.location.href = '/servicePred';
-}
+  function onIndoorAirPredictClick() {
+    window.location.href = '/servicePred';
+  }
 
+  const buttons = [
+    { text: '실시간 데이터 차트', onClick: goMonitoringPage },
+    { text: '실내공기 예측 차트', onClick: onIndoorAirPredictClick }
+  ];
 
-const buttons = [
-  { text: '실시간 데이터 차트', onClick: goMonitoringPage },
-  { text: '실내공기 예측 차트', onClick: onIndoorAirPredictClick }
-];
+  buttons.forEach(({ text, onClick }) => {
+    const button = document.createElement('button');
+    button.className = 'sidebar-button';
+    button.textContent = text;
+    button.onclick = onClick;
+    sidebar.appendChild(button);
+  });
 
-buttons.forEach(({ text, onClick }) => {
-  const button = document.createElement('button');
-  button.className = 'sidebar-button';
-  button.textContent = text;
-  button.onclick = onClick;
-  sidebar.appendChild(button);
+  const container = document.getElementById('sidebar-container');
+  container.appendChild(sidebar);
+
+  const toggleBtn = document.getElementById("toggleSidebarBtn");
+  toggleBtn.addEventListener("click", function () {
+    container.classList.toggle("active");
+  });
 });
-
-
-// 생성된 사이드바를 body에 추가
-document.body.appendChild(sidebar);
