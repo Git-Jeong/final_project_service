@@ -73,5 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			mainPage.style.marginLeft = "0";
 			document.getElementById('chart-dust-main-echarts').style.width = "100%";
 		} 
+		//외 않 되 
+		//않이.. 
 	});
 });
