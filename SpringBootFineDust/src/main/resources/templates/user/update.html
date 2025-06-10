@@ -112,7 +112,7 @@ let userHtml = '';
 		      data: { usrEmail },
 		      dataType: 'json',
 		      success: function(data) {
-		    	 console.log(data);
+
 		    	 $.each(data, function(index, station) {
 	    		    const num = index + 1;
 	    		    stationHtml += `
@@ -141,12 +141,16 @@ let userHtml = '';
 		
 	// DOMContentLoaded에서 함수 호출하도록 수정
 	document.addEventListener('DOMContentLoaded', function () {
-		getAllDate();
+		getAllData();
 	});
 
 	const spinner = document.getElementById('loading-spinner');
 
-	const getAllDate = async () => {
+	const getAllData = async () => {
+
+   	      stationHtml = '';  // 역 정보 초기화
+	      userHtml = '';     // 유저 정보 초기화 (안정성 위해 추가)
+	      
 		  const userEmail = '[[${userEmail}]]';
 
 		  spinner.classList.add('show');
@@ -185,10 +189,7 @@ let userHtml = '';
 	    const usrNick = document.getElementById('usrNick').value.trim();
 	    const usrPw = document.getElementById('usrPw').value;
 	    const usrPwCheck = document.getElementById('usrPwCheck').value;
-		const stId = document.getElementById('stId').value.trim();
 	    const stName_1 = document.getElementById('stName_1').value.trim();
-	    const stName_2 = document.getElementById('stName_2').value.trim();
-	    const stName_3 = document.getElementById('stName_3').value.trim();
 	
 	    // 비밀번호 검증
 	    if (!usrPw || !usrPwCheck) return alert("비밀번호와 확인을 모두 입력해 주세요.");
@@ -197,41 +198,27 @@ let userHtml = '';
 	    if (!usrNick) return alert("닉네임을 입력해 주세요.");
 	    if (!stName_1) return alert("지하철역의 첫 번째 칸은 필수로 입력해 주세요.");
 	
-	    try {
-	      // 1단계: 유저 정보 전송
-	      const userRes = await fetch('/updateUserInfo', {
-	        method: 'POST',
-	        headers: { 'Content-Type': 'application/json' },
-	        body: JSON.stringify({ usrIdx, usrEmail, usrPw, usrNick })
-	      });
-	
-	      const userResult = await userRes.text();
-	
-	      if (userResult !== 'success') {
-	        alert('회원정보 수정 실패: ' + userResult);
-	        return;
-	      }
-	
-	      // 2단계: 역 정보 전송
-	      const stationRes = await fetch('/updateStationInfo', {
-	        method: 'POST',
-	        headers: { 'Content-Type': 'application/json' },
-	        body: JSON.stringify({ stId, usrEmail, stName_1, stName_2, stName_3 })
-	      });
-	
-	      const stationResult = await stationRes.text();
-	
-	      if (stationResult === 'success') {
-	        alert('회원정보가 성공적으로 수정되었습니다.');
-	        getAllDate();
-	      } else {
-	        alert('역 정보 수정 실패: ' + stationResult);
-	      }
-	
-	    } catch (err) {
-	      alert('서버 통신 오류: ' + err.message);
-	    }
-	  });
+
+	    // 1단계: 유저 정보 전송 (AJAX 방식)
+	    $.ajax({
+	    	  url: '/updateUserInfo',
+	    	  type: 'POST',
+	    	  contentType: 'application/json',
+	    	  data: JSON.stringify({ usrIdx, usrEmail, usrPw, usrNick }),
+	    	  success: function(userResult) {
+	    	    if (userResult === 'success') {
+	    	        updateStationList(usrEmail);
+	    	    }
+	    	    else{
+		    	      alert('회원정보 수정 실패: ' + userResult);
+	    	    }
+	    	    // 성공 시 추가 로직이 있다면 여기에 작성
+	    	  },
+	    	  error: function(xhr, status, error) {
+	    	    alert('서버 통신 오류: ' + error);
+	    	  }
+	    	});
+  	});
   
   	const backBtn = () => {
   	  if (confirm("정말 뒤로 가시겠습니까? ")) {
@@ -251,5 +238,39 @@ let userHtml = '';
 	    document.getElementById('user-form').reset();
 	  }
 	};
+	
+const updateStationList = (usrEmail) =>{ 
 
+	for(let i = 1; i <= 3; i++){ 
+	    const stName_1 = document.getElementById(`stName_${i}`).value.trim();
+	    const stId = document.getElementById(`stId_${i}`).value.trim();
+	    
+	    $.ajax({
+	        type : "POST",
+	        url : "/updateStationInfo",
+	        contentType : "application/json",
+	        data : JSON.stringify({
+	        	"stId" : stId,
+	            "stName_1" : stName_1,
+	            "usrEmail" : usrEmail
+	        }),
+	        dataType : "text",
+	        success : function(response) {
+	            if (response !== 'success') {
+	                alert("회원정보 생성 실패: " + response);
+	                return false;
+	            }
+	        },
+	        error : function(xhr, status, error) {
+	            alert("서버 오류: " + error);
+	        }
+	    }); 
+	    
+	    if(i === 3){
+	    	alert("정보 수정 완료.");
+	        getAllData();
+	    }
+
+	}
+}
 </script>
