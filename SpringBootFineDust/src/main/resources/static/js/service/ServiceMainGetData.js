@@ -99,9 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // notiType에 따른 아이콘 클래스 매핑
 const iconMap = {
-	error: "bi-exclamation-triangle-fill",
-	warning: "bi-exclamation-circle-fill",
-	info: "bi-info-circle-fill"
+  error: "bi-exclamation-triangle-fill",
+  warning: "bi-exclamation-circle-fill",
+  info: "bi-info-circle-fill"
 };
 
 // 시간차 계산 함수 (현재 시간 - notiTime)

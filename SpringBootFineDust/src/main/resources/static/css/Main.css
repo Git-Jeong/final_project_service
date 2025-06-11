@@ -183,6 +183,15 @@
 	transform: scale(1.05);
 }
 
+.main-tech-item a {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	height: 100%;
+	text-decoration: none;
+}
+
 .main-tech-item img {
 	width: 50px;
 	height: 50px;

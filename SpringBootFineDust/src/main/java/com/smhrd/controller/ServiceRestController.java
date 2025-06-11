@@ -54,21 +54,21 @@ public class ServiceRestController {
 //    	snsr.get(0).setPm10(21);
 
     	if((snsr != null) && (snsr.get(0) != null) && (snsr.get(0).getPm1() != null)) {
-    		if(snsr.get(0).getPm1() >= 20) {
+    		if(snsr.get(0).getPm1() > 35) {
     			//초미세먼지 경고 알림 보내기
     			notifyService.sendPm1Notify(stId, usrEmail, snsr.get(0).getPm1());
     		}
     	}    	
     	
     	if((snsr != null) && (snsr.get(0) != null) && (snsr.get(0).getPm25() != null)) {
-    		if(snsr.get(0).getPm25() >= 20) {
+    		if(snsr.get(0).getPm25() > 75) {
     			//초미세먼지 경고 알림 보내기
     			notifyService.sendPm25Notify(stId, usrEmail, snsr.get(0).getPm25());
     		}
     	}
     	
     	if((snsr != null) && (snsr.get(0) != null) && (snsr.get(0).getPm10() != null)) {
-    		if(snsr.get(0).getPm10() >= 20) {
+    		if(snsr.get(0).getPm10() > 80) {
     			//미세먼지 경고 알림 보내기
     			notifyService.sendPm10Notify(stId, usrEmail, snsr.get(0).getPm10());
     		}
@@ -86,8 +86,7 @@ public class ServiceRestController {
     	}
     	return snsr;
     }
-
-
+    
     @GetMapping("/getStationDustOne")
     public Sensor getStationOneInfo(@RequestParam int stId, HttpServletRequest request) {
     	int originStId = stId;
@@ -102,27 +101,28 @@ public class ServiceRestController {
 
     	// 더미데이터를 불러 왔으니, 다시 stId값을 복구
     	stId = originStId;
-    	//알림기능 테스트룰 위한 더미 센싱값
-//    	snsr.get(0).setPm1(21);
-//    	snsr.get(0).setPm25(21);
-//    	snsr.get(0).setPm10(21);
 
+    	//알림기능 테스트룰 위한 더미 센싱값
+//    	snsr.setPm1(150);
+//    	snsr.setPm25(50);
+//    	snsr.setPm10(10);
+    	
     	if((snsr != null) && (snsr.getPm1() != null)) {
-    		if(snsr.getPm1() >= 20) {
+    		if(snsr.getPm1() > 35) {
     			//초미세먼지 경고 알림 보내기
     			notifyService.sendPm1Notify(stId, usrEmail, snsr.getPm1());
     		}
     	}    	
     	
     	if((snsr != null) && (snsr.getPm25() != null)) {
-    		if(snsr.getPm25() >= 20) {
+    		if(snsr.getPm25() > 35) {
     			//초미세먼지 경고 알림 보내기
     			notifyService.sendPm25Notify(stId, usrEmail, snsr.getPm25());
     		}
     	}
     	
     	if((snsr != null) && (snsr.getPm10() != null)) {
-    		if(snsr.getPm10() >= 20) {
+    		if(snsr.getPm10() > 80) {
     			//미세먼지 경고 알림 보내기
     			notifyService.sendPm10Notify(stId, usrEmail, snsr.getPm10());
     		}

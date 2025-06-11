@@ -76,21 +76,28 @@
 
 /* 신호등 색상 스타일 */
 .serviceChart-quality.red {
-  background-color: #e74c3c; /* 빨강 계열 */
+  background-color: #f34545; /* 빨강 계열 */
   color: white;
   text-align: center;
   font-weight: bold;
 }
 
-.serviceChart-quality.yellow {
-  background-color: #f1c40f; /* 노랑 계열 */
+.serviceChart-quality.orange {
+  background-color: #f36919; /* 주황 계열 */
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+.serviceChart-quality.green {
+  background-color: #0aa953; /* 노색 계열 */
   color: black;
   text-align: center;
   font-weight: bold;
 }
 
 .serviceChart-quality.blue {
-  background-color: #3498db; /* 파랑 계열 */
+  background-color: #1c8bf3; /* 파랑 계열 */
   color: white;
   text-align: center;
   font-weight: bold;
