@@ -274,7 +274,7 @@ body {
 	border :none;
 	font-size: 2em;
 	background: transparent;
-    line-height: normal; /* 텍스트 라인 높이 조절 */
+    line-height: 1; /* 텍스트 라인 높이 조절 */
 }
 
 #sidebar-container {
