@@ -121,7 +121,29 @@ body {
 	display: flex;
 	flex-direction: column;
 	row-gap: 10px;
+ 
 }
+
+/* 웹킷 브라우저 스크롤바 디자인 */
+.notification-dropdown::-webkit-scrollbar {
+	width: 20px; /* 스크롤바 너비 */
+}
+
+.notification-dropdown::-webkit-scrollbar-track {
+	background: rgba(255, 255, 255, 0.5);
+	border-radius: 10px;
+}
+
+.notification-dropdown::-webkit-scrollbar-thumb {
+	background: rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+	transition: background-color 0.3s;
+}
+
+.notification-dropdown::-webkit-scrollbar-thumb:hover {
+	background: rgba(255, 255, 255, 0.7);
+}
+
 
 .notification-dropdown.hidden {
 	display: none;
@@ -152,10 +174,15 @@ body {
 	align-items: center; /* 세로 가운데 정렬도 필요 시 */
 }
 
+.notificationDropdown_header_txt h3{
+	font-weight: bold;
+}
+
 .notification-card {
 	border: 2px solid #ccc;
 	background-color: #ffffff;
 	border-radius: 10px;
+	color: #000000;
 }
 
 .notification-card:hover {
@@ -164,38 +191,53 @@ body {
 
 .notification-card.error {
 	border-color: #dc3545;
-	color: #dc3545;
 	padding: 10px;
 	border-radius: 10px;
-	border: 2px solid #ccc;
+	border: 2px solid #dc3545;
 	display: flex;
 	flex-direction: column;
-	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 0 5px rgba(220, 53, 69, 1);
 	gap: 10px; /* 요소 간 여백 */
 }
 
 .notification-card.warning {
 	border-color: #FF9900;
-	color: #FF9900;
 	padding: 10px;
 	border-radius: 10px;
-	border: 2px solid #ccc;
+	border: 2px solid #FF9900;
 	display: flex;
 	flex-direction: column;
-	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 0 5px rgba(255, 153, 0, 1);
 	gap: 10px; /* 요소 간 여백 */
 }
 
 .notification-card.info {
 	border-color: #149EFF;
-	color: #149EFF;
 	padding: 10px;
 	border-radius: 10px;
-	border: 2px solid #ccc;
+	border: 2px solid #149EFF;
 	display: flex;
 	flex-direction: column;
-	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 0 5px rgba(20, 158, 255, 1);
 	gap: 10px; /* 요소 간 여백 */
+}
+
+.notification-card.error .notification-title-icon i {
+	color: #dc3545;
+	font-size: 18px;
+}
+.notification-card.warning .notification-title-icon i {
+	font-size: 18px;
+	color: #FF9900;
+}
+.notification-card.info .notification-title-icon i {
+	font-size: 18px;
+	color: #149EFF;
+}
+
+.notification-title-content{
+	font-weight: bold;	
+	font-size: 18px;
 }
 
 .notification-title {
@@ -217,6 +259,8 @@ body {
 .notification-title-time {
 	padding-right: 10px;
 	margin-left: auto;
+	font-size: 17px;
+	align-self: center;
 }
 
 .notification-content-box {
