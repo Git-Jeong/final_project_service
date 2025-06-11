@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>달력과 미세먼지</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .day-circle {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 50%;
+      margin: auto;
+      cursor: pointer;
+    }
+    .calendar-box {
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    .schedule-card {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container my-5">
+    <div class="row">
+      <!-- 달력 영역 -->
+      <div class="col-md-8 mb-4">
+        <div class="calendar-box">
+          <h4 class="d-flex align-items-center justify-content-between">
+            <div>
+              <button class="btn btn-outline-secondary btn-sm me-2" onclick="changeMonth(-1)">←</button>
+              <span id="month-year"></span>
+              <button class="btn btn-outline-secondary btn-sm ms-2" onclick="changeMonth(1)">→</button>
+            </div>
+          </h4>
+          <table class="table table-bordered mt-3 text-center">
+            <thead>
+              <tr>
+                <th class="text-danger">일</th>
+                <th>월</th>
+                <th>화</th>
+                <th>수</th>
+                <th>목</th>
+                <th>금</th>
+                <th class="text-primary">토</th>
+              </tr>
+            </thead>
+            <tbody id="calendar-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 📌 조회 + Collapse -->
+     <div class="collapse" id="dustCard">
+      <div class="col-md-4">
+        <div class="card schedule-card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span>미세먼지 정보 조회</span>
+          </div>
+          <div class="card-body" id="exam-schedule">
+            <p>날짜를 클릭하면 아래에 미세먼지 정보가 표시됩니다.</p>
+            <!-- Collapse 영역 -->
+            <div class="accordion" id="dustAccordion">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingDust">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDust" aria-expanded="false" aria-controls="collapseDust">
+                     <span id="collapse-title">미세먼지 평균 정보</span>
+                  </button>
+                </h2>
+                <div id="collapseDust" class="accordion-collapse collapse" aria-labelledby="headingDust">
+                  <div class="accordion-body" id="dust-detail">
+                    <p>날짜를 선택하면 오전/오후 평균이 표시됩니다.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 끝 -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const calendarBody = document.getElementById("calendar-body");
+    const monthYear = document.getElementById("month-year");
+    let currentDate = new Date();
+
+    // 더미 미세먼지 데이터 (24시간 값)
+    const dustData = {
+      "2025-06-10": Array.from({ length: 24 }, () => Math.floor(Math.random() * 80)),
+      "2025-06-11": Array.from({ length: 24 }, () => Math.floor(Math.random() * 80)),
+    };
+
+    function pad(num) {
+      return String(num).padStart(2, "0");
+    }
+
+    function renderCalendar(date) {
+      calendarBody.innerHTML = "";
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const firstDay = new Date(year, month, 1).getDay();
+      const lastDate = new Date(year, month + 1, 0).getDate();
+      monthYear.textContent = `${year}년 ${month + 1}월`;
+
+      let day = 1;
+      for (let i = 0; i < 6; i++) {
+        const row = document.createElement("tr");
+        for (let j = 0; j < 7; j++) {
+          const cell = document.createElement("td");
+
+          if (i === 0 && j < firstDay || day > lastDate) {
+            cell.innerHTML = "";
+          } else {
+            const thisDate = new Date(year, month, day);
+            const dateStr = `${year}-${pad(month + 1)}-${pad(day)}`;
+            const dayCircle = document.createElement("div");
+            dayCircle.classList.add("day-circle");
+            dayCircle.textContent = day;
+
+            
+            // 날짜 클릭 이벤트
+            dayCircle.addEventListener("click", () => {
+            	  // 1. 날짜 클릭 시 collapse 카드 열기
+            	  const collapseEl = document.getElementById('dustCard');
+            	  const bsCollapse = bootstrap.Collapse.getInstance(collapseEl) || new bootstrap.Collapse(collapseEl, {
+            		    toggle: false    // toggle: false는 생성 시 자동으로 .show() 하지 않도록 설정합니다
+            	  });
+            	  const isVisible = collapseEl.classList.contains("show");
+
+            	  if (isVisible) {
+            	    bsCollapse.hide(); // 이미 열려 있으면 닫기
+            	    return; // 반드시 리턴타입을 줘야하는가?
+            	  } else {
+            	    bsCollapse.show(); // 닫혀 있으면 열기
+            	  }
+
+            	  // 2. 미세먼지 정보 렌더링
+            	  const data = dustData[dateStr]; // [dateStr] - 미세먼지 데이터의 오전 오후의 평균 삽입해야함
+
+            	  const title = document.getElementById("collapse-title");
+            	  const detail = document.getElementById("dust-detail");
+
+            	  title.textContent = `${dateStr} 미세먼지 평균 정보`;
+
+            	  if (data && data.length === 24) {
+            	    const amAvg = average(data.slice(0, 12));   // 오전 0~11시
+            	    const pmAvg = average(data.slice(12, 24));  // 오후 12~23시
+
+            	    detail.innerHTML = `
+            	      <ul>
+            	        <li><strong>오전 평균:</strong> ${amAvg} ㎍/㎥</li>
+            	        <li><strong>오후 평균:</strong> ${pmAvg} ㎍/㎥</li>
+            	      </ul>
+            	    `;
+            	  } else {
+            	    detail.innerHTML = `<p>데이터가 없습니다.</p>`;
+            	  }
+
+            	});
+
+         
+
+            cell.appendChild(dayCircle);
+            day++;
+          }
+
+          row.appendChild(cell);
+        }
+        calendarBody.appendChild(row);
+        if (day > lastDate) break;
+      }
+    }
+
+    function average(arr) {
+      return (arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(2);
+    }
+
+    function changeMonth(offset) {
+      currentDate.setMonth(currentDate.getMonth() + offset);
+      renderCalendar(currentDate);
+    }
+
+    renderCalendar(currentDate);
+  </script>
+</body>
+</html>

@@ -11,6 +11,8 @@ import com.smhrd.entity.Station;
 import com.smhrd.repository.NotificationRepository;
 import com.smhrd.repository.StationRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class NotificationService {
 
@@ -31,16 +33,16 @@ public class NotificationService {
         if (pm1 >= 40) {
             notification.setNotiType(Notification.NotiType.error);
             notification.setNotiTitle(stationName + " 극초미세먼지 경고");
-            notification.setNotiContent_1(stationName + " 초미세먼지 값이 너무 높음");
+            notification.setNotiContent_1(stationName + " 극초미세먼지 값이 너무 높음");
         } else if (pm1 >= 20) {
             notification.setNotiType(Notification.NotiType.warning);
             notification.setNotiTitle(stationName + " 극초미세먼지 알림");
-            notification.setNotiContent_1(stationName + " pm1 값이 높음");
+            notification.setNotiContent_1(stationName + " 극초미세먼지 값이 높음");
         } else {
             return; // 알림 생성하지 않음 (pm1 20 미만은 무시)
         }
 
-        notification.setNotiContent_2("PM1 : " + pm1);
+        notification.setNotiContent_2("PM1.0 : " + pm1);
         notification.setNotiUnit("pm1");
         notification.setStation(station);
         if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) {
@@ -66,12 +68,12 @@ public class NotificationService {
         } else if (pm25 >= 20) {
             notification.setNotiType(Notification.NotiType.warning);
             notification.setNotiTitle(stationName + " 초미세먼지 알림");
-            notification.setNotiContent_1(stationName + " pm2.5 값이 높음");
+            notification.setNotiContent_1(stationName + " 초미세먼지 값이 높음");
         } else {
             return; // 알림 생성하지 않음 (pm1 20 미만은 무시)
         }
 
-        notification.setNotiContent_2("pm25 : " + pm25);
+        notification.setNotiContent_2("PM2.5 : " + pm25);
         notification.setNotiUnit("pm25");
         notification.setStation(station);
         if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) {
@@ -93,16 +95,16 @@ public class NotificationService {
         if (pm10 >= 40) {
             notification.setNotiType(Notification.NotiType.error);
             notification.setNotiTitle(stationName + " 미세먼지 경고");
-            notification.setNotiContent_1(stationName + " 값이 너무 높음");
+            notification.setNotiContent_1(stationName + " 미세먼지 값이 너무 높음");
         } else if (pm10 >= 20) {
             notification.setNotiType(Notification.NotiType.warning);
             notification.setNotiTitle(stationName + " 미세먼지 알림");
-            notification.setNotiContent_1(stationName + " pm10 미세먼지 값이 높음");
+            notification.setNotiContent_1(stationName + " 미세먼지 값이 높음");
         } else {
             return; // 알림 생성하지 않음 (pm1 20 미만은 무시)
         }
 
-        notification.setNotiContent_2("pm10 : " + pm10);
+        notification.setNotiContent_2("PM10 : " + pm10);
         notification.setNotiUnit("pm10");
         notification.setStation(station);
         if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) {
@@ -112,7 +114,30 @@ public class NotificationService {
             notificationRepository.save(notification);
 		}
     }
-    
+
+
+	public void sendCo2Notify(int stId, String usrEmail, int intValue) {
+		Station station = stRepository.findById(stId)
+	            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 역 ID입니다."));
+        String stationName = station.getStName_1();
+
+        Notification notification = new Notification();
+        notification.setUsrEmail(usrEmail);
+        
+        notification.setNotiType(Notification.NotiType.info);
+        notification.setNotiTitle(stationName + " CO₂ 안내");
+        notification.setNotiContent_1(stationName + " CO₂값이 약간 높음");
+
+        notification.setNotiContent_2("CO₂ : " + intValue);
+        notification.setNotiUnit("co2");
+        notification.setStation(station);
+        if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) {
+        	return;
+        }
+        else {
+            notificationRepository.save(notification);
+		}
+	}
     
     private boolean isDuplicateNotification(int stId, Notification.NotiType notiType, String notiUnit) {
         boolean result = false;
@@ -163,4 +188,14 @@ public class NotificationService {
         }
         notificationRepository.saveAll(notifications);
     }
+    
+    @Transactional
+	public boolean deleteAllNotification(String usrEmail) {
+		return notificationRepository.deleteAllByUsrEmail(usrEmail) > 0;
+	}
+
+    @Transactional
+	public boolean deleteOneNotification(Notification notify) {
+		return notificationRepository.deleteByUsrEmailAndNotiId(notify.getUsrEmail(), notify.getNotiId()) > 0;
+	}
 }

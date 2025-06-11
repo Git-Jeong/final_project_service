@@ -1,5 +1,6 @@
 package com.smhrd.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +20,6 @@ import com.smhrd.entity.Notification;
 import com.smhrd.entity.Sensor;
 import com.smhrd.service.NotificationService;
 import com.smhrd.service.SensorService;
-
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
@@ -73,6 +73,17 @@ public class ServiceRestController {
     			notifyService.sendPm10Notify(stId, usrEmail, snsr.get(0).getPm10());
     		}
     	}
+
+    	if((snsr != null) && (snsr.get(0) != null) && (snsr.get(0).getCo2den() != null)) {
+    		if (snsr.get(0).getCo2den().compareTo(BigDecimal.valueOf(900)) >= 0) {
+    			System.out.println(snsr.get(0).getCo2den());
+    			//Co2 경고 알림 보내기
+    			notifyService.sendCo2Notify(stId, usrEmail, snsr.get(0).getCo2den().intValue());
+    		}
+    		else {
+    			System.out.println("Not null");
+    		}
+    	}
     	return snsr;
     }
 
@@ -116,6 +127,12 @@ public class ServiceRestController {
     			notifyService.sendPm10Notify(stId, usrEmail, snsr.getPm10());
     		}
     	}
+    	if((snsr != null) && (snsr != null) && (snsr.getCo2den() != null)) {
+    		if (snsr.getCo2den().compareTo(BigDecimal.valueOf(950)) >= 0) {
+    			//Co2 경고 알림 보내기
+    			notifyService.sendCo2Notify(stId, usrEmail, snsr.getCo2den().intValue());
+    		}
+    	}
     	return snsr;
     }
     
@@ -127,6 +144,34 @@ public class ServiceRestController {
         }
         List<Notification> getAllList = notifyService.getAllNotify(usrEmail);
         return getAllList;
+    }
+    
+    @PostMapping("/deleteAllNotification")
+    public String deleteAllNotification(HttpServletRequest request) {
+        if (!token.isUserLoggedIn(request)) {
+            return "fail";
+        }
+        String usrEmail = token.extractUserFromJwt(request);
+        if (usrEmail == null || usrEmail.isBlank()) {
+            return "fail";
+        }
+
+        return notifyService.deleteAllNotification(usrEmail) ? "success" : "fail";
+    }
+
+    @PostMapping("/deleteOneNotification")
+    public String deleteOneNotification(@RequestParam Integer notiId, HttpServletRequest request) {
+        if (!token.isUserLoggedIn(request)) {
+            return "fail";
+        }
+        String usrEmail = token.extractUserFromJwt(request);
+        if (notiId == null || usrEmail == null || usrEmail.isBlank()) {
+            return "fail";
+        }
+        Notification notify = new Notification();
+        notify.setNotiId(notiId);
+        notify.setUsrEmail(usrEmail);
+        return notifyService.deleteOneNotification(notify) ? "success" : "fail";
     }
     
     @PostMapping("/notifyRead")

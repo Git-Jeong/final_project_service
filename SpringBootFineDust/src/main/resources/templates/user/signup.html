@@ -119,7 +119,7 @@
 			</form>
 
 			<!-- Step 2 -->
-			<form id="step2-form" method="post" action="insertSt">
+			<form id="step2-form">
 				<div id="signup2" style="display: none"
 					class="card-body p-md-5 text-black">
 
@@ -412,8 +412,8 @@
 			if (!stName_1) {
 				alert("역을 하나는 입력해 주세요.");
 				return;
-			}
-
+			} 
+			
 			$.ajax({
 				type : "POST",
 				url : "/signup",
@@ -426,19 +426,57 @@
 				dataType : "text",
 				success : function(response) {
 					if (response === 'success') {
-						$('#step2-form').append($('<input>').attr({
-							type : 'hidden',
-							name : 'usrEmail',
-							value : usrEmail
-						})).submit();
+						console.log("유저정보 변경 성공 ");
+						insertStationList(usrEmail);
 					} else {
-						alert("1단계 실패: " + response);
+						alert("회원정보 생성 실패: " + response);
 					}
 				},
 				error : function(xhr, status, error) {
 					alert("서버 오류: " + error);
 				}
 			});
+			
+		}
+		
+		const insertStationList = (usrEmail) =>{ 
+			$('#step2-form').append($('<input>').attr({
+				type : 'hidden',
+				name : 'usrEmail',
+				value : usrEmail
+			}))
+
+			for(let i = 1; i <= 3; i++){
+			    const stName_1 = $(`#stName_${i}`).val();
+				
+			    $.ajax({
+			        type : "POST",
+			        url : "/insertSt",
+			        contentType : "application/json",
+			        data : JSON.stringify({
+			            "stName_1" : stName_1,
+			            "usrEmail" : usrEmail
+			        }),
+			        dataType : "text",
+			        success : function(response) {
+			            if (response === 'success') {
+			            	console.log("지하철역 정보 수정 성공 ");
+			            }
+			            else{
+			                alert("회원정보 생성 실패: " + response);
+			                return false;
+			            }
+			        },
+			        error : function(xhr, status, error) {
+			            alert("서버 오류: " + error);
+			        }
+			    });
+			    
+			    if(i === 3){
+			         alert("최종 성공~");
+			    }
+			    
+			}
 		}
 	</script>
 </body>

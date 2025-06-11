@@ -1,5 +1,7 @@
 package com.smhrd.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,9 +25,20 @@ public class StationRestController {
     }
     
     @GetMapping("/getStationInfo")
-    public Station getStationInfo(@RequestParam String usrEmail) {
-    	Station st = stService.getStInfo(usrEmail);
+    public List<Station> getStationInfo(@RequestParam String usrEmail) {
+    	List<Station> st = stService.getStInfo(usrEmail);
     	return st;
     }
 
+    @PostMapping("/insertSt")
+    public String insertSt(@RequestBody Station st) {
+    	boolean result = stService.insertSt(st);
+    	System.out.println(st + "DB Insert 결과 : " + result);
+    	if(result) {
+            return "success";
+    	}
+    	else {
+            return "fail";
+    	}
+    }
 }
