@@ -44,6 +44,7 @@ const notificationDropdown_delete = () => {
 			url : "/deleteAollNotification",
 			method : "POST",
 			success: function(data) {
+				alert(data);
 				if (data === "success") {
 					notificationDropdown_close();
 				} else {

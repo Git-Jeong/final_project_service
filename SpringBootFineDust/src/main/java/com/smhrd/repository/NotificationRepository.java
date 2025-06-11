@@ -11,4 +11,5 @@ public interface NotificationRepository extends JpaRepository<Notification, Inte
 
 	List<Notification> findTop10ByUsrEmailOrderByNotiTimeDesc(String usrEmail);
 
+	int deleteAllByUsrEmail(String usrEmail);
 }

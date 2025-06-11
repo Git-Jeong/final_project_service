@@ -11,6 +11,8 @@ import com.smhrd.entity.Station;
 import com.smhrd.repository.NotificationRepository;
 import com.smhrd.repository.StationRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class NotificationService {
 
@@ -163,4 +165,9 @@ public class NotificationService {
         }
         notificationRepository.saveAll(notifications);
     }
+    
+    @Transactional
+	public boolean deleteAllNotification(String usrEmail) {
+		return notificationRepository.deleteAllByUsrEmail(usrEmail) > 0;
+	}
 }
