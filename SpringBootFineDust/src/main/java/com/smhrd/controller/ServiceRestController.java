@@ -129,8 +129,8 @@ public class ServiceRestController {
         return getAllList;
     }
     
-    @PostMapping("/deleteAollNotification")
-    public String deleteAollNotification(HttpServletRequest request) {
+    @PostMapping("/deleteAllNotification")
+    public String deleteAllNotification(HttpServletRequest request) {
         if (!token.isUserLoggedIn(request)) {
             return "fail";
         }
@@ -142,6 +142,20 @@ public class ServiceRestController {
         return notifyService.deleteAllNotification(usrEmail) ? "success" : "fail";
     }
 
+    @PostMapping("/deleteOneNotification")
+    public String deleteOneNotification(@RequestParam Integer notiId, HttpServletRequest request) {
+        if (!token.isUserLoggedIn(request)) {
+            return "fail";
+        }
+        String usrEmail = token.extractUserFromJwt(request);
+        if (notiId == null || usrEmail == null || usrEmail.isBlank()) {
+            return "fail";
+        }
+        Notification notify = new Notification();
+        notify.setNotiId(notiId);
+        notify.setUsrEmail(usrEmail);
+        return notifyService.deleteOneNotification(notify) ? "success" : "fail";
+    }
     
     @PostMapping("/notifyRead")
     public ResponseEntity<?> markNotificationsAsRead(@RequestBody Map<String, List<Integer>> payload) {

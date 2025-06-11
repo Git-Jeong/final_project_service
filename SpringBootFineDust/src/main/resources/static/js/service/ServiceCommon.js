@@ -11,7 +11,7 @@ function toggleNotificationDropdown() {
         if (window.cachedNotifications) {
             window.cachedNotifications.forEach(noti => {
                 if (noti.isRead === 0) {
-                    unreadIds.push(noti.noti_id);
+                    unreadIds.push(noti.notiId);
                 }
             });
         }
@@ -41,12 +41,33 @@ function notificationDropdown_close() {
 const notificationDropdown_delete = () => {
 	if(confirm("모든 알림을 삭제하시겠습니까?")){ 
 		$.ajax({
-			url : "/deleteAollNotification",
+			url : "/deleteAllNotification",
 			method : "POST",
 			success: function(data) {
 				alert(data);
 				if (data === "success") {
-					notificationDropdown_close();
+					toggleNotificationDropdown();
+				} else {
+					alert("삭제에 실패했습니다..");
+				}
+			},
+			error: function(error) {
+				console.error("알림 삭제 실패:", error);
+			}
+			
+		})
+	}
+}
+
+const notificationDropdown_one_delete = (notiId) => {
+	if(confirm("선택한 알림을 삭제하시겠습니까?")){ 
+		$.ajax({
+			url : "/deleteOneNotification",
+			method : "POST",
+			data : {"notiId" : notiId},
+			success: function(data) {
+				if (data === "success") {
+					fetchNotifications();
 				} else {
 					alert("삭제에 실패했습니다..");
 				}

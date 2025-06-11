@@ -11,7 +11,8 @@ public class Notification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer noti_id;                        // 알림 고유 ID
+    @Column(name = "noti_id")
+    private Integer notiId;                        // 알림 고유 ID
 
     @Column(nullable = false, length = 255, name = "usr_email")
     private String usrEmail;                  // 사용자 이메일

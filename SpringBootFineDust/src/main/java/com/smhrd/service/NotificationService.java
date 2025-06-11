@@ -170,4 +170,9 @@ public class NotificationService {
 	public boolean deleteAllNotification(String usrEmail) {
 		return notificationRepository.deleteAllByUsrEmail(usrEmail) > 0;
 	}
+
+    @Transactional
+	public boolean deleteOneNotification(Notification notify) {
+		return notificationRepository.deleteByUsrEmailAndNotiId(notify.getUsrEmail(), notify.getNotiId()) > 0;
+	}
 }

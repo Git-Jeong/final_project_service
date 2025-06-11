@@ -87,31 +87,32 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-$(document).ready(function() {
-	function fetchNotifications() {
-		$.ajax({
-			url: "/getAllNotify",
-			method: "GET",
-			success: function(data) {
-				window.cachedNotifications = data;
-				const hasUnread = data.some(noti => noti.isRead === 0);
-				const $btn = $(".notification-button");
-				if (hasUnread) {
-					$btn.addClass("notify-alert");
-				} else {
-					$btn.removeClass("notify-alert");
-				}
-				renderNotifications(data);
-			},
-			error: function(error) {
-				console.error("알림 조회 실패:", error);
-			}
-		});
-	}
+function fetchNotifications() {  // 전역 함수로 이동
+  $.ajax({
+    url: "/getAllNotify",
+    method: "GET",
+    success: function(data) {
+      window.cachedNotifications = data;
+      const hasUnread = data.some(noti => noti.isRead === 0);
+      const $btn = $(".notification-button");
+      if (hasUnread) {
+        $btn.addClass("notify-alert");
+      } else {
+        $btn.removeClass("notify-alert");
+      }
+      renderNotifications(data);
+    },
+    error: function(error) {
+      console.error("알림 조회 실패:", error);
+    }
+  });
+}
 
-	fetchNotifications();
-	setInterval(fetchNotifications, 32000);
+$(document).ready(function() {
+  fetchNotifications();
+  setInterval(fetchNotifications, 3000);
 });
+
 
 
 
@@ -171,8 +172,11 @@ function renderNotifications(notifications) {
               <i class="${iconClass}"></i>
             </div>
             <div class="notification-title-content">${noti.notiTitle}</div>
+          	<div class="notification-title-time">${timeText}</div>
           </div>
-          <div class="notification-title-time">${timeText}</div>
+          <button class="notification-delete-one" onclick="notificationDropdown_one_delete(${noti.notiId})">
+				X
+		  </button>
         </div>
         <ul class="notification-content-box">
           <li class="notification-time">시간 : ${noti.notiTime.replace("T", " ")}</li>
