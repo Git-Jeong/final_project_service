@@ -168,7 +168,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		const mainChart = document.getElementById('chart-dust-main-echarts'); // 요소를 변수에 저장
         if (isOpen) {
             if (toggleBtn_header) { // null 체크 추가
-                toggleBtn_header.style.visibility = "hidden"; // 사이드바 열릴 때 헤더 버튼 숨김
+                //toggleBtn_header.style.visibility = "hidden"; // 사이드바 열릴 때 헤더 버튼 숨김
+                toggleBtn_header.style.display = "none"; // 사이드바 열릴 때 헤더 버튼 숨김
             }
             container.classList.add("active");
             mainPage.style.marginLeft = "clamp(200px, 20vw, 300px)";
@@ -177,7 +178,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
         } else {
             if (toggleBtn_header) { // null 체크 추가
-                toggleBtn_header.style.visibility = "visible"; // 사이드바 닫힐 때 헤더 버튼 보임
+                //toggleBtn_header.style.visibility = "visible"; // 사이드바 닫힐 때 헤더 버튼 보임
+                toggleBtn_header.style.display = "block"; // 사이드바 닫힐 때 헤더 버튼 보임
             }
             container.classList.remove("active");
             mainPage.style.marginLeft = "0";
