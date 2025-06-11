@@ -1,6 +1,10 @@
 const dustStack = [];
 const stackSize = 30;
 
+const resetDustStack = () => {
+	dustStack.length = 0;
+}
+
 // 데이터 불러오는 함수
 const getStationDust = (stId) => {
 	$.ajax({
