@@ -295,7 +295,7 @@ const drawCo2denChart = (co2denChartData) => {
 		yAxis: {
 			type: 'value',
 			name: 'CO2',
-			min: 830
+			min: Math.max(0, Math.min(...co2denChartData.co2denData) - 3)
 		},
 		grid: {
 			left: '8%',
