@@ -30,13 +30,13 @@ const updateAirQualitySignal = (data) => {
 		// 한국 기준 색상 및 상태 (pm1, pm2.5, pm10 각각 분리)
 		if (type === 'pm1.0') {
 			if (value > 50) {
-				colorClass = 'dark-red';
+				colorClass = 'red';
 				statusText = '매우나쁨';
 			} else if (value > 35) {
-				colorClass = 'red';
+				colorClass = 'orange';
 				statusText = '나쁨';
 			} else if (value > 15) {
-				colorClass = 'yellow';
+				colorClass = 'green';
 				statusText = '보통';
 			} else {
 				colorClass = 'blue';
@@ -44,13 +44,13 @@ const updateAirQualitySignal = (data) => {
 			}
 		} else if (type === 'pm2.5') {
 			if (value > 75) {
-				colorClass = 'dark-red';
+				colorClass = 'red';
 				statusText = '매우나쁨';
 			} else if (value > 35) {
-				colorClass = 'red';
+				colorClass = 'orange';
 				statusText = '나쁨';
 			} else if (value > 15) {
-				colorClass = 'yellow';
+				colorClass = 'green';
 				statusText = '보통';
 			} else {
 				colorClass = 'blue';
@@ -58,13 +58,13 @@ const updateAirQualitySignal = (data) => {
 			}
 		} else if (type === 'pm10') {
 			if (value >= 150) {
-				colorClass = 'dark-red';
+				colorClass = 'red';
 				statusText = '매우나쁨';
 			} else if (value >= 80) {
-				colorClass = 'red';
+				colorClass = 'orange';
 				statusText = '나쁨';
 			} else if (value >= 30) {
-				colorClass = 'yellow';
+				colorClass = 'green';
 				statusText = '보통';
 			} else {
 				colorClass = 'blue';
@@ -73,7 +73,7 @@ const updateAirQualitySignal = (data) => {
 		}
 
 		// 기존 클래스 제거 후 새로운 색상 클래스 추가
-		qualityBox.classList.remove('dark-red', 'red', 'yellow', 'blue');
+		qualityBox.classList.remove('red', 'orange', 'green', 'blue');
 		qualityBox.classList.add(colorClass);
 
 		// 상태 문구 삽입 (기존 텍스트 모두 제거 후 삽입)
