@@ -245,7 +245,7 @@ const drawCodenChart = (codenChartData) => {
 		},
 		yAxis: {
 			type: 'value',
-			name: 'CO',
+			name: 'ppm',
 			min: 0
 		},
 		grid: {
@@ -295,7 +295,7 @@ const drawCo2denChart = (co2denChartData) => {
 		},
 		yAxis: {
 			type: 'value',
-			name: 'CO2',
+			name: 'ppm',
 			min: Math.max(0, Math.min(...co2denChartData.co2denData) - 3)
 		},
 		grid: {
