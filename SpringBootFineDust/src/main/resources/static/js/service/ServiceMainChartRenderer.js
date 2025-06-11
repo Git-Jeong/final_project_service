@@ -15,12 +15,14 @@ const updateAirQualitySignal = (data) => {
 
 	signals.forEach(({ type, value }) => {
 		// 숫자 표시
+
 		const pmValueElem = document.querySelector(`.serviceChart-air-quality-box [data-type="${type}"]`).previousElementSibling.querySelector('.pm-value');
 		if (pmValueElem) pmValueElem.textContent = value;
-
+		
 		// 색상 및 상태 문구 설정
 		const qualityBox = document.querySelector(`.serviceChart-quality[data-type="${type}"]`);
 		if (!qualityBox) return;
+
 
 		let colorClass = '';
 		let statusText = '';
