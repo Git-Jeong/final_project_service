@@ -119,7 +119,8 @@ const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
 			axisLine: { onZero: false }
 		},
 		yAxis: {
-			type: 'value'
+			type: 'value',
+			name: '㎍/㎥'
 		},
 		grid: {
 			left: '8%',
@@ -160,7 +161,8 @@ const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
 			axisLine: { onZero: false }
 		},
 		yAxis: {
-			type: 'value'
+			type: 'value',
+			name: '㎍/㎥'
 		},
 		grid: {
 			left: '8%',
@@ -201,7 +203,8 @@ const drawDustPm10EChart = ({ timeHms, pm10Data }) => {
 			axisLine: { onZero: false }
 		},
 		yAxis: {
-			type: 'value'
+			type: 'value',
+			name: '㎍/㎥'
 		},
 		grid: {
 			left: '8%',
