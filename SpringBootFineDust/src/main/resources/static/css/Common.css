@@ -37,6 +37,11 @@ a {
   visibility: visible;
 }
 
+input,
+.form-control{
+  border : 3px #CED4DA solid; 
+}
+
 input :focus,
 .form-control:focus {
   box-shadow: none;

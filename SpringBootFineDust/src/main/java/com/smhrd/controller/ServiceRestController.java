@@ -1,5 +1,6 @@
 package com.smhrd.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +20,6 @@ import com.smhrd.entity.Notification;
 import com.smhrd.entity.Sensor;
 import com.smhrd.service.NotificationService;
 import com.smhrd.service.SensorService;
-
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
@@ -54,29 +54,39 @@ public class ServiceRestController {
 //    	snsr.get(0).setPm10(21);
 
     	if((snsr != null) && (snsr.get(0) != null) && (snsr.get(0).getPm1() != null)) {
-    		if(snsr.get(0).getPm1() >= 20) {
+    		if(snsr.get(0).getPm1() > 35) {
     			//초미세먼지 경고 알림 보내기
     			notifyService.sendPm1Notify(stId, usrEmail, snsr.get(0).getPm1());
     		}
     	}    	
     	
     	if((snsr != null) && (snsr.get(0) != null) && (snsr.get(0).getPm25() != null)) {
-    		if(snsr.get(0).getPm25() >= 20) {
+    		if(snsr.get(0).getPm25() > 75) {
     			//초미세먼지 경고 알림 보내기
     			notifyService.sendPm25Notify(stId, usrEmail, snsr.get(0).getPm25());
     		}
     	}
     	
     	if((snsr != null) && (snsr.get(0) != null) && (snsr.get(0).getPm10() != null)) {
-    		if(snsr.get(0).getPm10() >= 20) {
+    		if(snsr.get(0).getPm10() > 80) {
     			//미세먼지 경고 알림 보내기
     			notifyService.sendPm10Notify(stId, usrEmail, snsr.get(0).getPm10());
     		}
     	}
+
+    	if((snsr != null) && (snsr.get(0) != null) && (snsr.get(0).getCo2den() != null)) {
+    		if (snsr.get(0).getCo2den().compareTo(BigDecimal.valueOf(900)) >= 0) {
+    			System.out.println(snsr.get(0).getCo2den());
+    			//Co2 경고 알림 보내기
+    			notifyService.sendCo2Notify(stId, usrEmail, snsr.get(0).getCo2den().intValue());
+    		}
+    		else {
+    			System.out.println("Not null");
+    		}
+    	}
     	return snsr;
     }
-
-
+    
     @GetMapping("/getStationDustOne")
     public Sensor getStationOneInfo(@RequestParam int stId, HttpServletRequest request) {
     	int originStId = stId;
@@ -91,29 +101,36 @@ public class ServiceRestController {
 
     	// 더미데이터를 불러 왔으니, 다시 stId값을 복구
     	stId = originStId;
-    	//알림기능 테스트룰 위한 더미 센싱값
-//    	snsr.get(0).setPm1(21);
-//    	snsr.get(0).setPm25(21);
-//    	snsr.get(0).setPm10(21);
 
+    	//알림기능 테스트룰 위한 더미 센싱값
+//    	snsr.setPm1(150);
+//    	snsr.setPm25(50);
+//    	snsr.setPm10(10);
+    	
     	if((snsr != null) && (snsr.getPm1() != null)) {
-    		if(snsr.getPm1() >= 20) {
+    		if(snsr.getPm1() > 35) {
     			//초미세먼지 경고 알림 보내기
     			notifyService.sendPm1Notify(stId, usrEmail, snsr.getPm1());
     		}
     	}    	
     	
     	if((snsr != null) && (snsr.getPm25() != null)) {
-    		if(snsr.getPm25() >= 20) {
+    		if(snsr.getPm25() > 35) {
     			//초미세먼지 경고 알림 보내기
     			notifyService.sendPm25Notify(stId, usrEmail, snsr.getPm25());
     		}
     	}
     	
     	if((snsr != null) && (snsr.getPm10() != null)) {
-    		if(snsr.getPm10() >= 20) {
+    		if(snsr.getPm10() > 80) {
     			//미세먼지 경고 알림 보내기
     			notifyService.sendPm10Notify(stId, usrEmail, snsr.getPm10());
+    		}
+    	}
+    	if((snsr != null) && (snsr != null) && (snsr.getCo2den() != null)) {
+    		if (snsr.getCo2den().compareTo(BigDecimal.valueOf(950)) >= 0) {
+    			//Co2 경고 알림 보내기
+    			notifyService.sendCo2Notify(stId, usrEmail, snsr.getCo2den().intValue());
     		}
     	}
     	return snsr;
@@ -127,6 +144,34 @@ public class ServiceRestController {
         }
         List<Notification> getAllList = notifyService.getAllNotify(usrEmail);
         return getAllList;
+    }
+    
+    @PostMapping("/deleteAllNotification")
+    public String deleteAllNotification(HttpServletRequest request) {
+        if (!token.isUserLoggedIn(request)) {
+            return "fail";
+        }
+        String usrEmail = token.extractUserFromJwt(request);
+        if (usrEmail == null || usrEmail.isBlank()) {
+            return "fail";
+        }
+
+        return notifyService.deleteAllNotification(usrEmail) ? "success" : "fail";
+    }
+
+    @PostMapping("/deleteOneNotification")
+    public String deleteOneNotification(@RequestParam Integer notiId, HttpServletRequest request) {
+        if (!token.isUserLoggedIn(request)) {
+            return "fail";
+        }
+        String usrEmail = token.extractUserFromJwt(request);
+        if (notiId == null || usrEmail == null || usrEmail.isBlank()) {
+            return "fail";
+        }
+        Notification notify = new Notification();
+        notify.setNotiId(notiId);
+        notify.setUsrEmail(usrEmail);
+        return notifyService.deleteOneNotification(notify) ? "success" : "fail";
     }
     
     @PostMapping("/notifyRead")

@@ -1,7 +1,9 @@
 const dustStack = [];
+const stackSize = 1;
+
 
 // 데이터 불러오는 함수
-const getStationDust = (stId) => {
+const getStationOneDust = (stId) => {
 	$.ajax({
 		url: "getStationDustOne",
 		type: "get",
@@ -14,61 +16,10 @@ const getStationDust = (stId) => {
 			dustStack.push(dto);
 
 			// 크기 초과 시 가장 오래된 데이터 제거
-			if (dustStack.length > 10) {
+			if (dustStack.length > stackSize) {
 				dustStack.shift();
 			}
 
-			updateAirQualitySignal(dto)
-			
-			const dustMainChartData = {
-				timeHms: [],
-				pm1Data: [],
-				pm25Data: [],
-				pm10Data: [],
-			    codenData: [],
-  				co2denData: []
-			};
-			
-			dustStack.forEach(d => {
-				dustMainChartData.timeHms.push(d.timeHms);
-				dustMainChartData.pm1Data.push(d.pm1);
-				dustMainChartData.pm25Data.push(d.pm25);
-				dustMainChartData.pm10Data.push(d.pm10);
-				dustMainChartData.codenData.push(d.coden);   
-  				dustMainChartData.co2denData.push(d.co2den);  
-			});
-
-			const dustPm1ChartData = {
-				timeHms: dustMainChartData.timeHms,
-				pm1Data: dustMainChartData.pm1Data,
-			};
-
-			const dustPm25ChartData = {
-				timeHms: dustMainChartData.timeHms,
-				pm25Data: dustMainChartData.pm25Data,
-			};
-
-			const dustPm10ChartData = {
-				timeHms: dustMainChartData.timeHms,
-				pm10Data: dustMainChartData.pm10Data,
-			};
-			
-			const codenChartData = {
-			  timeHms: dustMainChartData.timeHms,
-			  codenData: dustMainChartData.codenData
-			};
-			
-			const co2denChartData = {
-			  timeHms: dustMainChartData.timeHms,
-			  co2denData: dustMainChartData.co2denData
-			};
-
-			drawDustMainEChart(dustMainChartData);
-			drawDustPm1EChart(dustPm1ChartData);
-			drawDustPm25EChart(dustPm25ChartData);
-			drawDustPm10EChart(dustPm10ChartData);
-			drawCodenChart(codenChartData);
-			drawCo2denChart(co2denChartData);
 		},
 		error: function(err) {
 			console.error("데이터 불러오기 실패:", err);
@@ -77,41 +28,11 @@ const getStationDust = (stId) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-	const button = document.getElementById('serviceChartSearchButton');
-
 	setInterval(() => {
-		if (button) button.click();
+		const selectedValue = document.getElementById('stationSelect').value;
+		getStationOneDust(selectedValue);
 	}, 1000);
 });
-
-
-$(document).ready(function() {
-	function fetchNotifications() {
-		$.ajax({
-			url: "/getAllNotify",
-			method: "GET",
-			success: function(data) {
-				window.cachedNotifications = data;
-				const hasUnread = data.some(noti => noti.isRead === 0);
-				const $btn = $(".notification-button");
-				if (hasUnread) {
-					$btn.addClass("notify-alert");
-				} else {
-					$btn.removeClass("notify-alert");
-				}
-				renderNotifications(data);
-			},
-			error: function(error) {
-				console.error("알림 조회 실패:", error);
-			}
-		});
-	}
-
-	fetchNotifications();
-	setInterval(fetchNotifications, 32000);
-});
-
-
 
 // notiType에 따른 아이콘 클래스 매핑
 const iconMap = {
@@ -119,7 +40,6 @@ const iconMap = {
 	warning: "bi-exclamation-circle-fill",
 	info: "bi-info-circle-fill"
 };
-
 // 시간차 계산 함수 (현재 시간 - notiTime)
 function timeAgo(notiTime) {
 	const now = new Date(); // 현재 시간 사용
@@ -149,6 +69,11 @@ function renderNotifications(notifications) {
       <div class="notificationDropdown_header_txt">
         <h3>시스템 알림</h3>
       </div>
+      <div class="notificationDropdown_delete">
+        <button class="notificationDropdown_delete_btn" onclick="notificationDropdown_delete()">
+          <h4><i class="fas fa-trash-alt"></i></h4>
+        </button>
+      </div>
     </div>
   `);
 
@@ -164,8 +89,11 @@ function renderNotifications(notifications) {
               <i class="${iconClass}"></i>
             </div>
             <div class="notification-title-content">${noti.notiTitle}</div>
+          	<div class="notification-title-time">${timeText}</div>
           </div>
-          <div class="notification-title-time">${timeText}</div>
+          <button class="notification-delete-one" onclick="notificationDropdown_one_delete(${noti.notiId})">
+				X
+		  </button>
         </div>
         <ul class="notification-content-box">
           <li class="notification-time">시간 : ${noti.notiTime.replace("T", " ")}</li>

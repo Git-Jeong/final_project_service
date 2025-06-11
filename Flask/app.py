@@ -1,13 +1,15 @@
-from flask import Flask, jsonify, request
+from flask import Flask, request, Response
 from dotenv import load_dotenv
 import os
 import mysql.connector
+import json
+from datetime import datetime, timedelta
+from decimal import Decimal
 
-load_dotenv()  # .env 파일 로드
-
+load_dotenv()
 app = Flask(__name__)
 
-# 환경변수에서 DB 설정 불러오기
+# ✅ DB 설정 (환경변수에서 불러오기)
 db_config = {
     'host': os.getenv('MYSQL_HOST'),
     'port': int(os.getenv('MYSQL_PORT')),
@@ -16,28 +18,81 @@ db_config = {
     'database': os.getenv('MYSQL_DATABASE')
 }
 
-# http://172.30.1.57:5000/flask-db-test?usr_email=jeongjin9427@gmail.com
-@app.route('/flask-db-test', methods=['GET'])
+# ✅ JSON 직렬화 지원 함수
+def dustPred(sensor_results):
+    def convert(obj):
+        if isinstance(obj, (datetime, timedelta)):
+            return str(obj)
+        if isinstance(obj, Decimal):
+            return float(obj)
+        return obj
+
+    # ✅ 리스트 처리
+    cleaned_results = []
+    for row in sensor_results:
+        cleaned_row = {k: convert(v) for k, v in row.items()}
+        cleaned_row['예측'] = '미세먼지 예측값 예시입니다'
+        cleaned_results.append(cleaned_row)
+
+    return Response(
+        json.dumps(cleaned_results, ensure_ascii=False),
+        status=200,
+        mimetype='application/json'
+    )
+
+# ✅ 센서 데이터 API
+@app.route('/flask-station-db-test', methods=['GET'])
 def db_test():
-    usr_email = request.args.get('usr_email')  # 쿼리 파라미터에서 usr_name 추출
-    if not usr_email:
-        return jsonify({'error': 'usr_email 파라미터가 필요합니다'}), 400
+    st_id = request.args.get('st_id')
 
     try:
+        st_id = int(st_id)
+    except Exception as e:
+        return Response(
+            json.dumps({'error': 'Invalid st_id'}, ensure_ascii=False),
+            status=400,
+            mimetype='application/json'
+        )
+
+    try:
+        # ✅ 요일 확인 (예: 'wednesday')
+        weekday_eng = datetime.today().strftime('%A').lower()
+        print("[요일 확인]:", weekday_eng)
+
         conn = mysql.connector.connect(**db_config)
-        cursor = conn.cursor(dictionary=True)
-        query = "SELECT usr_nick FROM user WHERE usr_email = %s"
-        cursor.execute(query, (usr_email,))
-        result = cursor.fetchone()
+        cursor = conn.cursor(dictionary=True, buffered=True)
+
+        # ✅ 30개 데이터 조회
+        cursor.execute("""
+            SELECT * FROM sensor
+            WHERE st_id = %s AND weekday = %s
+            ORDER BY time_hms DESC
+            LIMIT 30
+        """, (st_id, weekday_eng))
+
+        results = cursor.fetchall()
+        print("[쿼리 결과 개수]:", len(results))
+
         cursor.close()
         conn.close()
 
-        if result:
-            return jsonify(result)
+        if results:
+            return dustPred(results)
         else:
-            return jsonify({'error': '해당 usr_name의 사용자를 찾을 수 없습니다'}), 404
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+            return Response(
+                json.dumps({'error': '해당 조건의 sensor 데이터 없음'}, ensure_ascii=False),
+                status=404,
+                mimetype='application/json'
+            )
 
+    except Exception as e:
+        print("[DB 또는 쿼리 오류 발생]:", str(e))
+        return Response(
+            json.dumps({'error': str(e)}, ensure_ascii=False),
+            status=500,
+            mimetype='application/json'
+        )
+
+# ✅ 서버 실행
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=True)

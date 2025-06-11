@@ -5,42 +5,78 @@
 body {
 	display: flex;
 	flex-direction: row;
-} 
-
-.serviceChart-header {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	border-radius: 10px;
-	padding: 1rem;
 }
 
-.serviceChart-button,
-.serviceChart-date,
-.serviceChart-select{
+.serviceChart-header {
+	display: flex; 
+	flex-wrap: wrap;
+	align-items: center; 
+	/*
+	padding: 0 1rem;
+	*/
+	padding: 0;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);  
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+	background-color: white;
+}
+
+.service-content-scroll-box{
+	height: calc(100vh - 71px); 
+	padding-bottom : 2rem;
+	overflow: scroll;
+	/* 스크롤은 동작하지만 숨김 */
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; /* IE 10+ */
+}
+
+.serviceChart-button, .serviceChart-date, .serviceChart-select {
 	height: 40px;
-	width : 300px;
-	text-align :center;
-	border : 1px solid;
+	width: 300px;
+	text-align: center;
+	border: 1px solid;
 	margin: 0;
 }
 
-.serviceChart-date{
-	border-radius : 9px;
+.serviceChart-date {
+	border-radius: 9px;
 }
 
-.serviceChart-select{
-	border-radius : 5px;
+.serviceChart-select {
+	border-radius: 5px;
 }
 
-.serviceChart-button,
-.serviceChart-date:hover,
-.serviceChart-select:hover{
+.serviceChart-button, .serviceChart-date:hover, .serviceChart-select:hover
+	{
 	background-color: #f3f3f3;
+}
+
+.serviceChart-header-left {
+    display: flex;
+    padding: 0;
+    height: 70px; /* 이 부분을 추가하거나 기존 height를 min-height로 변경 */
+    align-items: center; /* 버튼과 H2를 세로 중앙에 정렬 */
+    justify-content: flex-start; /* 왼쪽 정렬 유지 */
+}
+
+.toggleSidebarBtn_header {
+    line-height: normal;
+    vertical-align: middle;
+    width: 2em; /* 버튼의 너비를 고정하여 공간을 확보 */
+    flex-shrink: 0; /* flex 아이템이 줄어들지 않도록 함 */
+}
+
+.toggleSidebarBtn_sidebar,
+.toggleSidebarBtn_header {
+	font-size: 1.5rem;
+    border: none;
+    background: transparent;
 }
 
 .serviceChart-header-right {
 	margin-left: auto;
+	
 }
 
 .notification-button, .mypage-button, .logout-button {
@@ -72,8 +108,8 @@ body {
 	position: absolute;
 	top: 70px;
 	right: 30px;
-	width: 350px;
-	max-height: 60vh;
+	width: 450px;
+	max-height: 80vh;
 	overflow-y: auto;
 	padding: 10px;
 	backdrop-filter: blur(10px);
@@ -85,7 +121,29 @@ body {
 	display: flex;
 	flex-direction: column;
 	row-gap: 10px;
+ 
 }
+
+/* 웹킷 브라우저 스크롤바 디자인 */
+.notification-dropdown::-webkit-scrollbar {
+	width: 20px; /* 스크롤바 너비 */
+}
+
+.notification-dropdown::-webkit-scrollbar-track {
+	background: rgba(255, 255, 255, 0.5);
+	border-radius: 10px;
+}
+
+.notification-dropdown::-webkit-scrollbar-thumb {
+	background: rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+	transition: background-color 0.3s;
+}
+
+.notification-dropdown::-webkit-scrollbar-thumb:hover {
+	background: rgba(255, 255, 255, 0.7);
+}
+
 
 .notification-dropdown.hidden {
 	display: none;
@@ -103,62 +161,98 @@ body {
 	left: 0;
 }
 
-.notificationDropdown_close_btn{
+.notificationDropdown_delete{
+	position: absolute;
+	right: 0;
+}
+
+.notificationDropdown_close_btn {
 	border: none;
 	background-color: transparent;
 }
 
-.notificationDropdown_close_btn:hover{
+.notificationDropdown_delete_btn {
+	border: none;
+	background-color: transparent;
+}
+
+.notification-delete-one{
+	border: none;
+	background-color: transparent;
+}
+
+.notificationDropdown_close_btn:hover {
 	color: #dc3545;
 }
 
-.notificationDropdown_header_txt{
+.notificationDropdown_header_txt {
 	align-items: center; /* 세로 가운데 정렬도 필요 시 */
+}
+
+.notificationDropdown_header_txt h3{
+	font-weight: bold;
 }
 
 .notification-card {
 	border: 2px solid #ccc;
-	background-color : #ffffff;
+	background-color: #ffffff;
 	border-radius: 10px;
+	color: #000000;
 }
+
 .notification-card:hover {
 	background-color: #f3f3f3;
 }
 
 .notification-card.error {
-	border-color: #dc3545;
-	color: #dc3545;
+	border-color: #f34545;
 	padding: 10px;
 	border-radius: 10px;
-	border: 2px solid #ccc;
+	border: 2px solid #f34545;
 	display: flex;
 	flex-direction: column;
-	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 0 5px rgba(249, 69, 69, 1);
 	gap: 10px; /* 요소 간 여백 */
 }
 
-.notification-card.warning{
-	border-color: #FF9900;
-	color:#FF9900;
+.notification-card.warning {
+	border-color: #f36919;
 	padding: 10px;
 	border-radius: 10px;
-	border: 2px solid #ccc;
+	border: 2px solid #f36919;
 	display: flex;
 	flex-direction: column;
-	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 0 5px rgba(243, 105, 25, 1);
 	gap: 10px; /* 요소 간 여백 */
 }
 
-.notification-card.info{
-	border-color: #149EFF;
-	color:#149EFF;
+.notification-card.info {
+	border-color: #1c8bf3;
 	padding: 10px;
 	border-radius: 10px;
-	border: 2px solid #ccc;
+	border: 2px solid #1c8bf3;
 	display: flex;
 	flex-direction: column;
-	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 0 5px rgba(30, 139, 241, 1);
 	gap: 10px; /* 요소 간 여백 */
+}
+
+.notification-card.error .notification-title-icon i {
+	color: #f34545;
+	font-size: 18px;
+}
+.notification-card.warning .notification-title-icon i {
+	font-size: 18px;
+	color: #f36919;
+}
+.notification-card.info .notification-title-icon i {
+	font-size: 18px;
+	color: #1c8bf3;
+}
+
+.notification-title-content{
+	font-weight: bold;	
+	font-size: 18px;
 }
 
 .notification-title {
@@ -170,7 +264,8 @@ body {
 }
 
 .notification-title-left-box {
-	padding-left: 14px; margin-right : auto;
+	padding-left: 14px;
+	margin-right: auto;
 	display: flex;
 	gap: 10px;
 	margin-right: auto;
@@ -179,6 +274,8 @@ body {
 .notification-title-time {
 	padding-right: 10px;
 	margin-left: auto;
+	font-size: 17px;
+	align-self: center;
 }
 
 .notification-content-box {
@@ -186,73 +283,89 @@ body {
 	padding-bottom: 0;
 }
 
-
-.service-main-page{
+.service-main-page {
+	/* 
+	transition: margin-left 0.3s ease;
+	*/
+	min-height: 100vh;
 	width: 100vw;
+	min-width: 800px;
 }
 
 .serviceChart-main-content {
-	padding: 1rem;
+	padding : 0 1rem;
 	display: flex;
-	flex-direction: column;
-	gap: 1rem;
+	flex-direction: column; 
 }
 
 .serviceChart-headeroption {
-	height : 40px;
+	height: 40px;
 	flex: 1;
 	min-height: 0;
 	border-radius: 10px;
 	display: flex;
-	align-items: center;
-	column-gap: 5rem;
-	margin-left: auto;
-	margin-right: auto;
+	justify-content : center;
+	align-items: center; 
+	margin: 1rem 0;
+	gap : 14px;
 }
 
-.serviceChart-headeroption select, .serviceChart-headeroption input[type="date"] {
-	margin: 0.serviceChart-25rem;
-	margin-right: 1rem;
-	border: 0.serviceChart-25px solid #ccc;
-	font-size: 1rem;
-	border-radius: 10px;
-	padding: 1px 10px;
-	display: flex;
-}
-
-.serviceChart-buttons {
-	display: flex;
-	border: 0.serviceChart-25px solid #ccc;
-	border-radius: 10px;
+.serviceChart-mini-header,
+.serviceChart-select {
+	min-width: 200px;
+	width: 20vw;
+	height: 40px;
+	border: 2px solid #ccc;
 	overflow: hidden;
-	width: fit-content;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.serviceChart-buttons button {
-	flex: 1;
-	padding: 1px 10px;
-	border: none;
-	background-color: white;
-	font-size: 0.serviceChart-7ren;
-	cursor: pointer;
+.serviceChart-mini-header span,
+.serviceChart-select span {
+	display: inline-block;
+	white-space: nowrap;
 }
 
-.serviceChart-buttons button+button {
-	border-left: 1px solid #ccc;
+
+.sidebar_button_container{
+    margin-left: auto;
+    display: flex;
+    height: 70px; /* 헤더 버튼 컨테이너와 동일한 높이로 설정 */ 
+}
+
+.toggleSidebarBtn_sidebar {
+    line-height: 1; /* 텍스트 라인 높이 조절 */
+}
+
+#sidebar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 20vw;
+  min-width: 200px;
+  max-width: 300px;
+  transform: translateX(-100%);
+  transition: transform 0.2s ease;
+  z-index: 1000;
+}
+
+#sidebar-container.active {
+  transform: translateX(0);
 }
 
 .sidebar {
-	background-color: #0a3d62;
-	color: white;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 1rem;
-	width: 20%;
-	min-width: 200px;
-	min-height: 100vh;
-	height: 130vh;
-	overflow: hidden;
+  background-color: #E6F0FA;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1rem;
+  height: 100%;
+  overflow: auto;
 }
 
 .sidebar-logo, .sidebar-welcome {
@@ -260,22 +373,21 @@ body {
 	text-align: center;
 }
 
-.sidebar-logo{
-	margin-top : 10vh;
+.sidebar-logo {
+	margin-top: 10vh;
 }
 
 .sidebar-profile img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover; /* 이미지 비율 유지하며 채우기 */
-  display: block;    /* inline 이미지 여백 제거 */
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	object-fit: cover; /* 이미지 비율 유지하며 채우기 */
+	display: block; /* inline 이미지 여백 제거 */
 }
 
-
 .sidebar-profile {
-	width: 80px;
-	height: 80px;
+	width: 100px;
+	height: 100px;
 	background-color: white;
 	border-radius: 50%;
 	margin: 1rem auto;
@@ -297,49 +409,97 @@ body {
 }
 
 .notify-alert {
-  position: relative;
-  animation: pulse 1s infinite;
-  color: #dc3545 !important; /* 빨간색 아이콘 강조 */
+	position: relative;
+	animation: pulse 1s infinite;
+	color: #dc3545 !important; /* 빨간색 아이콘 강조 */
 }
 
 .notify-alert .notification-icon::after {
-  content: '';
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  width: 10px;
-  height: 10px;
-  background-color: red;
-  border-radius: 50%;
-  animation: blink 1s infinite;
+	content: '';
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 10px;
+	height: 10px;
+	background-color: red;
+	border-radius: 50%;
+	animation: blink 1s infinite;
 }
 
-.chart-loading-spinner{
-  width: 40px;
-  height: 40px;
+.chart-loading-spinner {
+	width: 40px;
+	height: 40px;
+	border: 4px solid #eee;
+	border-top-color: #3498db;
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+	margin: auto;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	box-shadow: 0 0 10px rgba(52, 152, 219, 0.6);
+}
+
+.chart-loading-mini-spinner {
+	width: 40px;
+	height: 40px;
+	border: 4px solid #eee;
+	border-top-color: #3498db;
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+	margin: auto;
+	position: relative;
+	transform: translateY(-50%);
+	box-shadow: 0 0 10px rgba(52, 152, 219, 0.6);
+}
+
+.chart-loading-mini-spinner{
+  width: 15px;
+  height: 15px;
   border: 4px solid #eee;
   border-top-color: #3498db;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: auto; 
   position: relative; 
-  top: 50%; 
-  transform: translateY(-50%);
   box-shadow: 0 0 10px rgba(52, 152, 219, 0.6);
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes scale {
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg);}
-  100% { transform: rotate(360deg);}
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

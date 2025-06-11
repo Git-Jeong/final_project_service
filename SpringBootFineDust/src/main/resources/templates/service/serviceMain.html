@@ -5,11 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<script th:inline="javascript">
+	window.model = {
+		headerText : '모니터링 시스템',
+		userName : '[[${userName}]]'
+	};
+</script>
 <!-- ApexCharts 및 Vue -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 <script src="/js/service/ServiceMainChartRenderer.js"></script>
-<script src="/js/service/ServiceGetData.js"></script>
+<script src="/js/service/ServiceMainGetData.js"></script>
+<script src="/js/service/ServiceCommon.js"></script>
 
 
 <!-- 차트 컴포넌트 스타일/스크립트 -->
@@ -27,19 +35,10 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-<script th:inline="javascript">
-	window.model = {
-		userName : '[[${userName}]]',
-		headerText : '측정 시스템'
-	};
-</script>
 <!-- 여기서 먼지 데이터, 알림 데이터를 자동으로 불러오는 중 -->
-<title>실내공기질 측정시스템</title>
+<title>모니터링 시스템</title>
 </head>
 <body>
-	<script src="/js/service/ServiceSidebar.js"></script>
-
-
 	<div class="service-main-page">
 		<div id="sidebar-container"></div>
 		<main class="serviceChart-main-content">
@@ -47,122 +46,109 @@
 				<!-- js를 통해 여기에 헤더를 만들어 둠. -->
 				<!-- 헤더에는 '실내공기질 측정시스템'을 포함하여 '마이페이지', '알림', '로그아웃' 기능이 들어 있음. -->
 			</div>
-			<div id="notificationDropdown" class="notification-dropdown hidden">
-				<!-- 여기까지 실제 DB에서 데이터를 불러와서 출럭을 해야 됨. 즉 db에 값이 있으면 위의 코드를 반복하는 것 -->
-				<!-- js를 통해 여기에 알림 베너를 만들어 둠. -->
-			</div>
-
-			<div class="serviceChart-headeroption">
-				<select class="serviceChart-select">
-					<th:block th:each="station : ${stationList}">
-						<option
-							th:text="${#strings.isEmpty(station.stName_1) ? '' : station.stName_1}"
-							th:if="${!#strings.isEmpty(station.stName_1)}"></option>
-						<option
-							th:text="${#strings.isEmpty(station.stName_2) ? '' : station.stName_2}"
-							th:if="${!#strings.isEmpty(station.stName_2)}"></option>
-						<option
-							th:text="${#strings.isEmpty(station.stName_3) ? '' : station.stName_3}"
-							th:if="${!#strings.isEmpty(station.stName_3)}"></option>
-					</th:block>
-				</select> <input type="datetime-local" class="serviceChart-date" />
-				<button id="serviceChartSearchButton" class="serviceChart-button"
-					style="visibility: hidden;"
-					th:onclick="'getStationDust(' + ${stationList.stId} + ')'">
-					검색</button>
-			</div>
-
-			<div class="serviceChart-chart-top">
-				<div class="serviceChart-chart-top-left" id="main-wide-chart">
-					<div id="chart-dust-main-echarts" style="height: 100%; width: 100%">
-						<div id="chart-loading-main" class="chart-loading-spinner"></div>
-					</div>
+			<div class="service-content-scroll-box">
+				<div id="notificationDropdown" class="notification-dropdown hidden">
+					<!-- 여기까지 실제 DB에서 데이터를 불러와서 출럭을 해야 됨. 즉 db에 값이 있으면 위의 코드를 반복하는 것 -->
+					<!-- js를 통해 여기에 알림 베너를 만들어 둠. -->
 				</div>
 
-				<!--  신호등   -->
-				<div class="serviceChart-chart-top-right">
-					<div class="serviceChart-air-quality-box">
-						<ul class="serviceChart-pmbold">
-							<li>PM1.0 <span class="serviceChart-divider">|</span> <span
-								class="pm-value"> </span></li>
-						</ul>
-						<div class="serviceChart-quality" data-type="pm1">
-							<div id="chart-loading-quality-1" class="chart-loading-spinner"></div>
+				<div class="serviceChart-headeroption">
+					<select id="stationSelect" class="serviceChart-select" onchange="resetDustStack()">
+						<th:block th:each="station : ${stationList}">
+							<option th:if="${!#strings.isEmpty(station.stName_1)}"
+								th:value="${station.stId}" th:text="${station.stName_1}"></option>
+						</th:block>
+					</select> 
+					<div class="serviceChart-mini-header"><span id="temp"></span></div>
+					<div class="serviceChart-mini-header"><span id="humidity"></span></div>
+					<div class="serviceChart-mini-header"><span id="dtime"></span></div>
+				</div>
+
+				<div class="serviceChart-chart-top">
+					<div class="serviceChart-chart-top-left" id="main-wide-chart">
+						<div id="chart-dust-main-echarts">
+
+							<div id="chart-loading-main" class="chart-loading-spinner"></div>
 						</div>
 					</div>
 
-					<div class="serviceChart-air-quality-box">
-						<ul class="serviceChart-pmbold">
-							<li>PM2.5 <span class="serviceChart-divider">|</span> <span
-								class="pm-value"> </span></li>
-						</ul>
-						<div class="serviceChart-quality" data-type="pm2">
-							<div id="chart-loading-quality-2" class="chart-loading-spinner"></div>
+					<!--  신호등   -->
+					<div class="serviceChart-chart-top-right">
+						<div class="serviceChart-air-quality-box">
+							<ul class="serviceChart-pmbold">
+								<li>PM1.0 <span class="serviceChart-divider">|</span> <span
+									class="pm-value"> </span></li>
+							</ul>
+							<div class="serviceChart-quality" data-type="pm1.0">
+								<div id="chart-loading-quality-1"
+									class="chart-loading-mini-spinner"></div>
+							</div>
+						</div>
+
+						<div class="serviceChart-air-quality-box">
+							<ul class="serviceChart-pmbold">
+								<li>PM2.5 <span class="serviceChart-divider">|</span> <span
+									class="pm-value"> </span></li>
+							</ul>
+							<div class="serviceChart-quality" data-type="pm2.5">
+								<div id="chart-loading-quality-2"
+									class="chart-loading-mini-spinner"></div>
+							</div>
+						</div>
+
+						<div class="serviceChart-air-quality-box">
+							<ul class="serviceChart-pmbold">
+								<li>PM10 <span class="serviceChart-divider">|</span> <span
+									class="pm-value"> </span></li>
+							</ul>
+							<div class="serviceChart-quality" data-type="pm10">
+								<div id="chart-loading-quality-10"
+									class="chart-loading-mini-spinner"></div>
+							</div>
 						</div>
 					</div>
+				</div>
 
-					<div class="serviceChart-air-quality-box">
-						<ul class="serviceChart-pmbold">
-							<li>PM10 <span class="serviceChart-divider">|</span> <span
-								class="pm-value"> </span></li>
-						</ul>
-						<div class="serviceChart-quality" data-type="pm10">
-							<div id="chart-loading-quality-10" class="chart-loading-spinner"></div>
+				<div class="serviceChart-chart-bottom">
+					<div class="serviceChart-chart-box">
+						<!-- PM1.0 시간별 차트 -->
+						<div class="serviceChart-box">극초미세먼지 PM(1.0)</div>
+						<div id="mini-pm1-chart">
+							<div id="chart-loading-pm1" class="chart-loading-spinner"></div>
+						</div>
+					</div>
+					<div class="serviceChart-chart-box">
+						<!-- PM2.5 시간별 차트 -->
+						<div class="serviceChart-box">초미세먼지 (PM2.5)</div>
+						<div id="mini-pm25-chart">
+							<div id="chart-loading-pm25" class="chart-loading-spinner"></div>
+						</div>
+					</div>
+					<div class="serviceChart-chart-box">
+						<!-- PM10 시간별 차트 -->
+						<div class="serviceChart-box">미세먼지 (PM10)</div>
+						<div id="mini-pm10-chart">
+							<div id="chart-loading-pm10" class="chart-loading-spinner"></div>
+						</div>
+					</div>
+				</div>
+				<div class="serviceChart-chart-bottom">
+					<div class="serviceChart-chart-box">
+						<!-- Co 시간별 차트 -->
+						<div class="serviceChart-box">일산화탄소 (CO)</div>
+						<div id="mini-co-chart">
+							<div id="chart-loading-co" class="chart-loading-spinner"></div>
+						</div>
+					</div>
+					<div class="serviceChart-chart-box">
+						<!-- Co2 시간별 차트 -->
+						<div class="serviceChart-box">이산화탄소 (CO₂)</div>
+						<div id="mini-co2-chart">
+							<div id="chart-loading-co2" class="chart-loading-spinner"></div>
 						</div>
 					</div>
 				</div>
 			</div>
-
-			<div class="serviceChart-chart-bottom">
-				<div class="serviceChart-chart-box">
-					<!-- PM1.0 시간별 차트 -->
-					<div class="serviceChart-box">
-						PM1
-					</div>
-					<div id="mini-pm1-chart">
-						<div id="chart-loading-pm1" class="chart-loading-spinner"></div>
-					</div>
-				</div>
-				<div class="serviceChart-chart-box">
-					<!-- PM2.5 시간별 차트 -->
-					<div class="serviceChart-box">
-						PM2.5
-					</div>
-					<div id="mini-pm25-chart">
-						<div id="chart-loading-pm25" class="chart-loading-spinner"></div>
-					</div>
-				</div>
-				<div class="serviceChart-chart-box">
-					<!-- PM10 시간별 차트 -->
-					<div class="serviceChart-box">
-						PM10
-					</div>
-					<div id="mini-pm10-chart">
-						<div id="chart-loading-pm10" class="chart-loading-spinner"></div>
-					</div>
-				</div>
-			</div>
-			<div class="serviceChart-chart-bottom">
-				<div class="serviceChart-chart-box">
-					<!-- Co2 시간별 차트 -->
-					<div class="serviceChart-box">
-						이산화탄소
-					</div>
-					<div id="mini-co2-chart">
-						<div id="chart-loading-co2" class="chart-loading-spinner"></div>
-					</div>
-				</div>
-				<div class="serviceChart-chart-box">
-					<!-- Co 시간별 차트 -->
-					<div class="serviceChart-box">
-						일산화탄소
-					</div>
-					<div id="mini-co-chart">
-						<div id="chart-loading-co" class="chart-loading-spinner"></div>
-					</div>
-				</div>
-			</div>
-			<script type="text/javascript" src="/js/service/ServiceHeader.js"></script>
 		</main>
 	</div>
 </body>

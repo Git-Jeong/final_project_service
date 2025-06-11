@@ -22,16 +22,10 @@ public class Station {
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "st_id")
-    private int stId;
+    private Integer stId;
 
-    @Column(nullable = false, length = 60)
+    @Column(length = 60)
     private String stName_1;
-
-    @Column(nullable = true, length = 60)
-    private String stName_2;
-    
-    @Column(nullable = true, length = 60)
-    private String stName_3;
 
     @Column(nullable = false, length = 100)
     private String usrEmail;

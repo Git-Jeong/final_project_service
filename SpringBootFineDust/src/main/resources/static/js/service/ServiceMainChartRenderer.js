@@ -6,6 +6,82 @@ let pm10EChart = null;
 let codenEChart = null;
 let co2denEChart = null;
 
+const updateAirQualitySignal = (data) => {
+	const signals = [
+		{ type: 'pm1.0', value: data.pm1 },
+		{ type: 'pm2.5', value: data.pm25 },
+		{ type: 'pm10', value: data.pm10 }
+	];
+
+	signals.forEach(({ type, value }) => {
+		// 숫자 표시
+
+		const pmValueElem = document.querySelector(`.serviceChart-air-quality-box [data-type="${type}"]`).previousElementSibling.querySelector('.pm-value');
+		if (pmValueElem) pmValueElem.textContent = value;
+		
+		// 색상 및 상태 문구 설정
+		const qualityBox = document.querySelector(`.serviceChart-quality[data-type="${type}"]`);
+		if (!qualityBox) return;
+
+
+		let colorClass = '';
+		let statusText = '';
+
+		// 한국 기준 색상 및 상태 (pm1, pm2.5, pm10 각각 분리)
+		if (type === 'pm1.0') {
+			if (value > 50) {
+				colorClass = 'red';
+				statusText = '매우나쁨';
+			} else if (value > 35) {
+				colorClass = 'orange';
+				statusText = '나쁨';
+			} else if (value > 15) {
+				colorClass = 'green';
+				statusText = '보통';
+			} else {
+				colorClass = 'blue';
+				statusText = '좋음';
+			}
+		} else if (type === 'pm2.5') {
+			if (value > 75) {
+				colorClass = 'red';
+				statusText = '매우나쁨';
+			} else if (value > 35) {
+				colorClass = 'orange';
+				statusText = '나쁨';
+			} else if (value > 15) {
+				colorClass = 'green';
+				statusText = '보통';
+			} else {
+				colorClass = 'blue';
+				statusText = '좋음';
+			}
+		} else if (type === 'pm10') {
+			if (value >= 150) {
+				colorClass = 'red';
+				statusText = '매우나쁨';
+			} else if (value >= 80) {
+				colorClass = 'orange';
+				statusText = '나쁨';
+			} else if (value >= 30) {
+				colorClass = 'green';
+				statusText = '보통';
+			} else {
+				colorClass = 'blue';
+				statusText = '좋음';
+			}
+		}
+
+		// 기존 클래스 제거 후 새로운 색상 클래스 추가
+		qualityBox.classList.remove('red', 'orange', 'green', 'blue');
+		qualityBox.classList.add(colorClass);
+
+		// 상태 문구 삽입 (기존 텍스트 모두 제거 후 삽입)
+		qualityBox.textContent = statusText;
+	});
+};
+
+
 const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) => {
 
 	if (!dustEChart) {
@@ -13,7 +89,23 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 	}
 
 	const option = {
-		title: { text: '미세먼지 추이', left: 'center' },
+		title: [
+        {
+            text: '미세먼지 추이',
+            left: 'center'
+        },
+        {
+            // 시간 표시용 부제 추가
+            id: 'clock', // 업데이트를 위한 id
+            text: "기준시간: " +labels.at(-1), // 초기 시간 설정
+            right: 0,   // 우측 여백
+            top: 0,     // 상단 여백
+            textStyle: {
+                fontSize: 12,
+                color: '#000000'
+	            }
+	        }
+	    ],
 		tooltip: { trigger: 'axis' },
 		xAxis: {
 			type: 'category',
@@ -26,9 +118,9 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 			min: 0
 		},
 		legend: {
-			data: ['PM1', 'PM2.5', 'PM10'],
+			data: ['PM1.0', 'PM2.5', 'PM10'],
 			top: 0,
-			right: 0
+			left: 0
 		},
 		grid: {
 			left: '3%',    // 좌측 여백 (기본값 보통 10~15%)
@@ -36,57 +128,13 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 			bottom: '8%',  // 아래 여백
 		},
 		series: [
-			{ name: 'PM1', type: 'line', smooth: true, data: pm1Data, itemStyle: { color: '#FF6B6B' } },
+			{ name: 'PM1.0', type: 'line', smooth: true, data: pm1Data, itemStyle: { color: '#FF6B6B' } },
 			{ name: 'PM2.5', type: 'line', smooth: true, data: pm25Data, itemStyle: { color: '#4ECDC4' } },
 			{ name: 'PM10', type: 'line', smooth: true, data: pm10Data, itemStyle: { color: '#1A535C' } }
 		]
 	};
 
 	dustEChart.setOption(option);
-};
-
-
-window.addEventListener('resize', () => {
-	if (dustEChart) dustEChart.resize();
-});
-
-const updateAirQualitySignal = (data) => {
-	const signals = [
-		{ type: 'pm1', value: data.pm1 },
-		{ type: 'pm2', value: data.pm25 },
-		{ type: 'pm10', value: data.pm10 }
-	];
-
-	signals.forEach(({ type, value }) => {
-		// 숫자 표시
-		const pmValueElem = document.querySelector(`.serviceChart-air-quality-box [data-type="${type}"]`).previousElementSibling.querySelector('.pm-value');
-		if (pmValueElem) pmValueElem.textContent = value;
-
-		// 색상 및 상태 문구 설정
-		const qualityBox = document.querySelector(`.serviceChart-quality[data-type="${type}"]`);
-		if (!qualityBox) return;
-
-		let colorClass = '';
-		let statusText = '';
-
-		if (value >= 40) {
-			colorClass = 'red';
-			statusText = '나쁨';
-		} else if (value >= 20) {
-			colorClass = 'yellow';
-			statusText = '보통';
-		} else {
-			colorClass = 'blue';
-			statusText = '좋음';
-		}
-
-		// 기존 클래스 제거 후 새로운 색상 클래스 추가
-		qualityBox.classList.remove('red', 'yellow', 'blue');
-		qualityBox.classList.add(colorClass);
-
-		// 상태 문구 삽입 (기존 텍스트 모두 제거 후 삽입)
-		qualityBox.textContent = statusText;
-	});
 };
 
 const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
@@ -109,16 +157,16 @@ const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
 		},
 		yAxis: {
 			type: 'value',
-			min: 0
+			name: '㎍/㎥'
 		},
 		grid: {
-			left: '5%',
-			right: '5%',
+			left: '8%',
+			right: '8%',
 			bottom: '10%',
-			top: '10%'
+			top: '15%'
 		},
 		series: [{
-			name: 'PM1',
+			name: 'PM1.0',
 			type: 'line',
 			data: pm1Data,
 			smooth: true,
@@ -151,13 +199,13 @@ const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
 		},
 		yAxis: {
 			type: 'value',
-			min: 0
+			name: '㎍/㎥'
 		},
 		grid: {
-			left: '5%',
-			right: '5%',
+			left: '8%',
+			right: '8%',
 			bottom: '10%',
-			top: '10%'
+			top: '15%'
 		},
 		series: [{
 			name: 'PM25',
@@ -193,13 +241,13 @@ const drawDustPm10EChart = ({ timeHms, pm10Data }) => {
 		},
 		yAxis: {
 			type: 'value',
-			min: 0
+			name: '㎍/㎥'
 		},
 		grid: {
-			left: '5%',
-			right: '5%',
+			left: '8%',
+			right: '8%',
 			bottom: '10%',
-			top: '10%'
+			top: '15%'
 		},
 		series: [{
 			name: 'PM10',
@@ -234,12 +282,12 @@ const drawCodenChart = (codenChartData) => {
 		},
 		yAxis: {
 			type: 'value',
-			name: 'CO',
+			name: 'ppm',
 			min: 0
 		},
 		grid: {
-			left: '5%',
-			right: '5%',
+			left: '8%',
+			right: '8%',
 			bottom: '10%',
 			top: '15%'
 		},
@@ -284,12 +332,12 @@ const drawCo2denChart = (co2denChartData) => {
 		},
 		yAxis: {
 			type: 'value',
-			name: 'CO',
-			min: 0
+			name: 'ppm',
+			min: Math.max(0, Math.min(...co2denChartData.co2denData) - 3)
 		},
 		grid: {
-			left: '5%',
-			right: '5%',
+			left: '8%',
+			right: '8%',
 			bottom: '10%',
 			top: '15%'
 		},
@@ -312,3 +360,13 @@ const drawCo2denChart = (co2denChartData) => {
 	co2denEChart.setOption(option);
 	co2denEChart.resize();
 }
+
+
+window.addEventListener('resize', () => {
+	if (dustEChart) dustEChart.resize();
+	if (pm1EChart) pm1EChart.resize();
+	if (pm25EChart) pm25EChart.resize();
+	if (pm10EChart) pm10EChart.resize();
+	if (codenEChart) codenEChart.resize();
+	if (co2denEChart) co2denEChart.resize();
+});
