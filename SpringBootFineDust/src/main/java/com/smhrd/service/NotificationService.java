@@ -114,7 +114,31 @@ public class NotificationService {
             notificationRepository.save(notification);
 		}
     }
-    
+
+
+	public void sendCo2Notify(int stId, String usrEmail, int intValue) {
+		Station station = stRepository.findById(stId)
+	            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 역 ID입니다."));
+        String stationName = station.getStName_1();
+
+        Notification notification = new Notification();
+        notification.setUsrEmail(usrEmail);
+        if (intValue >= 950) {
+            notification.setNotiType(Notification.NotiType.info);
+            notification.setNotiTitle(stationName + " CO₂ 안내");
+            notification.setNotiContent_1(stationName + " CO₂값이 약간 높음");
+        }
+
+        notification.setNotiContent_2("CO₂ : " + intValue);
+        notification.setNotiUnit("co2");
+        notification.setStation(station);
+        if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) {
+        	return;
+        }
+        else {
+            notificationRepository.save(notification);
+		}
+	}
     
     private boolean isDuplicateNotification(int stId, Notification.NotiType notiType, String notiUnit) {
         boolean result = false;

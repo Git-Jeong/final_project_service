@@ -1,5 +1,6 @@
 package com.smhrd.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +20,6 @@ import com.smhrd.entity.Notification;
 import com.smhrd.entity.Sensor;
 import com.smhrd.service.NotificationService;
 import com.smhrd.service.SensorService;
-
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
@@ -71,6 +71,13 @@ public class ServiceRestController {
     		if(snsr.get(0).getPm10() >= 20) {
     			//미세먼지 경고 알림 보내기
     			notifyService.sendPm10Notify(stId, usrEmail, snsr.get(0).getPm10());
+    		}
+    	}
+
+    	if((snsr != null) && (snsr.get(0) != null) && (snsr.get(0).getCo2den() != null)) {
+    		if (snsr.get(0).getCo2den().compareTo(BigDecimal.valueOf(20)) >= 0) {
+    			//미세먼지 경고 알림 보내기
+    			notifyService.sendCo2Notify(stId, usrEmail, snsr.get(0).getCo2den().intValue());
     		}
     	}
     	return snsr;
