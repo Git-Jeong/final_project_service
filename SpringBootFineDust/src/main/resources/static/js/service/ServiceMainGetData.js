@@ -1,7 +1,6 @@
 const dustStack = [];
 const stackSize = 30;
 
-
 // 데이터 불러오는 함수
 const getStationDust = (stId) => {
 	$.ajax({
@@ -85,36 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		getStationDust(selectedValue);
 	}, 1000);
 });
-
-
-function fetchNotifications() {  // 전역 함수로 이동
-  $.ajax({
-    url: "/getAllNotify",
-    method: "GET",
-    success: function(data) {
-      window.cachedNotifications = data;
-      const hasUnread = data.some(noti => noti.isRead === 0);
-      const $btn = $(".notification-button");
-      if (hasUnread) {
-        $btn.addClass("notify-alert");
-      } else {
-        $btn.removeClass("notify-alert");
-      }
-      renderNotifications(data);
-    },
-    error: function(error) {
-      console.error("알림 조회 실패:", error);
-    }
-  });
-}
-
-$(document).ready(function() {
-  fetchNotifications();
-  setInterval(fetchNotifications, 3000);
-});
-
-
-
 
 // notiType에 따른 아이콘 클래스 매핑
 const iconMap = {

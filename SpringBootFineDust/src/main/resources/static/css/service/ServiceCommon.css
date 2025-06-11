@@ -176,6 +176,11 @@ body {
 	background-color: transparent;
 }
 
+.notification-delete-one{
+	border: none;
+	background-color: transparent;
+}
+
 .notificationDropdown_close_btn:hover {
 	color: #dc3545;
 }
