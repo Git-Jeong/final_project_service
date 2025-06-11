@@ -151,6 +151,11 @@ function renderNotifications(notifications) {
       <div class="notificationDropdown_header_txt">
         <h3>시스템 알림</h3>
       </div>
+      <div class="notificationDropdown_delete">
+        <button class="notificationDropdown_delete_btn" onclick="notificationDropdown_delete()">
+          <h4><i class="fas fa-trash-alt"></i></h4>
+        </button>
+      </div>
     </div>
   `);
 

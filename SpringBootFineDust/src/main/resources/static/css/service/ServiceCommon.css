@@ -161,7 +161,17 @@ body {
 	left: 0;
 }
 
+.notificationDropdown_delete{
+	position: absolute;
+	right: 0;
+}
+
 .notificationDropdown_close_btn {
+	border: none;
+	background-color: transparent;
+}
+
+.notificationDropdown_delete_btn {
 	border: none;
 	background-color: transparent;
 }

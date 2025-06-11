@@ -38,6 +38,26 @@ function notificationDropdown_close() {
     dropdown.classList.add("hidden");
 }
 
+const notificationDropdown_delete = () => {
+	if(confirm("모든 알림을 삭제하시겠습니까?")){ 
+		$.ajax({
+			url : "/deleteAollNotification",
+			method : "POST",
+			success: function(data) {
+				if (data === "success") {
+					notificationDropdown_close();
+				} else {
+					alert("삭제에 실패했습니다..");
+				}
+			},
+			error: function(error) {
+				console.error("알림 삭제 실패:", error);
+			}
+			
+		})
+	}
+}
+
 const goLogout = () => {
     if (confirm("로그아웃을 하시겠습니까?")) {
         fetch("/logout", {
