@@ -49,7 +49,7 @@ window.model = {
 				<!-- js를 통해 여기에 알림 베너를 만들어 둠. -->
 			</div>
 
-			<div class="serviceChart-headeroption">
+			<div class="serviceChart-headeroption" style="display: none">
 			  <select id="stationSelect" class="serviceChart-select">
 			    <th:block th:each="station : ${stationList}">
 			      <option th:if="${!#strings.isEmpty(station.stName_1)}"
