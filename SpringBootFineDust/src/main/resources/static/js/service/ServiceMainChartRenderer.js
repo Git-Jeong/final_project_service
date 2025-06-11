@@ -81,7 +81,7 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 			min: 0
 		},
 		legend: {
-			data: ['PM1', 'PM2.5', 'PM10'],
+			data: ['PM1.0', 'PM2.5', 'PM10'],
 			top: 0,
 			left: 0
 		},
@@ -91,7 +91,7 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 			bottom: '8%',  // 아래 여백
 		},
 		series: [
-			{ name: 'PM1', type: 'line', smooth: true, data: pm1Data, itemStyle: { color: '#FF6B6B' } },
+			{ name: 'PM1.0', type: 'line', smooth: true, data: pm1Data, itemStyle: { color: '#FF6B6B' } },
 			{ name: 'PM2.5', type: 'line', smooth: true, data: pm25Data, itemStyle: { color: '#4ECDC4' } },
 			{ name: 'PM10', type: 'line', smooth: true, data: pm10Data, itemStyle: { color: '#1A535C' } }
 		]
@@ -295,7 +295,7 @@ const drawCo2denChart = (co2denChartData) => {
 		yAxis: {
 			type: 'value',
 			name: 'CO2',
-			min: 0
+			min: 830
 		},
 		grid: {
 			left: '8%',
