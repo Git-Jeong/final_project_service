@@ -42,7 +42,7 @@ public class NotificationService {
             return; // 나쁨 생성하지 않음 (pm1 20 미만은 무시)
         }
 
-        notification.setNotiContent_2("PM1.0 : " + pm1);
+        notification.setNotiContent_2("PM1.0 : " + pm1 + "㎍/㎥");
         notification.setNotiUnit("pm1");
         notification.setStation(station);
         if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) {
@@ -73,7 +73,7 @@ public class NotificationService {
             return; // 나쁨 생성하지 않음 (pm1 35 이하는 무시)
         }
 
-        notification.setNotiContent_2("PM2.5 : " + pm25);
+        notification.setNotiContent_2("PM2.5 : " + pm25 + "㎍/㎥");
         notification.setNotiUnit("pm25");
         notification.setStation(station);
         if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) {
@@ -104,7 +104,7 @@ public class NotificationService {
             return; // 나쁨 생성하지 않음 (pm1 80 이하는 무시)
         }
 
-        notification.setNotiContent_2("PM10 : " + pm10);
+        notification.setNotiContent_2("PM10 : " + pm10 + "㎍/㎥");
         notification.setNotiUnit("pm10");
         notification.setStation(station);
         if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) {
@@ -128,7 +128,7 @@ public class NotificationService {
         notification.setNotiTitle(stationName + " CO₂ 안내");
         notification.setNotiContent_1(stationName + " CO₂값이 약간 높음");
 
-        notification.setNotiContent_2("CO₂ : " + intValue);
+        notification.setNotiContent_2("CO₂ : " + intValue + "ppm");
         notification.setNotiUnit("co2");
         notification.setStation(station);
         if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) {
