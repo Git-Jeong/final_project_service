@@ -60,7 +60,7 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
         {
             // 시간 표시용 부제 추가
             id: 'clock', // 업데이트를 위한 id
-            text: `기준시간: ${new Date().toTimeString().substring(0, 8)}`, // 초기 시간 설정
+            text: "기준시간: " +labels.at(-1), // 초기 시간 설정
             right: 0,   // 우측 여백
             top: 0,     // 상단 여백
             textStyle: {
