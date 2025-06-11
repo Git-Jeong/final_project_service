@@ -86,8 +86,7 @@ public class ServiceRestController {
     	}
     	return snsr;
     }
-
-
+    
     @GetMapping("/getStationDustOne")
     public Sensor getStationOneInfo(@RequestParam int stId, HttpServletRequest request) {
     	int originStId = stId;
@@ -102,11 +101,12 @@ public class ServiceRestController {
 
     	// 더미데이터를 불러 왔으니, 다시 stId값을 복구
     	stId = originStId;
-    	//알림기능 테스트룰 위한 더미 센싱값
-//    	snsr.get(0).setPm1(21);
-//    	snsr.get(0).setPm25(21);
-//    	snsr.get(0).setPm10(21);
 
+    	//알림기능 테스트룰 위한 더미 센싱값
+//    	snsr.setPm1(150);
+//    	snsr.setPm25(211);
+//    	snsr.setPm10(214);
+    	
     	if((snsr != null) && (snsr.getPm1() != null)) {
     		if(snsr.getPm1() > 35) {
     			//초미세먼지 경고 알림 보내기
