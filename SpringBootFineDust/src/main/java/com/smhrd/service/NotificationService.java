@@ -123,11 +123,10 @@ public class NotificationService {
 
         Notification notification = new Notification();
         notification.setUsrEmail(usrEmail);
-        if (intValue >= 950) {
-            notification.setNotiType(Notification.NotiType.info);
-            notification.setNotiTitle(stationName + " CO₂ 안내");
-            notification.setNotiContent_1(stationName + " CO₂값이 약간 높음");
-        }
+        
+        notification.setNotiType(Notification.NotiType.info);
+        notification.setNotiTitle(stationName + " CO₂ 안내");
+        notification.setNotiContent_1(stationName + " CO₂값이 약간 높음");
 
         notification.setNotiContent_2("CO₂ : " + intValue);
         notification.setNotiUnit("co2");

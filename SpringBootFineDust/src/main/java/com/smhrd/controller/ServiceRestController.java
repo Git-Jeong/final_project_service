@@ -75,9 +75,13 @@ public class ServiceRestController {
     	}
 
     	if((snsr != null) && (snsr.get(0) != null) && (snsr.get(0).getCo2den() != null)) {
-    		if (snsr.get(0).getCo2den().compareTo(BigDecimal.valueOf(20)) >= 0) {
-    			//미세먼지 경고 알림 보내기
+    		if (snsr.get(0).getCo2den().compareTo(BigDecimal.valueOf(900)) >= 0) {
+    			System.out.println(snsr.get(0).getCo2den());
+    			//Co2 경고 알림 보내기
     			notifyService.sendCo2Notify(stId, usrEmail, snsr.get(0).getCo2den().intValue());
+    		}
+    		else {
+    			System.out.println("Not null");
     		}
     	}
     	return snsr;
@@ -121,6 +125,12 @@ public class ServiceRestController {
     		if(snsr.getPm10() >= 20) {
     			//미세먼지 경고 알림 보내기
     			notifyService.sendPm10Notify(stId, usrEmail, snsr.getPm10());
+    		}
+    	}
+    	if((snsr != null) && (snsr != null) && (snsr.getCo2den() != null)) {
+    		if (snsr.getCo2den().compareTo(BigDecimal.valueOf(950)) >= 0) {
+    			//Co2 경고 알림 보내기
+    			notifyService.sendCo2Notify(stId, usrEmail, snsr.getCo2den().intValue());
     		}
     	}
     	return snsr;
