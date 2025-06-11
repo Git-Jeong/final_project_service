@@ -16,10 +16,10 @@ body {
 	width: 100%;
 	max-width: 1300px;
 	min-height : 722px;
-	background-color: #fdf6ed;
+	background-color: #ffffff;
 	padding: 50px 40px;
 	border-radius: 16px;
-	border: 3px #CED4DA solid;
+    border : 3px #CED4DA solid; 
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -79,7 +79,7 @@ body {
 	padding: 12px 16px;
 	margin-bottom: 30px;
 	border-radius: 12px;
-	border: 1px solid #ccc;
+    border : 3px #CED4DA solid; 
 	font-size: 14px;
 	outline: none;
 }

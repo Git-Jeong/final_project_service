@@ -89,7 +89,6 @@ public class UserRestController {
     
     @PostMapping("/updateUserInfo")
     public String updateUserInfo(@RequestBody User vo, HttpServletRequest request) {
-    	System.out.println("정보 업데이트 시도 : " + vo);
     	if((vo != null) && (vo.getUsrPw() != null)) {
     		String aesPw = EncryptionUtil.encrypt(vo.getUsrPw());
     		String userEmail = token.extractUserFromJwt(request);

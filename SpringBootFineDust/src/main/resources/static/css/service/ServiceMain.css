@@ -17,6 +17,7 @@
 	flex: 3;
 	min-width : 300px;
 	width : 60vw;
+	max-width : 13000px;
 	min-height : 150px;
 	height: 40vh;
 	max-height: 700px;
@@ -24,6 +25,7 @@
 	border-radius: 10px;
 	padding: 1rem;
 	display: flex;
+	overflow: hidden;
 }
 
 .serviceChart-chart-top-right {
@@ -31,45 +33,45 @@
 	display: flex;
 	grid-gap : 10px;
 	flex-direction: column;
+	min-height : 150px;
+	height: 40vh;
+	max-height: 700px;
 }
 
 .serviceChart-air-quality-box {
 	flex: 1;
-	min-height: auto;
+    height: auto; /* 또는 고정값 지정 */
 	border: 1px solid #333;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	overflow: hidden; /* 스크롤 시 내부 요소 넘침 방지 */
+	align-items: center; 
+	text-align: center;
+    overflow: hidden;
 }
 
 .serviceChart-pmbold {
-	display: inline-flex; /* li들을 가로로 배치 */
 	list-style: none; /* 기본 불릿 제거 */
-	padding-right: 1rem;
-	padding-left: 0;
-	margin: 0;
+	padding : 0;
+	margin: 0; 
 	gap: 0;
 	font-weight: bold;
-    font-size: 2rem;
+    font-size: clamp(1.6rem, 1.6vw, 3rem);
+  	height : 100%;
 }
 
 .serviceChart-pmbold li+li::before {
-	flex : 1;
 	content: "|"; /* 사이에 넣을 기호 */
-	margin: 0.serviceChart-5rem; /* 기호 좌우 여백 */
 	color: #888; /* 기호 색상 */
 }
 
 /* ===== 상태 표시 영역 ===== */
-.serviceChart-quality {
-  flex : 1;
-  margin-top: 0.5rem;
-  font-size: 1.5rem;
+.serviceChart-quality { 
+  font-size:  clamp(1.4rem, 1.6vw, 3rem);;
   font-weight: bold;
-  padding: 0.2rem 1rem;
   width: 100%;
+  height : 100%;
+  align-content: center; 
 }
 
 /* 신호등 색상 스타일 */
@@ -77,26 +79,28 @@
   background-color: #e74c3c; /* 빨강 계열 */
   color: white;
   text-align: center;
-  align-content: top;
+  font-weight: bold;
 }
 
 .serviceChart-quality.yellow {
   background-color: #f1c40f; /* 노랑 계열 */
   color: black;
   text-align: center;
+  font-weight: bold;
 }
 
 .serviceChart-quality.blue {
   background-color: #3498db; /* 파랑 계열 */
   color: white;
   text-align: center;
+  font-weight: bold;
 }
+
 
 .serviceChart-chart-bottom {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 1rem;
-	height: 100%;
+	gap: 1rem; 
 	margin-top: 20px;
 }
 
@@ -108,7 +112,7 @@
 	border-radius: 10px;
 	height : 250px; 
 	padding: 1rem;
-	overflow: hidden;
+	overflow: visible;
 }
 
 @media ( max-width : 768px) {
@@ -130,4 +134,9 @@
 #mini-co-chart {
   width: 100%;
   height: 200px; /* 또는 원하는 높이 */
+}
+
+#chart-dust-main-echarts {
+	width: 100% !important;
+	height: 100%; 
 }
