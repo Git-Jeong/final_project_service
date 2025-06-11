@@ -236,6 +236,8 @@ const drawCodenChart = (codenChartData) => {
 			type: 'value',
 			name: 'CO',
 			min: 0
+			
+			  
 		},
 		grid: {
 			left: '5%',
