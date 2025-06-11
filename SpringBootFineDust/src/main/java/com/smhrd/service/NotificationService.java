@@ -30,19 +30,19 @@ public class NotificationService {
         Notification notification = new Notification();
         notification.setUsrEmail(usrEmail);
 
-        if (pm1 >= 40) {
+        if (pm1 > 50) {
             notification.setNotiType(Notification.NotiType.error);
-            notification.setNotiTitle(stationName + " 극초미세먼지 경고");
+            notification.setNotiTitle(stationName + " 극초미세먼지 매우나쁨");
             notification.setNotiContent_1(stationName + " 극초미세먼지 값이 너무 높음");
-        } else if (pm1 >= 20) {
+        } else if (pm1 > 35) {
             notification.setNotiType(Notification.NotiType.warning);
-            notification.setNotiTitle(stationName + " 극초미세먼지 알림");
+            notification.setNotiTitle(stationName + " 극초미세먼지 나쁨");
             notification.setNotiContent_1(stationName + " 극초미세먼지 값이 높음");
         } else {
-            return; // 알림 생성하지 않음 (pm1 20 미만은 무시)
+            return; // 나쁨 생성하지 않음 (pm1 20 미만은 무시)
         }
 
-        notification.setNotiContent_2("PM1.0 : " + pm1);
+        notification.setNotiContent_2("PM1.0 : " + pm1 + "㎍/㎥");
         notification.setNotiUnit("pm1");
         notification.setStation(station);
         if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) {
@@ -61,19 +61,19 @@ public class NotificationService {
         Notification notification = new Notification();
         notification.setUsrEmail(usrEmail);
 
-        if (pm25 >= 40) {
+        if (pm25 > 75) {
             notification.setNotiType(Notification.NotiType.error);
-            notification.setNotiTitle(stationName + " 초미세먼지 경고");
+            notification.setNotiTitle(stationName + " 초미세먼지 매우나쁨");
             notification.setNotiContent_1(stationName + " 초미세먼지 값이 너무 높음");
-        } else if (pm25 >= 20) {
+        } else if (pm25 > 35) {
             notification.setNotiType(Notification.NotiType.warning);
-            notification.setNotiTitle(stationName + " 초미세먼지 알림");
+            notification.setNotiTitle(stationName + " 초미세먼지 나쁨");
             notification.setNotiContent_1(stationName + " 초미세먼지 값이 높음");
         } else {
-            return; // 알림 생성하지 않음 (pm1 20 미만은 무시)
+            return; // 나쁨 생성하지 않음 (pm1 35 이하는 무시)
         }
 
-        notification.setNotiContent_2("PM2.5 : " + pm25);
+        notification.setNotiContent_2("PM2.5 : " + pm25 + "㎍/㎥");
         notification.setNotiUnit("pm25");
         notification.setStation(station);
         if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) {
@@ -92,19 +92,19 @@ public class NotificationService {
         Notification notification = new Notification();
         notification.setUsrEmail(usrEmail);
 
-        if (pm10 >= 40) {
+        if (pm10 > 150) {
             notification.setNotiType(Notification.NotiType.error);
-            notification.setNotiTitle(stationName + " 미세먼지 경고");
+            notification.setNotiTitle(stationName + " 미세먼지 매우나쁨");
             notification.setNotiContent_1(stationName + " 미세먼지 값이 너무 높음");
-        } else if (pm10 >= 20) {
+        } else if (pm10 > 80) {
             notification.setNotiType(Notification.NotiType.warning);
-            notification.setNotiTitle(stationName + " 미세먼지 알림");
+            notification.setNotiTitle(stationName + " 미세먼지 나쁨");
             notification.setNotiContent_1(stationName + " 미세먼지 값이 높음");
         } else {
-            return; // 알림 생성하지 않음 (pm1 20 미만은 무시)
+            return; // 나쁨 생성하지 않음 (pm1 80 이하는 무시)
         }
 
-        notification.setNotiContent_2("PM10 : " + pm10);
+        notification.setNotiContent_2("PM10 : " + pm10 + "㎍/㎥");
         notification.setNotiUnit("pm10");
         notification.setStation(station);
         if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) {
@@ -128,7 +128,7 @@ public class NotificationService {
         notification.setNotiTitle(stationName + " CO₂ 안내");
         notification.setNotiContent_1(stationName + " CO₂값이 약간 높음");
 
-        notification.setNotiContent_2("CO₂ : " + intValue);
+        notification.setNotiContent_2("CO₂ : " + intValue + "ppm");
         notification.setNotiUnit("co2");
         notification.setStation(station);
         if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) {
@@ -146,11 +146,11 @@ public class NotificationService {
         Notification getNotify = notificationRepository.findTopByStation_StIdAndNotiUnitOrderByNotiTimeDesc(stId, notiUnit);
         
         if (getNotify == null || getNotify.getNotiType().name() == null) {
-            return result; // 알림 없음 → 중복 아님
+            return result; // 나쁨 없음 → 중복 아님
         }
 
         if (getNotify.getNotiTime().isBefore(oneHourAgo)) {
-            return result; // 1시간 이전 알림 → 중복 아님
+            return result; // 1시간 이전 나쁨 → 중복 아님
         }
         
         String inputType = notiType.name();

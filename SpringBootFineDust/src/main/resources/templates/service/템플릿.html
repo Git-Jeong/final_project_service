@@ -7,7 +7,7 @@
 
 <script th:inline="javascript">
 window.model = {
-		headerText : '예측 시스템',
+		headerText : '템플릿 시스템',
 		userName : '[[${userName}]]'
 };
 </script>
@@ -34,9 +34,18 @@ window.model = {
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
 <!-- 여기서 먼지 데이터, 알림 데이터를 자동으로 불러오는 중 -->
-<title>실내공기질 예측 시스템</title>
+<title>예측 시스템</title>
 </head>
 <body>
+	<div style="display: none">
+	  <select id="stationSelect" class="serviceChart-select">
+	    <th:block th:each="station : ${stationList}">
+	      <option th:if="${!#strings.isEmpty(station.stName_1)}"
+	              th:value="${station.stId}"
+	              th:text="${station.stName_1}"></option>
+	    </th:block>
+	  </select>
+	</div>
 	<div class="service-main-page">
 		<div id="sidebar-container"></div>
 		<main class="serviceChart-main-content">
@@ -49,19 +58,7 @@ window.model = {
 				<!-- js를 통해 여기에 알림 베너를 만들어 둠. -->
 			</div>
 
-			<div class="serviceChart-headeroption">
-			  <select id="stationSelect" class="serviceChart-select">
-			    <th:block th:each="station : ${stationList}">
-			      <option th:if="${!#strings.isEmpty(station.stName_1)}"
-			              th:value="${station.stId}"
-			              th:text="${station.stName_1}"></option>
-			    </th:block>
-			  </select>
-			  <input type="datetime-local" class="serviceChart-date" />
-			  <button id="serviceChartSearchButton" class="serviceChart-button" style="visibility: visible;">
-			    검색
-			  </button>
-			</div>
+
 
 			
 		</main>
