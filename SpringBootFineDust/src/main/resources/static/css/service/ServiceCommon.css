@@ -12,7 +12,7 @@ body {
 	flex-wrap: wrap;
 	align-items: center;
 	border-radius: 10px;
-	padding: 1rem;
+	padding: 0 1rem;
 }
 
 .serviceChart-button, .serviceChart-date, .serviceChart-select {
@@ -45,18 +45,22 @@ body {
 }
 
 .toggleSidebarBtn_header {
-    border: none;
-    background: transparent;
-    font-size: 2em;
     line-height: normal;
     vertical-align: middle;
-    /* 버튼의 실제 너비에 따라 조절. 예를 들어 아이콘이 폰트사이즈 2em이므로 약 32px 정도 될 수 있습니다. */
     width: 2em; /* 버튼의 너비를 고정하여 공간을 확보 */
     flex-shrink: 0; /* flex 아이템이 줄어들지 않도록 함 */
 }
 
+.toggleSidebarBtn_sidebar,
+.toggleSidebarBtn_header {
+	font-size: 1.5rem;
+    border: none;
+    background: transparent;
+}
+
 .serviceChart-header-right {
 	margin-left: auto;
+	
 }
 
 .notification-button, .mypage-button, .logout-button {
@@ -210,10 +214,11 @@ body {
 	*/
 	min-height: 100vh;
 	width: 100vw;
+	min-width: 800px;
 }
 
 .serviceChart-main-content {
-	padding: 1rem;
+	padding: 0 1rem;
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
@@ -264,16 +269,12 @@ body {
 }
 
 .sidebar_button_container{
-    padding-top: 2rem; /* 기존 패딩 유지 */
     margin-left: auto;
     display: flex;
     height: 70px; /* 헤더 버튼 컨테이너와 동일한 높이로 설정 */ 
 }
 
 .toggleSidebarBtn_sidebar {
-	border :none;
-	font-size: 2em;
-	background: transparent;
     line-height: 1; /* 텍스트 라인 높이 조절 */
 }
 
@@ -300,7 +301,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
+  padding: 0 1rem;
   height: 100%;
   overflow: auto;
 }
