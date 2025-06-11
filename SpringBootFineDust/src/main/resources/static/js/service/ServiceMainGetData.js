@@ -18,25 +18,6 @@ const getStationDust = (stId) => {
 			document.getElementById("humidity").textContent = "습도 : " + dto_humidity + "%";
 			document.getElementById("dtime").textContent = "갱신 : " + today + " " + dto.timeHms;
 			
-			// 애니메이션 조건 확인 함수
-			function applyMarquee(id) {
-			  const container = document.getElementById(id).parentElement;
-			  const span = document.getElementById(id);
-			  if (span.scrollWidth > container.clientWidth) {
-			    span.style.animation = "marquee 10s linear infinite";
-			  } else {
-			    span.style.animation = "none";
-			  }
-			}
-			applyMarquee("temp");
-			applyMarquee("humidity");
-			applyMarquee("dtime");
-
-			if (span.scrollWidth > spanHeadercontainer.clientWidth) {
-			  span.style.animation = "marquee 10s linear infinite";
-			} else {
-			  span.style.animation = "none";
-			}
 			// 스택에 데이터 추가
 			dustStack.push(dto);
 
