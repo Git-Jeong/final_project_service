@@ -1,6 +1,10 @@
 const dustStack = [];
 const stackSize = 30;
 
+// 역 바꾸게 되면 스택 초기화
+const resetDustStack = () => {
+	dustStack.length = 0;
+}
 
 // 데이터 불러오는 함수
 const getStationDust = (stId) => {
@@ -11,7 +15,14 @@ const getStationDust = (stId) => {
 		success: function(data) {
 			// 스택에 데이터 추가
 			const dto = Array.isArray(data) ? data[0] : data;
+			const dto_temp = Math.round(dto.temp * 10) / 10;
+			const dto_humidity = Math.round(dto.humidity * 10) / 10;
+			const today = new Date().toISOString().split('T')[0];
 
+			document.getElementById("temp").textContent = "온도 : " + dto_temp + "℃";
+			document.getElementById("humidity").textContent = "습도 : " + dto_humidity + "%";
+			document.getElementById("dtime").textContent = "갱신 : " + today + " " + dto.timeHms;
+			
 			// 스택에 데이터 추가
 			dustStack.push(dto);
 
@@ -86,35 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	}, 1000);
 });
 
-
-$(document).ready(function() {
-	function fetchNotifications() {
-		$.ajax({
-			url: "/getAllNotify",
-			method: "GET",
-			success: function(data) {
-				window.cachedNotifications = data;
-				const hasUnread = data.some(noti => noti.isRead === 0);
-				const $btn = $(".notification-button");
-				if (hasUnread) {
-					$btn.addClass("notify-alert");
-				} else {
-					$btn.removeClass("notify-alert");
-				}
-				renderNotifications(data);
-			},
-			error: function(error) {
-				console.error("알림 조회 실패:", error);
-			}
-		});
-	}
-
-	fetchNotifications();
-	setInterval(fetchNotifications, 32000);
-});
-
-
-
 // notiType에 따른 아이콘 클래스 매핑
 const iconMap = {
 	error: "bi-exclamation-triangle-fill",
@@ -151,6 +133,11 @@ function renderNotifications(notifications) {
       <div class="notificationDropdown_header_txt">
         <h3>시스템 알림</h3>
       </div>
+      <div class="notificationDropdown_delete">
+        <button class="notificationDropdown_delete_btn" onclick="notificationDropdown_delete()">
+          <h4><i class="fas fa-trash-alt"></i></h4>
+        </button>
+      </div>
     </div>
   `);
 
@@ -166,8 +153,11 @@ function renderNotifications(notifications) {
               <i class="${iconClass}"></i>
             </div>
             <div class="notification-title-content">${noti.notiTitle}</div>
+          	<div class="notification-title-time">${timeText}</div>
           </div>
-          <div class="notification-title-time">${timeText}</div>
+          <button class="notification-delete-one" onclick="notificationDropdown_one_delete(${noti.notiId})">
+				X
+		  </button>
         </div>
         <ul class="notification-content-box">
           <li class="notification-time">시간 : ${noti.notiTime.replace("T", " ")}</li>

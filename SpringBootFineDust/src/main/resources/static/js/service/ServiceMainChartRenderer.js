@@ -60,7 +60,7 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
         {
             // 시간 표시용 부제 추가
             id: 'clock', // 업데이트를 위한 id
-            text: `기준시간: ${new Date().toTimeString().substring(0, 8)}`, // 초기 시간 설정
+            text: "기준시간: " +labels.at(-1), // 초기 시간 설정
             right: 0,   // 우측 여백
             top: 0,     // 상단 여백
             textStyle: {
@@ -81,7 +81,7 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 			min: 0
 		},
 		legend: {
-			data: ['PM1', 'PM2.5', 'PM10'],
+			data: ['PM1.0', 'PM2.5', 'PM10'],
 			top: 0,
 			left: 0
 		},
@@ -91,7 +91,7 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 			bottom: '8%',  // 아래 여백
 		},
 		series: [
-			{ name: 'PM1', type: 'line', smooth: true, data: pm1Data, itemStyle: { color: '#FF6B6B' } },
+			{ name: 'PM1.0', type: 'line', smooth: true, data: pm1Data, itemStyle: { color: '#FF6B6B' } },
 			{ name: 'PM2.5', type: 'line', smooth: true, data: pm25Data, itemStyle: { color: '#4ECDC4' } },
 			{ name: 'PM10', type: 'line', smooth: true, data: pm10Data, itemStyle: { color: '#1A535C' } }
 		]
@@ -119,7 +119,8 @@ const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
 			axisLine: { onZero: false }
 		},
 		yAxis: {
-			type: 'value'
+			type: 'value',
+			name: '㎍/㎥'
 		},
 		grid: {
 			left: '8%',
@@ -160,7 +161,8 @@ const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
 			axisLine: { onZero: false }
 		},
 		yAxis: {
-			type: 'value'
+			type: 'value',
+			name: '㎍/㎥'
 		},
 		grid: {
 			left: '8%',
@@ -201,7 +203,8 @@ const drawDustPm10EChart = ({ timeHms, pm10Data }) => {
 			axisLine: { onZero: false }
 		},
 		yAxis: {
-			type: 'value'
+			type: 'value',
+			name: '㎍/㎥'
 		},
 		grid: {
 			left: '8%',
@@ -242,10 +245,8 @@ const drawCodenChart = (codenChartData) => {
 		},
 		yAxis: {
 			type: 'value',
-			name: 'CO',
+			name: 'ppm',
 			min: 0
-			
-			  
 		},
 		grid: {
 			left: '8%',
@@ -294,8 +295,8 @@ const drawCo2denChart = (co2denChartData) => {
 		},
 		yAxis: {
 			type: 'value',
-			name: 'CO2',
-			min: 0
+			name: 'ppm',
+			min: Math.max(0, Math.min(...co2denChartData.co2denData) - 3)
 		},
 		grid: {
 			left: '8%',

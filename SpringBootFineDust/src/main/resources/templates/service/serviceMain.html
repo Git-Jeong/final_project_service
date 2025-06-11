@@ -53,17 +53,15 @@
 				</div>
 
 				<div class="serviceChart-headeroption">
-					<select id="stationSelect" class="serviceChart-select">
+					<select id="stationSelect" class="serviceChart-select" onchange="resetDustStack()">
 						<th:block th:each="station : ${stationList}">
 							<option th:if="${!#strings.isEmpty(station.stName_1)}"
 								th:value="${station.stId}" th:text="${station.stName_1}"></option>
 						</th:block>
-					</select> <input type="datetime-local" class="serviceChart-date"
-						name="startDateTIme" style="visibility: hidden;" /> <input
-						type="datetime-local" class="serviceChart-date" name="DateTIme"
-						style="visibility: hidden;" />
-					<button id="serviceChartSearchButton" class="serviceChart-button"
-						style="visibility: hidden;">검색</button>
+					</select> 
+					<div class="serviceChart-mini-header"><span id="temp"></span></div>
+					<div class="serviceChart-mini-header"><span id="humidity"></span></div>
+					<div class="serviceChart-mini-header"><span id="dtime"></span></div>
 				</div>
 
 				<div class="serviceChart-chart-top">
@@ -114,21 +112,21 @@
 				<div class="serviceChart-chart-bottom">
 					<div class="serviceChart-chart-box">
 						<!-- PM1.0 시간별 차트 -->
-						<div class="serviceChart-box">PM1.0</div>
+						<div class="serviceChart-box">극초미세먼지 PM(1.0)</div>
 						<div id="mini-pm1-chart">
 							<div id="chart-loading-pm1" class="chart-loading-spinner"></div>
 						</div>
 					</div>
 					<div class="serviceChart-chart-box">
 						<!-- PM2.5 시간별 차트 -->
-						<div class="serviceChart-box">PM2.5</div>
+						<div class="serviceChart-box">초미세먼지 (PM2.5)</div>
 						<div id="mini-pm25-chart">
 							<div id="chart-loading-pm25" class="chart-loading-spinner"></div>
 						</div>
 					</div>
 					<div class="serviceChart-chart-box">
 						<!-- PM10 시간별 차트 -->
-						<div class="serviceChart-box">PM10</div>
+						<div class="serviceChart-box">미세먼지 (PM10)</div>
 						<div id="mini-pm10-chart">
 							<div id="chart-loading-pm10" class="chart-loading-spinner"></div>
 						</div>
@@ -137,14 +135,14 @@
 				<div class="serviceChart-chart-bottom">
 					<div class="serviceChart-chart-box">
 						<!-- Co 시간별 차트 -->
-						<div class="serviceChart-box">일산화탄소</div>
+						<div class="serviceChart-box">일산화탄소 (CO)</div>
 						<div id="mini-co-chart">
 							<div id="chart-loading-co" class="chart-loading-spinner"></div>
 						</div>
 					</div>
 					<div class="serviceChart-chart-box">
 						<!-- Co2 시간별 차트 -->
-						<div class="serviceChart-box">이산화탄소</div>
+						<div class="serviceChart-box">이산화탄소 (CO₂)</div>
 						<div id="mini-co2-chart">
 							<div id="chart-loading-co2" class="chart-loading-spinner"></div>
 						</div>

@@ -11,6 +11,8 @@ import com.smhrd.entity.Station;
 import com.smhrd.repository.NotificationRepository;
 import com.smhrd.repository.StationRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class NotificationService {
 
@@ -112,7 +114,30 @@ public class NotificationService {
             notificationRepository.save(notification);
 		}
     }
-    
+
+
+	public void sendCo2Notify(int stId, String usrEmail, int intValue) {
+		Station station = stRepository.findById(stId)
+	            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 역 ID입니다."));
+        String stationName = station.getStName_1();
+
+        Notification notification = new Notification();
+        notification.setUsrEmail(usrEmail);
+        
+        notification.setNotiType(Notification.NotiType.info);
+        notification.setNotiTitle(stationName + " CO₂ 안내");
+        notification.setNotiContent_1(stationName + " CO₂값이 약간 높음");
+
+        notification.setNotiContent_2("CO₂ : " + intValue);
+        notification.setNotiUnit("co2");
+        notification.setStation(station);
+        if (isDuplicateNotification(stId, notification.getNotiType(), notification.getNotiUnit())) {
+        	return;
+        }
+        else {
+            notificationRepository.save(notification);
+		}
+	}
     
     private boolean isDuplicateNotification(int stId, Notification.NotiType notiType, String notiUnit) {
         boolean result = false;
@@ -163,4 +188,14 @@ public class NotificationService {
         }
         notificationRepository.saveAll(notifications);
     }
+    
+    @Transactional
+	public boolean deleteAllNotification(String usrEmail) {
+		return notificationRepository.deleteAllByUsrEmail(usrEmail) > 0;
+	}
+
+    @Transactional
+	public boolean deleteOneNotification(Notification notify) {
+		return notificationRepository.deleteByUsrEmailAndNotiId(notify.getUsrEmail(), notify.getNotiId()) > 0;
+	}
 }

@@ -37,6 +37,15 @@ window.model = {
 <title>예측 시스템</title>
 </head>
 <body>
+	<div style="display: none">
+	  <select id="stationSelect" class="serviceChart-select">
+	    <th:block th:each="station : ${stationList}">
+	      <option th:if="${!#strings.isEmpty(station.stName_1)}"
+	              th:value="${station.stId}"
+	              th:text="${station.stName_1}"></option>
+	    </th:block>
+	  </select>
+	</div>
 	<div class="service-main-page">
 		<div id="sidebar-container"></div>
 		<main class="serviceChart-main-content">
@@ -49,19 +58,7 @@ window.model = {
 				<!-- js를 통해 여기에 알림 베너를 만들어 둠. -->
 			</div>
 
-			<div class="serviceChart-headeroption">
-			  <select id="stationSelect" class="serviceChart-select">
-			    <th:block th:each="station : ${stationList}">
-			      <option th:if="${!#strings.isEmpty(station.stName_1)}"
-			              th:value="${station.stId}"
-			              th:text="${station.stName_1}"></option>
-			    </th:block>
-			  </select>
-			  <input type="datetime-local" class="serviceChart-date" />
-			  <button id="serviceChartSearchButton" class="serviceChart-button" style="visibility: visible;">
-			    검색
-			  </button>
-			</div>
+
 
 			
 		</main>
