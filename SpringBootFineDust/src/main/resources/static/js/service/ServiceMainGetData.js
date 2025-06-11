@@ -1,6 +1,7 @@
 const dustStack = [];
 const stackSize = 30;
 
+// 역 바꾸게 되면 스택 초기화
 const resetDustStack = () => {
 	dustStack.length = 0;
 }
