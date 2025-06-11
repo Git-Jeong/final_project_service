@@ -3,9 +3,9 @@ const stackSize = 1;
 
 
 // 데이터 불러오는 함수
-const getStationDust = (stId) => {
+const getStationOneDust = (stId) => {
 	$.ajax({
-		url: "getStationDustOne",
+		url: "getStationOneDustOne",
 		type: "get",
 		data: { "stId": stId },
 		success: function(data) {
@@ -30,7 +30,7 @@ const getStationDust = (stId) => {
 document.addEventListener('DOMContentLoaded', () => {
 	setInterval(() => {
 		const selectedValue = document.getElementById('stationSelect').value;
-		getStationDust(selectedValue);
+		getStationOneDust(selectedValue);
 	}, 1000);
 });
 
@@ -40,21 +40,6 @@ const iconMap = {
 	warning: "bi-exclamation-circle-fill",
 	info: "bi-info-circle-fill"
 };
-
-// 시간차 계산 함수 (현재 시간 - notiTime)
-function timeAgo(notiTime) {
-	const now = new Date(); // 현재 시간 사용
-	const past = new Date(notiTime);
-	const diffMs = now - past;
-	const diffMinutes = Math.floor(diffMs / 1000 / 60);
-
-	if (diffMinutes < 1) return "방금 전";
-	if (diffMinutes < 60) return `${diffMinutes}분 전`;
-	const diffHours = Math.floor(diffMinutes / 60);
-	if (diffHours < 24) return `${diffHours}시간 전`;
-	const diffDays = Math.floor(diffHours / 24);
-	return `${diffDays}일 전`;
-}
 
 
 function renderNotifications(notifications) {
