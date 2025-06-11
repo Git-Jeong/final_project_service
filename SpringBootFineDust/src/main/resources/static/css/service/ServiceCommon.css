@@ -12,7 +12,10 @@ body {
 	flex-wrap: wrap;
 	align-items: center;
 	border-radius: 10px;
+	/*
 	padding: 0 1rem;
+	*/
+	padding: 0;
 }
 
 .serviceChart-button, .serviceChart-date, .serviceChart-select {
