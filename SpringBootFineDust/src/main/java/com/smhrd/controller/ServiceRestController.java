@@ -61,14 +61,14 @@ public class ServiceRestController {
     	}    	
     	
     	if((snsr != null) && (snsr.get(0) != null) && (snsr.get(0).getPm25() != null)) {
-    		if(snsr.get(0).getPm25() >= 20) {
+    		if(snsr.get(0).getPm25() > 75) {
     			//초미세먼지 경고 알림 보내기
     			notifyService.sendPm25Notify(stId, usrEmail, snsr.get(0).getPm25());
     		}
     	}
     	
     	if((snsr != null) && (snsr.get(0) != null) && (snsr.get(0).getPm10() != null)) {
-    		if(snsr.get(0).getPm10() >= 20) {
+    		if(snsr.get(0).getPm10() > 80) {
     			//미세먼지 경고 알림 보내기
     			notifyService.sendPm10Notify(stId, usrEmail, snsr.get(0).getPm10());
     		}
@@ -115,14 +115,14 @@ public class ServiceRestController {
     	}    	
     	
     	if((snsr != null) && (snsr.getPm25() != null)) {
-    		if(snsr.getPm25() >= 20) {
+    		if(snsr.getPm25() > 35) {
     			//초미세먼지 경고 알림 보내기
     			notifyService.sendPm25Notify(stId, usrEmail, snsr.getPm25());
     		}
     	}
     	
     	if((snsr != null) && (snsr.getPm10() != null)) {
-    		if(snsr.getPm10() >= 20) {
+    		if(snsr.getPm10() > 80) {
     			//미세먼지 경고 알림 보내기
     			notifyService.sendPm10Notify(stId, usrEmail, snsr.getPm10());
     		}
