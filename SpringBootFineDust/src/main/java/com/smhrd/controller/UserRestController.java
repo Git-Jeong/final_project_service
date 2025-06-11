@@ -102,6 +102,11 @@ public class UserRestController {
     	userService.setUserInfo(vo);
         return "success";
     }
+    
+    @PostMapping("/deleteAollNotification")
+    public String deleteAollNotification(HttpServletRequest request) {
+    	
+    }
 
     @PostMapping("/logout")
     public String logout(HttpServletResponse response) {
