@@ -81,7 +81,7 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 			min: 0
 		},
 		legend: {
-			data: ['PM1', 'PM2.5', 'PM10'],
+			data: ['PM1.0', 'PM2.5', 'PM10'],
 			top: 0,
 			left: 0
 		},

@@ -58,12 +58,10 @@
 							<option th:if="${!#strings.isEmpty(station.stName_1)}"
 								th:value="${station.stId}" th:text="${station.stName_1}"></option>
 						</th:block>
-					</select> <input type="datetime-local" class="serviceChart-date"
-						name="startDateTIme" style="visibility: hidden;" /> <input
-						type="datetime-local" class="serviceChart-date" name="DateTIme"
-						style="visibility: hidden;" />
-					<button id="serviceChartSearchButton" class="serviceChart-button"
-						style="visibility: hidden;">검색</button>
+					</select> 
+					<div class="serviceChart-mini-header"><span id="temp"></span></div>
+					<div class="serviceChart-mini-header"><span id="humidity"></span></div>
+					<div class="serviceChart-mini-header"><span id="dtime"></span></div>
 				</div>
 
 				<div class="serviceChart-chart-top">

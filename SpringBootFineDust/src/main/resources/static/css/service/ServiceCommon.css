@@ -304,43 +304,38 @@ body {
 	min-height: 0;
 	border-radius: 10px;
 	display: flex;
+	justify-content : center;
 	align-items: center; 
-	margin-left: auto;
-	margin-right: auto;
 	margin: 1rem 0;
+	gap : 14px;
 }
 
-.serviceChart-headeroption select, .serviceChart-headeroption input[type="date"]
-	{
-	margin: 0.serviceChart-25rem;
-	margin-right: 1rem;
-	border: 0.serviceChart-25px solid #ccc;
-	font-size: 1rem;
-	border-radius: 10px;
-	padding: 1px 10px;
-	display: flex;
-}
-
-.serviceChart-buttons {
-	display: flex;
-	border: 0.serviceChart-25px solid #ccc;
-	border-radius: 10px;
+.serviceChart-mini-header,
+.serviceChart-select {
+	min-width: 200px;
+	width: 20vw;
+	height: 40px;
+	border: 2px solid #ccc;
 	overflow: hidden;
-	width: fit-content;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.serviceChart-buttons button {
-	flex: 1;
-	padding: 1px 10px;
-	border: none;
-	background-color: white;
-	font-size: 0.serviceChart-7ren;
-	cursor: pointer;
+.serviceChart-mini-header span,
+.serviceChart-select span {
+	display: inline-block;
+	white-space: nowrap;
+	animation: none; /* 기본 애니메이션 제거 */
 }
 
-.serviceChart-buttons button+button {
-	border-left: 1px solid #ccc;
+@keyframes marquee {
+	0% { transform: translateX(100%); }
+	100% { transform: translateX(-100%); }
 }
+
+
 
 .sidebar_button_container{
     margin-left: auto;

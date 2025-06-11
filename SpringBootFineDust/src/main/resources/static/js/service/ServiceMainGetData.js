@@ -10,7 +10,33 @@ const getStationDust = (stId) => {
 		success: function(data) {
 			// 스택에 데이터 추가
 			const dto = Array.isArray(data) ? data[0] : data;
+			const dto_temp = Math.round(dto.temp * 10) / 10;
+			const dto_humidity = Math.round(dto.humidity * 10) / 10;
+			const today = new Date().toISOString().split('T')[0];
 
+			document.getElementById("temp").textContent = "온도 : " + dto_temp + "℃";
+			document.getElementById("humidity").textContent = "습도 : " + dto_humidity + "%";
+			document.getElementById("dtime").textContent = "갱신 : " + today + " " + dto.timeHms;
+			
+			// 애니메이션 조건 확인 함수
+			function applyMarquee(id) {
+			  const container = document.getElementById(id).parentElement;
+			  const span = document.getElementById(id);
+			  if (span.scrollWidth > container.clientWidth) {
+			    span.style.animation = "marquee 10s linear infinite";
+			  } else {
+			    span.style.animation = "none";
+			  }
+			}
+			applyMarquee("temp");
+			applyMarquee("humidity");
+			applyMarquee("dtime");
+
+			if (span.scrollWidth > spanHeadercontainer.clientWidth) {
+			  span.style.animation = "marquee 10s linear infinite";
+			} else {
+			  span.style.animation = "none";
+			}
 			// 스택에 데이터 추가
 			dustStack.push(dto);
 
