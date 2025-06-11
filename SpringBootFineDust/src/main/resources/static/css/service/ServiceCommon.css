@@ -205,49 +205,49 @@ body {
 }
 
 .notification-card.error {
-	border-color: #dc3545;
+	border-color: #f34545;
 	padding: 10px;
 	border-radius: 10px;
-	border: 2px solid #dc3545;
+	border: 2px solid #f34545;
 	display: flex;
 	flex-direction: column;
-	box-shadow: 0 0 5px rgba(220, 53, 69, 1);
+	box-shadow: 0 0 5px rgba(249, 69, 69, 1);
 	gap: 10px; /* 요소 간 여백 */
 }
 
 .notification-card.warning {
-	border-color: #FF9900;
+	border-color: #f36919;
 	padding: 10px;
 	border-radius: 10px;
-	border: 2px solid #FF9900;
+	border: 2px solid #f36919;
 	display: flex;
 	flex-direction: column;
-	box-shadow: 0 0 5px rgba(255, 153, 0, 1);
+	box-shadow: 0 0 5px rgba(243, 105, 25, 1);
 	gap: 10px; /* 요소 간 여백 */
 }
 
 .notification-card.info {
-	border-color: #149EFF;
+	border-color: #1c8bf3;
 	padding: 10px;
 	border-radius: 10px;
-	border: 2px solid #149EFF;
+	border: 2px solid #1c8bf3;
 	display: flex;
 	flex-direction: column;
-	box-shadow: 0 0 5px rgba(20, 158, 255, 1);
+	box-shadow: 0 0 5px rgba(30, 139, 241, 1);
 	gap: 10px; /* 요소 간 여백 */
 }
 
 .notification-card.error .notification-title-icon i {
-	color: #dc3545;
+	color: #f34545;
 	font-size: 18px;
 }
 .notification-card.warning .notification-title-icon i {
 	font-size: 18px;
-	color: #FF9900;
+	color: #f36919;
 }
 .notification-card.info .notification-title-icon i {
 	font-size: 18px;
-	color: #149EFF;
+	color: #1c8bf3;
 }
 
 .notification-title-content{
