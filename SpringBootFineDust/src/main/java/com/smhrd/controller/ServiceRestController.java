@@ -54,7 +54,7 @@ public class ServiceRestController {
 //    	snsr.get(0).setPm10(21);
 
     	if((snsr != null) && (snsr.get(0) != null) && (snsr.get(0).getPm1() != null)) {
-    		if(snsr.get(0).getPm1() >= 20) {
+    		if(snsr.get(0).getPm1() > 35) {
     			//초미세먼지 경고 알림 보내기
     			notifyService.sendPm1Notify(stId, usrEmail, snsr.get(0).getPm1());
     		}
@@ -108,7 +108,7 @@ public class ServiceRestController {
 //    	snsr.get(0).setPm10(21);
 
     	if((snsr != null) && (snsr.getPm1() != null)) {
-    		if(snsr.getPm1() >= 20) {
+    		if(snsr.getPm1() > 35) {
     			//초미세먼지 경고 알림 보내기
     			notifyService.sendPm1Notify(stId, usrEmail, snsr.getPm1());
     		}

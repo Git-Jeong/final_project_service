@@ -8,8 +8,8 @@ let co2denEChart = null;
 
 const updateAirQualitySignal = (data) => {
 	const signals = [
-		{ type: 'pm1', value: data.pm1 },
-		{ type: 'pm2', value: data.pm25 },
+		{ type: 'pm1.0', value: data.pm1 },
+		{ type: 'pm2.5', value: data.pm25 },
 		{ type: 'pm10', value: data.pm10 }
 	];
 
@@ -25,25 +25,60 @@ const updateAirQualitySignal = (data) => {
 		let colorClass = '';
 		let statusText = '';
 
-		if (value >= 40) {
-			colorClass = 'red';
-			statusText = '나쁨';
-		} else if (value >= 20) {
-			colorClass = 'yellow';
-			statusText = '보통';
-		} else {
-			colorClass = 'blue';
-			statusText = '좋음';
+		// 한국 기준 색상 및 상태 (pm1, pm2.5, pm10 각각 분리)
+		if (type === 'pm1.0') {
+			if (value > 50) {
+				colorClass = 'dark-red';
+				statusText = '매우나쁨';
+			} else if (value > 35) {
+				colorClass = 'red';
+				statusText = '나쁨';
+			} else if (value > 15) {
+				colorClass = 'yellow';
+				statusText = '보통';
+			} else {
+				colorClass = 'blue';
+				statusText = '좋음';
+			}
+		} else if (type === 'pm2.5') {
+			if (value > 75) {
+				colorClass = 'dark-red';
+				statusText = '매우나쁨';
+			} else if (value > 35) {
+				colorClass = 'red';
+				statusText = '나쁨';
+			} else if (value > 15) {
+				colorClass = 'yellow';
+				statusText = '보통';
+			} else {
+				colorClass = 'blue';
+				statusText = '좋음';
+			}
+		} else if (type === 'pm10') {
+			if (value >= 150) {
+				colorClass = 'dark-red';
+				statusText = '매우나쁨';
+			} else if (value >= 80) {
+				colorClass = 'red';
+				statusText = '나쁨';
+			} else if (value >= 30) {
+				colorClass = 'yellow';
+				statusText = '보통';
+			} else {
+				colorClass = 'blue';
+				statusText = '좋음';
+			}
 		}
 
 		// 기존 클래스 제거 후 새로운 색상 클래스 추가
-		qualityBox.classList.remove('red', 'yellow', 'blue');
+		qualityBox.classList.remove('dark-red', 'red', 'yellow', 'blue');
 		qualityBox.classList.add(colorClass);
 
 		// 상태 문구 삽입 (기존 텍스트 모두 제거 후 삽입)
 		qualityBox.textContent = statusText;
 	});
 };
+
 
 const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) => {
 
