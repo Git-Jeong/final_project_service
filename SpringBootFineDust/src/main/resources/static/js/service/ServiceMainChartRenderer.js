@@ -18,7 +18,7 @@ const updateAirQualitySignal = (data) => {
 
 		const pmValueElem = document.querySelector(`.serviceChart-air-quality-box [data-type="${type}"]`).previousElementSibling.querySelector('.pm-value');
 		if (pmValueElem) pmValueElem.textContent = value;
-		
+
 		// 색상 및 상태 문구 설정
 		const qualityBox = document.querySelector(`.serviceChart-quality[data-type="${type}"]`);
 		if (!qualityBox) return;
@@ -31,7 +31,7 @@ const updateAirQualitySignal = (data) => {
 		if (type === 'pm1.0') {
 			if (value > 50) {
 				colorClass = 'red';
-				statusText = '매우나쁨';
+				statusText = '매우 나쁨';
 			} else if (value > 35) {
 				colorClass = 'orange';
 				statusText = '나쁨';
@@ -57,13 +57,13 @@ const updateAirQualitySignal = (data) => {
 				statusText = '좋음';
 			}
 		} else if (type === 'pm10') {
-			if (value >= 150) {
+			if (value > 150) {
 				colorClass = 'red';
-				statusText = '매우나쁨';
-			} else if (value >= 80) {
+				statusText = '매우 나쁨';
+			} else if (value > 80) {
 				colorClass = 'orange';
 				statusText = '나쁨';
-			} else if (value >= 30) {
+			} else if (value > 30) {
 				colorClass = 'green';
 				statusText = '보통';
 			} else {
@@ -81,7 +81,6 @@ const updateAirQualitySignal = (data) => {
 	});
 };
 
-
 const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) => {
 
 	if (!dustEChart) {
@@ -90,22 +89,11 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 
 	const option = {
 		title: [
-        {
-            text: '미세먼지 추이',
-            left: 'center'
-        },
-        {
-            // 시간 표시용 부제 추가
-            id: 'clock', // 업데이트를 위한 id
-            text: "기준시간: " +labels.at(-1), // 초기 시간 설정
-            right: 0,   // 우측 여백
-            top: 0,     // 상단 여백
-            textStyle: {
-                fontSize: 12,
-                color: '#000000'
-	            }
-	        }
-	    ],
+			{
+				text: '미세먼지 추이',
+				left: 'center'
+			}
+		],
 		tooltip: { trigger: 'axis' },
 		xAxis: {
 			type: 'category',
@@ -120,18 +108,134 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 		legend: {
 			data: ['PM1.0', 'PM2.5', 'PM10'],
 			top: 0,
-			left: 0
+			left: 20
 		},
 		grid: {
-			left: '3%',    // 좌측 여백 (기본값 보통 10~15%)
-			right: '5%',   // 우측 여백
-			bottom: '8%',  // 아래 여백
+			left: 50,
+			right: 50,
+			top: 70,
+			bottom: 30
 		},
 		series: [
-			{ name: 'PM1.0', type: 'line', smooth: true, data: pm1Data, itemStyle: { color: '#FF6B6B' } },
-			{ name: 'PM2.5', type: 'line', smooth: true, data: pm25Data, itemStyle: { color: '#4ECDC4' } },
-			{ name: 'PM10', type: 'line', smooth: true, data: pm10Data, itemStyle: { color: '#1A535C' } }
-		]
+			{ name: 'PM1.0', type: 'line', smooth: true, data: pm1Data, itemStyle: { color: '#8e44ad' } },
+			{ name: 'PM2.5', type: 'line', smooth: true, data: pm25Data, itemStyle: { color: '#4169E1' } },
+			{ name: 'PM10', type: 'line', smooth: true, data: pm10Data, itemStyle: { color: '#DE2AA6' } }
+		],
+		graphic: {
+			elements: [
+				{
+					type: 'text',
+					right: 20,
+					top: 4,
+					style: {
+						text: '미세먼지 기준 ⓘ',
+						fill: '#777777',
+						font: 'bold 14px sans-serif',
+						cursor: 'pointer',
+					},
+					tooltip: {
+						show: true,
+						formatter: () => {
+							const style = `
+						      <style>
+						        .dust-table {
+								  border-collapse: collapse;
+								  width: auto;
+								  min-width: 500px;
+								  font-size: 12px;
+								  margin-top: 6px;
+								  table-layout: fixed;
+								}
+								.dust-table th, .dust-table td {
+								  border: 1px solid #ccc;
+								  padding: 6px 4px;
+								  text-align: center;
+								  word-wrap: break-word;
+								}
+						        .dust-table th {
+						          font-weight: bold;
+								  width : 50px;
+						        }
+								.dust-table-list{
+									background : #f5f7ff;
+									color : #000000;
+								}
+						        .dust-table-blue {
+									background : #1c8bf3;
+						        }
+						        .dust-table-green {
+									background : #0aa953;
+						        }
+						        .dust-table-orange {
+									background : #ffa70c;
+						        }
+						        .dust-table-red {
+									background : #f34545;
+						        }
+						        .dust-table-blue,
+						        .dust-table-green,
+						        .dust-table-orange,
+						        .dust-table-red {
+									color : #ffffff;
+						        }
+						        .dust-table tr:nth-child(even) {
+						          background: #f5f7ff;
+						        }
+								.dust-table-bold{
+									font-weight: bold;	
+								}
+								.dust-info-text{
+									color : #777777;
+									font-weight: bold;	
+									font-size: 12px;
+								}
+						      </style>
+						    `;
+							const table = `
+							      <table class="dust-table">
+							        <thead>
+							          <tr>
+							            <th class="dust-table-list">미세먼지 기준</th>
+							            <th class="dust-table-blue">좋음</th>
+							            <th class="dust-table-green">보통</th>
+							            <th class="dust-table-orange">나쁨</th>
+							            <th class="dust-table-red">매우 나쁨</th>
+							          </tr>
+							        </thead>
+							        <tbody>
+							          <tr>
+							            <td class="dust-table-bold">PM10 (㎍/㎥)</td>
+							            <td>0 ~ 30</td>
+							            <td>31 ~ 80</td>
+							            <td>81 ~ 150</td>
+							            <td>151 이상</td>
+							          </tr>
+							          <tr>
+							            <td class="dust-table-bold">PM2.5 (㎍/㎥)</td>
+							            <td>0 ~ 15</td>
+							            <td>16 ~ 35</td>
+							            <td>36 ~ 75</td>
+							            <td>76 이상</td>
+							          </tr>
+							          <tr>
+							            <td class="dust-table-bold">PM1.0 (㎍/㎥)</td>
+							            <td>0 ~ 15</td>
+							            <td>16 ~ 35</td>
+							            <td>36 ~ 50</td>
+							            <td>51 이상</td>
+							          </tr>
+							        </tbody>
+							      </table>
+								  <span class="dust-info-text">ⓘ PM1.0은 별도 기준이 없어서 임의로 지정함.</<span>
+							    `;
+							return style + table;
+						},
+						position: 'bottom',
+						enterable: true,
+					}
+				}
+			]
+		}
 	};
 
 	dustEChart.setOption(option);
@@ -149,6 +253,15 @@ const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
 		tooltip: {
 			trigger: 'axis'
 		},
+		title: {
+			text: `${pm1Data.at(-1)} ㎍/㎥`,
+			right: 10,
+			top: 0,
+			textStyle: {
+				fontSize: 14,
+				color: '#333'
+			}
+		},
 		xAxis: {
 			type: 'category',
 			data: timeHms,
@@ -160,17 +273,17 @@ const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
 			name: '㎍/㎥'
 		},
 		grid: {
-			left: '8%',
-			right: '8%',
-			bottom: '10%',
-			top: '15%'
+			left: 30,
+			right: 30,
+			bottom: 20,
+			top: 30
 		},
 		series: [{
 			name: 'PM1.0',
 			type: 'line',
 			data: pm1Data,
 			smooth: true,
-			itemStyle: { color: '#FF6B6B' }
+			itemStyle: { color: '#8e44ad' }
 		}]
 	};
 
@@ -191,6 +304,15 @@ const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
 		tooltip: {
 			trigger: 'axis'
 		},
+		title: {
+			text: `${pm25Data.at(-1)} ㎍/㎥`,
+			right: 10,
+			top: 0,
+			textStyle: {
+				fontSize: 14,
+				color: '#333'
+			}
+		},
 		xAxis: {
 			type: 'category',
 			data: timeHms,
@@ -202,17 +324,17 @@ const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
 			name: '㎍/㎥'
 		},
 		grid: {
-			left: '8%',
-			right: '8%',
-			bottom: '10%',
-			top: '15%'
+			left: 30,
+			right: 30,
+			bottom: 20,
+			top: 30
 		},
 		series: [{
 			name: 'PM25',
 			type: 'line',
 			data: pm25Data,
 			smooth: true,
-			itemStyle: { color: '#4ECDC4' }
+			itemStyle: { color: '#4169E1' }
 		}]
 	};
 
@@ -233,6 +355,15 @@ const drawDustPm10EChart = ({ timeHms, pm10Data }) => {
 		tooltip: {
 			trigger: 'axis'
 		},
+		title: {
+			text: `${pm10Data.at(-1)} ㎍/㎥`,
+			right: 10,
+			top: 0,
+			textStyle: {
+				fontSize: 14,
+				color: '#333'
+			}
+		},
 		xAxis: {
 			type: 'category',
 			data: timeHms,
@@ -244,17 +375,17 @@ const drawDustPm10EChart = ({ timeHms, pm10Data }) => {
 			name: '㎍/㎥'
 		},
 		grid: {
-			left: '8%',
-			right: '8%',
-			bottom: '10%',
-			top: '15%'
+			left: 30,
+			right: 30,
+			bottom: 20,
+			top: 30
 		},
 		series: [{
 			name: 'PM10',
 			type: 'line',
 			data: pm10Data,
 			smooth: true,
-			itemStyle: { color: '#1A535C' }
+			itemStyle: { color: '#DE2AA6' }
 		}]
 	};
 
@@ -274,6 +405,15 @@ const drawCodenChart = (codenChartData) => {
 		tooltip: {
 			trigger: 'axis'
 		},
+		title: {
+			text: `${codenChartData.codenData.at(-1).toFixed(2)} ppm`,
+			right: 10,
+			top: 0,
+			textStyle: {
+				fontSize: 14,
+				color: '#333'
+			}
+		},
 		xAxis: {
 			type: 'category',
 			data: codenChartData.timeHms,
@@ -283,13 +423,13 @@ const drawCodenChart = (codenChartData) => {
 		yAxis: {
 			type: 'value',
 			name: 'ppm',
-			min: 0
+			min: parseFloat((Math.max(0, Math.min(...codenChartData.codenData) - 0.1)).toFixed(1))
 		},
 		grid: {
-			left: '8%',
-			right: '8%',
-			bottom: '10%',
-			top: '15%'
+			left: 30,
+			right: 30,
+			bottom: 20,
+			top: 30
 		},
 		series: [{
 			name: 'CO',
@@ -297,13 +437,14 @@ const drawCodenChart = (codenChartData) => {
 			smooth: true,
 			data: codenChartData.codenData,
 			lineStyle: {
-				color: '#8e44ad'
+				color: '#2fd093'
 			},
 			areaStyle: {
-				color: 'rgba(142, 68, 173, 0.2)'
+				color: 'rgba(47, 208, 147, 0.2)'
 			},
-			symbol: 'circle',
-			symbolSize: 6
+			itemStyle: {
+				color: '#2fd093'
+			}
 		}]
 	};
 
@@ -324,6 +465,15 @@ const drawCo2denChart = (co2denChartData) => {
 		tooltip: {
 			trigger: 'axis'
 		},
+		title: {
+			text: `${co2denChartData.co2denData.at(-1)} ppm`,
+			right: 10,
+			top: 0,
+			textStyle: {
+				fontSize: 14,
+				color: '#333'
+			}
+		},
 		xAxis: {
 			type: 'category',
 			data: co2denChartData.timeHms,
@@ -336,10 +486,10 @@ const drawCo2denChart = (co2denChartData) => {
 			min: Math.max(0, Math.min(...co2denChartData.co2denData) - 3)
 		},
 		grid: {
-			left: '8%',
-			right: '8%',
-			bottom: '10%',
-			top: '15%'
+			left: 30,
+			right: 30,
+			bottom: 20,
+			top: 30
 		},
 		series: [{
 			name: 'CO2',
@@ -347,13 +497,14 @@ const drawCo2denChart = (co2denChartData) => {
 			smooth: true,
 			data: co2denChartData.co2denData,
 			lineStyle: {
-				color: '#8e44ad'
+				color: '#4fbbc8'
 			},
 			areaStyle: {
-				color: 'rgba(142, 68, 173, 0.2)'
+				color: 'rgba(79, 187, 200, 0.2)'
 			},
-			symbol: 'circle',
-			symbolSize: 6
+			itemStyle: {
+				color: '#4fbbc8'
+			}
 		}]
 	};
 
