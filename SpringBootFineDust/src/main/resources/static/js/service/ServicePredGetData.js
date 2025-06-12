@@ -2,7 +2,7 @@ const dustStack = [];
 const stackSize = 1;
 
 
-// 데이터 불러오는 함수
+// 데이터 불러오는 함수 - 알람창 용으로 쓰이
 const getStationOneDust = (stId) => {
 	$.ajax({
 		url: "getStationDustOne",
@@ -106,4 +106,26 @@ function renderNotifications(notifications) {
 		container.append(card);
 	});
 }
+
+$(document).ready(function () {
+  const weekday = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+
+  $.ajax({
+    url: `/dust-data/${weekday}`,
+    type: "GET",
+    success: function (data) {
+      if (!data || !data.xLabels) {
+        console.warn("데이터 없음");
+        return;
+      }
+
+      // 
+      drawAmPmAvgChart(data);
+    },
+    error: function (err) {
+      console.error("데이터 요청 실패", err);
+    }
+  });
+});
+
 
