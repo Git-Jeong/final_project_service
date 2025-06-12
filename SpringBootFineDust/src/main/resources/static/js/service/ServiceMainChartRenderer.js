@@ -177,13 +177,6 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 							        </thead>
 							        <tbody>
 							          <tr>
-							            <td>PM2.5 (㎍/㎥)</td>
-							            <td>0 ~ 15</td>
-							            <td>16 ~ 35</td>
-							            <td>36 ~ 75</td>
-							            <td>76 이상</td>
-							          </tr>
-							          <tr>
 							            <td>PM10 (㎍/㎥)</td>
 							            <td>0 ~ 30</td>
 							            <td>31 ~ 80</td>
@@ -191,8 +184,18 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 							            <td>151 이상</td>
 							          </tr>
 							          <tr>
+							            <td>PM2.5 (㎍/㎥)</td>
+							            <td>0 ~ 15</td>
+							            <td>16 ~ 35</td>
+							            <td>36 ~ 75</td>
+							            <td>76 이상</td>
+							          </tr>
+							          <tr>
 							            <td>PM1.0 (㎍/㎥)</td>
-							            <td colspan="4">별도 기준 없음</td>
+							            <td>0 ~ 15</td>
+							            <td>16 ~ 35</td>
+							            <td>36 ~ 50</td>
+							            <td>51 이상</td>
 							          </tr>
 							        </tbody>
 							      </table>
