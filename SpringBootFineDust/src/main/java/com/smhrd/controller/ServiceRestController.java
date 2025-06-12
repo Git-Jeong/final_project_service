@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.smhrd.config.TokenCheck;
 import com.smhrd.entity.Notification;
 import com.smhrd.entity.Sensor;
+import com.smhrd.repository.SensorRepository;
 import com.smhrd.service.NotificationService;
 import com.smhrd.service.SensorService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -192,4 +194,30 @@ public class ServiceRestController {
             }
     }
 
+   
+
+    @GetMapping("/{weekday}")
+    public Map<String, Object> getAvgPmByAmPm(@PathVariable String weekday) {
+        List<Map<String, Object>> result;
+		try {
+			result = SensorRepository.findMinuteAvgPmByDateGroupedByPeriod(weekday);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+        
+        if (result.isEmpty()) return Map.of(); // 결과 없을 경우
+
+        Map<String, Object> row = result.get(0);
+
+        return Map.of(
+                "xLabels", List.of("AM", "PM"),
+                "amAvgPm1", row.get("amAvgPm1"),
+                "amAvgPm25", row.get("amAvgPm25"),
+                "amAvgPm10", row.get("amAvgPm10"),
+                "pmAvgPm1", row.get("pmAvgPm1"),
+                "pmAvgPm25", row.get("pmAvgPm25"),
+                "pmAvgPm10", row.get("pmAvgPm10")
+        );
+}
 }
