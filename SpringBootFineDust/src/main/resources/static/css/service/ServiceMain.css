@@ -27,7 +27,7 @@
 	border-radius: 10px;
 	padding: 1rem;
 	display: flex;
-	border: 1px solid black;
+	border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .serviceChart-chart-top-right {
@@ -45,7 +45,7 @@
 .serviceChart-air-quality-box {
 	flex: 1;
 	height: auto; /* 또는 고정값 지정 */
-	border: 1px solid #333;
+	border: 1px solid rgba(0, 0, 0, 0.3);
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
@@ -147,7 +147,7 @@
 	width: 10vw;
 	background-color: #f9f9f9;
 	border-radius: 10px;
-	border: 1px solid black;
+	border: 1px solid rgba(0, 0, 0, 0.3);
 	height: 250px;
 	padding: 1rem;
 	overflow: visible;
