@@ -134,15 +134,75 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 					},
 					tooltip: {
 						show: true,
-						formatter: [
-							'미세먼지 기준',
-							'PM1.0: 별도 기준 없음',
-							'PM2.5: ≤ 25㎍/㎥ (좋음 기준)',
-							'PM10: ≤ 50㎍/㎥ (좋음 기준)'
-						].join('\n'),
+						formatter: () => {
+							const style = `
+						      <style>
+						        .dust-table {
+								  border-collapse: collapse;
+								  width: auto;          /* 너비 자동 조절 */
+								  min-width: 500px;     /* 최소 너비 유지 */
+								  font-size: 12px;
+								  color: #444;
+								  margin-top: 6px;
+								  table-layout: fixed;  /* 고정폭 테이블 */
+								}
+								
+								.dust-table th, .dust-table td {
+								  border: 1px solid #ccc;
+								  padding: 6px 4px;     /* 좌우 패딩 최소화 */
+								  text-align: center;
+								  word-wrap: break-word;
+								}
+						        .dust-table th {
+						          background: #6c7ae0;
+						          color: #fff;
+						          font-weight: bold;
+								  width : 50px;
+						        }
+						        .dust-table tr:nth-child(even) {
+						          background: #f5f7ff;
+						        }
+						      </style>
+						    `;
+							const table = `
+							      <table class="dust-table">
+							        <thead>
+							          <tr>
+							            <th>항목</th>
+							            <th>좋음</th>
+							            <th>보통</th>
+							            <th>나쁨</th>
+							            <th>매우 나쁨</th>
+							          </tr>
+							        </thead>
+							        <tbody>
+							          <tr>
+							            <td>PM2.5 (㎍/㎥)</td>
+							            <td>0 ~ 15</td>
+							            <td>16 ~ 35</td>
+							            <td>36 ~ 75</td>
+							            <td>76 이상</td>
+							          </tr>
+							          <tr>
+							            <td>PM10 (㎍/㎥)</td>
+							            <td>0 ~ 30</td>
+							            <td>31 ~ 80</td>
+							            <td>81 ~ 150</td>
+							            <td>151 이상</td>
+							          </tr>
+							          <tr>
+							            <td>PM1.0 (㎍/㎥)</td>
+							            <td colspan="4">별도 기준 없음</td>
+							          </tr>
+							        </tbody>
+							      </table>
+							    `;
+							return style + '미세먼지 기준<br>' + table;
+						},
 						position: 'bottom',
 						enterable: true,
 					}
+
 				}
 			]
 		}
@@ -150,8 +210,6 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 
 	dustEChart.setOption(option);
 };
-
-
 
 const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
 	const container = document.getElementById('mini-pm1-chart');
