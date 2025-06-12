@@ -143,7 +143,6 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 								  width: auto;
 								  min-width: 500px;
 								  font-size: 12px;
-								  color: #444;
 								  margin-top: 6px;
 								  table-layout: fixed;
 								}
@@ -154,18 +153,41 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 								  word-wrap: break-word;
 								}
 						        .dust-table th {
-						          background: #6c7ae0;
-						          color: #fff;
 						          font-weight: bold;
 								  width : 50px;
+						        }
+								.dust-table-list{
+									background : #f5f7ff;
+									color : #000000;
+								}
+						        .dust-table-blue {
+									background : #1c8bf3;
+						        }
+						        .dust-table-green {
+									background : #0aa953;
+						        }
+						        .dust-table-orange {
+									background : #ffa70c;
+						        }
+						        .dust-table-red {
+									background : #f34545;
+						        }
+						        .dust-table-blue,
+						        .dust-table-green,
+						        .dust-table-orange,
+						        .dust-table-red {
+									color : #ffffff;
 						        }
 						        .dust-table tr:nth-child(even) {
 						          background: #f5f7ff;
 						        }
+								.dust-table-bold{
+									font-weight: bold;	
+								}
 								.dust-info-text{
 									color : #777777;
 									font-weight: bold;	
-									font-size: 6px;
+									font-size: 12px;
 								}
 						      </style>
 						    `;
@@ -173,30 +195,30 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 							      <table class="dust-table">
 							        <thead>
 							          <tr>
-							            <th>항목</th>
-							            <th>좋음</th>
-							            <th>보통</th>
-							            <th>나쁨</th>
-							            <th>매우 나쁨</th>
+							            <th class="dust-table-list">미세먼지 기준</th>
+							            <th class="dust-table-blue">좋음</th>
+							            <th class="dust-table-green">보통</th>
+							            <th class="dust-table-orange">나쁨</th>
+							            <th class="dust-table-red">매우 나쁨</th>
 							          </tr>
 							        </thead>
 							        <tbody>
 							          <tr>
-							            <td>PM10 (㎍/㎥)</td>
+							            <td class="dust-table-bold">PM10 (㎍/㎥)</td>
 							            <td>0 ~ 30</td>
 							            <td>31 ~ 80</td>
 							            <td>81 ~ 150</td>
 							            <td>151 이상</td>
 							          </tr>
 							          <tr>
-							            <td>PM2.5 (㎍/㎥)</td>
+							            <td class="dust-table-bold">PM2.5 (㎍/㎥)</td>
 							            <td>0 ~ 15</td>
 							            <td>16 ~ 35</td>
 							            <td>36 ~ 75</td>
 							            <td>76 이상</td>
 							          </tr>
 							          <tr>
-							            <td>PM1.0 (㎍/㎥)</td>
+							            <td class="dust-table-bold">PM1.0 (㎍/㎥)</td>
 							            <td>0 ~ 15</td>
 							            <td>16 ~ 35</td>
 							            <td>36 ~ 50</td>
@@ -204,9 +226,9 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 							          </tr>
 							        </tbody>
 							      </table>
-								  <span class="dust-info-text">22</<span>
+								  <span class="dust-info-text">ⓘ PM1.0은 별도 기준이 없어서 임의로 지정함.</<span>
 							    `;
-							return style + '미세먼지 기준<br>' + table;
+							return style + table;
 						},
 						position: 'bottom',
 						enterable: true,
