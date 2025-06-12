@@ -31,7 +31,7 @@ const updateAirQualitySignal = (data) => {
 		if (type === 'pm1.0') {
 			if (value > 50) {
 				colorClass = 'red';
-				statusText = '매우나쁨';
+				statusText = '매우 나쁨';
 			} else if (value > 35) {
 				colorClass = 'orange';
 				statusText = '나쁨';
@@ -57,13 +57,13 @@ const updateAirQualitySignal = (data) => {
 				statusText = '좋음';
 			}
 		} else if (type === 'pm10') {
-			if (value >= 150) {
+			if (value > 150) {
 				colorClass = 'red';
-				statusText = '매우나쁨';
-			} else if (value >= 80) {
+				statusText = '매우 나쁨';
+			} else if (value > 80) {
 				colorClass = 'orange';
 				statusText = '나쁨';
-			} else if (value >= 30) {
+			} else if (value > 30) {
 				colorClass = 'green';
 				statusText = '보통';
 			} else {
