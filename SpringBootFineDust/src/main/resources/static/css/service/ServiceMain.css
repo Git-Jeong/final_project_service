@@ -157,6 +157,10 @@
 	margin-top: 20px;
 }
 
+.serviceChart-box{
+	text-align: center;	
+}
+
 .serviceChart-chart-box {
 	flex: 1;
 	min-width: 300px;
