@@ -108,7 +108,7 @@ body {
 	position: absolute;
 	top: 70px;
 	right: 30px;
-	width: 450px;
+	width: 500px;
 	max-height: 80vh;
 	overflow-y: auto;
 	padding: 10px;
@@ -121,7 +121,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	row-gap: 10px;
- 
 }
 
 /* 웹킷 브라우저 스크롤바 디자인 */
