@@ -107,6 +107,7 @@ public class ServiceRestController {
 //    	snsr.setPm25(50);
 //    	snsr.setPm10(10);
 //    	snsr.setCo2den(BigDecimal.valueOf(960));
+//    	snsr.setCoden(BigDecimal.valueOf(0.2));
     	
     	if((snsr != null) && (snsr.getPm1() != null)) {
     		if(snsr.getPm1() > 35) {
