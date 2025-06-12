@@ -75,7 +75,7 @@
 	padding : 0;
 	margin: 0; 
 	font-weight: bold;
-    font-size: clamp(0.2rem, 1.9vw, 2.2rem); /* 기존보다 축소 */
+    font-size: clamp(1rem, 1.9vw, 2.2rem); /* 기존보다 축소 */
   	height : 100%;
 	display: flex;
 	align-items: center;
@@ -150,10 +150,33 @@
 	overflow: visible;
 }
 
-@media ( max-width : 768px) {
-	.serviceChart-chart-bottom {
-		flex-direction: column;
+@media ( max-width : 768px) { 
+	.service-content-scroll-box{
+			width: 100vw;
 	}
+	
+	.serviceChart-chart-top {
+		flex-direction: column;
+		min-width: none;
+		height: 60vh;
+		display: flex;
+	}
+	
+	.serviceChart-chart-top-left{
+		min-width: 100vw;
+		height : 50vh; 
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.serviceChart-chart-top-right{
+		min-width: 50vw;
+		height : 20vh;
+		display: flex;
+		justify-content: center;
+		margin-right: auto;
+		margin-left: auto;
+	}
+
 	.serviceChart-sidebar {
 		display: none;
 	}
