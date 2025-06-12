@@ -187,8 +187,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	const buttons = [
-		{ text: '실시간 데이터 차트', onClick: goMonitoringPage },
-		{ text: '실내공기 예측 차트', onClick: onIndoorAirPredictClick }
+		{ text: '모니터링 시스템', onClick: goMonitoringPage },
+		{ text: '조회 시스템', onClick: onIndoorAirPredictClick }
 	];
 
 	buttons.forEach(({ text, onClick }) => {

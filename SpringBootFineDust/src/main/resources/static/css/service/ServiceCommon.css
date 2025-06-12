@@ -395,7 +395,7 @@ body {
 	width: 100%;
 	padding: 0.75rem;
 	margin: 0.25rem 0;
-	background-color: #2d5d8c;
+	background-color: #4A90E2;
 	color: white;
 	border: none;
 	border-radius: 5px;
@@ -403,7 +403,7 @@ body {
 }
 
 .sidebar-button:hover {
-	background-color: #e0e0e0;
+	background-color: #0F55A6;
 }
 
 .notify-alert {
