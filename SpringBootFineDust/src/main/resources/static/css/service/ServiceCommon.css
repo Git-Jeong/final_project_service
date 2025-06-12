@@ -313,6 +313,7 @@ body {
 .serviceChart-select {
 	min-width: 200px;
 	width: 20vw;
+	max-width : 400px;
 	height: 40px;
 	border: 2px solid #ccc;
 	overflow: hidden;
@@ -320,6 +321,8 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	border-radius: 5px;
+	font-weight: bold;
 }
 
 .serviceChart-mini-header span,
