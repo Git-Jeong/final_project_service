@@ -81,7 +81,6 @@ const updateAirQualitySignal = (data) => {
 	});
 };
 
-
 const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) => {
 
 	if (!dustEChart) {
@@ -113,7 +112,7 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 		},
 		grid: {
 			left: '3%',
-			right: '5%',
+			right: '15%',
 			bottom: '8%',
 		},
 		series: [
@@ -125,22 +124,24 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 			elements: [
 				{
 					type: 'text',
-					right: '0',
-					top: '2%',
+					right: 10,
+					top: 10,
 					style: {
 						text: '미세먼지 기준 ⓘ',
 						fill: '#777777',
-						borderRadius: 8,
-						padding: 4,
-						textAlign: 'center',
-						textVerticalAlign: 'middle',
+						font: 'bold 14px sans-serif',
 						cursor: 'pointer',
 					},
 					tooltip: {
 						show: true,
-						formatter: () => '미세먼지 기준: PM10 ≤ 50㎍/㎥, PM2.5 ≤ 25㎍/㎥',
-						position: 'top',
-						alwaysShowContent: true
+						formatter: [
+							'미세먼지 기준',
+							'PM1.0: 별도 기준 없음',
+							'PM2.5: ≤ 25㎍/㎥ (좋음 기준)',
+							'PM10: ≤ 50㎍/㎥ (좋음 기준)'
+						].join('\n'),
+						position: 'bottom',
+						enterable: true,
 					}
 				}
 			]
@@ -149,6 +150,7 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 
 	dustEChart.setOption(option);
 };
+
 
 
 const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
