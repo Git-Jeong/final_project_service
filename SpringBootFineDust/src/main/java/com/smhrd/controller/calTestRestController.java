@@ -1,5 +1,6 @@
 package com.smhrd.controller;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -15,12 +16,15 @@ public class calTestRestController {
     @Autowired
     private SensorService sensorService;
     
-    @GetMapping("/dust-data/{weekday}")
-    public List<Map<String, Object>> getDustData(@PathVariable String weekday, String st_id) {
-    	LocalDate parsedDate = LocalDate.parse(weekday);
-    	weekday = parsedDate.getDayOfWeek().toString();
-        List<Map<String, Object>> results = sensorService.findMinuteAvgPmByDateGroupedByPeriod(weekday);
-        // {date} 의 먼지 데이터 불러오기 
+    @GetMapping("/dust-data/{dateStr}")
+    public List<Map<String, Object>> getDustData(@PathVariable String dateStr, String st_id) {
+        LocalDate date = LocalDate.parse(dateStr); // "2025-06-01" → LocalDate 변환
+        DayOfWeek dayOfWeek = date.getDayOfWeek(); // 해당 날짜 요일 추출
+        String dayStr = dayOfWeek.toString(); // enum → 대문자 문자열 (예: "MONDAY")
+
+        List<Map<String, Object>> results = sensorService.findMinuteAvgPmByDateGroupedByPeriod(dayStr);
         return results;
     }
+
+
 }
