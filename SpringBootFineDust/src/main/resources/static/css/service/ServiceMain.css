@@ -91,7 +91,7 @@
 
 .serviceChart-quality.green {
   background-color: #0aa953; /* 노색 계열 */
-  color: black;
+  color: white;
   text-align: center;
   font-weight: bold;
 }
