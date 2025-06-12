@@ -11,11 +11,12 @@
 	height: 40vh;
 	min-height : 150px;
 	max-height: 700px;
+	min-width: 800px;
 }
 
 .serviceChart-chart-top-left {
 	flex: 3;
-	min-width : 300px;
+	min-width : 400px;
 	width : 60vw;
 	max-width : 1300px;
 	min-height : 150px;
@@ -150,9 +151,6 @@
 }
 
 @media ( max-width : 768px) {
-	.serviceChart-chart-top {
-		flex-direction: column;
-	}
 	.serviceChart-chart-bottom {
 		flex-direction: column;
 	}

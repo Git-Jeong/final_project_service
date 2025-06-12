@@ -400,6 +400,8 @@ body {
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
+	border-radius: 15px;
+	box-shadow: 0 4px 6px #00000040;
 }
 
 .sidebar-button:hover {
