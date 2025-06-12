@@ -216,6 +216,8 @@
 
 		function formMinus() {
 			if (subwayIndex > 1) {
+				const minus_input = document.getElementById(`stName_${subwayIndex}`);
+				minus_input.value = ""; // 값 초기화
 				document.getElementById(`insert-subway-${subwayIndex}`).style.visibility = "hidden";
 				subwayIndex--;
 				updateButtons();
