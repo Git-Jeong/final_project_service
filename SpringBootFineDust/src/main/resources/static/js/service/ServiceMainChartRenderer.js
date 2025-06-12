@@ -107,7 +107,7 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 		},
 		legend: {
 			data: ['PM1.0', 'PM2.5', 'PM10'],
-			top: 5,
+			top: 0,
 			left: 20
 		},
 		grid: {
@@ -126,7 +126,7 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 				{
 					type: 'text',
 					right: 20,
-					top: 5,
+					top: 4,
 					style: {
 						text: '미세먼지 기준 ⓘ',
 						fill: '#777777',
