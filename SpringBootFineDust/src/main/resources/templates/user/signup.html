@@ -327,9 +327,9 @@
 					const response = JSON.parse(responseText);
 					if (response.status === "success") {
 						startCountdown(response.codeValidSeconds); 
-						alert("인증 코드가 이메일로 전송되었습니다.");
 						$('#email_code_check_box').show();
 						$('#email_input_box').hide();
+						alert("인증 코드가 이메일로 전송되었습니다.");
 					} else if (response.status === "fail") {
 						alert("중복된 계정입니다.");
 						$('#usrEmail').prop('readonly', false);
