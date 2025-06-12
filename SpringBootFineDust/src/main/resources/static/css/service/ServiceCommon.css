@@ -309,6 +309,7 @@ body {
 	gap : 14px;
 }
 
+.serviceChart-mini-header-2,
 .serviceChart-mini-header,
 .serviceChart-select {
 	min-width: 200px;
@@ -321,8 +322,8 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border-radius: 5px;
 	font-weight: bold;
+	border-radius: 5px;
 }
 
 .serviceChart-mini-header span,

@@ -18,7 +18,7 @@ const updateAirQualitySignal = (data) => {
 
 		const pmValueElem = document.querySelector(`.serviceChart-air-quality-box [data-type="${type}"]`).previousElementSibling.querySelector('.pm-value');
 		if (pmValueElem) pmValueElem.textContent = value;
-		
+
 		// 색상 및 상태 문구 설정
 		const qualityBox = document.querySelector(`.serviceChart-quality[data-type="${type}"]`);
 		if (!qualityBox) return;
@@ -90,22 +90,11 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 
 	const option = {
 		title: [
-        {
-            text: '미세먼지 추이',
-            left: 'center'
-        },
-        {
-            // 시간 표시용 부제 추가
-            id: 'clock', // 업데이트를 위한 id
-            text: "기준시간: " +labels.at(-1), // 초기 시간 설정
-            right: 0,   // 우측 여백
-            top: 0,     // 상단 여백
-            textStyle: {
-                fontSize: 12,
-                color: '#000000'
-	            }
-	        }
-	    ],
+			{
+				text: '미세먼지 추이',
+				left: 'center'
+			}
+		],
 		tooltip: { trigger: 'axis' },
 		xAxis: {
 			type: 'category',
@@ -123,19 +112,45 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 			left: 0
 		},
 		grid: {
-			left: '3%',    // 좌측 여백 (기본값 보통 10~15%)
-			right: '5%',   // 우측 여백
-			bottom: '8%',  // 아래 여백
+			left: '3%',
+			right: '5%',
+			bottom: '8%',
 		},
 		series: [
 			{ name: 'PM1.0', type: 'line', smooth: true, data: pm1Data, itemStyle: { color: '#8e44ad' } },
 			{ name: 'PM2.5', type: 'line', smooth: true, data: pm25Data, itemStyle: { color: '#4169E1' } },
 			{ name: 'PM10', type: 'line', smooth: true, data: pm10Data, itemStyle: { color: '#DE2AA6' } }
-		]
+		],
+		graphic: {
+			elements: [
+				{
+					type: 'text',
+					right: '0',
+					top: '2%',
+					style: {
+						text: '미세먼지 기준 ¿',
+						font: '16px sans-serif',
+						fill: '#3498db',
+						borderRadius: 8,
+						padding: 4,
+						textAlign: 'center',
+						textVerticalAlign: 'middle',
+						cursor: 'pointer',
+					},
+					tooltip: {
+						show: true,
+						formatter: () => '미세먼지 기준: PM10 ≤ 50㎍/㎥, PM2.5 ≤ 25㎍/㎥',
+						position: 'top',
+						alwaysShowContent: true
+					}
+				}
+			]
+		}
 	};
 
 	dustEChart.setOption(option);
 };
+
 
 const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
 	const container = document.getElementById('mini-pm1-chart');
