@@ -19,9 +19,9 @@ const getStationDust = (stId) => {
 			const dto_humidity = Math.round(dto.humidity * 10) / 10;
 			const today = new Date().toISOString().split('T')[0];
 
-			document.getElementById("temp").textContent = "온도 : " + dto_temp + "℃";
-			document.getElementById("humidity").textContent = "습도 : " + dto_humidity + "%";
-			document.getElementById("dtime").textContent = "갱신 : " + today + " " + dto.timeHms;
+			document.getElementById("temp").textContent = "온도: " + dto_temp + "℃";
+			document.getElementById("humidity").textContent = "습도: " + dto_humidity + "%";
+			document.getElementById("dtime").textContent = "갱신: " + today + " " + dto.timeHms;
 			
 			// 스택에 데이터 추가
 			dustStack.push(dto);
