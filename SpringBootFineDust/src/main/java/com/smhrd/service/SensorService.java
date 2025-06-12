@@ -3,6 +3,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,5 +58,9 @@ public class SensorService {
 		return prRepository.findTop10ByStIdAndPmTimeGreaterThanEqualOrderByPmTimeAsc(
 				stId, pmTime
 		);
+	}
+
+	public List<Map<String, Object>> findMinuteAvgPmByDateGroupedByPeriod(String weekday) {
+		return snsrRepository.findMinuteAvgPmByDateGroupedByPeriod(weekday);
 	}
 }

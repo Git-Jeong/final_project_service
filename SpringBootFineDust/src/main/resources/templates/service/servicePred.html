@@ -7,23 +7,21 @@
 <script src="https://cdn.jsdelivr.net/npm/echarts@5"></script>
 
 <script th:inline="javascript">
-window.model = {
+	window.model = {
 		headerText : '조회 시스템',
 		userName : '[[${userName}]]'
-};
-
-
-
+	};
 </script>
 <!-- ApexCharts 및 Vue -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 <script src="/js/service/ServiceMainChartRenderer.js"></script>
 <script src="/js/service/ServicePredGetData.js"></script>
 <script src="/js/service/ServiceCommon.js"></script>
 
 <script src="/js/ServicePredChartRenderer.js"></script>
-<script src="/js/ServicePredGetData.js"></script> 
+<script src="/js/ServicePredGetData.js"></script>
 
 
 <!-- 차트 컴포넌트 스타일/스크립트 -->
@@ -49,117 +47,97 @@ window.model = {
 </head>
 <body>
 	<div style="display: none">
-	  <select id="stationSelect" class="serviceChart-select">
-	    <th:block th:each="station : ${stationList}">
-	      <option th:if="${!#strings.isEmpty(station.stName_1)}"
-	              th:value="${station.stId}"
-	              th:text="${station.stName_1}"></option>
-	    </th:block>
-	  </select>
+		<select id="stationSelect" class="serviceChart-select">
+			<th:block th:each="station : ${stationList}">
+				<option th:if="${!#strings.isEmpty(station.stName_1)}"
+					th:value="${station.stId}" th:text="${station.stName_1}"></option>
+			</th:block>
+		</select>
 	</div>
+
 	<div class="service-main-page">
 		<div id="sidebar-container"></div>
 		<main class="serviceChart-main-content">
 			<div id="serviceChart-header">
-				<!-- js를 통해 여기에 헤더를 만들어 둠. -->
-				<!-- 헤더에는 '실내공기질 측정시스템'을 포함하여 '마이페이지', '알림', '로그아웃' 기능이 들어 있음. -->
+				<!-- js를 통해 헤더 생성: 실내공기질 측정시스템, 마이페이지, 알림, 로그아웃 -->
 			</div>
+
 			<div id="notificationDropdown" class="notification-dropdown hidden">
-				<!-- 여기까지 실제 DB에서 데이터를 불러와서 출럭을 해야 됨. 즉 db에 값이 있으면 위의 코드를 반복하는 것 -->
-				<!-- js를 통해 여기에 알림 베너를 만들어 둠. -->
-			</div>
-<!--  여기까지가 템플런임 -->
-
-
-	<div class="container my-5">
-		<div class="row">
-			<!-- 달력 영역 -->
-			<div class="col-md-8 mb-4">
-				<div class="calendar-box">
-					<h4 class="d-flex align-items-center justify-content-between">
-						<div>
-							<button class="btn btn-outline-secondary btn-sm me-2"
-								onclick="changeMonth(-1)">←</button>
-							<span id="month-year"></span>
-							<button class="btn btn-outline-secondary btn-sm ms-2"
-								onclick="changeMonth(1)">→</button>
-						</div>
-					</h4>
-					<table class="table table-bordered mt-3 text-center">
-						<thead>
-							<tr>
-								<th class="text-danger">일</th>
-								<th>월</th>
-								<th>화</th>
-								<th>수</th>
-								<th>목</th>
-								<th>금</th>
-								<th class="text-primary">토</th>
-							</tr>
-						</thead>
-						<tbody id="calendar-body"></tbody>
-					</table>
-				</div>
+				<!-- js를 통해 알림 배너 생성, DB 값 반복 출력 -->
 			</div>
 
-			<!-- 📌 조회 + Collapse -->
-			<div class="collapse" id="dustCard">
-				<div class="col-md-4">
-					<div class="card schedule-card">
-						<div
-							class="card-header d-flex justify-content-between align-items-center">
-							<span>미세먼지 정보 조회</span>
-						</div>
-						
-						<!--  card body ~ dropdown -->
-						<div class="card-body" id="exam-schedule">
-							
-							<p>날짜를 클릭하면 아래에 미세먼지 정보가 표시됩니다.</p>
-							<!-- Collapse 영역 -->
-							<div class="accordion" id="dustAccordion">
-								<div class="accordion-item">
-									<h2 class="accordion-header" id="headingDust">
-										<button class="accordion-button collapsed" type="button"
-											data-bs-toggle="collapse" data-bs-target="#collapseDust"
-											aria-expanded="false" aria-controls="collapseDust">
-											<span id="collapse-title">미세먼지 평균 정보</span>
-										</button>
-									</h2>
-									<div id="collapseDust" class="accordion-collapse collapse"
-										aria-labelledby="headingDust">
-										<div class="accordion-body" id="dust-detail">
-										<div id="PastDustChart" style="width: 100%; height: 400px;"></div>
-											<p >날짜를 선택하면 오전/오후 평균이 표시됩니다.</p>
-										</div>
-									</div>
-								</div>
-							</div>
-								<!-- 
-								
-								id = PastDustChart
-								div하나 던져주고 표를 삽입 클래스는 md로 위치 설정 그래프도 드랍다운을 만들고 묶어야할듯? 드랍다운창이 커져야 할듯 -->
-							<!-- 끝 -->
+			<div class="container my-5">
+				<div class="row">
+					<!-- 달력 영역 -->
+					<div class="col-md-8 mb-4">
+						<div class="calendar-box">
+							<h4 class="d-flex align-items-center justify-content-between">
+								<button class="btn btn-outline-secondary btn-sm me-2"
+									onclick="changeMonth(-1)">←</button>
+								<span id="month-year"></span>
+								<button class="btn btn-outline-secondary btn-sm ms-2"
+									onclick="changeMonth(1)">→</button>
+							</h4>
+							<table class="table table-bordered mt-3 text-center">
+								<thead>
+									<tr>
+										<th class="text-danger">일</th>
+										<th>월</th>
+										<th>화</th>
+										<th>수</th>
+										<th>목</th>
+										<th>금</th>
+										<th class="text-primary">토</th>
+									</tr>
+								</thead>
+								<tbody id="calendar-body"></tbody>
+							</table>
 						</div>
 					</div>
+
+					<!-- 조회 + Collapse -->
+					<div class="collapse" id="dustCard">
+						<div class="col-md-4">
+							<div class="card schedule-card">
+								<div
+									class="card-header d-flex justify-content-between align-items-center">
+									<span>미세먼지 정보 조회</span>
+								</div>
+								<div class="card-body" id="exam-schedule">
+									<p>날짜를 클릭하면 아래에 미세먼지 정보가 표시됩니다.</p>
+									<div class="accordion" id="dustAccordion">
+										<div class="accordion-item">
+											<h2 class="accordion-header" id="headingDust">
+												<button class="accordion-button collapsed" type="button"
+													data-bs-toggle="collapse" data-bs-target="#collapseDust"
+													aria-expanded="false" aria-controls="collapseDust">
+													<span id="collapse-title">미세먼지 평균 정보</span>
+												</button>
+											</h2>
+											<div id="collapseDust" class="accordion-collapse collapse"
+												aria-labelledby="headingDust">
+												<div class="accordion-body" id="dust-detail">
+													<div id="PastDustChart" style="width: 100%; height: 400px;"></div>
+													<p>날짜를 선택하면 오전/오후 평균이 표시됩니다.</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- PastDustChart: 그래프 드롭다운 내 삽입, 크기 조절 필요 -->
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
-		</div>
-</main>
-		<!-- Bootstrap JS -->
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-		<script src="/js/service/Calendar.js"></script>
-</body>
-</html>
-
-
-
-
-
-
-
-			
 		</main>
 	</div>
+
+	<!-- Bootstrap JS + Calendar -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="/js/service/Calendar.js"></script>
+
 </body>
 </html>
