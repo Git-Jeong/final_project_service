@@ -107,14 +107,14 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 		},
 		legend: {
 			data: ['PM1.0', 'PM2.5', 'PM10'],
-			top: 20,
+			top: 5,
 			left: 20
 		},
 		grid: {
-			left: 100,
-			right: 80,
-			top: 100,
-			bottom: 60
+			left: 50,
+			right: 50,
+			top: 70,
+			bottom: '5%'
 		},
 		series: [
 			{ name: 'PM1.0', type: 'line', smooth: true, data: pm1Data, itemStyle: { color: '#8e44ad' } },
@@ -126,7 +126,7 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 				{
 					type: 'text',
 					right: 20,
-					top: 20,
+					top: 5,
 					style: {
 						text: '미세먼지 기준 ⓘ',
 						fill: '#777777',
