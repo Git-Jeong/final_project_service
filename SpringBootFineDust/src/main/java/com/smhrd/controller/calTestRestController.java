@@ -7,19 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import com.smhrd.repository.SensorRepository;
+import com.smhrd.service.SensorService;
 
 @RestController
 public class calTestRestController {
+	
     @Autowired
-    private SensorRepository sensorRepository;
-
+    private SensorService sensorService;
+    
     @GetMapping("/dust-data/{weekday}")
     public List<Map<String, Object>> getDustData(@PathVariable String weekday, String st_id) {
-    	
     	LocalDate parsedDate = LocalDate.parse(weekday);
     	weekday = parsedDate.getDayOfWeek().toString();
-        List<Map<String, Object>> results = sensorRepository.findMinuteAvgPmByDateGroupedByPeriod(weekday);
+        List<Map<String, Object>> results = sensorService.findMinuteAvgPmByDateGroupedByPeriod(weekday);
         // {date} 의 먼지 데이터 불러오기 
         return results;
     }

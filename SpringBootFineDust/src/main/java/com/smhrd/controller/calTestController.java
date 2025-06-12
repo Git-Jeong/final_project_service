@@ -10,6 +10,5 @@ public class calTestController {
 	
     public String showCal() {
         return "calTest"; // 차트가 잘작동하는지 테스트한겁니다. 맘껏 지우셔도 됩니다 감사합니다.
-    
-}
+	}
 }

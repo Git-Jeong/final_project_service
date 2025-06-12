@@ -203,7 +203,15 @@ public class ServiceRestController {
 			e.printStackTrace();
 		}
         
-        if (result.isEmpty()) return Map.of(); // 결과 없을 경우
+		if (result.isEmpty()) return Map.of(
+	            "xLabels", List.of("AM", "PM"),
+	            "amAvgPm1", null,
+	            "amAvgPm25", null,
+	            "amAvgPm10", null,
+	            "pmAvgPm1", null,
+	            "pmAvgPm25", null,
+	            "pmAvgPm10", null
+	        ); // 결과 없을 경우에도 구조 유지
 
         Map<String, Object> row = result.get(0);
 
@@ -216,5 +224,5 @@ public class ServiceRestController {
                 "pmAvgPm25", row.get("pmAvgPm25"),
                 "pmAvgPm10", row.get("pmAvgPm10")
         );
-}
+	}
 }
