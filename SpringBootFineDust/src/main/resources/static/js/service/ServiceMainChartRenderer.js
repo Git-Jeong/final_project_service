@@ -107,13 +107,14 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 		},
 		legend: {
 			data: ['PM1.0', 'PM2.5', 'PM10'],
-			top: 0,
-			left: 0
+			top: 20,
+			left: 20
 		},
 		grid: {
-			left: '3%',
-			right: '15%',
-			bottom: '8%',
+			left: 100,
+			right: 80,
+			top: 100,
+			bottom: 60
 		},
 		series: [
 			{ name: 'PM1.0', type: 'line', smooth: true, data: pm1Data, itemStyle: { color: '#8e44ad' } },
@@ -124,8 +125,8 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 			elements: [
 				{
 					type: 'text',
-					right: 10,
-					top: 10,
+					right: 20,
+					top: 20,
 					style: {
 						text: '미세먼지 기준 ⓘ',
 						fill: '#777777',
@@ -139,17 +140,16 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 						      <style>
 						        .dust-table {
 								  border-collapse: collapse;
-								  width: auto;          /* 너비 자동 조절 */
-								  min-width: 500px;     /* 최소 너비 유지 */
+								  width: auto;
+								  min-width: 500px;
 								  font-size: 12px;
 								  color: #444;
 								  margin-top: 6px;
-								  table-layout: fixed;  /* 고정폭 테이블 */
+								  table-layout: fixed;
 								}
-								
 								.dust-table th, .dust-table td {
 								  border: 1px solid #ccc;
-								  padding: 6px 4px;     /* 좌우 패딩 최소화 */
+								  padding: 6px 4px;
 								  text-align: center;
 								  word-wrap: break-word;
 								}
@@ -202,7 +202,6 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 						position: 'bottom',
 						enterable: true,
 					}
-
 				}
 			]
 		}
