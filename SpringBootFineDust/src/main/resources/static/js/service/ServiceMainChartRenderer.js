@@ -117,9 +117,9 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 			bottom: 30
 		},
 		series: [
-			{ name: 'PM1.0', type: 'line', smooth: true, data: pm1Data, itemStyle: { color: '#8e44ad' } },
+			{ name: 'PM10', type: 'line', smooth: true, data: pm10Data, itemStyle: { color: '#DE2AA6' } },
 			{ name: 'PM2.5', type: 'line', smooth: true, data: pm25Data, itemStyle: { color: '#4169E1' } },
-			{ name: 'PM10', type: 'line', smooth: true, data: pm10Data, itemStyle: { color: '#DE2AA6' } }
+			{ name: 'PM1.0', type: 'line', smooth: true, data: pm1Data, itemStyle: { color: '#8e44ad' } }
 		],
 		graphic: {
 			elements: [
@@ -330,7 +330,7 @@ const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
 			top: 30
 		},
 		series: [{
-			name: 'PM25',
+			name: 'PM2.5',
 			type: 'line',
 			data: pm25Data,
 			smooth: true,

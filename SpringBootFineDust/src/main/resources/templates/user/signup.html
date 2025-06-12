@@ -216,6 +216,8 @@
 
 		function formMinus() {
 			if (subwayIndex > 1) {
+				const minus_input = document.getElementById(`stName_${subwayIndex}`);
+				minus_input.value = ""; // 값 초기화
 				document.getElementById(`insert-subway-${subwayIndex}`).style.visibility = "hidden";
 				subwayIndex--;
 				updateButtons();
@@ -327,9 +329,9 @@
 					const response = JSON.parse(responseText);
 					if (response.status === "success") {
 						startCountdown(response.codeValidSeconds); 
-						alert("인증 코드가 이메일로 전송되었습니다.");
 						$('#email_code_check_box').show();
 						$('#email_input_box').hide();
+						alert("인증 코드가 이메일로 전송되었습니다.");
 					} else if (response.status === "fail") {
 						alert("중복된 계정입니다.");
 						$('#usrEmail').prop('readonly', false);
@@ -473,7 +475,7 @@
 			    });
 			    
 			    if(i === 3){
-			         alert("최종 성공~");
+			    	window.location.href = '/login';
 			    }
 			    
 			}
