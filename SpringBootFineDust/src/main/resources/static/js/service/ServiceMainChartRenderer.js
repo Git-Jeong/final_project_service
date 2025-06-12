@@ -162,6 +162,11 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 						        .dust-table tr:nth-child(even) {
 						          background: #f5f7ff;
 						        }
+								.dust-info-text{
+									color : #777777;
+									font-weight: bold;	
+									font-size: 6px;
+								}
 						      </style>
 						    `;
 							const table = `
@@ -199,6 +204,7 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 							          </tr>
 							        </tbody>
 							      </table>
+								  <span class="dust-info-text">22</<span>
 							    `;
 							return style + '미세먼지 기준<br>' + table;
 						},
