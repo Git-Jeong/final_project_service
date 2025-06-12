@@ -128,9 +128,9 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 			bottom: '8%',  // 아래 여백
 		},
 		series: [
-			{ name: 'PM1.0', type: 'line', smooth: true, data: pm1Data, itemStyle: { color: '#FF6B6B' } },
-			{ name: 'PM2.5', type: 'line', smooth: true, data: pm25Data, itemStyle: { color: '#4ECDC4' } },
-			{ name: 'PM10', type: 'line', smooth: true, data: pm10Data, itemStyle: { color: '#1A535C' } }
+			{ name: 'PM1.0', type: 'line', smooth: true, data: pm1Data, itemStyle: { color: '#8e44ad' } },
+			{ name: 'PM2.5', type: 'line', smooth: true, data: pm25Data, itemStyle: { color: '#4169E1' } },
+			{ name: 'PM10', type: 'line', smooth: true, data: pm10Data, itemStyle: { color: '#DE2AA6' } }
 		]
 	};
 
@@ -170,7 +170,7 @@ const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
 			type: 'line',
 			data: pm1Data,
 			smooth: true,
-			itemStyle: { color: '#FF6B6B' }
+			itemStyle: { color: '#8e44ad' }
 		}]
 	};
 
@@ -212,7 +212,7 @@ const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
 			type: 'line',
 			data: pm25Data,
 			smooth: true,
-			itemStyle: { color: '#4ECDC4' }
+			itemStyle: { color: '#4169E1' }
 		}]
 	};
 
@@ -254,7 +254,7 @@ const drawDustPm10EChart = ({ timeHms, pm10Data }) => {
 			type: 'line',
 			data: pm10Data,
 			smooth: true,
-			itemStyle: { color: '#1A535C' }
+			itemStyle: { color: '#DE2AA6' }
 		}]
 	};
 
@@ -297,13 +297,14 @@ const drawCodenChart = (codenChartData) => {
 			smooth: true,
 			data: codenChartData.codenData,
 			lineStyle: {
-				color: '#8e44ad'
+				color: '#2fd093'
 			},
 			areaStyle: {
-				color: 'rgba(142, 68, 173, 0.2)'
+				color: 'rgba(47, 208, 147, 0.2)'
 			},
-			symbol: 'circle',
-			symbolSize: 6
+			itemStyle: {
+				color: '#2fd093'
+			}
 		}]
 	};
 
@@ -347,13 +348,14 @@ const drawCo2denChart = (co2denChartData) => {
 			smooth: true,
 			data: co2denChartData.co2denData,
 			lineStyle: {
-				color: '#8e44ad'
+				color: '#4fbbc8'
 			},
 			areaStyle: {
-				color: 'rgba(142, 68, 173, 0.2)'
+				color: 'rgba(79, 187, 200, 0.2)'
 			},
-			symbol: 'circle',
-			symbolSize: 6
+			itemStyle: {
+				color: '#4fbbc8'
+			}
 		}]
 	};
 
