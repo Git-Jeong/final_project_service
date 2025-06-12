@@ -114,7 +114,7 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 			left: 50,
 			right: 50,
 			top: 70,
-			bottom: '5%'
+			bottom: 30
 		},
 		series: [
 			{ name: 'PM1.0', type: 'line', smooth: true, data: pm1Data, itemStyle: { color: '#8e44ad' } },
@@ -253,6 +253,15 @@ const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
 		tooltip: {
 			trigger: 'axis'
 		},
+		title: {
+			text: `${pm1Data.at(-1)} ㎍/㎥`,
+			right: 10,
+			top: 0,
+			textStyle: {
+				fontSize: 14,
+				color: '#333'
+			}
+		},
 		xAxis: {
 			type: 'category',
 			data: timeHms,
@@ -264,10 +273,10 @@ const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
 			name: '㎍/㎥'
 		},
 		grid: {
-			left: '8%',
-			right: '8%',
-			bottom: '10%',
-			top: '15%'
+			left: 30,
+			right: 30,
+			bottom: 20,
+			top: 30
 		},
 		series: [{
 			name: 'PM1.0',
@@ -295,6 +304,15 @@ const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
 		tooltip: {
 			trigger: 'axis'
 		},
+		title: {
+			text: `${pm25Data.at(-1)} ㎍/㎥`,
+			right: 10,
+			top: 0,
+			textStyle: {
+				fontSize: 14,
+				color: '#333'
+			}
+		},
 		xAxis: {
 			type: 'category',
 			data: timeHms,
@@ -306,10 +324,10 @@ const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
 			name: '㎍/㎥'
 		},
 		grid: {
-			left: '8%',
-			right: '8%',
-			bottom: '10%',
-			top: '15%'
+			left: 30,
+			right: 30,
+			bottom: 20,
+			top: 30
 		},
 		series: [{
 			name: 'PM25',
@@ -337,6 +355,15 @@ const drawDustPm10EChart = ({ timeHms, pm10Data }) => {
 		tooltip: {
 			trigger: 'axis'
 		},
+		title: {
+			text: `${pm10Data.at(-1)} ㎍/㎥`,
+			right: 10,
+			top: 0,
+			textStyle: {
+				fontSize: 14,
+				color: '#333'
+			}
+		},
 		xAxis: {
 			type: 'category',
 			data: timeHms,
@@ -348,10 +375,10 @@ const drawDustPm10EChart = ({ timeHms, pm10Data }) => {
 			name: '㎍/㎥'
 		},
 		grid: {
-			left: '8%',
-			right: '8%',
-			bottom: '10%',
-			top: '15%'
+			left: 30,
+			right: 30,
+			bottom: 20,
+			top: 30
 		},
 		series: [{
 			name: 'PM10',
@@ -378,6 +405,15 @@ const drawCodenChart = (codenChartData) => {
 		tooltip: {
 			trigger: 'axis'
 		},
+		title: {
+			text: `${codenChartData.codenData.at(-1).toFixed(2)} ppm`,
+			right: 10,
+			top: 0,
+			textStyle: {
+				fontSize: 14,
+				color: '#333'
+			}
+		},
 		xAxis: {
 			type: 'category',
 			data: codenChartData.timeHms,
@@ -387,13 +423,13 @@ const drawCodenChart = (codenChartData) => {
 		yAxis: {
 			type: 'value',
 			name: 'ppm',
-			min: 0
+			min: parseFloat((Math.max(0, Math.min(...codenChartData.codenData) - 0.1)).toFixed(1))
 		},
 		grid: {
-			left: '8%',
-			right: '8%',
-			bottom: '10%',
-			top: '15%'
+			left: 30,
+			right: 30,
+			bottom: 20,
+			top: 30
 		},
 		series: [{
 			name: 'CO',
@@ -429,6 +465,15 @@ const drawCo2denChart = (co2denChartData) => {
 		tooltip: {
 			trigger: 'axis'
 		},
+		title: {
+			text: `${co2denChartData.co2denData.at(-1)} ppm`,
+			right: 10,
+			top: 0,
+			textStyle: {
+				fontSize: 14,
+				color: '#333'
+			}
+		},
 		xAxis: {
 			type: 'category',
 			data: co2denChartData.timeHms,
@@ -441,10 +486,10 @@ const drawCo2denChart = (co2denChartData) => {
 			min: Math.max(0, Math.min(...co2denChartData.co2denData) - 3)
 		},
 		grid: {
-			left: '8%',
-			right: '8%',
-			bottom: '10%',
-			top: '15%'
+			left: 30,
+			right: 30,
+			bottom: 20,
+			top: 30
 		},
 		series: [{
 			name: 'CO2',
