@@ -128,9 +128,8 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 					right: '0',
 					top: '2%',
 					style: {
-						text: '미세먼지 기준 ¿',
-						font: '16px sans-serif',
-						fill: '#3498db',
+						text: '미세먼지 기준 ⓘ',
+						fill: '#777777',
 						borderRadius: 8,
 						padding: 4,
 						textAlign: 'center',

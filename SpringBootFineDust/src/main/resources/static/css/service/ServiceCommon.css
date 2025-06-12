@@ -306,15 +306,16 @@ body {
 	justify-content : center;
 	align-items: center; 
 	margin: 1rem 0;
-	gap : 14px;
+	gap : 14px; 
 }
 
 .serviceChart-mini-header-2,
 .serviceChart-mini-header,
 .serviceChart-select {
-	min-width: 200px;
-	width: 20vw;
-	max-width : 400px;
+	flex: 1;
+	min-width: 0;
+	width: auto;
+	max-width: 400px;
 	height: 40px;
 	border: 2px solid #ccc;
 	overflow: hidden;
@@ -324,14 +325,8 @@ body {
 	align-items: center;
 	font-weight: bold;
 	border-radius: 5px;
-}
-
-.serviceChart-mini-header span,
-.serviceChart-select span {
-	display: inline-block;
 	white-space: nowrap;
 }
-
 
 .sidebar_button_container{
     margin-left: auto;
