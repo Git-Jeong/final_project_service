@@ -83,7 +83,7 @@
 }
 
 .serviceChart-quality.orange {
-  background-color: #f36919; /* 주황 계열 */
+  background-color: #ffa70c; /* 주황 계열 */
   color: white;
   text-align: center;
   font-weight: bold;
@@ -91,7 +91,7 @@
 
 .serviceChart-quality.green {
   background-color: #0aa953; /* 노색 계열 */
-  color: black;
+  color: white;
   text-align: center;
   font-weight: bold;
 }
