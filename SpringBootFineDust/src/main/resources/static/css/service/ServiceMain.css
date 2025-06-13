@@ -9,7 +9,7 @@
 	flex-direction: row;
 	gap: 1rem;
 	height: 40vh;
-	min-height: 150px;
+	min-height: 300px;
 	max-height: 700px;
 	min-width: 800px;
 	margin-left: auto;
@@ -20,7 +20,7 @@
 	flex: 3;
 	min-width: 400px;
 	width: 60vw;
-	min-height: 150px;
+	min-height: 300px;
 	height: 40vh;
 	max-height: 700px;
 	background-color: #f2f2f2;
@@ -35,7 +35,7 @@
 	display: flex;
 	grid-gap: 10px;
 	flex-direction: column;
-	min-height: 150px;
+	min-height: 300px;
 	height: 40vh;
 	max-height: 700px;
 	min-width: 200px;
@@ -78,7 +78,7 @@
 	padding: 0;
 	margin: 0;
 	font-weight: bold;
-	font-size: clamp(1rem, 1.9vw, 5rem); /* 기존보다 축소 */
+	font-size: clamp(1rem, 1.9vw, 5rem); 
 	height: 100%;
 	display: flex;
 	align-items: center;
@@ -87,7 +87,22 @@
 .serviceChart-pmbold li {
 	display: flex;
 	align-items: center;
-	gap: 14px; /* 요소 간 간격 조정 */
+	gap: clamp(3px, 1.9vw, 8px);; /* 요소 간 간격 */
+} 
+
+.serviceChart-pmbold-mid {
+	min-width: calc(1em * 4); /* 글자 수 기반 유동 설정 */
+	flex-shrink: 0; /* 줄어들지 않게 고정 */
+}
+
+.serviceChart-divider {
+	flex-shrink: 0;
+}
+
+.pm-value {
+	min-width: 60px; 
+	flex: 1; /* 남은 공간 유동적으로 채움 */
+	text-align: left; /* 숫자가 왼쪽 정렬되도록 */
 }
 
 /* ===== 상태 표시 영역 ===== */
@@ -137,8 +152,13 @@
 .serviceChart-chart-bottom {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 1rem;
 	margin-top: 20px;
+	gap : 1rem;
+}
+
+.serviceChart-box{
+	text-align: center;	
+	font-weight: bold;
 }
 
 .serviceChart-chart-box {
@@ -160,7 +180,8 @@
 	.serviceChart-chart-top {
 		flex-direction: column;
 		min-width: none;
-		height: 60vh;
+		min-height : 650px;
+		height: 100vh;
 		display: flex;
 	}
 	.serviceChart-chart-top-left {
@@ -179,6 +200,12 @@
 	}
 	.serviceChart-sidebar {
 		display: none;
+	}
+	.serviceChart-chart-bottom {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin-top: 1rem; 
 	}
 }
 

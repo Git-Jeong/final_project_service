@@ -67,6 +67,10 @@ body {
     flex-shrink: 0; /* flex 아이템이 줄어들지 않도록 함 */
 }
 
+.toggleSidebarBtn_sidebar{	
+  padding: 0 1rem;
+}
+
 .toggleSidebarBtn_sidebar,
 .toggleSidebarBtn_header {
 	font-size: 1.5rem;
@@ -124,8 +128,17 @@ body {
 }
 
 /* 웹킷 브라우저 스크롤바 디자인 */
+.sidebar-content::-webkit-scrollbar {
+	width: 2px; /* 스크롤바 너비 */
+}
+
 .notification-dropdown::-webkit-scrollbar {
 	width: 20px; /* 스크롤바 너비 */
+}
+
+.sidebar-content::-webkit-scrollbar-track{
+    background-color: #E6F0FA;
+	border-radius: 10px;
 }
 
 .notification-dropdown::-webkit-scrollbar-track {
@@ -133,12 +146,14 @@ body {
 	border-radius: 10px;
 }
 
+.sidebar-content::-webkit-scrollbar-thumb,
 .notification-dropdown::-webkit-scrollbar-thumb {
 	background: rgba(0, 0, 0, 0.2);
 	border-radius: 10px;
 	transition: background-color 0.3s;
 }
 
+.sidebar-content::-webkit-scrollbar-thumb:hover,
 .notification-dropdown::-webkit-scrollbar-thumb:hover {
 	background: rgba(255, 255, 255, 0.7);
 }
@@ -361,18 +376,28 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-content {
+  height: calc(100vh - 70px);
+  overflow-y: scroll; /* 세로 스크롤만 */
+  overflow-x: hidden; /* 가로 스크롤 숨김 */
   padding: 0 1rem;
-  height: 100%;
-  overflow: auto;
+  width: 100%;
 }
 
 .sidebar-logo, .sidebar-welcome {
-	margin-bottom: 2rem;
+	margin-bottom: clamp(1rem, 2vw, 3rem);
 	text-align: center;
+	word-break: keep-all;
+	overflow-wrap: break-word;
 }
 
 .sidebar-logo {
-	margin-top: 10vh;
+	margin-top: min(max(5vh, 10px), 200px);
+	font-size: 1.5rem;
 }
 
 .sidebar-profile img {
@@ -397,7 +422,8 @@ body {
 	margin: 0.25rem 0;
 	background-color: #4A90E2;
 	color: white;
-	border: none;
+	font-weight : bold;
+	border: 1px solid rgba(0, 0, 0, 0.1);
 	border-radius: 5px;
 	cursor: pointer;
 	border-radius: 15px;
@@ -406,6 +432,10 @@ body {
 
 .sidebar-button:hover {
 	background-color: #0F55A6;
+}
+
+.sidebar-button:last-child {
+    margin-bottom: 1rem; /* 마지막 요소에 아래쪽 마진 추가 */
 }
 
 .notify-alert {

@@ -29,7 +29,9 @@ public class ServiceController {
 
         String usrEmail = token.extractUserFromJwt(request);
         String userName = token.getNameFromJwt(request);
-
+        
+//        System.out.println("userName = " + userName);
+        
         ArrayList<Station> stationList = (ArrayList<Station>) stService.getStInfo(usrEmail);
 
         //model.addAttribute("usrEmail", usrEmail);
@@ -54,6 +56,22 @@ public class ServiceController {
 		return "service/servicePred";
 	}
 
+    // 테스트용 페이지
+    @GetMapping("/serviceTest")
+    public String serviceTest(HttpServletRequest request, Model model) {
+        if (!token.isUserLoggedIn(request)) {
+            return "redirect:/main";
+        }
+        String usrEmail = token.extractUserFromJwt(request);
+        String userName = token.getNameFromJwt(request);
+
+        ArrayList<Station> stationList = (ArrayList<Station>) stService.getStInfo(usrEmail);
+
+        //model.addAttribute("usrEmail", usrEmail);
+        model.addAttribute("userName", userName);
+        model.addAttribute("stationList", stationList);
+		return "service/serviceTest";
+    }
 }
 
 

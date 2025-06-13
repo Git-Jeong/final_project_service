@@ -14,15 +14,10 @@ const updateAirQualitySignal = (data) => {
 	];
 
 	signals.forEach(({ type, value }) => {
-		// 숫자 표시
-
-		const pmValueElem = document.querySelector(`.serviceChart-air-quality-box [data-type="${type}"]`).previousElementSibling.querySelector('.pm-value');
-		if (pmValueElem) pmValueElem.textContent = value;
 
 		// 색상 및 상태 문구 설정
 		const qualityBox = document.querySelector(`.serviceChart-quality[data-type="${type}"]`);
 		if (!qualityBox) return;
-
 
 		let colorClass = '';
 		let statusText = '';
@@ -31,44 +26,44 @@ const updateAirQualitySignal = (data) => {
 		if (type === 'pm1.0') {
 			if (value > 50) {
 				colorClass = 'red';
-				statusText = '매우 나쁨';
+				statusText = '매우 나쁨 ('+value +')';
 			} else if (value > 35) {
 				colorClass = 'orange';
-				statusText = '나쁨';
+				statusText = '나쁨 ('+value +')';
 			} else if (value > 15) {
 				colorClass = 'green';
-				statusText = '보통';
+				statusText = '보통 ('+value +')';
 			} else {
 				colorClass = 'blue';
-				statusText = '좋음';
+				statusText = '좋음 ('+value +')';
 			}
 		} else if (type === 'pm2.5') {
 			if (value > 75) {
 				colorClass = 'red';
-				statusText = '매우나쁨';
+				statusText = '매우나쁨 ('+value +')';
 			} else if (value > 35) {
 				colorClass = 'orange';
-				statusText = '나쁨';
+				statusText = '나쁨 ('+value +')';
 			} else if (value > 15) {
 				colorClass = 'green';
-				statusText = '보통';
+				statusText = '보통 ('+value +')';
 			} else {
 				colorClass = 'blue';
-				statusText = '좋음';
+				statusText = '좋음 ('+value +')';
 			}
 		} else if (type === 'pm10') {
 			if (value > 150) {
 				colorClass = 'red';
-				statusText = '매우 나쁨';
+				statusText = '매우 나쁨 ('+value +')';
 			} else if (value > 80) {
 				colorClass = 'orange';
-				statusText = '나쁨';
+				statusText = '나쁨 ('+value +')';
 			} else if (value > 30) {
 				colorClass = 'green';
-				statusText = '보통';
+				statusText = '보통 ('+value +')';
 			} else {
 				colorClass = 'blue';
-				statusText = '좋음';
+				statusText = '좋음 ('+value +')';
 			}
 		}
 
@@ -107,7 +102,7 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 		},
 		legend: {
 			data: ['PM1.0', 'PM2.5', 'PM10'],
-			top: 5,
+			top: 0,
 			left: 20
 		},
 		grid: {
@@ -117,16 +112,16 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 			bottom: 30
 		},
 		series: [
-			{ name: 'PM1.0', type: 'line', smooth: true, data: pm1Data, itemStyle: { color: '#8e44ad' } },
+			{ name: 'PM10', type: 'line', smooth: true, data: pm10Data, itemStyle: { color: '#DE2AA6' } },
 			{ name: 'PM2.5', type: 'line', smooth: true, data: pm25Data, itemStyle: { color: '#4169E1' } },
-			{ name: 'PM10', type: 'line', smooth: true, data: pm10Data, itemStyle: { color: '#DE2AA6' } }
+			{ name: 'PM1.0', type: 'line', smooth: true, data: pm1Data, itemStyle: { color: '#8e44ad' } }
 		],
 		graphic: {
 			elements: [
 				{
 					type: 'text',
 					right: 20,
-					top: 5,
+					top: 4,
 					style: {
 						text: '미세먼지 기준 ⓘ',
 						fill: '#777777',
@@ -241,7 +236,7 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 	dustEChart.setOption(option);
 };
 
-const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
+const drawDustPm1EChart = (snsr, pred) => {
 	const container = document.getElementById('mini-pm1-chart');
 	if (!container) return;
 
@@ -249,12 +244,45 @@ const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
 		pm1EChart = echarts.init(container);
 	}
 
+	const today = new Date().toISOString().split('T')[0];
+
+	const snsrSeriesRaw = snsr.timeHms.map((t, i) => ({
+		value: [`${today}T${t}`, snsr.pm1Data[i]]
+	}));
+	const predSeriesRaw = pred.timeHms.map((t, i) => ({
+		value: [`${today}T${t}`, pred.pm1Data[i]]
+	}));
+
+	// 각 시리즈 최소 시간
+	const snsrMinTime = snsrSeriesRaw.length ? new Date(snsrSeriesRaw[0].value[0]) : null;
+	const predMinTime = predSeriesRaw.length ? new Date(predSeriesRaw[0].value[0]) : null;
+
+	// 전체 x축 최소값: 두 최소값 중 빠른 시간
+	const minTimeCandidates = [snsrMinTime, predMinTime].filter(t => t !== null);
+	const xMinTime = new Date(Math.min(...minTimeCandidates));
+
+	// y축 시작값: 각각 첫 값
+	const snsrYStart = snsr.pm1Data.length ? snsr.pm1Data[0] : null;
+	const predYStart = pred.pm1Data.length ? pred.pm1Data[0] : null;
+
+	// 시리즈별 빈 공간 채우기 함수
+	const fillSeriesStart = (series, seriesMinTime, yStart) => {
+		const filled = [];
+		if (!seriesMinTime || !yStart) return series;
+		if (seriesMinTime > xMinTime) {
+			// xMinTime 시점에 yStart 값 추가
+			filled.push({ value: [xMinTime.toISOString(), yStart] });
+		}
+		return filled.concat(series);
+	};
+
+	const snsrSeries = fillSeriesStart(snsrSeriesRaw, snsrMinTime, snsrYStart);
+	const predSeries = fillSeriesStart(predSeriesRaw, predMinTime, predYStart);
+
 	const option = {
-		tooltip: {
-			trigger: 'axis'
-		},
+		tooltip: { trigger: 'axis' },
 		title: {
-			text: `${pm1Data.at(-1)} ㎍/㎥`,
+			text: `${snsr.pm1Data.at(-1)} ㎍/㎥`,
 			right: 10,
 			top: 0,
 			textStyle: {
@@ -262,11 +290,20 @@ const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
 				color: '#333'
 			}
 		},
+	    legend: {
+	        left: 'center',
+	        top: 'top'
+	    },
 		xAxis: {
-			type: 'category',
-			data: timeHms,
-			boundaryGap: false,
-			axisLine: { onZero: false }
+			type: 'time',
+			min: xMinTime,
+			axisLabel: {
+				formatter: value => {
+					const date = new Date(value);
+					const sec = date.getSeconds();
+					return sec % 10 === 0 ? date.toTimeString().slice(0, 8) : '';
+				}
+			}
 		},
 		yAxis: {
 			type: 'value',
@@ -278,21 +315,32 @@ const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
 			bottom: 20,
 			top: 30
 		},
-		series: [{
-			name: 'PM1.0',
-			type: 'line',
-			data: pm1Data,
-			smooth: true,
-			itemStyle: { color: '#8e44ad' }
-		}]
+		series: [
+			{
+				name: 'PM1.0 측정',
+				type: 'line',
+				data: snsrSeries,
+				smooth: true,
+				showSymbol: true,
+				itemStyle: { color: '#8e44ad' }
+			},
+			{
+				name: 'PM1.0 예측',
+				type: 'line',
+				data: predSeries,
+				smooth: true,
+				showSymbol: true,
+				itemStyle: { color: '#3498db' },
+				lineStyle: { type: 'dashed' }
+			}
+		]
 	};
 
 	pm1EChart.setOption(option);
 	pm1EChart.resize();
-}
+};
 
-
-const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
+const drawDustPm25EChart = (snsr, pred) => {
 	const container = document.getElementById('mini-pm25-chart');
 	if (!container) return;
 
@@ -300,12 +348,45 @@ const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
 		pm25EChart = echarts.init(container);
 	}
 
+	const today = new Date().toISOString().split('T')[0];
+
+	const snsrSeriesRaw = snsr.timeHms.map((t, i) => ({
+		value: [`${today}T${t}`, snsr.pm25Data[i]]
+	}));
+	const predSeriesRaw = pred.timeHms.map((t, i) => ({
+		value: [`${today}T${t}`, pred.pm25Data[i]]
+	}));
+
+	// 각 시리즈 최소 시간
+	const snsrMinTime = snsrSeriesRaw.length ? new Date(snsrSeriesRaw[0].value[0]) : null;
+	const predMinTime = predSeriesRaw.length ? new Date(predSeriesRaw[0].value[0]) : null;
+
+	// 전체 x축 최소값: 두 최소값 중 빠른 시간
+	const minTimeCandidates = [snsrMinTime, predMinTime].filter(t => t !== null);
+	const xMinTime = new Date(Math.min(...minTimeCandidates));
+
+	// y축 시작값: 각각 첫 값
+	const snsrYStart = snsr.pm25Data.length ? snsr.pm25Data[0] : null;
+	const predYStart = pred.pm25Data.length ? pred.pm25Data[0] : null;
+
+	// 시리즈별 빈 공간 채우기 함수
+	const fillSeriesStart = (series, seriesMinTime, yStart) => {
+		const filled = [];
+		if (!seriesMinTime || !yStart) return series;
+		if (seriesMinTime > xMinTime) {
+			// xMinTime 시점에 yStart 값 추가
+			filled.push({ value: [xMinTime.toISOString(), yStart] });
+		}
+		return filled.concat(series);
+	};
+
+	const snsrSeries = fillSeriesStart(snsrSeriesRaw, snsrMinTime, snsrYStart);
+	const predSeries = fillSeriesStart(predSeriesRaw, predMinTime, predYStart);
+
 	const option = {
-		tooltip: {
-			trigger: 'axis'
-		},
+		tooltip: { trigger: 'axis' },
 		title: {
-			text: `${pm25Data.at(-1)} ㎍/㎥`,
+			text: `${snsr.pm25Data.at(-1)} ㎍/㎥`,
 			right: 10,
 			top: 0,
 			textStyle: {
@@ -313,11 +394,20 @@ const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
 				color: '#333'
 			}
 		},
+	    legend: {
+	        left: 'center',
+	        top: 'top'
+	    },
 		xAxis: {
-			type: 'category',
-			data: timeHms,
-			boundaryGap: false,
-			axisLine: { onZero: false }
+			type: 'time',
+			min: xMinTime,
+			axisLabel: {
+				formatter: value => {
+					const date = new Date(value);
+					const sec = date.getSeconds();
+					return sec % 10 === 0 ? date.toTimeString().slice(0, 8) : '';
+				}
+			}
 		},
 		yAxis: {
 			type: 'value',
@@ -329,21 +419,32 @@ const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
 			bottom: 20,
 			top: 30
 		},
-		series: [{
-			name: 'PM25',
-			type: 'line',
-			data: pm25Data,
-			smooth: true,
-			itemStyle: { color: '#4169E1' }
-		}]
+		series: [
+			{
+				name: 'PM2.5 측정',
+				type: 'line',
+				data: snsrSeries,
+				smooth: true,
+				showSymbol: true,
+				itemStyle: { color: '#8e44ad' }
+			},
+			{
+				name: 'PM2.5 예측',
+				type: 'line',
+				data: predSeries,
+				smooth: true,
+				showSymbol: true,
+				itemStyle: { color: '#3498db' },
+				lineStyle: { type: 'dashed' }
+			}
+		]
 	};
 
 	pm25EChart.setOption(option);
 	pm25EChart.resize();
-}
+};
 
-
-const drawDustPm10EChart = ({ timeHms, pm10Data }) => {
+const drawDustPm10EChart = (snsr, pred) => {
 	const container = document.getElementById('mini-pm10-chart');
 	if (!container) return;
 
@@ -351,12 +452,45 @@ const drawDustPm10EChart = ({ timeHms, pm10Data }) => {
 		pm10EChart = echarts.init(container);
 	}
 
+	const today = new Date().toISOString().split('T')[0];
+
+	const snsrSeriesRaw = snsr.timeHms.map((t, i) => ({
+		value: [`${today}T${t}`, snsr.pm10Data[i]]
+	}));
+	const predSeriesRaw = pred.timeHms.map((t, i) => ({
+		value: [`${today}T${t}`, pred.pm10Data[i]]
+	}));
+
+	// 각 시리즈 최소 시간
+	const snsrMinTime = snsrSeriesRaw.length ? new Date(snsrSeriesRaw[0].value[0]) : null;
+	const predMinTime = predSeriesRaw.length ? new Date(predSeriesRaw[0].value[0]) : null;
+
+	// 전체 x축 최소값: 두 최소값 중 빠른 시간
+	const minTimeCandidates = [snsrMinTime, predMinTime].filter(t => t !== null);
+	const xMinTime = new Date(Math.min(...minTimeCandidates));
+
+	// y축 시작값: 각각 첫 값
+	const snsrYStart = snsr.pm10Data.length ? snsr.pm10Data[0] : null;
+	const predYStart = pred.pm10Data.length ? pred.pm10Data[0] : null;
+
+	// 시리즈별 빈 공간 채우기 함수
+	const fillSeriesStart = (series, seriesMinTime, yStart) => {
+		const filled = [];
+		if (!seriesMinTime || !yStart) return series;
+		if (seriesMinTime > xMinTime) {
+			// xMinTime 시점에 yStart 값 추가
+			filled.push({ value: [xMinTime.toISOString(), yStart] });
+		}
+		return filled.concat(series);
+	};
+
+	const snsrSeries = fillSeriesStart(snsrSeriesRaw, snsrMinTime, snsrYStart);
+	const predSeries = fillSeriesStart(predSeriesRaw, predMinTime, predYStart);
+
 	const option = {
-		tooltip: {
-			trigger: 'axis'
-		},
+		tooltip: { trigger: 'axis' },
 		title: {
-			text: `${pm10Data.at(-1)} ㎍/㎥`,
+			text: `${snsr.pm10Data.at(-1)} ㎍/㎥`,
 			right: 10,
 			top: 0,
 			textStyle: {
@@ -364,11 +498,20 @@ const drawDustPm10EChart = ({ timeHms, pm10Data }) => {
 				color: '#333'
 			}
 		},
+	    legend: {
+	        left: 'center',
+	        top: 'top'
+	    },
 		xAxis: {
-			type: 'category',
-			data: timeHms,
-			boundaryGap: false,
-			axisLine: { onZero: false }
+			type: 'time',
+			min: xMinTime,
+			axisLabel: {
+				formatter: value => {
+					const date = new Date(value);
+					const sec = date.getSeconds();
+					return sec % 10 === 0 ? date.toTimeString().slice(0, 8) : '';
+				}
+			}
 		},
 		yAxis: {
 			type: 'value',
@@ -380,78 +523,85 @@ const drawDustPm10EChart = ({ timeHms, pm10Data }) => {
 			bottom: 20,
 			top: 30
 		},
-		series: [{
-			name: 'PM10',
-			type: 'line',
-			data: pm10Data,
-			smooth: true,
-			itemStyle: { color: '#DE2AA6' }
-		}]
+		series: [
+			{
+				name: 'PM10 측정',
+				type: 'line',
+				data: snsrSeries,
+				smooth: true,
+				showSymbol: true,
+				itemStyle: { color: '#8e44ad' }
+			},
+			{
+				name: 'PM10 예측',
+				type: 'line',
+				data: predSeries,
+				smooth: true,
+				showSymbol: true,
+				itemStyle: { color: '#3498db' },
+				lineStyle: { type: 'dashed' }
+			}
+		]
 	};
 
 	pm10EChart.setOption(option);
 	pm10EChart.resize();
-}
+};
 
-const drawCodenChart = (codenChartData) => {
-	const container = document.getElementById('mini-co-chart');
-	if (!container) return;
+const drawCodenChart = ({ timeHms, codenData }) => {
+  const container = document.getElementById('mini-co-chart');
+  if (!container) return;
 
-	if (!codenEChart) {
-		codenEChart = echarts.init(container);
-	}
+  if (!codenEChart) {
+    codenEChart = echarts.init(container);
+  }
 
-	const option = {
-		tooltip: {
-			trigger: 'axis'
-		},
-		title: {
-			text: `${codenChartData.codenData.at(-1).toFixed(2)} ppm`,
-			right: 10,
-			top: 0,
-			textStyle: {
-				fontSize: 14,
-				color: '#333'
-			}
-		},
-		xAxis: {
-			type: 'category',
-			data: codenChartData.timeHms,
-			boundaryGap: false,
-			axisLine: { onZero: false }
-		},
-		yAxis: {
-			type: 'value',
-			name: 'ppm',
-			min: parseFloat((Math.max(0, Math.min(...codenChartData.codenData) - 0.1)).toFixed(1))
-		},
-		grid: {
-			left: 30,
-			right: 30,
-			bottom: 20,
-			top: 30
-		},
-		series: [{
-			name: 'CO',
-			type: 'line',
-			smooth: true,
-			data: codenChartData.codenData,
-			lineStyle: {
-				color: '#2fd093'
-			},
-			areaStyle: {
-				color: 'rgba(47, 208, 147, 0.2)'
-			},
-			itemStyle: {
-				color: '#2fd093'
-			}
-		}]
-	};
+  const today = new Date().toISOString().split('T')[0];
+  const seriesData = timeHms.map((t, i) => ({
+    value: [`${today}T${t}`, codenData[i]]
+  }));
 
-	codenEChart.setOption(option);
-	codenEChart.resize();
-}
+  const option = {
+    tooltip: { trigger: 'axis' },
+    title: {
+      text: `${codenData.at(-1).toFixed(2)} ppm`,
+      right: 10,
+      top: 0,
+      textStyle: { fontSize: 14, color: '#333' }
+    },
+    legend: { left: 'left', top: 'top' },
+    xAxis: {
+      type: 'time',
+      axisLabel: {
+        formatter: value => {
+          const date = new Date(value);
+          const sec = date.getSeconds();
+          return sec % 10 === 0 ? date.toTimeString().slice(0, 8) : '';
+        }
+      },
+      boundaryGap: false
+    },
+    yAxis: {
+      type: 'value',
+      name: 'ppm',
+      min: parseFloat((Math.max(0, Math.min(...codenData) - 0.1)).toFixed(1))
+    },
+    grid: { left: 40, right: 30, bottom: 20, top: 30 },
+    series: [{
+      name: 'CO',
+      type: 'line',
+      smooth: true,
+      data: seriesData,
+      lineStyle: { color: '#2fd093' },
+      areaStyle: { color: 'rgba(47, 208, 147, 0.2)' },
+      itemStyle: { color: '#2fd093' },
+      showSymbol: true
+    }]
+  };
 
+  codenEChart.setOption(option);
+  codenEChart.resize();
+};
 
 const drawCo2denChart = (co2denChartData) => {
 	const container = document.getElementById('mini-co2-chart');
@@ -486,7 +636,7 @@ const drawCo2denChart = (co2denChartData) => {
 			min: Math.max(0, Math.min(...co2denChartData.co2denData) - 3)
 		},
 		grid: {
-			left: 30,
+			left: 40,
 			right: 30,
 			bottom: 20,
 			top: 30

@@ -5,6 +5,17 @@ import mysql.connector
 import json
 from datetime import datetime, timedelta
 from decimal import Decimal
+import pandas as pd
+import numpy as np
+import joblib
+from tensorflow.keras.models import load_model
+
+# 1) 이 파일(.py)이 위치한 디렉터리 구하기
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# 2) 데이터 폴더까지의 상대 경로 연결
+PIPELINE_PATH = os.path.join(BASE_DIR, 'data', 'feature_pipelines_v2.pkl')
+MODEL_PATH    = os.path.join(BASE_DIR, 'data', 'my_lstm_model_30s_v01.keras')
 
 load_dotenv()
 app = Flask(__name__)
@@ -17,6 +28,11 @@ db_config = {
     'password': os.getenv('MYSQL_PASSWORD'),
     'database': os.getenv('MYSQL_DATABASE')
 }
+
+# 저장된 파이프라인 불러오기
+feature_pipelines = joblib.load(PIPELINE_PATH)
+
+
 
 # ✅ JSON 직렬화 지원 함수
 def dustPred(sensor_results):
@@ -31,11 +47,65 @@ def dustPred(sensor_results):
     cleaned_results = []
     for row in sensor_results:
         cleaned_row = {k: convert(v) for k, v in row.items()}
-        cleaned_row['예측'] = '미세먼지 예측값 예시입니다'
         cleaned_results.append(cleaned_row)
+    
+    df_results = pd.DataFrame.from_dict(cleaned_results)
+    df_results['dtime'] = pd.to_datetime(df_results['dtime'])
+    df_results = df_results.set_index('dtime').sort_index()
+
+    # — (B) 인덱스(Timestamp)로부터 시계열 특성 생성 ———
+    #  1) 연중 며칠째(day of year)를 구해서 1~365 범위로 만듭니다.
+    doy = df_results.index.dayofyear  # 1~365 (윤년이면 366)
+
+    #  2) 365일 주기로 사인/코사인 계산
+    df_results['doy_sin'] = np.sin(2 * np.pi * doy / 365)
+    df_results['doy_cos'] = np.cos(2 * np.pi * doy / 365)
+
+    #  3) 하루 중 경과된 초(sec_of_day) 계산 → 사인/코사인
+    sec_of_day = (
+        df_results.index.hour * 3600
+        + df_results.index.minute * 60
+        + df_results.index.second
+    )
+    df_results['time_sin'] = np.sin(2 * np.pi * sec_of_day / 86400)
+    df_results['time_cos'] = np.cos(2 * np.pi * sec_of_day / 86400)
+
+    df = df_results[['pm10', 'pm25', 'pm1', 'temp', 'humidity', 'co2den', 'atmospheric_press', 'doy_sin','doy_cos','time_sin','time_cos']].copy()
+    df.columns = ['PM10','PM2_5','PM1','Temp','Humidity','CO2Den', 'AtmosphericPress', 'doy_sin','doy_cos','time_sin','time_cos']
+
+    # 미세먼지, 대기압 로그 변환
+    col = ['PM10', 'PM2_5', 'PM1', 'CO2Den']
+    for j in range(len(col)):
+        df[col[j]+'_log'] = np.log1p(df[col[j]])
+
+    # 3) 사용할 월(month) 지정
+    month = 12
+    pipeline = feature_pipelines[month]
+
+    thresholds = pipeline['thresholds']
+    input_scaler = pipeline['scaler']
+    y_scaler = pipeline['y_scaler']
+
+    # 이상치 처리
+    for feat, (low, high) in thresholds.items():
+        df[feat] = df[feat].clip(lower=low, upper=high)
+    features = ['PM10_log', 'PM2_5_log', 'PM1_log', 'Temp', 'Humidity', 'AtmosphericPress', 'CO2Den_log']
+    # 입력 스케일링
+    df[features] = input_scaler.transform(df[features])
+    
+    X = df[['PM10_log','PM2_5_log','PM1_log','Temp','Humidity','CO2Den_log', 'AtmosphericPress', 'doy_sin','doy_cos','time_sin','time_cos']].to_numpy()
+
+    # 모델 불러오기
+    loaded_model = load_model(MODEL_PATH, compile=False)
+
+    # 예측 (스케일된 y)
+    y_pred_scaled = loaded_model.predict(X.reshape(1, *X.shape))
+
+    # 예측 결과 원본 단위로 복원
+    y_pred = y_scaler.inverse_transform(y_pred_scaled).tolist()
 
     return Response(
-        json.dumps(cleaned_results, ensure_ascii=False),
+        json.dumps(y_pred, ensure_ascii=False),
         status=200,
         mimetype='application/json'
     )
@@ -44,9 +114,9 @@ def dustPred(sensor_results):
 @app.route('/flask-station-db-test', methods=['GET'])
 def db_test():
     st_id = request.args.get('st_id')
-
+    # http://127.0.0.1:5000/flask-station-db-test?st_id=1
     try:
-        st_id = int(st_id)
+        st_id = int(st_id)      #st_id = 1 로 고정정
     except Exception as e:
         return Response(
             json.dumps({'error': 'Invalid st_id'}, ensure_ascii=False),
@@ -55,20 +125,24 @@ def db_test():
         )
 
     try:
-        # ✅ 요일 확인 (예: 'wednesday')
+    # ✅ 요일 확인
         weekday_eng = datetime.today().strftime('%A').lower()
         print("[요일 확인]:", weekday_eng)
+
+        # ✅ 현재 시각 구하기 (hh:mm:ss 형식)
+        current_time_str = datetime.now().strftime('%H:%M:%S')
+        print("[현재 시각 기준]:", current_time_str)
 
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor(dictionary=True, buffered=True)
 
-        # ✅ 30개 데이터 조회
+        # ✅ 현재 시간보다 이전의 600개 데이터 조회
         cursor.execute("""
             SELECT * FROM sensor
-            WHERE st_id = %s AND weekday = %s
+            WHERE st_id = %s AND weekday = %s AND time_hms <= %s
             ORDER BY time_hms DESC
-            LIMIT 30
-        """, (st_id, weekday_eng))
+            LIMIT 600
+        """, (st_id, weekday_eng, current_time_str))
 
         results = cursor.fetchall()
         print("[쿼리 결과 개수]:", len(results))
@@ -93,6 +167,6 @@ def db_test():
             mimetype='application/json'
         )
 
-# ✅ 서버 실행
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
+
