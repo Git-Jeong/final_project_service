@@ -9,7 +9,7 @@
 	flex-direction: row;
 	gap: 1rem;
 	height: 40vh;
-	min-height: 150px;
+	min-height: 300px;
 	max-height: 700px;
 	min-width: 800px;
 	margin-left: auto;
@@ -153,8 +153,8 @@
 .serviceChart-chart-bottom {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 1rem;
 	margin-top: 20px;
+	gap : 1rem;
 }
 
 .serviceChart-box{
