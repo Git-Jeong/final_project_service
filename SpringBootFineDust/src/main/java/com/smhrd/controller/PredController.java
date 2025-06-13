@@ -31,7 +31,10 @@ public class PredController {
 
 	@PostMapping("/savePred")
 	public boolean startPred(@RequestBody int stId, HttpServletRequest request) {
-        String usrEmail = token.extractUserFromJwt(request);
+		int originStId = stId;
+		stId= 1;
+		
+		String usrEmail = token.extractUserFromJwt(request);
         if(usrEmail == null) {
             return false;  // null 대신 빈 리스트 반환 권장
         }
@@ -40,7 +43,9 @@ public class PredController {
 	        RestTemplate restTemplate = new RestTemplate();
 
 	        ResponseEntity<Object> response = restTemplate.getForEntity(flaskUrl, Object.class);
-
+	        
+	        stId = originStId;
+	        
 	        if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
 	            // Object를 JSON 형태의 List<List<Double>>로 변환
 	            ObjectMapper mapper = new ObjectMapper();
