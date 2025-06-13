@@ -63,6 +63,10 @@ window.model = {
 			<input id="stationIdInput" th:value="${stationList[0].stId}"
 				type="hidden">
 
+			<div id="intervalDisplay"
+				class="alert alert-info mt-3 w-50 text-center" role="alert">
+				예측 요청까지 <span id="countdown">5</span>초 남았습니다.
+			</div>
 		</main>
 	</div>
 
@@ -84,12 +88,22 @@ const startPred = (stId) => {
 
 document.addEventListener("DOMContentLoaded", () => {
     const stId = document.getElementById("stationIdInput").value;
+    const countdownEl = document.getElementById("countdown");
+
+    let countdown = 5;
+    countdownEl.textContent = countdown;
+
+    // 1초마다 카운트 다운 UI 갱신
     setInterval(() => {
-        startPred(stId);
-    }, 6000);
+        countdown--;
+        if (countdown <= 0) {
+            startPred(stId);
+            countdown = 5;
+        }
+        countdownEl.textContent = countdown;
+    }, 1000);
 });
 </script>
-
 
 </body>
 </html>
