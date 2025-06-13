@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	
 	const logo = document.createElement('div');
 	logo.className = 'sidebar-logo';
-	logo.innerHTML = `<h3>실내공기질<br>${pageTitleSide}</h3>`;
+	logo.innerHTML = `실내공기질<br>${pageTitleSide}`;
 	sidebarContent.appendChild(logo);
 	
 	const profile = document.createElement('div');

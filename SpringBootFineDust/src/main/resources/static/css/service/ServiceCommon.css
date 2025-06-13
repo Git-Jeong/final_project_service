@@ -136,7 +136,11 @@ body {
 	width: 20px; /* 스크롤바 너비 */
 }
 
-.sidebar-content::-webkit-scrollbar-track,
+.sidebar-content::-webkit-scrollbar-track{
+    background-color: #E6F0FA;
+	border-radius: 10px;
+}
+
 .notification-dropdown::-webkit-scrollbar-track {
 	background: rgba(255, 255, 255, 0.5);
 	border-radius: 10px;
@@ -392,6 +396,7 @@ body {
 
 .sidebar-logo {
 	margin-top: min(max(5vh, 10px), 200px);
+	font-size: 1.5rem;
 }
 
 .sidebar-profile img {
@@ -426,6 +431,10 @@ body {
 
 .sidebar-button:hover {
 	background-color: #0F55A6;
+}
+
+.sidebar-button:last-child {
+    margin-bottom: 1rem; /* 마지막 요소에 아래쪽 마진 추가 */
 }
 
 .notify-alert {
