@@ -385,6 +385,7 @@ body {
   overflow-y: scroll; /* 세로 스크롤만 */
   overflow-x: hidden; /* 가로 스크롤 숨김 */
   padding: 0 1rem;
+  width: 100%;
 }
 
 .sidebar-logo, .sidebar-welcome {
@@ -422,7 +423,7 @@ body {
 	background-color: #4A90E2;
 	color: white;
 	font-weight : bold;
-	border: none;
+	border: 1px solid rgba(0, 0, 0, 0.1);
 	border-radius: 5px;
 	cursor: pointer;
 	border-radius: 15px;
