@@ -192,7 +192,7 @@ public class ServiceRestController {
                     .body(Map.of("status", "error", "message", "서버 오류 발생", "detail", e.getMessage()));
             }
     }
-
+    
     @GetMapping("/weekday/{weekday}")
     public Map<String, Object> getAvgPmByAmPm(@PathVariable String weekday) {
         List<Map<String, Object>> result = new ArrayList<>();
@@ -230,5 +230,7 @@ public class ServiceRestController {
             "pmAvgPm10", row.getOrDefault("pmAvgPm10", 0)
         );
     }
+
+
 
 }

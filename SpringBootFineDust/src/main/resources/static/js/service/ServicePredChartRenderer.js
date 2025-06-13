@@ -1,13 +1,13 @@
-/**
- * 
- */
-
 function drawAmPmAvgChart({
   xLabels,
   amAvgPm1, amAvgPm25, amAvgPm10,
   pmAvgPm1, pmAvgPm25, pmAvgPm10
 }) {
   const chartDom = document.getElementById('PastDustChart');
+  if (!chartDom) {
+    console.error('PastDustChart element not found');
+    return;
+  }
   const chart = echarts.init(chartDom);
 
   const option = {
@@ -32,3 +32,14 @@ function drawAmPmAvgChart({
   chart.setOption(option);
   chart.resize();
 }
+
+/* 
+// DOM이 완전히 로드되면 호출
+    window.onload = function() {
+      drawAmPmAvgChart({
+        xLabels: ['AM', 'PM'],
+        amAvgPm1: amAvgPm1, amAvgPm25: amAvgPm25, amAvgPm10: amAvgPm10,
+        pmAvgPm1: pmAvgPm1, pmAvgPm25: pmAvgPm25, pmAvgPm10: pmAvgPm10
+      });
+};
+*/
