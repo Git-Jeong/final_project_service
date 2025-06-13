@@ -45,8 +45,6 @@ body {
   background-color: rgba(128, 128, 128, 0.7);
   border-top: 30px solid transparent;
   border-bottom: 30px solid transparent;
-  border-left: 0 solid transparent;
-  border-right: 0 solid transparent;
   background-clip: padding-box;
 }
 
