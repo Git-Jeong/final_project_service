@@ -108,7 +108,7 @@ const weekday = new Date(getWeekday).toLocaleDateString('en-US', { weekday: 'lon
  */
 
 const barChartSho = (weekday) => {
-console.log("barChartSho = " + weekday); // 예: Monday
+	//console.log("barChartSho = " + weekday); // 예: Monday
 	$.ajax({
 		url: `/weekday/${weekday}`,
 		type: "GET",
@@ -118,7 +118,7 @@ console.log("barChartSho = " + weekday); // 예: Monday
 				return;
 			}
 			// 차트 렌더링
-			console.log(data);
+			//console.log(data);
 			drawAmPmAvgChart(data);
 			
 		},
