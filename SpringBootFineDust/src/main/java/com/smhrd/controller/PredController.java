@@ -14,7 +14,7 @@ import java.util.List;
 
 import com.smhrd.config.TokenCheck;
 import com.smhrd.entity.Pred;
-import com.smhrd.service.FlaskService;
+import com.smhrd.service.PredService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -22,13 +22,12 @@ import jakarta.servlet.http.HttpServletRequest;
 public class PredController {
 
 	@Autowired
-	private FlaskService flaskService;
+	private PredService flaskService;
 
     @Autowired
     private TokenCheck token;
     
 	// Flask 연동 및 Pred 저장 컨트롤러 구현
-
 	@PostMapping("/savePred")
 	public boolean startPred(@RequestBody int stId, HttpServletRequest request) {
 		int originStId = stId;

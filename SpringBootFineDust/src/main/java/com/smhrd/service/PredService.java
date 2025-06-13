@@ -1,15 +1,12 @@
 package com.smhrd.service;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.smhrd.entity.Pred;
 import com.smhrd.repository.PredRepository;
 
 @Service
-public class FlaskService {
+public class PredService {
 	
 	@Autowired
 	private PredRepository predRepository;

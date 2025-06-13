@@ -190,9 +190,14 @@ document.addEventListener("DOMContentLoaded", () => {
 	    window.location.href = '/servicePred';
 	}
 	
+	function onclickTest() {
+	    window.location.href = '/serviceTest';
+	}
+	
 	const buttons = [
 	    { text: '모니터링 시스템', onClick: goMonitoringPage },
-	    { text: '조회 시스템', onClick: onIndoorAirPredictClick }
+	    { text: '조회 시스템', onClick: onIndoorAirPredictClick },
+	    { text: '테스트 시스템', onClick: onclickTest }
 	];
 
 	buttons.forEach(({ text, onClick }) => {
