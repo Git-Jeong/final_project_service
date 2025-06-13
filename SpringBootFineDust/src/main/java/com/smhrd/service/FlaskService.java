@@ -19,9 +19,8 @@ public class FlaskService {
 	    return saved != null;
 	}
 	
-	public List<Pred> getRecentPredsByStId(int stId) {
-	    LocalDateTime timeThreshold = LocalDateTime.now().minusSeconds(30);
-	    return predRepository.findByStIdAndPmTimeAfterOrderByPmTimeDesc(stId, timeThreshold);
+	public Pred getRecentPredByStId(int stId) {
+	    return predRepository.findTopByStIdOrderByPmTimeDesc(stId);
 	}
 
 }

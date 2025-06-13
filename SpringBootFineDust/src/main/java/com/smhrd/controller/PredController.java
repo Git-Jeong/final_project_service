@@ -20,7 +20,7 @@ import com.smhrd.service.FlaskService;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-public class FlaskApiController {
+public class PredController {
 
 	@Autowired
 	private FlaskService flaskService;
@@ -67,12 +67,16 @@ public class FlaskApiController {
 	}
 	
 	@PostMapping("/getPred")
-	public List<Pred> getPred(@RequestBody int stId, HttpServletRequest request) {
+	public Pred getPred(@RequestBody int stId, HttpServletRequest request) {
         String usrEmail = token.extractUserFromJwt(request);
         if(usrEmail == null) {
-            return Collections.emptyList();  // null 대신 빈 리스트 반환 권장
+            return new Pred();  // null 대신 빈 리스트 반환 권장
         }
-	    return flaskService.getRecentPredsByStId(stId);
+        Pred pred = flaskService.getRecentPredByStId(stId);
+        if((pred == null) || (pred.getPm1() == null)) {
+        	return new Pred(); 
+        }
+	    return pred;
 	}
 
 }
