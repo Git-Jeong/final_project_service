@@ -18,19 +18,13 @@
 		});
 	};
 
-	document.addEventListener('DOMContentLoaded', () => {
-		setInterval(() => {
-			const selectedValue = document.getElementById('stationSelect').value;
-			getStationOneDust(selectedValue);
-		}, 1000);
-	});
-
 	// notiType에 따른 아이콘 클래스 매핑
 	const iconMap = {
 		error: "bi-exclamation-triangle-fill",
 		warning: "bi-exclamation-circle-fill",
 		info: "bi-info-circle-fill"
 	};
+
 
 	// 시간차 계산 함수 (현재 시간 - notiTime)
 	function timeAgo(notiTime) {
@@ -46,6 +40,7 @@
 		const diffDays = Math.floor(diffHours / 24);
 		return `${diffDays}일 전`;
 	}
+
 
 	// 외부 접근용 함수로 전역에 할당
 	window.renderNotifications = function(notifications) {
@@ -99,27 +94,36 @@
 			container.append(card);
 		});
 	};
+
+	document.addEventListener('DOMContentLoaded', () => {
+		setInterval(() => {
+			const selectedValue = document.getElementById('stationSelect').value;
+			getStationOneDust(selectedValue);
+		}, 1000);
+	});
+	
+	const barChartSho = () => {
+		const weekday = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+		$.ajax({
+			url: `/weekday/${weekday}`,
+			type: "GET",
+			success: function(data) {
+				if (!data || !data.xLabels) {
+					console.warn("데이터 없음");
+					return;
+				}
+
+				// 여기에 차트 렌더링 코드 작성
+
+			},
+			error: function(err) {
+				console.error("데이터 요청 실패", err);
+			}
+		});
+
+	}; // barChartSho 함수 닫기
+
 })();
 
-const barChartSho = () => {
 
-	const weekday = new Date().toLocaleDateString('en-US', { weekday: 'long' });
-	$.ajax({
-		url: `/weekday/${weekday}`,
-		type: "GET",
-		success: function(data) {
-			if (!data || !data.xLabels) {
-				console.warn("데이터 없음");
-				return;
-			}
-
-			// 여기에 차트 렌더링 코드 작성
-
-		},
-		error: function(err) {
-			console.error("데이터 요청 실패", err);
-		}
-	});
-
-}; // barChartSho 함수 닫기
-
+	
