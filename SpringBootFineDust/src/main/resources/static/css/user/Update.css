@@ -15,13 +15,27 @@ body {
 	min-width: 700px;
 	width: 100%;
 	max-width: 1300px;
-	min-height : 722px;
+	min-height : 500px;
+	height : 80vh;
+	max-height : 1200px;
+	overflow : scroll;
 	background-color: #ffffff;
 	padding: 50px 40px;
 	border-radius: 16px;
     border : 3px #CED4DA solid; 
 	margin-left: auto;
 	margin-right: auto;
+	
+	  /* 크롬, 엣지, 사파리용 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 파이어폭스용 */
+  scrollbar-width: none;
+
+  /* 인터넷 익스플로러, 엣지용 */
+  -ms-overflow-style: none;
 }
 
 #usrEmail[readonly] {

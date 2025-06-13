@@ -67,6 +67,10 @@ body {
     flex-shrink: 0; /* flex 아이템이 줄어들지 않도록 함 */
 }
 
+.toggleSidebarBtn_sidebar{	
+  padding: 0 1rem;
+}
+
 .toggleSidebarBtn_sidebar,
 .toggleSidebarBtn_header {
 	font-size: 1.5rem;
@@ -368,14 +372,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 1rem;
-  min-height: 100vh;
+  height: 100vh;
   border-right: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .sidebar-content{
-	
-}
+	height: calc(100vh - 70px);
+	overflow: scroll;
+	padding: 0 1rem;}
 
 .sidebar-logo, .sidebar-welcome {
 	margin-bottom: clamp(1rem, 2vw, 3rem);
