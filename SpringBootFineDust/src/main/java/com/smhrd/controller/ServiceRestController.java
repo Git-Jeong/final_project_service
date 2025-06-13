@@ -193,7 +193,7 @@ public class ServiceRestController {
             }
     }
 
-    @GetMapping("/{weekday}")
+    @GetMapping("/weekday/{weekday}")
     public Map<String, Object> getAvgPmByAmPm(@PathVariable String weekday) {
         List<Map<String, Object>> result = new ArrayList<>();
 
