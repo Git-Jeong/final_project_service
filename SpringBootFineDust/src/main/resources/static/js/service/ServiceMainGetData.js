@@ -1,9 +1,22 @@
 const dustStack = [];
-const stackSize = 30;
+const predStack = [];
+const stackSize = 60;
 
 // 역 바꾸게 되면 스택 초기화
 const resetDustStack = () => {
 	dustStack.length = 0;
+}
+
+const startPredDust = (stId) => {
+	$.ajax({
+		url: "savePred",
+		type: "post",
+		data: JSON.stringify(stId),
+		contentType: "application/json",
+		error: function(err) {
+			console.error("데이터 불러오기 실패:", err);
+		}
+	});
 }
 
 // 데이터 불러오는 함수
@@ -13,42 +26,89 @@ const getStationDust = (stId) => {
 		type: "get",
 		data: { "stId": stId },
 		success: function(data) {
-			// 스택에 데이터 추가
-			const dto = Array.isArray(data) ? data[0] : data;
-			const dto_temp = Math.round(dto.temp * 10) / 10;
-			const dto_humidity = Math.round(dto.humidity * 10) / 10;
+			const dtoDust = data.snsr;
+			const dtoPred = data.pred;
+
+			const dto_temp = Math.round(dtoDust.temp * 10) / 10;
+			const dto_humidity = Math.round(dtoDust.humidity * 10) / 10;
 			const today = new Date().toISOString().split('T')[0];
 
 			document.getElementById("temp").textContent = "온도: 🌡️ " + dto_temp + "℃";
 			document.getElementById("humidity").textContent = "습도: 💧 " + dto_humidity + "%";
-			document.getElementById("dtime").textContent = "갱신: 📅 " + today + " ⏰" + dto.timeHms;
-			
-			// 스택에 데이터 추가
-			dustStack.push(dto);
+			document.getElementById("dtime").textContent = "갱신: 📅 " + today + " ⏰" + dtoDust.timeHms;
 
-			// 크기 초과 시 가장 오래된 데이터 제거
+			const lastDust = dustStack[dustStack.length - 1];
+			const lastPred = predStack[predStack.length - 1];
+
+			// 직전 dust 데이터와 비교
+			if (!lastDust || JSON.stringify(lastDust) !== JSON.stringify(dtoDust)) {
+				dustStack.push(dtoDust);
+			}
+
+			// 직전 pred 데이터와 비교
+			if (!lastPred || JSON.stringify(lastPred) !== JSON.stringify(dtoPred)) {
+				predStack.push(dtoPred);
+				//console.log("예측데이터 불러온 결과 = " + JSON.stringify(dtoPred));
+			}
+
 			if (dustStack.length > stackSize) {
 				dustStack.shift();
 			}
 
-			updateAirQualitySignal(dto)
-			
+			while (predStack.length > 0 && dustStack.length > 0) {
+				const predTimeStr = predStack[0]?.timeHms;
+				const dustTimeStr = dustStack[0]?.timeHms;
+
+				// 문자열 "HH:mm:ss" -> Date 객체 변환 (기준일 동일)
+				const predTime = new Date("1970-01-01T" + predTimeStr + "Z");
+				const dustTime = new Date("1970-01-01T" + dustTimeStr + "Z");
+
+				if (predTime < dustTime) {
+					predStack.shift();
+				} else {
+					break;
+				}
+			}
+
+
+			if (dustStack.length > 0) {
+				const latestDustTime = dustStack[dustStack.length - 1]?.timeHms;
+
+				while (dustStack.length > 0) {
+					const dustTime = dustStack[0]?.timeHms;
+
+					const dustDateLatest = new Date("1970-01-01T" + latestDustTime + "Z");
+					const dustDateOld = new Date("1970-01-01T" + dustTime + "Z");
+
+					const diffSec = (dustDateLatest - dustDateOld) / 1000;
+
+					if (diffSec > 30) {
+						dustStack.shift();
+					} else {
+						//console.log("dustStack size = " + dustStack.length);
+						break;
+					}
+				}
+			}
+
+			updateAirQualitySignal(dtoDust);
+
 			const dustMainChartData = {
 				timeHms: [],
 				pm1Data: [],
 				pm25Data: [],
 				pm10Data: [],
-			    codenData: [],
-  				co2denData: []
+				codenData: [],
+				co2denData: []
 			};
-			
+
 			dustStack.forEach(d => {
 				dustMainChartData.timeHms.push(d.timeHms);
 				dustMainChartData.pm1Data.push(d.pm1);
 				dustMainChartData.pm25Data.push(d.pm25);
 				dustMainChartData.pm10Data.push(d.pm10);
-				dustMainChartData.codenData.push(d.coden);   
-  				dustMainChartData.co2denData.push(d.co2den);  
+				dustMainChartData.codenData.push(d.coden);
+				dustMainChartData.co2denData.push(d.co2den);
 			});
 
 			const dustPm1ChartData = {
@@ -65,21 +125,39 @@ const getStationDust = (stId) => {
 				timeHms: dustMainChartData.timeHms,
 				pm10Data: dustMainChartData.pm10Data,
 			};
-			
+
 			const codenChartData = {
-			  timeHms: dustMainChartData.timeHms,
-			  codenData: dustMainChartData.codenData
-			};
-			
-			const co2denChartData = {
-			  timeHms: dustMainChartData.timeHms,
-			  co2denData: dustMainChartData.co2denData
+				timeHms: dustMainChartData.timeHms,
+				codenData: dustMainChartData.codenData
 			};
 
+			const co2denChartData = {
+				timeHms: dustMainChartData.timeHms,
+				co2denData: dustMainChartData.co2denData
+			};
+
+			const predPm1ChartData = {
+				timeHms: predStack.map(p => p.timeHms),
+				pm1Data: predStack.map(p => p.pm1),
+			};
+
+			const predPm25ChartData = {
+				timeHms: predStack.map(p => p.timeHms),
+				pm25Data: predStack.map(p => p.pm25),
+			};
+
+			const predPm10ChartData = {
+				timeHms: predStack.map(p => p.timeHms),
+				pm10Data: predStack.map(p => p.pm10),
+			};
+
+
 			drawDustMainEChart(dustMainChartData);
-			drawDustPm1EChart(dustPm1ChartData);
-			drawDustPm25EChart(dustPm25ChartData);
-			drawDustPm10EChart(dustPm10ChartData);
+
+			drawDustPm1EChart(dustPm1ChartData, predPm1ChartData);
+			drawDustPm25EChart(dustPm25ChartData, predPm25ChartData);
+			drawDustPm10EChart(dustPm10ChartData, predPm10ChartData);
+
 			drawCodenChart(codenChartData);
 			drawCo2denChart(co2denChartData);
 		},
@@ -90,18 +168,23 @@ const getStationDust = (stId) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-
 	setInterval(() => {
 		const selectedValue = document.getElementById('stationSelect').value;
 		getStationDust(selectedValue);
 	}, 1000);
+
+	setInterval(() => {
+		const selectedValue = document.getElementById('stationSelect').value;
+		startPredDust(selectedValue);
+	}, 5000);
+
 });
 
 // notiType에 따른 아이콘 클래스 매핑
 const iconMap = {
-  error: "bi-exclamation-triangle-fill",
-  warning: "bi-exclamation-circle-fill",
-  info: "bi-info-circle-fill"
+	error: "bi-exclamation-triangle-fill",
+	warning: "bi-exclamation-circle-fill",
+	info: "bi-info-circle-fill"
 };
 
 // 시간차 계산 함수 (현재 시간 - notiTime)

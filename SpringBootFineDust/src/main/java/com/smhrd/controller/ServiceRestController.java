@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,8 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.smhrd.config.TokenCheck;
 import com.smhrd.entity.Notification;
+import com.smhrd.entity.Pred;
 import com.smhrd.entity.Sensor;
+import com.smhrd.entity.SensorPredResponse;
 import com.smhrd.service.NotificationService;
+import com.smhrd.service.PredService;
 import com.smhrd.service.SensorService;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -31,6 +35,9 @@ public class ServiceRestController {
 	@Autowired
 	private NotificationService notifyService;
 
+	@Autowired
+	private PredService predService;
+	
     @Autowired
     private TokenCheck token;
     
@@ -88,7 +95,7 @@ public class ServiceRestController {
     }
     
     @GetMapping("/getStationDustOne")
-    public Sensor getStationOneInfo(@RequestParam int stId, HttpServletRequest request) {
+    public SensorPredResponse  getStationOneInfo(@RequestParam int stId, HttpServletRequest request) {
     	int originStId = stId;
     	stId = 1; //현재는 모든 데이터가 1번으로 저장되어 있어서 이걸로 처리'
 
@@ -98,7 +105,7 @@ public class ServiceRestController {
     	}
     	
     	Sensor snsr = snsrService.getStDustOne(stId);
-
+    	Pred pred = predService.getRecentPredByStId(originStId);
     	// 더미데이터를 불러 왔으니, 다시 stId값을 복구
     	stId = originStId;
 
@@ -107,7 +114,7 @@ public class ServiceRestController {
 //    	snsr.setPm25(50);
 //    	snsr.setPm10(10);
 //    	snsr.setCo2den(BigDecimal.valueOf(960));
-//    	snsr.setCoden(BigDecimal.valueOf(0.2));
+//    	snsr.setCoden(BigDecimal.valueOf(7.212));
     	
     	if((snsr != null) && (snsr.getPm1() != null)) {
     		if(snsr.getPm1() > 35) {
@@ -135,7 +142,7 @@ public class ServiceRestController {
     			notifyService.sendCo2Notify(stId, usrEmail, snsr.getCo2den().intValue());
     		}
     	}
-    	return snsr;
+    	return new SensorPredResponse(snsr, pred);
     }
     
     @GetMapping("/getAllNotify")
@@ -191,5 +198,45 @@ public class ServiceRestController {
                     .body(Map.of("status", "error", "message", "서버 오류 발생", "detail", e.getMessage()));
             }
     }
+    
+    @GetMapping("/weekday/{weekday}")
+    public Map<String, Object> getAvgPmByAmPm(@PathVariable String weekday) {
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        //System.out.println("weekday = " + weekday);
+        try {
+            result = snsrService.findMinuteAvgPmByDateGroupedByPeriod(weekday);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        //System.out.println("weekday = " + weekday);
+        if (result.isEmpty()) {
+            return Map.of(
+                "xLabels", List.of("AM", "PM"),
+                "amAvgPm1", 0,
+                "amAvgPm25", 0,
+                "amAvgPm10", 0,
+                "pmAvgPm1", 0,
+                "pmAvgPm25", 0,
+                "pmAvgPm10", 0
+            );
+        }
+
+        Map<String, Object> row = result.get(0);
+
+        return Map.of(
+            "xLabels", List.of("AM", "PM"),
+            "amAvgPm1", row.getOrDefault("amAvgPm1", 0),
+            "amAvgPm25", row.getOrDefault("amAvgPm25", 0),
+            "amAvgPm10", row.getOrDefault("amAvgPm10", 0),
+            "pmAvgPm1", row.getOrDefault("pmAvgPm1", 0),
+            "pmAvgPm25", row.getOrDefault("pmAvgPm25", 0),
+            "pmAvgPm10", row.getOrDefault("pmAvgPm10", 0)
+        );
+    }
+
+
 
 }

@@ -3,6 +3,7 @@ package com.smhrd.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @Entity
@@ -11,11 +12,14 @@ public class Pred {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pmId")
+    @Column(name = "pm_id")
     private int pmId;
 
-    @Column(nullable = false, name = "pmTime")
+    @Column(nullable = false, name = "pm_time")
     private LocalDateTime pmTime;
+
+    @Column(name = "time_hms")
+    private LocalTime timeHms;
     
     @Column(name = "pm1")
     private Integer pm1;

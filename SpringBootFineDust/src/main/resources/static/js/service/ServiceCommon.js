@@ -101,7 +101,7 @@ const goLogout = () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 	userNameSide = window.model?.userName || '사용자';
-	pageTitleSide = window.model?.headerText || '서비스 페이지';
+	pageTitleSide = window.model?.headerText || '서비스 페이지'; 
 
 	// --- 1. 헤더 생성 및 삽입을 먼저 수행하여 toggleSidebarBtn_2가 DOM에 존재하도록 함 ---
 	const headerHTML = `
@@ -136,67 +136,76 @@ document.addEventListener("DOMContentLoaded", () => {
 	// --- 2. 이제 헤더 버튼 요소를 가져올 수 있음 ---
 	const toggleBtn_header = document.getElementById("toggleSidebarBtn_2"); // 이제는 null이 아님!
 
-	// --- 3. 사이드바 생성 및 삽입 ---
+	// --- 3. 사이드바 생성 및 삽입 --- 
 	const sidebar = document.createElement('aside');
 	sidebar.className = 'sidebar';
-
+	
 	const sidebar_button_1 = document.createElement('div');
 	sidebar_button_1.className = 'sidebar_button_container';
 	sidebar_button_1.innerHTML = `<button id="toggleSidebarBtn" class="toggleSidebarBtn_sidebar">
-        <i class="bi bi-layout-sidebar"></i>
-    </button>`;
+	    <i class="bi bi-layout-sidebar"></i>
+	</button>`;
 	sidebar.appendChild(sidebar_button_1);
-
+	
+	const sidebarContent = document.createElement('div');
+	sidebarContent.className = 'sidebar-content';
+	sidebar.appendChild(sidebarContent);
+	
 	const logo = document.createElement('div');
 	logo.className = 'sidebar-logo';
-	logo.innerHTML = `<h3>실내공기질<br>${pageTitleSide}</h3>`;
-	sidebar.appendChild(logo);
-
+	logo.innerHTML = `실내공기질<br>${pageTitleSide}`;
+	sidebarContent.appendChild(logo);
+	
 	const profile = document.createElement('div');
 	profile.className = 'sidebar-profile';
-
+	
 	const img = document.createElement('img');
 	img.src = "./img/profile.png";
 	img.alt = "profile icon";
 	profile.appendChild(img);
-
+	
 	const welcome = document.createElement('div');
 	welcome.className = 'sidebar-welcome';
 	welcome.innerHTML = `<h5>${userNameSide}님<br>환영합니다!</h5>`;
-
+	
 	const profileWrapper = document.createElement('div');
 	profileWrapper.className = 'sidebar-profile-wrapper';
-
+	
 	const profileLink = document.createElement('a');
 	profileLink.href = '/update';
 	profileLink.style.textDecoration = 'none';
 	profileLink.style.color = 'inherit';
-
+	
 	profileLink.appendChild(profile);
 	profileLink.appendChild(welcome);
 	profileWrapper.appendChild(profileLink);
-
-	sidebar.appendChild(profileWrapper);
-
+	
+	sidebarContent.appendChild(profileWrapper);
+	
 	function goMonitoringPage() {
-		window.location.href = '/service';
+	    window.location.href = '/service';
 	}
-
+	
 	function onIndoorAirPredictClick() {
-		window.location.href = '/servicePred';
+	    window.location.href = '/servicePred';
 	}
-
+	
+	function onclickTest() {
+	    window.location.href = '/serviceTest';
+	}
+	
 	const buttons = [
-		{ text: '모니터링 시스템', onClick: goMonitoringPage },
-		{ text: '조회 시스템', onClick: onIndoorAirPredictClick }
+	    { text: '모니터링 시스템', onClick: goMonitoringPage },
+	    { text: '조회 시스템', onClick: onIndoorAirPredictClick },
+	    { text: '테스트 시스템', onClick: onclickTest }
 	];
 
 	buttons.forEach(({ text, onClick }) => {
-		const button = document.createElement('button');
-		button.className = 'sidebar-button';
-		button.textContent = text;
-		button.onclick = onClick;
-		sidebar.appendChild(button);
+	    const button = document.createElement('button');
+	    button.className = 'sidebar-button';
+	    button.textContent = text;
+	    button.onclick = onClick;
+	    sidebarContent.appendChild(button);	
 	});
 
 	const mainPage = document.querySelector('.service-main-page');
