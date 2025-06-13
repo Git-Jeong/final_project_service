@@ -31,44 +31,44 @@ const updateAirQualitySignal = (data) => {
 		if (type === 'pm1.0') {
 			if (value > 50) {
 				colorClass = 'red';
-				statusText = '매우 나쁨';
+				statusText = '매우 나쁨 ('+value +')';
 			} else if (value > 35) {
 				colorClass = 'orange';
-				statusText = '나쁨';
+				statusText = '나쁨 ('+value +')';
 			} else if (value > 15) {
 				colorClass = 'green';
-				statusText = '보통';
+				statusText = '보통 ('+value +')';
 			} else {
 				colorClass = 'blue';
-				statusText = '좋음';
+				statusText = '좋음 ('+value +')';
 			}
 		} else if (type === 'pm2.5') {
 			if (value > 75) {
 				colorClass = 'red';
-				statusText = '매우나쁨';
+				statusText = '매우나쁨 ('+value +')';
 			} else if (value > 35) {
 				colorClass = 'orange';
-				statusText = '나쁨';
+				statusText = '나쁨 ('+value +')';
 			} else if (value > 15) {
 				colorClass = 'green';
-				statusText = '보통';
+				statusText = '보통 ('+value +')';
 			} else {
 				colorClass = 'blue';
-				statusText = '좋음';
+				statusText = '좋음 ('+value +')';
 			}
 		} else if (type === 'pm10') {
 			if (value > 150) {
 				colorClass = 'red';
-				statusText = '매우 나쁨';
+				statusText = '매우 나쁨 ('+value +')';
 			} else if (value > 80) {
 				colorClass = 'orange';
-				statusText = '나쁨';
+				statusText = '나쁨 ('+value +')';
 			} else if (value > 30) {
 				colorClass = 'green';
-				statusText = '보통';
+				statusText = '보통 ('+value +')';
 			} else {
 				colorClass = 'blue';
-				statusText = '좋음';
+				statusText = '좋음 ('+value +')';
 			}
 		}
 
