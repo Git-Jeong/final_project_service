@@ -125,20 +125,24 @@ def db_test():
         )
 
     try:
-        # ✅ 요일 확인 (예: 'wednesday')
+    # ✅ 요일 확인
         weekday_eng = datetime.today().strftime('%A').lower()
         print("[요일 확인]:", weekday_eng)
+
+        # ✅ 현재 시각 구하기 (hh:mm:ss 형식)
+        current_time_str = datetime.now().strftime('%H:%M:%S')
+        print("[현재 시각 기준]:", current_time_str)
 
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor(dictionary=True, buffered=True)
 
-        # ✅ 30개 데이터 조회
+        # ✅ 현재 시간보다 이전의 600개 데이터 조회
         cursor.execute("""
             SELECT * FROM sensor
-            WHERE st_id = %s AND weekday = %s
+            WHERE st_id = %s AND weekday = %s AND time_hms <= %s
             ORDER BY time_hms DESC
             LIMIT 600
-        """, (st_id, weekday_eng))
+        """, (st_id, weekday_eng, current_time_str))
 
         results = cursor.fetchall()
         print("[쿼리 결과 개수]:", len(results))
