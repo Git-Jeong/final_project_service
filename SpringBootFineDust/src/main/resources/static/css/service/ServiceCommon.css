@@ -124,21 +124,28 @@ body {
 }
 
 /* 웹킷 브라우저 스크롤바 디자인 */
+.sidebar::-webkit-scrollbar {
+	width: 2px; /* 스크롤바 너비 */
+}
+
 .notification-dropdown::-webkit-scrollbar {
 	width: 20px; /* 스크롤바 너비 */
 }
 
+.sidebar::-webkit-scrollbar-track,
 .notification-dropdown::-webkit-scrollbar-track {
 	background: rgba(255, 255, 255, 0.5);
 	border-radius: 10px;
 }
 
+.sidebar::-webkit-scrollbar-thumb,
 .notification-dropdown::-webkit-scrollbar-thumb {
 	background: rgba(0, 0, 0, 0.2);
 	border-radius: 10px;
 	transition: background-color 0.3s;
 }
 
+.sidebar::-webkit-scrollbar-thumb:hover,
 .notification-dropdown::-webkit-scrollbar-thumb:hover {
 	background: rgba(255, 255, 255, 0.7);
 }
