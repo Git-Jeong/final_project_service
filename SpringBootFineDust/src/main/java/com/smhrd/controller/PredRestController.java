@@ -19,7 +19,7 @@ import com.smhrd.service.PredService;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
-public class PredController {
+public class PredRestController {
 
 	@Autowired
 	private PredService flaskService;

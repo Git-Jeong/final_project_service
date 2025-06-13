@@ -7,20 +7,35 @@ const resetDustStack = () => {
 	dustStack.length = 0;
 }
 
-const getPredDust = (stId) => {
-	$.ajax({
-		url: "",
-		type: "get",
-		data: { "stId": stId },
-		success: function() {
-
-		},
-		error: function(err) {
-			console.error("데이터 불러오기 실패:", err);
-		}
-	});
+const startPredDust = (stId) => {
+    $.ajax({
+        url: "savePred",
+        type: "post",
+        data: JSON.stringify(stId),
+        contentType: "application/json",
+        success: function() {
+			getPredDust(stId);
+        },
+        error: function(err) {
+            console.error("데이터 불러오기 실패:", err);
+        }
+    });
 }
 
+const getPredDust = (stId) => {
+    $.ajax({
+        url: "getPred",
+        type: "post",
+        data: JSON.stringify(stId),
+        contentType: "application/json",
+        success: function(data) {
+            console.log("데이터 불러오기 성공:", data);
+        },
+        error: function(err) {
+            console.error("데이터 불러오기 실패:", err);
+        }
+    });
+}
 // 데이터 불러오는 함수
 const getStationDust = (stId) => {
 	$.ajax({
@@ -105,11 +120,16 @@ const getStationDust = (stId) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-
 	setInterval(() => {
 		const selectedValue = document.getElementById('stationSelect').value;
 		getStationDust(selectedValue);
 	}, 1000);
+
+	setInterval(() => {
+		const selectedValue = document.getElementById('stationSelect').value;
+		startPredDust(selectedValue);
+	}, 5000);
+
 });
 
 // notiType에 따른 아이콘 클래스 매핑
