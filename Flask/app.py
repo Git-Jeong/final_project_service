@@ -114,7 +114,7 @@ def dustPred(sensor_results):
 @app.route('/flask-station-db-test', methods=['GET'])
 def db_test():
     st_id = request.args.get('st_id')
-# http://127.0.0.1:5000/flask-station-db-test
+# http://127.0.0.1:5000/flask-station-db-test?st_id=1
     try:
         st_id = int(st_id)      #st_id = 1 로 고정정
     except Exception as e:

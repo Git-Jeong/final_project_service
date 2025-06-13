@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.smhrd.config.TokenCheck;
 import com.smhrd.entity.Notification;
 import com.smhrd.entity.Sensor;
-import com.smhrd.repository.SensorRepository;
 import com.smhrd.service.NotificationService;
 import com.smhrd.service.SensorService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -109,7 +108,7 @@ public class ServiceRestController {
 //    	snsr.setPm25(50);
 //    	snsr.setPm10(10);
 //    	snsr.setCo2den(BigDecimal.valueOf(960));
-//    	snsr.setCoden(BigDecimal.valueOf(0.2));
+//    	snsr.setCoden(BigDecimal.valueOf(7.212));
     	
     	if((snsr != null) && (snsr.getPm1() != null)) {
     		if(snsr.getPm1() > 35) {
@@ -194,30 +193,42 @@ public class ServiceRestController {
             }
     }
 
-   
-
-    @GetMapping("/{weekday}")
+    @GetMapping("/weekday/{weekday}")
     public Map<String, Object> getAvgPmByAmPm(@PathVariable String weekday) {
-        List<Map<String, Object>> result;
-		try {
-			result = SensorRepository.findMinuteAvgPmByDateGroupedByPeriod(weekday);
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-		}
-        
-        if (result.isEmpty()) return Map.of(); // 결과 없을 경우
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        System.out.println("weekday = " + weekday);
+        try {
+            result = snsrService.findMinuteAvgPmByDateGroupedByPeriod(weekday);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        System.out.println("weekday = " + weekday);
+        if (result.isEmpty()) {
+            return Map.of(
+                "xLabels", List.of("AM", "PM"),
+                "amAvgPm1", 0,
+                "amAvgPm25", 0,
+                "amAvgPm10", 0,
+                "pmAvgPm1", 0,
+                "pmAvgPm25", 0,
+                "pmAvgPm10", 0
+            );
+        }
 
         Map<String, Object> row = result.get(0);
 
         return Map.of(
-                "xLabels", List.of("AM", "PM"),
-                "amAvgPm1", row.get("amAvgPm1"),
-                "amAvgPm25", row.get("amAvgPm25"),
-                "amAvgPm10", row.get("amAvgPm10"),
-                "pmAvgPm1", row.get("pmAvgPm1"),
-                "pmAvgPm25", row.get("pmAvgPm25"),
-                "pmAvgPm10", row.get("pmAvgPm10")
+            "xLabels", List.of("AM", "PM"),
+            "amAvgPm1", row.getOrDefault("amAvgPm1", 0),
+            "amAvgPm25", row.getOrDefault("amAvgPm25", 0),
+            "amAvgPm10", row.getOrDefault("amAvgPm10", 0),
+            "pmAvgPm1", row.getOrDefault("pmAvgPm1", 0),
+            "pmAvgPm25", row.getOrDefault("pmAvgPm25", 0),
+            "pmAvgPm10", row.getOrDefault("pmAvgPm10", 0)
         );
-}
+    }
+
 }

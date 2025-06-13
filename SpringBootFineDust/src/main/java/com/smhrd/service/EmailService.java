@@ -46,7 +46,7 @@ public class EmailService {
     
     public void sendVerificationCode(String usrEmail) {
         String code = generateCode();
-        System.out.println("code = " + code);
+        //System.out.println("code = " + code);
         String htmlContent = String.format(
         	    "<html><body style='margin:0; padding:0; font-family: Arial, sans-serif; background-color: #f4f4f4;'>"
         	    + "<table align='center' width='100%%' style='max-width:600px;'>"

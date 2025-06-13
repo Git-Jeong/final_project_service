@@ -56,7 +56,6 @@ function renderCalendar(date) {
 
 					// 다른 날짜 클릭했거나 처음 열 때는 => 열기 + 데이터 갱신
 					lastClickedDate = dateStr;
-
 					fetch(`/dust-data/${dateStr}`)
 						.then(res => res.json())
 						.then(data => {

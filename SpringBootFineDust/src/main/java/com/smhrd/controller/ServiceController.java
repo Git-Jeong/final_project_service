@@ -29,7 +29,9 @@ public class ServiceController {
 
         String usrEmail = token.extractUserFromJwt(request);
         String userName = token.getNameFromJwt(request);
-
+        
+//        System.out.println("userName = " + userName);
+        
         ArrayList<Station> stationList = (ArrayList<Station>) stService.getStInfo(usrEmail);
 
         //model.addAttribute("usrEmail", usrEmail);

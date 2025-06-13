@@ -9,7 +9,7 @@
 	flex-direction: row;
 	gap: 1rem;
 	height: 40vh;
-	min-height: 150px;
+	min-height: 300px;
 	max-height: 700px;
 	min-width: 800px;
 	margin-left: auto;
@@ -20,7 +20,7 @@
 	flex: 3;
 	min-width: 400px;
 	width: 60vw;
-	min-height: 150px;
+	min-height: 300px;
 	height: 40vh;
 	max-height: 700px;
 	background-color: #f2f2f2;
@@ -35,7 +35,7 @@
 	display: flex;
 	grid-gap: 10px;
 	flex-direction: column;
-	min-height: 150px;
+	min-height: 300px;
 	height: 40vh;
 	max-height: 700px;
 	min-width: 200px;
@@ -87,12 +87,11 @@
 .serviceChart-pmbold li {
 	display: flex;
 	align-items: center;
-	gap: 8px; /* 요소 간 간격 */
+	gap: clamp(3px, 1.9vw, 8px);; /* 요소 간 간격 */
 } 
 
 .serviceChart-pmbold-mid {
-	margin-left: 10px;
-	min-width: 70px;
+	min-width: calc(1em * 4); /* 글자 수 기반 유동 설정 */
 	flex-shrink: 0; /* 줄어들지 않게 고정 */
 }
 
@@ -153,8 +152,8 @@
 .serviceChart-chart-bottom {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 1rem;
 	margin-top: 20px;
+	gap : 1rem;
 }
 
 .serviceChart-box{
@@ -181,7 +180,8 @@
 	.serviceChart-chart-top {
 		flex-direction: column;
 		min-width: none;
-		height: 60vh;
+		min-height : 650px;
+		height: 100vh;
 		display: flex;
 	}
 	.serviceChart-chart-top-left {
@@ -200,6 +200,12 @@
 	}
 	.serviceChart-sidebar {
 		display: none;
+	}
+	.serviceChart-chart-bottom {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin-top: 1rem; 
 	}
 }
 
