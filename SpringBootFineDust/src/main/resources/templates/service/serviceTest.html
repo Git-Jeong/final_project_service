@@ -66,17 +66,18 @@ window.model = {
 	
 	<script type="text/javascript">
 	const startPred = (stId) => {
-		$.ajax({
-			url: "savePred",
-			type: "post",
-			data: { "stId": stId },
-			success: function(data) {
-				console.log(data);
-			},
-			error: function(err) {
-				console.error("데이터 불러오기 실패:", err);
-			}
-		});
+	    $.ajax({
+	        url: "savePred",
+	        type: "post",
+	        data: JSON.stringify(stId),
+	        contentType: "application/json",  // 중요!
+	        success: function(data) {
+	            console.log(data);
+	        },
+	        error: function(err) {
+	            console.error("데이터 불러오기 실패:", err);
+	        }
+	    });
 	}
 	</script>
 </body>

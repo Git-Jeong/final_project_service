@@ -30,6 +30,7 @@ public class PredController {
 	// Flask 연동 및 Pred 저장 컨트롤러 구현
 	@PostMapping("/savePred")
 	public boolean startPred(@RequestBody int stId, HttpServletRequest request) {
+		System.out.println("savePred = " + stId);
 		int originStId = stId;
 		stId= 1;
 		
@@ -37,8 +38,8 @@ public class PredController {
         if(usrEmail == null) {
             return false;  // null 대신 빈 리스트 반환 권장
         }
-	    try {
-	        String flaskUrl = "http://localhost:5000/flask-station-db-test?st_id=" + stId;
+	    try { //127.0.0.1:5000
+	        String flaskUrl = "http://127.0.0.1:5000/flask-station-db-test?st_id=" + stId;
 	        RestTemplate restTemplate = new RestTemplate();
 
 	        ResponseEntity<Object> response = restTemplate.getForEntity(flaskUrl, Object.class);
