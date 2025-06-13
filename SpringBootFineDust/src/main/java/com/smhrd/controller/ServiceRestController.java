@@ -197,7 +197,7 @@ public class ServiceRestController {
     public Map<String, Object> getAvgPmByAmPm(@PathVariable String weekday) {
         List<Map<String, Object>> result = new ArrayList<>();
 
-        System.out.println("weekday = " + weekday);
+        //System.out.println("weekday = " + weekday);
         try {
             result = snsrService.findMinuteAvgPmByDateGroupedByPeriod(weekday);
         } catch (Exception e) {
