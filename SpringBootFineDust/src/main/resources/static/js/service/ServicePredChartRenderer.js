@@ -20,12 +20,12 @@ function drawAmPmAvgChart({
     xAxis: { type: 'category', data: xLabels },
     yAxis: { type: 'value', name: '㎍/㎥' },
     series: [
-      { name: 'PM1 (AM)', type: 'bar', data: amAvgPm1, itemStyle: { color: '#FF6B6B' }},
-      { name: 'PM2.5 (AM)', type: 'bar', data: amAvgPm25, itemStyle: { color: '#4ECDC4' }},
-      { name: 'PM10 (AM)', type: 'bar', data: amAvgPm10, itemStyle: { color: '#1A535C' }},
-      { name: 'PM1 (PM)', type: 'bar', data: pmAvgPm1, itemStyle: { color: '#FFB400' }},
-      { name: 'PM2.5 (PM)', type: 'bar', data: pmAvgPm25, itemStyle: { color: '#00A8E8' }},
-      { name: 'PM10 (PM)', type: 'bar', data: pmAvgPm10, itemStyle: { color: '#4D4D4D' }}
+      { name: 'PM1 (AM)', type: 'bar', data: [amAvgPm1, amAvgPm1], itemStyle: { color: '#FF6B6B' }},
+      { name: 'PM2.5 (AM)', type: 'bar', data: [amAvgPm25, amAvgPm25], itemStyle: { color: '#4ECDC4' }},
+      { name: 'PM10 (AM)', type: 'bar', data: [amAvgPm10, amAvgPm10], itemStyle: { color: '#1A535C' }},
+      { name: 'PM1 (PM)', type: 'bar', data: [pmAvgPm1, pmAvgPm1], itemStyle: { color: '#FFB400' }},
+      { name: 'PM2.5 (PM)', type: 'bar', data: [pmAvgPm25, pmAvgPm25], itemStyle: { color: '#00A8E8' }},
+      { name: 'PM10 (PM)', type: 'bar', data: [pmAvgPm10, pmAvgPm10], itemStyle: { color: '#4D4D4D' }}
     ]
   };
 
