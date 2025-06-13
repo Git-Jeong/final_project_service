@@ -345,7 +345,7 @@ const drawDustPm1EChart = (snsr, pred) => {
 	pm1EChart.resize();
 };
 
-const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
+const drawDustPm25EChart = (snsr, pred) => {
 	const container = document.getElementById('mini-pm25-chart');
 	if (!container) return;
 
@@ -353,12 +353,45 @@ const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
 		pm25EChart = echarts.init(container);
 	}
 
+	const today = new Date().toISOString().split('T')[0];
+
+	const snsrSeriesRaw = snsr.timeHms.map((t, i) => ({
+		value: [`${today}T${t}`, snsr.pm25Data[i]]
+	}));
+	const predSeriesRaw = pred.timeHms.map((t, i) => ({
+		value: [`${today}T${t}`, pred.pm25Data[i]]
+	}));
+
+	// 각 시리즈 최소 시간
+	const snsrMinTime = snsrSeriesRaw.length ? new Date(snsrSeriesRaw[0].value[0]) : null;
+	const predMinTime = predSeriesRaw.length ? new Date(predSeriesRaw[0].value[0]) : null;
+
+	// 전체 x축 최소값: 두 최소값 중 빠른 시간
+	const minTimeCandidates = [snsrMinTime, predMinTime].filter(t => t !== null);
+	const xMinTime = new Date(Math.min(...minTimeCandidates));
+
+	// y축 시작값: 각각 첫 값
+	const snsrYStart = snsr.pm25Data.length ? snsr.pm25Data[0] : null;
+	const predYStart = pred.pm25Data.length ? pred.pm25Data[0] : null;
+
+	// 시리즈별 빈 공간 채우기 함수
+	const fillSeriesStart = (series, seriesMinTime, yStart) => {
+		const filled = [];
+		if (!seriesMinTime || !yStart) return series;
+		if (seriesMinTime > xMinTime) {
+			// xMinTime 시점에 yStart 값 추가
+			filled.push({ value: [xMinTime.toISOString(), yStart] });
+		}
+		return filled.concat(series);
+	};
+
+	const snsrSeries = fillSeriesStart(snsrSeriesRaw, snsrMinTime, snsrYStart);
+	const predSeries = fillSeriesStart(predSeriesRaw, predMinTime, predYStart);
+
 	const option = {
-		tooltip: {
-			trigger: 'axis'
-		},
+		tooltip: { trigger: 'axis' },
 		title: {
-			text: `${pm25Data.at(-1)} ㎍/㎥`,
+			text: `${snsr.pm25Data.at(-1)} ㎍/㎥`,
 			right: 10,
 			top: 0,
 			textStyle: {
@@ -366,11 +399,20 @@ const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
 				color: '#333'
 			}
 		},
+	    legend: {
+	        left: 'center',
+	        top: 'top'
+	    },
 		xAxis: {
-			type: 'category',
-			data: timeHms,
-			boundaryGap: false,
-			axisLine: { onZero: false }
+			type: 'time',
+			min: xMinTime,
+			axisLabel: {
+				formatter: value => {
+					const date = new Date(value);
+					const sec = date.getSeconds();
+					return sec % 10 === 0 ? date.toTimeString().slice(0, 8) : '';
+				}
+			}
 		},
 		yAxis: {
 			type: 'value',
@@ -382,21 +424,32 @@ const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
 			bottom: 20,
 			top: 30
 		},
-		series: [{
-			name: 'PM2.5',
-			type: 'line',
-			data: pm25Data,
-			smooth: true,
-			itemStyle: { color: '#4169E1' }
-		}]
+		series: [
+			{
+				name: 'PM2.5 측정',
+				type: 'line',
+				data: snsrSeries,
+				smooth: true,
+				showSymbol: true,
+				itemStyle: { color: '#8e44ad' }
+			},
+			{
+				name: 'PM2.5 예측',
+				type: 'line',
+				data: predSeries,
+				smooth: true,
+				showSymbol: true,
+				itemStyle: { color: '#3498db' },
+				lineStyle: { type: 'dashed' }
+			}
+		]
 	};
 
 	pm25EChart.setOption(option);
 	pm25EChart.resize();
-}
+};
 
-
-const drawDustPm10EChart = ({ timeHms, pm10Data }) => {
+const drawDustPm10EChart = (snsr, pred) => {
 	const container = document.getElementById('mini-pm10-chart');
 	if (!container) return;
 
@@ -404,12 +457,45 @@ const drawDustPm10EChart = ({ timeHms, pm10Data }) => {
 		pm10EChart = echarts.init(container);
 	}
 
+	const today = new Date().toISOString().split('T')[0];
+
+	const snsrSeriesRaw = snsr.timeHms.map((t, i) => ({
+		value: [`${today}T${t}`, snsr.pm10Data[i]]
+	}));
+	const predSeriesRaw = pred.timeHms.map((t, i) => ({
+		value: [`${today}T${t}`, pred.pm10Data[i]]
+	}));
+
+	// 각 시리즈 최소 시간
+	const snsrMinTime = snsrSeriesRaw.length ? new Date(snsrSeriesRaw[0].value[0]) : null;
+	const predMinTime = predSeriesRaw.length ? new Date(predSeriesRaw[0].value[0]) : null;
+
+	// 전체 x축 최소값: 두 최소값 중 빠른 시간
+	const minTimeCandidates = [snsrMinTime, predMinTime].filter(t => t !== null);
+	const xMinTime = new Date(Math.min(...minTimeCandidates));
+
+	// y축 시작값: 각각 첫 값
+	const snsrYStart = snsr.pm10Data.length ? snsr.pm10Data[0] : null;
+	const predYStart = pred.pm10Data.length ? pred.pm10Data[0] : null;
+
+	// 시리즈별 빈 공간 채우기 함수
+	const fillSeriesStart = (series, seriesMinTime, yStart) => {
+		const filled = [];
+		if (!seriesMinTime || !yStart) return series;
+		if (seriesMinTime > xMinTime) {
+			// xMinTime 시점에 yStart 값 추가
+			filled.push({ value: [xMinTime.toISOString(), yStart] });
+		}
+		return filled.concat(series);
+	};
+
+	const snsrSeries = fillSeriesStart(snsrSeriesRaw, snsrMinTime, snsrYStart);
+	const predSeries = fillSeriesStart(predSeriesRaw, predMinTime, predYStart);
+
 	const option = {
-		tooltip: {
-			trigger: 'axis'
-		},
+		tooltip: { trigger: 'axis' },
 		title: {
-			text: `${pm10Data.at(-1)} ㎍/㎥`,
+			text: `${snsr.pm10Data.at(-1)} ㎍/㎥`,
 			right: 10,
 			top: 0,
 			textStyle: {
@@ -417,11 +503,20 @@ const drawDustPm10EChart = ({ timeHms, pm10Data }) => {
 				color: '#333'
 			}
 		},
+	    legend: {
+	        left: 'center',
+	        top: 'top'
+	    },
 		xAxis: {
-			type: 'category',
-			data: timeHms,
-			boundaryGap: false,
-			axisLine: { onZero: false }
+			type: 'time',
+			min: xMinTime,
+			axisLabel: {
+				formatter: value => {
+					const date = new Date(value);
+					const sec = date.getSeconds();
+					return sec % 10 === 0 ? date.toTimeString().slice(0, 8) : '';
+				}
+			}
 		},
 		yAxis: {
 			type: 'value',
@@ -433,78 +528,85 @@ const drawDustPm10EChart = ({ timeHms, pm10Data }) => {
 			bottom: 20,
 			top: 30
 		},
-		series: [{
-			name: 'PM10',
-			type: 'line',
-			data: pm10Data,
-			smooth: true,
-			itemStyle: { color: '#DE2AA6' }
-		}]
+		series: [
+			{
+				name: 'PM10 측정',
+				type: 'line',
+				data: snsrSeries,
+				smooth: true,
+				showSymbol: true,
+				itemStyle: { color: '#8e44ad' }
+			},
+			{
+				name: 'PM10 예측',
+				type: 'line',
+				data: predSeries,
+				smooth: true,
+				showSymbol: true,
+				itemStyle: { color: '#3498db' },
+				lineStyle: { type: 'dashed' }
+			}
+		]
 	};
 
 	pm10EChart.setOption(option);
 	pm10EChart.resize();
-}
+};
 
-const drawCodenChart = (codenChartData) => {
-	const container = document.getElementById('mini-co-chart');
-	if (!container) return;
+const drawCodenChart = ({ timeHms, codenData }) => {
+  const container = document.getElementById('mini-co-chart');
+  if (!container) return;
 
-	if (!codenEChart) {
-		codenEChart = echarts.init(container);
-	}
+  if (!codenEChart) {
+    codenEChart = echarts.init(container);
+  }
 
-	const option = {
-		tooltip: {
-			trigger: 'axis'
-		},
-		title: {
-			text: `${codenChartData.codenData.at(-1).toFixed(2)} ppm`,
-			right: 10,
-			top: 0,
-			textStyle: {
-				fontSize: 14,
-				color: '#333'
-			}
-		},
-		xAxis: {
-			type: 'category',
-			data: codenChartData.timeHms,
-			boundaryGap: false,
-			axisLine: { onZero: false }
-		},
-		yAxis: {
-			type: 'value',
-			name: 'ppm',
-			min: parseFloat((Math.max(0, Math.min(...codenChartData.codenData) - 0.1)).toFixed(1))
-		},
-		grid: {
-			left: 40,
-			right: 30,
-			bottom: 20,
-			top: 30
-		},
-		series: [{
-			name: 'CO',
-			type: 'line',
-			smooth: true,
-			data: codenChartData.codenData,
-			lineStyle: {
-				color: '#2fd093'
-			},
-			areaStyle: {
-				color: 'rgba(47, 208, 147, 0.2)'
-			},
-			itemStyle: {
-				color: '#2fd093'
-			}
-		}]
-	};
+  const today = new Date().toISOString().split('T')[0];
+  const seriesData = timeHms.map((t, i) => ({
+    value: [`${today}T${t}`, codenData[i]]
+  }));
 
-	codenEChart.setOption(option);
-	codenEChart.resize();
-}
+  const option = {
+    tooltip: { trigger: 'axis' },
+    title: {
+      text: `${codenData.at(-1).toFixed(2)} ppm`,
+      right: 10,
+      top: 0,
+      textStyle: { fontSize: 14, color: '#333' }
+    },
+    legend: { left: 'left', top: 'top' },
+    xAxis: {
+      type: 'time',
+      axisLabel: {
+        formatter: value => {
+          const date = new Date(value);
+          const sec = date.getSeconds();
+          return sec % 10 === 0 ? date.toTimeString().slice(0, 8) : '';
+        }
+      },
+      boundaryGap: false
+    },
+    yAxis: {
+      type: 'value',
+      name: 'ppm',
+      min: parseFloat((Math.max(0, Math.min(...codenData) - 0.1)).toFixed(1))
+    },
+    grid: { left: 40, right: 30, bottom: 20, top: 30 },
+    series: [{
+      name: 'CO',
+      type: 'line',
+      smooth: true,
+      data: seriesData,
+      lineStyle: { color: '#2fd093' },
+      areaStyle: { color: 'rgba(47, 208, 147, 0.2)' },
+      itemStyle: { color: '#2fd093' },
+      showSymbol: true
+    }]
+  };
 
+  codenEChart.setOption(option);
+  codenEChart.resize();
+};
 
 const drawCo2denChart = (co2denChartData) => {
 	const container = document.getElementById('mini-co2-chart');
