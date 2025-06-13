@@ -205,7 +205,7 @@ public class ServiceRestController {
         }
 
 
-        System.out.println("weekday = " + weekday);
+        //System.out.println("weekday = " + weekday);
         if (result.isEmpty()) {
             return Map.of(
                 "xLabels", List.of("AM", "PM"),

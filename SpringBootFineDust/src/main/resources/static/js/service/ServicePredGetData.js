@@ -118,6 +118,7 @@ console.log("barChartSho = " + weekday); // 예: Monday
 				return;
 			}
 			// 차트 렌더링
+			console.log(data);
 			drawAmPmAvgChart(data);
 			
 		},
