@@ -364,6 +364,7 @@ body {
   padding: 0 1rem;
   height: 100%;
   overflow: auto;
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .sidebar-logo, .sidebar-welcome {
@@ -397,6 +398,7 @@ body {
 	margin: 0.25rem 0;
 	background-color: #4A90E2;
 	color: white;
+	font-weight : bold;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
