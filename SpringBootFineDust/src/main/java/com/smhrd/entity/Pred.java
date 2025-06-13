@@ -11,10 +11,10 @@ public class Pred {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pmId")
+    @Column(name = "pm_id")
     private int pmId;
 
-    @Column(nullable = false, name = "pmTime")
+    @Column(nullable = false, name = "pm_time")
     private LocalDateTime pmTime;
     
     @Column(name = "pm1")

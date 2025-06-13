@@ -2,9 +2,9 @@ package com.smhrd.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpStatus; 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -18,7 +18,7 @@ import com.smhrd.service.PredService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-@Controller
+@RestController
 public class PredController {
 
 	@Autowired
@@ -30,7 +30,6 @@ public class PredController {
 	// Flask 연동 및 Pred 저장 컨트롤러 구현
 	@PostMapping("/savePred")
 	public boolean startPred(@RequestBody int stId, HttpServletRequest request) {
-		System.out.println("savePred = " + stId);
 		int originStId = stId;
 		stId= 1;
 		

@@ -13,7 +13,8 @@ window.model = {
 </script>
 <!-- ApexCharts 및 Vue -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 <script src="/js/service/ServiceMainChartRenderer.js"></script>
 <script src="/js/service/ServicePredGetData.js"></script>
 <script src="/js/service/ServiceCommon.js"></script>
@@ -38,13 +39,12 @@ window.model = {
 </head>
 <body>
 	<div style="display: none">
-	  <select id="stationSelect" class="serviceChart-select">
-	    <th:block th:each="station : ${stationList}">
-	      <option th:if="${!#strings.isEmpty(station.stName_1)}"
-	              th:value="${station.stId}"
-	              th:text="${station.stName_1}"></option>
-	    </th:block>
-	  </select>
+		<select id="stationSelect" class="serviceChart-select">
+			<th:block th:each="station : ${stationList}">
+				<option th:if="${!#strings.isEmpty(station.stName_1)}"
+					th:value="${station.stId}" th:text="${station.stName_1}"></option>
+			</th:block>
+		</select>
 	</div>
 	<div class="service-main-page">
 		<div id="sidebar-container"></div>
@@ -57,28 +57,39 @@ window.model = {
 				<!-- 여기까지 실제 DB에서 데이터를 불러와서 출럭을 해야 됨. 즉 db에 값이 있으면 위의 코드를 반복하는 것 -->
 				<!-- js를 통해 여기에 알림 베너를 만들어 둠. -->
 			</div>
-			<div>ServiceController에 GetController 있으니까 이거 삭제시 해당 컨트롤러에서 기능도 삭제 필요</div>
+			<div>ServiceController에 GetController 있으니까 이거 삭제시 해당 컨트롤러에서 기능도
+				삭제 필요</div>
 			<button th:onclick="'startPred(' + ${stationList[0].stId} + ')'">Start</button>
+			<input id="stationIdInput" th:value="${stationList[0].stId}"
+				type="hidden">
 
-			
 		</main>
 	</div>
-	
+
 	<script type="text/javascript">
-	const startPred = (stId) => {
-	    $.ajax({
-	        url: "savePred",
-	        type: "post",
-	        data: JSON.stringify(stId),
-	        contentType: "application/json",  // 중요!
-	        success: function(data) {
-	            console.log(data);
-	        },
-	        error: function(err) {
-	            console.error("데이터 불러오기 실패:", err);
-	        }
-	    });
-	}
-	</script>
+const startPred = (stId) => {
+    $.ajax({
+        url: "savePred",
+        type: "post",
+        data: JSON.stringify(stId),
+        contentType: "application/json",
+        success: function(data) {
+            console.log("예측 요청 성공:", data);
+        },
+        error: function(err) {
+            console.error("데이터 불러오기 실패:", err);
+        }
+    });
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+    const stId = document.getElementById("stationIdInput").value;
+    setInterval(() => {
+        startPred(stId);
+    }, 6000);
+});
+</script>
+
+
 </body>
 </html>
