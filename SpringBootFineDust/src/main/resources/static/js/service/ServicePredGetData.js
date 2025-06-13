@@ -102,11 +102,10 @@
 })();
 
 $(document).ready(function() {
-	/*
-		이거 에러나요
+	
 	const weekday = new Date().toLocaleDateString('en-US', { weekday: 'long' });
 	$.ajax({
-		url: `/dust-data/${weekday}`,
+		url: `/weekday/${weekday}`,
 		type: "GET",
 		success: function(data) {
 			if (!data || !data.xLabels) {
@@ -121,7 +120,5 @@ $(document).ready(function() {
 			console.error("데이터 요청 실패", err);
 		}
 	});
-	 */
+	 
 });
-
-
