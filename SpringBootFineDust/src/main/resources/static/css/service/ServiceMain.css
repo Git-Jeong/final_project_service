@@ -87,12 +87,11 @@
 .serviceChart-pmbold li {
 	display: flex;
 	align-items: center;
-	gap: 8px; /* 요소 간 간격 */
+	gap: clamp(3px, 1.9vw, 8px);; /* 요소 간 간격 */
 } 
 
 .serviceChart-pmbold-mid {
-	margin-left: 10px;
-	min-width: 70px;
+	min-width: calc(1em * 4); /* 글자 수 기반 유동 설정 */
 	flex-shrink: 0; /* 줄어들지 않게 고정 */
 }
 
