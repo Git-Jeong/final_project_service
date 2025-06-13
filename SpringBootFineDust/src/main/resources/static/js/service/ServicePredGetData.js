@@ -101,8 +101,8 @@
 	};
 })();
 
-$(document).ready(function() {
-	
+const barChartSho = () => {
+
 	const weekday = new Date().toLocaleDateString('en-US', { weekday: 'long' });
 	$.ajax({
 		url: `/weekday/${weekday}`,
@@ -113,12 +113,13 @@ $(document).ready(function() {
 				return;
 			}
 
-			// 
-			drawAmPmAvgChart(data);
+			// 여기에 차트 렌더링 코드 작성
+
 		},
 		error: function(err) {
 			console.error("데이터 요청 실패", err);
 		}
 	});
-	 
-});
+
+}; // barChartSho 함수 닫기
+
