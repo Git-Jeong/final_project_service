@@ -1,6 +1,7 @@
 package com.smhrd.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.smhrd.config.TokenCheck;
 import com.smhrd.entity.Pred;
 import com.smhrd.service.FlaskService;
 
@@ -25,11 +26,18 @@ public class FlaskApiController {
 
 	@Autowired
 	private FlaskService flaskService;
-	
+
+    @Autowired
+    private TokenCheck token;
+    
 	// Flask 연동 및 Pred 저장 컨트롤러 구현
 
 	@PostMapping("/savePred")
 	public boolean startPred(@RequestBody int stId, HttpServletRequest request) {
+        String usrEmail = token.extractUserFromJwt(request);
+        if(usrEmail == null) {
+            return false;  // null 대신 빈 리스트 반환 권장
+        }
 	    try {
 	        String flaskUrl = "http://localhost:5000/flask-station-db-test?st_id=" + stId;
 	        RestTemplate restTemplate = new RestTemplate();
@@ -62,6 +70,10 @@ public class FlaskApiController {
 	
 	@PostMapping("/getPred")
 	public List<Pred> getPred(@RequestBody int stId, HttpServletRequest request) {
+        String usrEmail = token.extractUserFromJwt(request);
+        if(usrEmail == null) {
+            return Collections.emptyList();  // null 대신 빈 리스트 반환 권장
+        }
 	    return flaskService.getRecentPredsByStId(stId);
 	}
 

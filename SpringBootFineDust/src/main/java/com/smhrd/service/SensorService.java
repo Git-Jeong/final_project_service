@@ -20,9 +20,6 @@ public class SensorService {
 	@Autowired
 	private SensorRepository snsrRepository;
 
-	@Autowired
-	private PredRepository prRepository;
-
 	public ArrayList<Sensor> getStDust(int stId) {
 		LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
 		String weekday = now.getDayOfWeek().toString(); // 예: MONDAY
@@ -40,23 +37,6 @@ public class SensorService {
 
 		return snsrRepository.findTop1ByStIdAndWeekdayAndTimeHmsLessThanEqualOrderByTimeHmsDesc(
 			stId, weekday, timeHms
-		);
-	}
-	
-
-	// 현재 시각 기준, 과거(이전 또는 같은 시각)의 예측 정보 10개 조회 (최근 → 과거 순)
-	public ArrayList<Pred> getPastPredInfo(int stId) {
-		LocalDateTime pmTime = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
-		return prRepository.findTop10ByStIdAndPmTimeLessThanEqualOrderByPmTimeDesc(
-				stId, pmTime
-		);
-	}
-
-	// 현재 시각 기준, 미래(같거나 이후 시각)의 예측 정보 10개 조회 (가까운 미래 → 먼 미래 순)
-	public ArrayList<Pred> getFuturePredInfo(int stId) {
-		LocalDateTime pmTime = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
-		return prRepository.findTop10ByStIdAndPmTimeGreaterThanEqualOrderByPmTimeAsc(
-				stId, pmTime
 		);
 	}
 
