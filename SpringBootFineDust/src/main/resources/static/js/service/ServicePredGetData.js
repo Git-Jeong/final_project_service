@@ -1,53 +1,53 @@
-(() => {
-	let dustStack = [];
-	const stackSize = 1;
 
-	const getStationOneDust = (stId) => {
-		$.ajax({
-			url: "getStationDustOne",
-			type: "get",
-			data: { stId },
-			success: function(data) {
-				const dto = Array.isArray(data) ? data[0] : data;
-				dustStack.push(dto);
-				if (dustStack.length > stackSize) dustStack.shift();
-			},
-			error: function(err) {
-				console.error("데이터 불러오기 실패:", err);
-			}
-		});
-	};
+let dustStack = [];
+const stackSize = 1;
 
-	// notiType에 따른 아이콘 클래스 매핑
-	const iconMap = {
-		error: "bi-exclamation-triangle-fill",
-		warning: "bi-exclamation-circle-fill",
-		info: "bi-info-circle-fill"
-	};
+const getStationOneDust = (stId) => {
+	$.ajax({
+		url: "getStationDustOne",
+		type: "get",
+		data: { stId },
+		success: function(data) {
+			const dto = Array.isArray(data) ? data[0] : data;
+			dustStack.push(dto);
+			if (dustStack.length > stackSize) dustStack.shift();
+		},
+		error: function(err) {
+			console.error("데이터 불러오기 실패:", err);
+		}
+	});
+};
 
-
-	// 시간차 계산 함수 (현재 시간 - notiTime)
-	function timeAgo(notiTime) {
-		const now = new Date();
-		const past = new Date(notiTime);
-		const diffMs = now - past;
-		const diffMinutes = Math.floor(diffMs / 1000 / 60);
-
-		if (diffMinutes < 1) return "방금 전";
-		if (diffMinutes < 60) return `${diffMinutes}분 전`;
-		const diffHours = Math.floor(diffMinutes / 60);
-		if (diffHours < 24) return `${diffHours}시간 전`;
-		const diffDays = Math.floor(diffHours / 24);
-		return `${diffDays}일 전`;
-	}
+// notiType에 따른 아이콘 클래스 매핑
+const iconMap = {
+	error: "bi-exclamation-triangle-fill",
+	warning: "bi-exclamation-circle-fill",
+	info: "bi-info-circle-fill"
+};
 
 
-	// 외부 접근용 함수로 전역에 할당
-	window.renderNotifications = function(notifications) {
-		const container = $("#notificationDropdown");
-		container.empty();
+// 시간차 계산 함수 (현재 시간 - notiTime)
+function timeAgo(notiTime) {
+	const now = new Date();
+	const past = new Date(notiTime);
+	const diffMs = now - past;
+	const diffMinutes = Math.floor(diffMs / 1000 / 60);
 
-		container.append(`
+	if (diffMinutes < 1) return "방금 전";
+	if (diffMinutes < 60) return `${diffMinutes}분 전`;
+	const diffHours = Math.floor(diffMinutes / 60);
+	if (diffHours < 24) return `${diffHours}시간 전`;
+	const diffDays = Math.floor(diffHours / 24);
+	return `${diffDays}일 전`;
+}
+
+
+// 외부 접근용 함수로 전역에 할당
+window.renderNotifications = function(notifications) {
+	const container = $("#notificationDropdown");
+	container.empty();
+
+	container.append(`
       <div class="notificationDropdown_header">
         <div class="notificationDropdown_close">
           <button class="notificationDropdown_close_btn" onclick="notificationDropdown_close()">
@@ -65,11 +65,11 @@
       </div>
     `);
 
-		notifications.forEach(noti => {
-			const iconClass = iconMap[noti.notiType] || "bi-info-circle-fill";
-			const timeText = timeAgo(noti.notiTime);
+	notifications.forEach(noti => {
+		const iconClass = iconMap[noti.notiType] || "bi-info-circle-fill";
+		const timeText = timeAgo(noti.notiTime);
 
-			const card = `
+		const card = `
         <div class="notification-card ${noti.notiType}">
           <div class="notification-title-box">
             <div class="notification-title-left-box">
@@ -91,18 +91,24 @@
         </div>
       `;
 
-			container.append(card);
-		});
-	};
-
-	document.addEventListener('DOMContentLoaded', () => {
-		setInterval(() => {
-			const selectedValue = document.getElementById('stationSelect').value;
-			getStationOneDust(selectedValue);
-		}, 1000);
+		container.append(card);
 	});
-	const weekday = new Date(weekday).toLocaleDateString('en-US', { weekday: 'long' });
-window.barChartSho = function(weekday) {
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+	setInterval(() => {
+		const selectedValue = document.getElementById('stationSelect').value;
+		getStationOneDust(selectedValue);
+	}, 1000);
+});
+
+/*
+let getWeekday = "2025-05-05";
+const weekday = new Date(getWeekday).toLocaleDateString('en-US', { weekday: 'long' });
+ */
+
+const barChartSho = (weekday) => {
+console.log("barChartSho = " + weekday); // 예: Monday
 	$.ajax({
 		url: `/weekday/${weekday}`,
 		type: "GET",
@@ -115,13 +121,8 @@ window.barChartSho = function(weekday) {
 		},
 		error: function(err) {
 			console.error("데이터 요청 실패", err);
-			
+
 		}
 	});
 };
 
-
-})();
-
-
-	

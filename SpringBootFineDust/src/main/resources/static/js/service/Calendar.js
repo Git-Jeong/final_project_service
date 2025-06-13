@@ -35,7 +35,7 @@ function renderCalendar(date) {
 
 				function getWeekdayName(dateStr) {
 					const date = new Date(dateStr);
-					const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+					const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 					return days[date.getDay()];
 				}
 				/* 클릭시 닫히게 하기 */
@@ -43,11 +43,11 @@ function renderCalendar(date) {
 
 				dayCircle.addEventListener("click", () => {
 					const weekday = getWeekdayName(dateStr);
-					
+
 					/* 불러오기 collapse if ~ 닫히게 하기 */
 					const dustCard = document.getElementById("dustCard");
 					const bsCollapse = bootstrap.Collapse.getOrCreateInstance(dustCard);
-			
+
 					if (lastClickedDate === dateStr && bsCollapse._isShown) {
 						bsCollapse.hide();
 						lastClickedDate = null; // 초기화
@@ -56,6 +56,7 @@ function renderCalendar(date) {
 
 					// 다른 날짜 클릭했거나 처음 열 때는 => 열기 + 데이터 갱신
 					lastClickedDate = dateStr;
+					// /dust-data/ 이거 수정해야할듯? ㅇㅇ
 					fetch(`/dust-data/${dateStr}`)
 						.then(res => res.json())
 						.then(data => {
@@ -73,43 +74,40 @@ function renderCalendar(date) {
 							const bsCollapse = bootstrap.Collapse.getOrCreateInstance(dustCard);
 							bsCollapse.show();
 
-
-
 							detail.innerHTML = `
-  <table style="
-    border-collapse: collapse; 
-    width: 100%; 
-    text-align: center; 
-    border: 1px solid #ccc;
-  ">
-    <thead>
-      <tr>
-        <th style="border: 1px solid #ccc; padding: 8px;"></th>
-        <th style="border: 1px solid #ccc; padding: 8px;">PM1</th>
-        <th style="border: 1px solid #ccc; padding: 8px;">PM2.5</th>
-        <th style="border: 1px solid #ccc; padding: 8px;">PM10</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th style="border: 1px solid #ccc; padding: 8px;">오전 평균</th>
-        <td style="border: 1px solid #ccc; padding: 8px;">${data[0].amAvgPm1 ?? 'N/A'}</td>
-        <td style="border: 1px solid #ccc; padding: 8px;">${data[0].amAvgPm25 ?? 'N/A'}</td>
-        <td style="border: 1px solid #ccc; padding: 8px;">${data[0].amAvgPm10 ?? 'N/A'}</td>
-      </tr>
-      <tr>
-        <th style="border: 1px solid #ccc; padding: 8px;">오후 평균</th>
-        <td style="border: 1px solid #ccc; padding: 8px;">${data[0].pmAvgPm1 ?? 'N/A'}</td>
-        <td style="border: 1px solid #ccc; padding: 8px;">${data[0].pmAvgPm25 ?? 'N/A'}</td>
-        <td style="border: 1px solid #ccc; padding: 8px;">${data[0].pmAvgPm10 ?? 'N/A'}</td>
-      </tr>
-    </tbody>
-  </table>
-`;    	barChartSho(weekday);
-	
+							  <table style="
+							    border-collapse: collapse; 
+							    width: 100%; 
+							    text-align: center; 
+							    border: 1px solid #ccc;
+							  ">
+							    <thead>
+							      <tr>
+							        <th style="border: 1px solid #ccc; padding: 8px;"></th>
+							        <th style="border: 1px solid #ccc; padding: 8px;">PM1</th>
+							        <th style="border: 1px solid #ccc; padding: 8px;">PM2.5</th>
+							        <th style="border: 1px solid #ccc; padding: 8px;">PM10</th>
+							      </tr>
+							    </thead>
+							    <tbody>
+							      <tr>
+							        <th style="border: 1px solid #ccc; padding: 8px;">오전 평균</th>
+							        <td style="border: 1px solid #ccc; padding: 8px;">${data[0].amAvgPm1 ?? 'N/A'}</td>
+							        <td style="border: 1px solid #ccc; padding: 8px;">${data[0].amAvgPm25 ?? 'N/A'}</td>
+							        <td style="border: 1px solid #ccc; padding: 8px;">${data[0].amAvgPm10 ?? 'N/A'}</td>
+							      </tr>
+							      <tr>
+							        <th style="border: 1px solid #ccc; padding: 8px;">오후 평균</th>
+							        <td style="border: 1px solid #ccc; padding: 8px;">${data[0].pmAvgPm1 ?? 'N/A'}</td>
+							        <td style="border: 1px solid #ccc; padding: 8px;">${data[0].pmAvgPm25 ?? 'N/A'}</td>
+							        <td style="border: 1px solid #ccc; padding: 8px;">${data[0].pmAvgPm10 ?? 'N/A'}</td>
+							      </tr>
+							    </tbody>
+							  </table>
+							`; barChartSho(weekday);
 
 						});
-				});
+					});
 
 				cell.appendChild(dayCircle);
 				day++;
