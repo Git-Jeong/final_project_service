@@ -101,27 +101,25 @@
 			getStationOneDust(selectedValue);
 		}, 1000);
 	});
-	
-	const barChartSho = () => {
-		const weekday = new Date().toLocaleDateString('en-US', { weekday: 'long' });
-		$.ajax({
-			url: `/weekday/${weekday}`,
-			type: "GET",
-			success: function(data) {
-				if (!data || !data.xLabels) {
-					console.warn("데이터 없음");
-					return;
-				}
-
-				// 여기에 차트 렌더링 코드 작성
-
-			},
-			error: function(err) {
-				console.error("데이터 요청 실패", err);
+	const weekday = new Date(weekday).toLocaleDateString('en-US', { weekday: 'long' });
+window.barChartSho = function(weekday) {
+	$.ajax({
+		url: `/weekday/${weekday}`,
+		type: "GET",
+		success: function(data) {
+			if (!data || !data.xLabels) {
+				console.warn("데이터 없음");
+				return;
 			}
-		});
+			// 차트 렌더링
+		},
+		error: function(err) {
+			console.error("데이터 요청 실패", err);
+			
+		}
+	});
+};
 
-	}; // barChartSho 함수 닫기
 
 })();
 

@@ -43,11 +43,11 @@ function renderCalendar(date) {
 
 				dayCircle.addEventListener("click", () => {
 					const weekday = getWeekdayName(dateStr);
-
+					
 					/* 불러오기 collapse if ~ 닫히게 하기 */
 					const dustCard = document.getElementById("dustCard");
 					const bsCollapse = bootstrap.Collapse.getOrCreateInstance(dustCard);
-
+			
 					if (lastClickedDate === dateStr && bsCollapse._isShown) {
 						bsCollapse.hide();
 						lastClickedDate = null; // 초기화
@@ -105,7 +105,8 @@ function renderCalendar(date) {
       </tr>
     </tbody>
   </table>
-`;
+`;    	barChartSho(weekday);
+	
 
 						});
 				});
