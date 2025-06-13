@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public class PredRestController {
 
 	@Autowired
-	private PredService flaskService;
+	private PredService predService;
 
     @Autowired
     private TokenCheck token;
@@ -53,15 +53,19 @@ public class PredRestController {
 	                new TypeReference<List<List<Double>>>() {}
 	            );
 	            List<Double> predValues = predList.get(0);
-
+	            
+	            //추후 파이썬에서 값을 리턴하도록 해야 됨.
+	            LocalDateTime now = LocalDateTime.now().plusSeconds(30);
+	            
 	            Pred pred = new Pred();
 	            pred.setPm1(predValues.get(0).intValue());
 	            pred.setPm25(predValues.get(1).intValue());
 	            pred.setPm10(predValues.get(2).intValue());
-	            pred.setPmTime(LocalDateTime.now());
+	            pred.setPmTime(now);
+	            pred.setTimeHms(now.toLocalTime());
 	            pred.setStId(stId);
 
-	            return flaskService.savePred(pred);
+	            return predService.savePred(pred);
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -75,7 +79,7 @@ public class PredRestController {
         if(usrEmail == null) {
             return new Pred();  // null 대신 빈 리스트 반환 권장
         }
-        Pred pred = flaskService.getRecentPredByStId(stId);
+        Pred pred = predService.getRecentPredByStId(stId);
         if((pred == null) || (pred.getPm1() == null)) {
         	return new Pred(); 
         }

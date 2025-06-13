@@ -241,7 +241,7 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 	dustEChart.setOption(option);
 };
 
-const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
+const drawDustPm1EChart = (snsr, pred) => {
 	const container = document.getElementById('mini-pm1-chart');
 	if (!container) return;
 
@@ -249,12 +249,45 @@ const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
 		pm1EChart = echarts.init(container);
 	}
 
+	const today = new Date().toISOString().split('T')[0];
+
+	const snsrSeriesRaw = snsr.timeHms.map((t, i) => ({
+		value: [`${today}T${t}`, snsr.pm1Data[i]]
+	}));
+	const predSeriesRaw = pred.timeHms.map((t, i) => ({
+		value: [`${today}T${t}`, pred.pm1Data[i]]
+	}));
+
+	// 각 시리즈 최소 시간
+	const snsrMinTime = snsrSeriesRaw.length ? new Date(snsrSeriesRaw[0].value[0]) : null;
+	const predMinTime = predSeriesRaw.length ? new Date(predSeriesRaw[0].value[0]) : null;
+
+	// 전체 x축 최소값: 두 최소값 중 빠른 시간
+	const minTimeCandidates = [snsrMinTime, predMinTime].filter(t => t !== null);
+	const xMinTime = new Date(Math.min(...minTimeCandidates));
+
+	// y축 시작값: 각각 첫 값
+	const snsrYStart = snsr.pm1Data.length ? snsr.pm1Data[0] : null;
+	const predYStart = pred.pm1Data.length ? pred.pm1Data[0] : null;
+
+	// 시리즈별 빈 공간 채우기 함수
+	const fillSeriesStart = (series, seriesMinTime, yStart) => {
+		const filled = [];
+		if (!seriesMinTime || !yStart) return series;
+		if (seriesMinTime > xMinTime) {
+			// xMinTime 시점에 yStart 값 추가
+			filled.push({ value: [xMinTime.toISOString(), yStart] });
+		}
+		return filled.concat(series);
+	};
+
+	const snsrSeries = fillSeriesStart(snsrSeriesRaw, snsrMinTime, snsrYStart);
+	const predSeries = fillSeriesStart(predSeriesRaw, predMinTime, predYStart);
+
 	const option = {
-		tooltip: {
-			trigger: 'axis'
-		},
+		tooltip: { trigger: 'axis' },
 		title: {
-			text: `${pm1Data.at(-1)} ㎍/㎥`,
+			text: `${snsr.pm1Data.at(-1)} ㎍/㎥`,
 			right: 10,
 			top: 0,
 			textStyle: {
@@ -262,11 +295,20 @@ const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
 				color: '#333'
 			}
 		},
+	    legend: {
+	        left: 'center',
+	        top: 'top'
+	    },
 		xAxis: {
-			type: 'category',
-			data: timeHms,
-			boundaryGap: false,
-			axisLine: { onZero: false }
+			type: 'time',
+			min: xMinTime,
+			axisLabel: {
+				formatter: value => {
+					const date = new Date(value);
+					const sec = date.getSeconds();
+					return sec % 10 === 0 ? date.toTimeString().slice(0, 8) : '';
+				}
+			}
 		},
 		yAxis: {
 			type: 'value',
@@ -278,19 +320,30 @@ const drawDustPm1EChart = ({ timeHms, pm1Data }) => {
 			bottom: 20,
 			top: 30
 		},
-		series: [{
-			name: 'PM1.0',
-			type: 'line',
-			data: pm1Data,
-			smooth: true,
-			itemStyle: { color: '#8e44ad' }
-		}]
+		series: [
+			{
+				name: 'PM1.0 측정',
+				type: 'line',
+				data: snsrSeries,
+				smooth: true,
+				showSymbol: true,
+				itemStyle: { color: '#8e44ad' }
+			},
+			{
+				name: 'PM1.0 예측',
+				type: 'line',
+				data: predSeries,
+				smooth: true,
+				showSymbol: true,
+				itemStyle: { color: '#3498db' },
+				lineStyle: { type: 'dashed' }
+			}
+		]
 	};
 
 	pm1EChart.setOption(option);
 	pm1EChart.resize();
-}
-
+};
 
 const drawDustPm25EChart = ({ timeHms, pm25Data }) => {
 	const container = document.getElementById('mini-pm25-chart');

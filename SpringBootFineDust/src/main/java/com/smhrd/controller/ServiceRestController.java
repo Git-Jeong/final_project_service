@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.smhrd.config.TokenCheck;
 import com.smhrd.entity.Notification;
+import com.smhrd.entity.Pred;
 import com.smhrd.entity.Sensor;
+import com.smhrd.entity.SensorPredResponse;
 import com.smhrd.service.NotificationService;
+import com.smhrd.service.PredService;
 import com.smhrd.service.SensorService;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -32,6 +35,9 @@ public class ServiceRestController {
 	@Autowired
 	private NotificationService notifyService;
 
+	@Autowired
+	private PredService predService;
+	
     @Autowired
     private TokenCheck token;
     
@@ -89,7 +95,7 @@ public class ServiceRestController {
     }
     
     @GetMapping("/getStationDustOne")
-    public Sensor getStationOneInfo(@RequestParam int stId, HttpServletRequest request) {
+    public SensorPredResponse  getStationOneInfo(@RequestParam int stId, HttpServletRequest request) {
     	int originStId = stId;
     	stId = 1; //현재는 모든 데이터가 1번으로 저장되어 있어서 이걸로 처리'
 
@@ -99,7 +105,7 @@ public class ServiceRestController {
     	}
     	
     	Sensor snsr = snsrService.getStDustOne(stId);
-
+    	Pred pred = predService.getRecentPredByStId(originStId);
     	// 더미데이터를 불러 왔으니, 다시 stId값을 복구
     	stId = originStId;
 
@@ -136,7 +142,7 @@ public class ServiceRestController {
     			notifyService.sendCo2Notify(stId, usrEmail, snsr.getCo2den().intValue());
     		}
     	}
-    	return snsr;
+    	return new SensorPredResponse(snsr, pred);
     }
     
     @GetMapping("/getAllNotify")
