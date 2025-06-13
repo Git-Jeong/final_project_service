@@ -101,7 +101,7 @@ const goLogout = () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 	userNameSide = window.model?.userName || '사용자';
-	pageTitleSide = window.model?.headerText || '서비스 페이지';
+	pageTitleSide = window.model?.headerText || '서비스 페이지'; 
 
 	// --- 1. 헤더 생성 및 삽입을 먼저 수행하여 toggleSidebarBtn_2가 DOM에 존재하도록 함 ---
 	const headerHTML = `

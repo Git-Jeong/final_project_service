@@ -88,7 +88,7 @@ public class UserRestController {
     }
     
     @PostMapping("/updateUserInfo")
-    public String updateUserInfo(@RequestBody User vo, HttpServletRequest request) {
+    public String updateUserInfo(@RequestBody User vo, HttpServletRequest request, HttpServletResponse response) {
     	if((vo != null) && (vo.getUsrPw() != null)) {
     		String aesPw = EncryptionUtil.encrypt(vo.getUsrPw());
     		String userEmail = token.extractUserFromJwt(request);
@@ -100,6 +100,16 @@ public class UserRestController {
 			vo.setUsrPw(aesPw);
     	}
     	userService.setUserInfo(vo);
+    	
+    	// 토큰 재생성 및 쿠키 재설정
+        User updatedUser = userService.findByUsrEmailForLogin(vo.getUsrEmail());
+        String newJwt = jwtUtil.generateToken(updatedUser);
+        Cookie cookie = new Cookie(token_login, newJwt);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(60 * 60 * 8);
+        response.addCookie(cookie);
+        
         return "success";
     }
 
