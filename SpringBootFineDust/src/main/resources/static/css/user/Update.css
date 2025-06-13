@@ -15,27 +15,44 @@ body {
 	min-width: 700px;
 	width: 100%;
 	max-width: 1300px;
-	min-height : 500px;
-	height : 80vh;
-	max-height : 1200px;
-	overflow : scroll;
+	min-height: 500px;
+	height: 80vh;
+	max-height: 1200px;
 	background-color: #ffffff;
 	padding: 50px 40px;
 	border-radius: 16px;
-    border : 3px #CED4DA solid; 
+	border: 3px #CED4DA solid;
 	margin-left: auto;
 	margin-right: auto;
-	
-	  /* 크롬, 엣지, 사파리용 */
-  &::-webkit-scrollbar {
-    display: none;
-  }
+	overflow-x: hidden;
+	overflow-y: auto;
+	position: relative;
+	scrollbar-width: auto; /* 파이어폭스 기본 스크롤바 */
+	-ms-overflow-style: scrollbar; /* IE/Edge 기본 스크롤바, 버튼 숨김 기본 */
+}
 
-  /* 파이어폭스용 */
-  scrollbar-width: none;
+/* 가로 스크롤 숨김 */
+.update-page-container::-webkit-scrollbar:horizontal {
+	display: none;
+}
 
-  /* 인터넷 익스플로러, 엣지용 */
-  -ms-overflow-style: none;
+/* 세로 스크롤바 커스텀 (선택 사항) */
+.update-page-container::-webkit-scrollbar {
+	width: 8px; /* 너비 조절 */
+}
+
+.update-page-container::-webkit-scrollbar-thumb {
+  background-color: rgba(128, 128, 128, 0.7);
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-left: 0 solid transparent;
+  border-right: 0 solid transparent;
+  background-clip: padding-box;
+}
+
+/* IE/Edge 에서 스크롤 버튼 숨기기 */
+.update-page-container {
+	-ms-overflow-style: scrollbar; /* 기본 스크롤바, 버튼 없음 */
 }
 
 #usrEmail[readonly] {
@@ -93,7 +110,7 @@ body {
 	padding: 12px 16px;
 	margin-bottom: 30px;
 	border-radius: 12px;
-    border : 3px #CED4DA solid; 
+	border: 3px #CED4DA solid;
 	font-size: 14px;
 	outline: none;
 }
