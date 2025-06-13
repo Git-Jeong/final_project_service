@@ -13,9 +13,6 @@ const startPredDust = (stId) => {
 		type: "post",
 		data: JSON.stringify(stId),
 		contentType: "application/json",
-		success: function() {
-
-		},
 		error: function(err) {
 			console.error("데이터 불러오기 실패:", err);
 		}
@@ -88,7 +85,7 @@ const getStationDust = (stId) => {
 					if (diffSec > 30) {
 						dustStack.shift();
 					} else {
-						console.log("dustStack size = " + dustStack.length);
+						//console.log("dustStack size = " + dustStack.length);
 						break;
 					}
 				}
