@@ -141,7 +141,7 @@ def db_test():
             SELECT * FROM sensor
             WHERE st_id = %s AND weekday = %s AND time_hms <= %s
             ORDER BY time_hms DESC
-            LIMIT 600
+            LIMIT 1000
         """, (st_id, weekday_eng, current_time_str))
 
         results = cursor.fetchall()
