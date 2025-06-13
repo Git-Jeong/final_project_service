@@ -426,7 +426,7 @@ const drawCodenChart = (codenChartData) => {
 			min: parseFloat((Math.max(0, Math.min(...codenChartData.codenData) - 0.1)).toFixed(1))
 		},
 		grid: {
-			left: 30,
+			left: 40,
 			right: 30,
 			bottom: 20,
 			top: 30
@@ -486,7 +486,7 @@ const drawCo2denChart = (co2denChartData) => {
 			min: Math.max(0, Math.min(...co2denChartData.co2denData) - 3)
 		},
 		grid: {
-			left: 30,
+			left: 40,
 			right: 30,
 			bottom: 20,
 			top: 30
