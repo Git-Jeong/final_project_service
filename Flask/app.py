@@ -114,7 +114,7 @@ def dustPred(sensor_results):
 @app.route('/flask-station-db-test', methods=['GET'])
 def db_test():
     st_id = request.args.get('st_id')
-# http://127.0.0.1:5000/flask-station-db-test?st_id=1
+    # http://127.0.0.1:5000/flask-station-db-test?st_id=1
     try:
         st_id = int(st_id)      #st_id = 1 로 고정정
     except Exception as e:
@@ -163,6 +163,6 @@ def db_test():
             mimetype='application/json'
         )
 
-# ✅ 서버 실행
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
+
