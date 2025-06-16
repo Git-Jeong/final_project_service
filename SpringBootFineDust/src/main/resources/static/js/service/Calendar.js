@@ -64,7 +64,7 @@ function renderCalendar(date) {
 					fetch(`/dust-data/${dateStr}`)
 						.then(res => res.json())
 						.then(data => {
-							const title = document.getElementById("collapse-title");
+							const title = document.getElementById("headingDust");
 							const detail = document.getElementById("dust-detail");
 
 							title.textContent = `${dateStr} (${weekday}) 미세먼지 평균 정보`;
@@ -82,6 +82,7 @@ function renderCalendar(date) {
 							  <table style="
 							    border-collapse: collapse; 
 							    width: 100%; 
+								height : 100%;
 							    text-align: center; 
 							    border: 1px solid #ccc;
 							  ">

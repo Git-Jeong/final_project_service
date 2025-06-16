@@ -25,7 +25,7 @@
 <!-- 차트 컴포넌트 스타일/스크립트 -->
 <link rel="stylesheet" href="/css/Common.css" />
 <link rel="stylesheet" href="/css/service/ServiceCommon.css">
-<link rel="stylesheet" href="/css/service/ServiceCalendar.css" />
+<link rel="stylesheet" href="/css/service/ServiceHistory.css" />
 
 <!-- 부트스트랩 CSS -->
 <link
@@ -93,40 +93,38 @@
 						</div>
 					</div>
 
-					<!-- 조회 + Collapse -->
-					<div id="dustCard">
-						<div class="col-md-4">
-							<div class="card schedule-card">
-								<div
-									class="card-header d-flex justify-content-between align-items-center">
+					<!-- 조회  -->
+					<div id="dustCard" class="serviceHistory-container">
+						<div class="serviceHistory-col">
+							<div class="serviceHistory-card">
+								<div class="serviceHistory-card-header">
 									<span>미세먼지 정보 조회</span>
 								</div>
-								<div class="card-body" id="exam-schedule">
-								
+								<div class="serviceHistory-card-body" id="exam-schedule">
+
 									<!-- 로딩 스피너 -->
 									<div id="chart-loading-main" class="chart-loading-spinner"
 										style="display: none;"></div>
 
-									<!-- 아코디언 내용 -->
-									<div class="accordion" id="dustAccordion"
+									<!-- 평균 정보 영역 -->
+									<div class="serviceHistory-average-info" id="dustAccordion"
 										style="display: none;">
-										<div>
-											<div class="accordion-header" id="headingDust">
-												<span id="collapse-title">미세먼지 평균 정보</span>
-											</div>
-											<div id="collapseDust" aria-labelledby="headingDust">
-												<div class="accordion-body" id="dust-detail">
-													<p>날짜를 선택하면 오전/오후 평균이 표시됩니다.</p>
-												</div>
+										<div class="serviceHistory-info-header" id="headingDust">
+											<span>미세먼지 평균</span>
+										</div>
+										<div id="collapseDust" aria-labelledby="headingDust">
+											<div class="serviceHistory-info-body" id="dust-detail">
+												<!-- 선택된 날짜에 따라 오전/오후 평균 데이터 표시 -->
 											</div>
 										</div>
-
 									</div>
-								</div>
 
+								</div>
 							</div>
 						</div>
 					</div>
+
+
 				</div>
 			</div>
 			<div class="chartContainer">

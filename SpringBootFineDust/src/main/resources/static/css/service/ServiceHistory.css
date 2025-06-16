@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+
+.day-circle {
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	border-radius: 50%;
+	margin: auto;
+	cursor: pointer;
+}
+
+.calendar-box {
+	border: 1px solid #ddd;
+	padding: 15px;
+	border-radius: 8px;
+}
+
+.schedule-card {
+	width : 40vw;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+}
+
+.serviceHistory-container {
+  padding: 2rem;
+}
+
+.serviceHistory-col {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.serviceHistory-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.serviceHistory-card-header {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.serviceHistory-card-body {
+  padding: 1rem;
+}
+
+.serviceHistory-average-info {
+  margin-top: 1rem;
+  border-top: 1px solid #ddd;
+}
+
+.serviceHistory-info-header {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
+
+.serviceHistory-info-body {
+  padding: 1rem;
+  background-color: #fafafa;
+}
