@@ -65,9 +65,9 @@
 			</div>
 
 			<div class="container my-5">
-				<div class="row">
+				<div class="service-flex-row">
 					<!-- 달력 영역 -->
-					<div class="col-md-8 mb-4">
+					<div class="calendar-section">
 						<div class="calendar-box">
 							<h4 class="d-flex align-items-center justify-content-between">
 								<button class="btn btn-outline-secondary btn-sm me-2"
@@ -93,43 +93,46 @@
 						</div>
 					</div>
 
-					<!-- 조회  -->
-					<div id="dustCard" class="serviceHistory-container">
-						<div class="serviceHistory-col">
-							<div class="serviceHistory-card">
-								<div class="serviceHistory-card-header">
-									<span>미세먼지 정보 조회</span>
-								</div>
-								<div class="serviceHistory-card-body" id="exam-schedule">
+					<!-- 조회 결과 영역 -->
+					<div class="result-section">
+						<div id="dustCard" class="serviceHistory-container">
+							<div class="serviceHistory-col">
+								<div class="serviceHistory-card">
+									<div class="serviceHistory-card-header">
+										<span>미세먼지 정보 조회</span>
+									</div>
+									<div class="serviceHistory-card-body" id="exam-schedule">
 
-									<!-- 로딩 스피너 -->
-									<div id="chart-loading-main" class="chart-loading-spinner"
-										style="display: none;"></div>
+										<!-- 로딩 스피너 -->
+										<div id="chart-loading-main" class="chart-loading-spinner"
+											style="display: none;"></div>
 
-									<!-- 평균 정보 영역 -->
-									<div class="serviceHistory-average-info" id="dustAccordion"
-										style="display: none;">
-										<div class="serviceHistory-info-header" id="headingDust">
-											<span>미세먼지 평균</span>
-										</div>
-										<div id="collapseDust" aria-labelledby="headingDust">
-											<div class="serviceHistory-info-body" id="dust-detail">
-												<!-- 선택된 날짜에 따라 오전/오후 평균 데이터 표시 -->
+										<!-- 평균 정보 영역 -->
+										<div class="serviceHistory-average-info" id="dustAccordion"
+											style="display: none;">
+											<div class="serviceHistory-info-header" id="headingDust">
+												<span>미세먼지 평균</span>
+											</div>
+											<div id="collapseDust" aria-labelledby="headingDust">
+												<div class="serviceHistory-info-body" id="dust-detail">
+													<!-- 선택된 날짜에 따라 오전/오후 평균 데이터 표시 -->
+												</div>
 											</div>
 										</div>
-									</div>
 
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-
-
 				</div>
 			</div>
+
+			<!-- 차트는 아래에서 넓게 배치 -->
 			<div class="chartContainer">
-				<div id="PastDustChart" style="width: 100%; height: 400px;"></div>
+				<div id="PastDustChart" class="wide-bar-chart"></div>
 			</div>
+
 		</main>
 	</div>
 

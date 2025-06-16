@@ -23,6 +23,7 @@ function renderCalendar(date) {
 		const row = document.createElement("tr");
 		for (let j = 0; j < 7; j++) {
 			const cell = document.createElement("td");
+			cell.classList.add("calendar-cell");
 
 			if (i === 0 && j < firstDay || day > lastDate) {
 				cell.innerHTML = "";
@@ -38,14 +39,14 @@ function renderCalendar(date) {
 					const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 					return days[date.getDay()];
 				}
-			
+
 				dayCircle.addEventListener("click", () => {
-					
+
 					let lastClickedDate = null;
-					
+
 					document.getElementById('chart-loading-main').style.display = 'block';
 					document.getElementById('dustAccordion').style.display = 'none';
-					
+
 					const weekday = getWeekdayName(dateStr);
 
 					/* 불러오기 collapse if ~ 닫히게 하기 */
@@ -79,48 +80,42 @@ function renderCalendar(date) {
 							bsCollapse.show();
 
 							detail.innerHTML = `
-							  <table style="
-							    border-collapse: collapse; 
-							    width: 100%; 
-								height : 100%;
-							    text-align: center; 
-							    border: 1px solid #ccc;
-							  ">
-							    <thead>
-							      <tr>
-							        <th style="border: 1px solid #ccc; padding: 8px;"></th>
-							        <th style="border: 1px solid #ccc; padding: 8px;">PM1</th>
-							        <th style="border: 1px solid #ccc; padding: 8px;">PM2.5</th>
-							        <th style="border: 1px solid #ccc; padding: 8px;">PM10</th>
-							      </tr>
-							    </thead>
-							    <tbody>
-							      <tr>
-							        <th style="border: 1px solid #ccc; padding: 8px;">오전 평균</th>
-							        <td style="border: 1px solid #ccc; padding: 8px;">${data[0].amAvgPm1 ?? 'N/A'}</td>
-							        <td style="border: 1px solid #ccc; padding: 8px;">${data[0].amAvgPm25 ?? 'N/A'}</td>
-							        <td style="border: 1px solid #ccc; padding: 8px;">${data[0].amAvgPm10 ?? 'N/A'}</td>
-							      </tr>
-							      <tr>
-							        <th style="border: 1px solid #ccc; padding: 8px;">오후 평균</th>
-							        <td style="border: 1px solid #ccc; padding: 8px;">${data[0].pmAvgPm1 ?? 'N/A'}</td>
-							        <td style="border: 1px solid #ccc; padding: 8px;">${data[0].pmAvgPm25 ?? 'N/A'}</td>
-							        <td style="border: 1px solid #ccc; padding: 8px;">${data[0].pmAvgPm10 ?? 'N/A'}</td>
-							      </tr>
-							    </tbody>
-							  </table>
-							`; barChartSho(weekday);
+								  <table class="pm-table">
+								    <thead>
+								      <tr>
+								        <th></th>
+								        <th>PM1</th>
+								        <th>PM2.5</th>
+								        <th>PM10</th>
+								      </tr>
+								    </thead>
+								    <tbody>
+								      <tr>
+								        <th>오전 평균</th>
+								        <td>${data[0].amAvgPm1 ?? 'N/A'}</td>
+								        <td>${data[0].amAvgPm25 ?? 'N/A'}</td>
+								        <td>${data[0].amAvgPm10 ?? 'N/A'}</td>
+								      </tr>
+								      <tr>
+								        <th>오후 평균</th>
+								        <td>${data[0].pmAvgPm1 ?? 'N/A'}</td>
+								        <td>${data[0].pmAvgPm25 ?? 'N/A'}</td>
+								        <td>${data[0].pmAvgPm10 ?? 'N/A'}</td>
+								      </tr>
+								    </tbody>
+								  </table>
+								`; barChartSho(weekday);
 
 							document.getElementById('chart-loading-main').style.display = 'none';
 							document.getElementById('dustAccordion').style.display = 'block';
 						});
-					});
+				});
 
 				cell.appendChild(dayCircle);
-				
+
 				day++;
 			}
-      
+
 			row.appendChild(cell);
 
 		}
