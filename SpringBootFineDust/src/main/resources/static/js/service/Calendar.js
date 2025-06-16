@@ -45,6 +45,7 @@ function renderCalendar(date) {
 					let lastClickedDate = null;
 
 					document.getElementById('chart-loading-main').style.display = 'block';
+					document.getElementById('initial-message').style.display = 'none';
 					document.getElementById('dustAccordion').style.display = 'none';
 
 					const weekday = getWeekdayName(dateStr);
@@ -80,31 +81,22 @@ function renderCalendar(date) {
 							bsCollapse.show();
 
 							detail.innerHTML = `
-								  <table class="pm-table">
-								    <thead>
-								      <tr>
-								        <th></th>
-								        <th>PM1</th>
-								        <th>PM2.5</th>
-								        <th>PM10</th>
-								      </tr>
-								    </thead>
-								    <tbody>
-								      <tr>
-								        <th>오전 평균</th>
-								        <td>${data[0].amAvgPm1 ?? 'N/A'}</td>
-								        <td>${data[0].amAvgPm25 ?? 'N/A'}</td>
-								        <td>${data[0].amAvgPm10 ?? 'N/A'}</td>
-								      </tr>
-								      <tr>
-								        <th>오후 평균</th>
-								        <td>${data[0].pmAvgPm1 ?? 'N/A'}</td>
-								        <td>${data[0].pmAvgPm25 ?? 'N/A'}</td>
-								        <td>${data[0].pmAvgPm10 ?? 'N/A'}</td>
-								      </tr>
-								    </tbody>
-								  </table>
-								`; barChartSho(weekday);
+							  <ul class="pm-list">
+							    <li>
+							      <div class="pm-title">☀️ 오전 평균</div>
+							      <div class="pm-item">🌫 PM1: <span>${data[0].amAvgPm1 ?? 'N/A'}</span></div>
+							      <div class="pm-item">🌫 PM2.5: <span>${data[0].amAvgPm25 ?? 'N/A'}</span></div>
+							      <div class="pm-item">🌫 PM10: <span>${data[0].amAvgPm10 ?? 'N/A'}</span></div>
+							    </li>
+							    <li>
+							      <div class="pm-title">🌇 오후 평균</div>
+							      <div class="pm-item">🌫 PM1: <span>${data[0].pmAvgPm1 ?? 'N/A'}</span></div>
+							      <div class="pm-item">🌫 PM2.5: <span>${data[0].pmAvgPm25 ?? 'N/A'}</span></div>
+							      <div class="pm-item">🌫 PM10: <span>${data[0].pmAvgPm10 ?? 'N/A'}</span></div>
+							    </li>
+							  </ul>
+							`;
+							barChartSho(weekday);
 
 							document.getElementById('chart-loading-main').style.display = 'none';
 							document.getElementById('dustAccordion').style.display = 'block';
