@@ -7,16 +7,14 @@
 
 <script th:inline="javascript">
 window.model = {
-		headerText : '예측 테스트',
+		headerText : '사용자 시스템',
 		userName : '[[${userName}]]'
 };
 </script>
 <!-- ApexCharts 및 Vue -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
-<script src="/js/service/ServiceMainChartRenderer.js"></script>
-<script src="/js/service/ServicePredGetData.js"></script>
+<script src="/js/service/serviceOverviewGetData.js"></script>
 <script src="/js/service/ServiceCommon.js"></script>
 
 
@@ -35,7 +33,7 @@ window.model = {
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
 <!-- 여기서 먼지 데이터, 알림 데이터를 자동으로 불러오는 중 -->
-<title>예측 시스템</title>
+<title>사용자 시스템</title>
 </head>
 <body>
 	<div style="display: none">
@@ -57,53 +55,25 @@ window.model = {
 				<!-- 여기까지 실제 DB에서 데이터를 불러와서 출럭을 해야 됨. 즉 db에 값이 있으면 위의 코드를 반복하는 것 -->
 				<!-- js를 통해 여기에 알림 베너를 만들어 둠. -->
 			</div>
-			<div>ServiceController에 GetController 있으니까 이거 삭제시 해당 컨트롤러에서 기능도
-				삭제 필요</div>
-			<button th:onclick="'startPred(' + ${stationList[0].stId} + ')'">Start</button>
-			<input id="stationIdInput" th:value="${stationList[0].stId}"
-				type="hidden">
-
-			<div id="intervalDisplay"
-				class="alert alert-info mt-3 w-50 text-center" role="alert">
-				예측 요청까지 <span id="countdown">5</span>초 남았습니다.
+			<div class="serviceChart-headeroption">
+					<select id="stationSelect" class="serviceChart-select" onchange="resetDustStack()">
+						<th:block th:each="station : ${stationList}">
+							<option th:if="${!#strings.isEmpty(station.stName_1)}"
+								th:value="${station.stId}" th:text="${station.stName_1}"></option>
+						</th:block>
+					</select> 
 			</div>
+			
+			<div>
+				여기는 스크린을 통해 민간인들에게 보여줄 페이지임
+				작업 예정 : 문정진
+			</div>
+			<div id="temp"></div>
+			<div id="humidity"></div>
+			<div id="dtime"></div>
 		</main>
 	</div>
 
-	<script type="text/javascript">
-const startPred = (stId) => {
-    $.ajax({
-        url: "savePred",
-        type: "post",
-        data: JSON.stringify(stId),
-        contentType: "application/json",
-        success: function(data) {
-            console.log("예측 요청 성공:", data);
-        },
-        error: function(err) {
-            console.error("데이터 불러오기 실패:", err);
-        }
-    });
-};
-
-document.addEventListener("DOMContentLoaded", () => {
-    const stId = document.getElementById("stationIdInput").value;
-    const countdownEl = document.getElementById("countdown");
-
-    let countdown = 5;
-    countdownEl.textContent = countdown;
-
-    // 1초마다 카운트 다운 UI 갱신
-    setInterval(() => {
-        countdown--;
-        if (countdown <= 0) {
-            startPred(stId);
-            countdown = 5;
-        }
-        countdownEl.textContent = countdown;
-    }, 1000);
-});
-</script>
 
 </body>
 </html>
