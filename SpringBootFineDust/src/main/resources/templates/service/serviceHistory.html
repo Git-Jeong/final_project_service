@@ -103,7 +103,14 @@
 								</div>
 								<div class="card-body" id="exam-schedule">
 									<p>날짜를 클릭하면 아래에 미세먼지 정보가 표시됩니다.</p>
-									<div class="accordion" id="dustAccordion">
+
+									<!-- 로딩 스피너 -->
+									<div id="chart-loading-main" class="chart-loading-spinner"
+										style="display: none;"></div>
+
+									<!-- 아코디언 내용 -->
+									<div class="accordion" id="dustAccordion"
+										style="display: none;">
 										<div class="accordion-item">
 											<h2 class="accordion-header" id="headingDust">
 												<button class="accordion-button collapsed" type="button"
@@ -115,18 +122,16 @@
 											<div id="collapseDust" class="accordion-collapse collapse"
 												aria-labelledby="headingDust">
 												<div class="accordion-body" id="dust-detail">
-												
-												
 													<p>날짜를 선택하면 오전/오후 평균이 표시됩니다.</p>
 												</div>
 											</div>
 										</div>
 									</div>
-									<!-- PastDustChart: 그래프 드롭다운 내 삽입, 크기 조절 필요 -->
 								</div>
+
 							</div>
 						</div>
-					</div>			
+					</div>
 				</div>
 			</div>
 			<div class="chartContainer">
@@ -139,7 +144,7 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="/js/service/Calendar.js"></script>
-	
+
 
 </body>
 </html>

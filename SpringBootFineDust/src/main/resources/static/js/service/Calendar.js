@@ -42,6 +42,10 @@ function renderCalendar(date) {
 				let lastClickedDate = null;
 
 				dayCircle.addEventListener("click", () => {
+					
+					document.getElementById('chart-loading-main').style.display = 'block';
+					document.getElementById('dustAccordion').style.display = 'none';
+					
 					const weekday = getWeekdayName(dateStr);
 
 					/* 불러오기 collapse if ~ 닫히게 하기 */
@@ -106,14 +110,18 @@ function renderCalendar(date) {
 							  </table>
 							`; barChartSho(weekday);
 
+							document.getElementById('chart-loading-main').style.display = 'none';
+							document.getElementById('dustAccordion').style.display = 'block';
 						});
 					});
 
 				cell.appendChild(dayCircle);
+				
 				day++;
 			}
-
+      
 			row.appendChild(cell);
+
 		}
 		calendarBody.appendChild(row);
 		if (day > lastDate) break;
