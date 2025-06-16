@@ -40,8 +40,8 @@ public class ServiceController {
 		return "service/serviceMain";
 	}
 	 
-	@GetMapping("/servicePred")
-	public String servicePredPage(HttpServletRequest request, Model model) {
+	@GetMapping("/serviceHistory")
+	public String serviceHistoryPage(HttpServletRequest request, Model model) {
         if (!token.isUserLoggedIn(request)) {
             return "redirect:/main";
         }
@@ -53,7 +53,7 @@ public class ServiceController {
         //model.addAttribute("usrEmail", usrEmail);
         model.addAttribute("userName", userName);
         model.addAttribute("stationList", stationList);
-		return "service/servicePred";
+		return "service/serviceHistory";
 	}
 
     // 테스트용 페이지

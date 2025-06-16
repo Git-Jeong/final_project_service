@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 	
 	function onIndoorAirPredictClick() {
-	    window.location.href = '/servicePred';
+	    window.location.href = '/serviceHistory';
 	}
 	
 	function onclickTest() {
