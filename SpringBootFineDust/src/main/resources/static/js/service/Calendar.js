@@ -38,11 +38,10 @@ function renderCalendar(date) {
 					const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 					return days[date.getDay()];
 				}
-				/* 클릭시 닫히게 하기
-				let lastClickedDate = null;
-				 */
 			
 				dayCircle.addEventListener("click", () => {
+					
+					let lastClickedDate = null;
 					
 					document.getElementById('chart-loading-main').style.display = 'block';
 					document.getElementById('dustAccordion').style.display = 'none';
