@@ -86,7 +86,8 @@ html, body {
 	line-height: 40px;
 }
 
-.serviceOverview-wide-container{
+.serviceOverview-wide-container,
+.serviceOverview-wide-container2{
 	padding: 1rem;
 	display: flex;
 	justify-content: center;
@@ -94,18 +95,27 @@ html, body {
 	gap : 2rem;
 }
 
-.serviceOverview-container {
-	min-width : 300px;
-	flex: 1;
-	max-width : 500px;
-	min-height : 300px;
-	height : 30vh;
-	max-height : 550px;
+.serviceOverview-container,
+.serviceOverview-container2 {
+	min-width: 500px;
+	max-width: 500px;
+	height: 30vh;
+	max-height: 550px;
 	text-align: center;
-	border-radius : 10px;
-	border:  1px solid #ccc;
+	border-radius: 10px;
+	border: 1px solid #ccc;
 	overflow: hidden;
+	flex: 1;
 }
+
+.serviceOverview-container {
+	min-height: 350px;
+}
+
+.serviceOverview-container2 {
+	min-height: 300px;
+}
+
 
 .serviceOverview-contant-title{
 	display: flex;
