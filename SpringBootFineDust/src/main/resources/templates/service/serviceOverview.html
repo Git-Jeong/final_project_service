@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script th:inline="javascript">
+	window.model = {
+		headerText : '사용자 시스템',
+		userName : '[[${userName}]]'
+	};
+</script>
+
+<script src="/js/service/serviceOverviewGetData.js"></script>
+
+
+<!-- 차트 컴포넌트 스타일/스크립트 -->
+<link rel="stylesheet" href="/css/service/ServiceOverview.css">
+
+<!-- 부트스트랩 CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+<!-- 여기서 먼지 데이터, 알림 데이터를 자동으로 불러오는 중 -->
+<title>사용자 시스템</title>
+</head>
+<body>
+	<div style="display: none">
+		<select id="stationSelect" class="serviceChart-select">
+			<th:block th:each="station : ${stationList}">
+				<option th:if="${!#strings.isEmpty(station.stName_1)}"
+					th:value="${station.stId}" th:text="${station.stName_1}"></option>
+			</th:block>
+		</select>
+	</div>
+
+	<div class="service-main-page"> 
+		<main class="serviceChart-main-content">
+			<div class="serviceOverview-header">
+				<div class="serviceOverview-header-left">
+					<div id="serviceOverview-header-nowDate">
+						<!-- 년월일 정보 출력  -->
+					</div>
+					<select id="stationSelect" class="serviceChart-select">
+						<th:block th:each="station : ${stationList}">
+							<option th:if="${!#strings.isEmpty(station.stName_1)}"
+								th:value="${station.stId}" th:text="${station.stName_1}"></option>
+						</th:block>
+					</select>
+				</div>
+				<div class="serviceOverview-header-center">
+					<div id="serviceOverview-header-nowTime">
+						<!-- 시분초 정보 출력  -->
+					</div>
+				</div>
+
+				<div class="serviceOverview-header-right">
+					<button onclick="goServicePage()"
+						class="serviceOverview-header-right-btn">
+						나가기 <i class="bi-box-arrow-right logout-icon"></i>
+					</button>
+				</div>
+			</div>
+
+			<hr class="custom-hr" />
+			
+			<div id="loding-spin" class="loading-spin" style="display: block;"></div>
+			
+			<div id="non-loding-spin" style="display: none">
+			<div class="serviceOverview-wide-container">
+				<div id="serviceOverview-pm10" class="serviceOverview-container">
+					<div class="serviceOverview-contant-title">미세먼지(PM10)</div>
+					<div class="serviceOverview-contant">
+						<div class="serviceOverview-contant-text">
+							<div id="serviceOverview-pm10-text"
+								class="serviceOverview-contant-top"></div>
+							<div class="serviceOverview-contant-bottom">
+								<span id="serviceOverview-pm10-value"></span><span class="unit">㎍/㎥</span>
+							</div>
+						</div>
+						<div id="serviceOverview-pm10-img"
+							class="serviceOverview-contant-img"></div>
+					</div>
+				</div>
+				<div id="serviceOverview-pm25" class="serviceOverview-container">
+					<div class="serviceOverview-contant-title">초미세먼지(PM2.5)</div>
+					<div class="serviceOverview-contant">
+						<div class="serviceOverview-contant-text">
+							<div id="serviceOverview-pm25-text"
+								class="serviceOverview-contant-top"></div>
+							<div class="serviceOverview-contant-bottom">
+								<span id="serviceOverview-pm25-value"></span><span class="unit">㎍/㎥</span>
+							</div>
+						</div>
+						<div id="serviceOverview-pm25-img"
+							class="serviceOverview-contant-img"></div>
+					</div>
+				</div>
+				<div id="serviceOverview-pm1" class="serviceOverview-container">
+					<div class="serviceOverview-contant-title">극초미세먼지(PM1.0)</div>
+					<div class="serviceOverview-contant">
+						<div class="serviceOverview-contant-text">
+							<div id="serviceOverview-pm1-text"
+								class="serviceOverview-contant-top"></div>
+							<div class="serviceOverview-contant-bottom">
+								<span id="serviceOverview-pm1-value"></span><span class="unit">㎍/㎥</span>
+							</div>
+						</div>
+						<div id="serviceOverview-pm1-img"
+							class="serviceOverview-contant-img"></div>
+						</div>
+					</div>
+				</div>
+	
+	
+				<div class="serviceOverview-wide-container2">
+					<div class="serviceOverview-container2">
+						<div class="serviceOverview-contant-title">온도</div>
+							<div class="serviceOverview-contant2">
+								<div id="temp-text" class="serviceOverview-contant-top2"></div>
+								<div class="serviceOverview-contant-bottom2">
+									<span id="temp"></span><span class="unit2">℃</span>
+								</div>
+							</div>
+						</div>
+						<div class="serviceOverview-container2">
+							<div class="serviceOverview-contant-title">습도</div>
+							<div class="serviceOverview-contant2">
+								<div id="humidity-text" class="serviceOverview-contant-top2"></div>
+								<div class="serviceOverview-contant-bottom2">
+									<span id="humidity"></span><span class="unit2">%</span>
+								</div>
+							</div>
+						</div>
+						<div class="serviceOverview-container2">
+							<div class="serviceOverview-contant-title">이산화탄소</div>
+							<div class="serviceOverview-contant2">
+								<div id="co2-text" class="serviceOverview-contant-top2"></div>
+								<div class="serviceOverview-contant-bottom2">
+								<span id="co2"></span><span class="unit2">ppm</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</main>
+	</div>
+
+
+	<script type="text/javascript">
+		//날짜 및 시간 출력 함수
+		function updateDateTime() {
+			const now = new Date();
+
+			// 요일 배열
+			const weekdays = [ '일', '월', '화', '수', '목', '금', '토' ];
+
+			// 날짜 포맷: yyyy. mm. dd (요일)
+			const year = now.getFullYear();
+			const month = String(now.getMonth() + 1).padStart(2, '0');
+			const date = String(now.getDate()).padStart(2, '0');
+			const day = weekdays[now.getDay()];
+			const formattedDate = `${year}. ${month}. ${date} (${day})`;
+			document.getElementById('serviceOverview-header-nowDate').textContent = formattedDate;
+
+			//24시간제 포맷
+			const hours = String(now.getHours()).padStart(2, '0');
+			const minutes = String(now.getMinutes()).padStart(2, '0');
+			const seconds = String(now.getSeconds()).padStart(2, '0');
+			const formattedTime = `${hours}:${minutes}:${seconds}`;
+			document.getElementById('serviceOverview-header-nowTime').textContent = formattedTime;
+		}
+
+		setInterval(updateDateTime, 1000);
+		updateDateTime();
+		
+		const goServicePage = () => {
+			if(confirm('뒤로 나가겠습니까?')){
+				location.href='/service';
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+/* 캘린더 테이블 기본 스타일 */
+.calendar-box {
+	border: 1px solid #ddd;
+	padding: 15px;
+	border-radius: 8px;
+	width: 100%; /* 부모 너비에 맞게 가변 */
+	min-width: 350px; /* 최소 너비, 캘린더 전부 보이도록 설정 */
+	box-sizing: border-box; /* 패딩과 테두리 포함 너비 계산 */
+	height: 100%;
+}
+
+#calendar-body {
+	width: 100%;
+	border-collapse: collapse;
+	table-layout: fixed;
+	user-select: none;
+}
+
+#calendar-body tr {
+	height: 40px;
+}
+
+.calendar-cell {
+	border: 1px solid #ccc;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+	vertical-align: middle;
+	height: 40px;
+	line-height: 40px;
+}
+
+/* day-circle 스타일 */
+.day-circle {
+	display: inline-block;
+	width: 80%; /* 셀 너비 대비 비율로 설정 */
+	max-width: 30px; /* 최대 너비 제한 */
+	height: 30px;
+	line-height: 30px;
+	border-radius: 50%;
+	background-color: transparent;
+	color: #333;
+	cursor: pointer;
+	transition: background-color 0.3s ease, color 0.3s ease;
+	user-select: none;
+	text-align: center;
+	margin: 0 auto; /* 셀 가운데 정렬 */
+}
+
+.day-circle:hover {
+	background-color: #2d6cdf;
+	color: #fff;
+}
+
+.service-flex-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2rem;
+	align-items: stretch; /* 높이 통일을 위해 stretch 적용 */
+}
+
+.calendar-section, .result-section {
+	min-width: 350px;
+	height: 422px;
+	box-sizing: border-box; /* 패딩, 테두리 포함 높이 계산 */
+	display: flex;
+	flex-direction: column;
+}
+
+.calendar-section {
+	flex: 1 1 0;
+}
+
+.result-section {
+	flex: 2 1 0;
+}
+
+.serviceHistory-container {
+	padding: 0;
+	width: 100%;
+}
+
+.serviceHistory-col {
+	width: 100%;
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+.serviceHistory-card {
+	border: none;
+	border-radius: 16px;
+	background: linear-gradient(145deg, #f5f5f5, #ffffff);
+	height: 422px; /* 전체 카드 높이 고정 */
+	display: flex;
+	flex-direction: column;
+}
+
+.serviceHistory-card:hover {
+	box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+	transform: translateY(-2px);
+}
+
+.serviceHistory-card-header {
+	background-color: #2d6cdf;
+	color: white;
+	padding: 1rem 1.5rem;
+	height: 4rem; 
+	flex-shrink : 0;
+	font-size: 1.25rem; font-weight : 600;
+	border-top-left-radius: 16px;
+	border-top-right-radius: 16px;
+	font-weight: 600;
+	flex-shrink: 0;
+}
+
+.serviceHistory-card-body {
+	height: calc(100% - 4rem);
+	width: 100%;
+	overflow-y: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #999;
+	font-style: italic;
+}
+
+.serviceHistory-card-body::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+.serviceHistory-card-body::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+.serviceHistory-average-info {
+	border-top: 1px solid #ccc;
+	width: 100%;
+}
+
+.serviceHistory-info-header {
+  margin-top: 0;
+  padding-top: 6.25rem;
+  margin-bottom: 1rem;
+  width : 100%;
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+  align-items: flex-end;  
+  justify-content: center; /* 좌우 중앙 정렬 */
+}
+
+.serviceHistory-info-body {
+	background-color: #f9f9f9;
+	border-radius: 10px;
+	font-size: 0.8rem;
+	color: #444;
+	margin: 0 0.5rem;
+}
+
+.pm-list {
+	list-style: none;
+	padding: 1rem;
+	margin: 0;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	background-color: #fafafa;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	gap: 23px;
+}
+
+.pm-list li {
+	padding: 1rem;
+	background-color: #fff;
+	border-radius: 8px;
+	border: 1px solid #e0e0e0;
+	width: 100%;
+}
+
+.pm-title {
+	font-weight: 700;
+	font-size: 1.1rem;
+	color: #2d6cdf;
+}
+
+.pm-item {
+	font-size: 1rem;
+	margin: 0.5rem 0;
+	color: #444;
+}
+
+.pm-item span {
+	font-weight: 600;
+	margin-left: 0.5rem;
+}
+
+.chartContainer{
+	width: 90vw;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#PastDustChart{
+	width: 100%;
+	height: 400px;
+	margin-top: 2rem;
+}
