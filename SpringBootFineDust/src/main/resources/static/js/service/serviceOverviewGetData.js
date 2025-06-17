@@ -55,6 +55,37 @@ function getPMStatusTextAndColor(type, value) {
 	return { text, color };
 }
 
+// 온도 상태 표시 함수
+function getTempStatus(temp) {
+  if (temp <= 18) return '좋음';
+  else if (temp <= 24) return '보통';
+  else if (temp <= 30) return '나쁨';
+  else return '매우 나쁨';
+}
+
+// 습도 상태 표시 함수
+function getHumidityStatus(humidity) {
+  if (humidity >= 40 && humidity <= 60) return '좋음';
+  else if ((humidity >= 30 && humidity < 40) || (humidity > 60 && humidity <= 70)) return '보통';
+  else if ((humidity >= 20 && humidity < 30) || (humidity > 70 && humidity <= 80)) return '나쁨';
+  else return '매우 나쁨';
+}
+
+// 이산화탄소 상태 표시 함수 (ppm 기준, 예시 기준)
+function getCo2Status(co2) {
+  if (co2 <= 600) return '좋음';
+  else if (co2 <= 1000) return '보통';
+  else if (co2 <= 2000) return '나쁨';
+  else return '매우 나쁨';
+}
+
+function updateStatusText(elementId, newText) {
+  const elem = document.getElementById(elementId);
+  if (!elem) return;
+  if (elem.textContent !== newText) {
+    elem.textContent = newText;
+  }
+}
 
 // 데이터 불러오는 함수
 const getStationDust = (stId) => {
@@ -63,7 +94,6 @@ const getStationDust = (stId) => {
 		type: "get",
 		data: { "stId": stId },
 		success: function(data) {
-			console.log(data);
 			const dtoDust = data.snsr;
 			const dtoPred = data.pred;
 
@@ -85,6 +115,10 @@ const getStationDust = (stId) => {
 			document.getElementById("serviceOverview-pm1-value").textContent = dto_pm1;
 			document.getElementById("serviceOverview-pm25-value").textContent = dto_pm25;
 			document.getElementById("serviceOverview-pm10-value").textContent = dto_pm10;
+			
+			updateStatusText('temp-text', getTempStatus(dto_temp));
+			updateStatusText('humidity-text', getHumidityStatus(dto_humidity));
+			updateStatusText('co2-text', getCo2Status(Number(dtoDust.co2den || 0)));
 			
 			if (pm1Status.text !== document.getElementById('serviceOverview-pm1-text').textContent) {
 				document.getElementById('serviceOverview-pm1-text').textContent = pm1Status.text;

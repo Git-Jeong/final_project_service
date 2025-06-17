@@ -126,12 +126,14 @@ html, body {
 	color : white;
 }
 
-.serviceOverview-contant-2{
-	display: flex;
-	align-items: center;
+
+.serviceOverview-contant2{
+	width: 100%;
 	height: calc(100% - 5rem); 
-	font-size: 3rem;
-	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	box-sizing: border-box;
 }
 
 .serviceOverview-contant-text,
@@ -170,6 +172,16 @@ html, body {
   align-items: center;
 }
 
+.serviceOverview-contant-bottom2 {
+  width: 100%;
+  display: flex;
+  gap: 0.1rem;
+  justify-content : center;
+  flex: 1;
+  align-items: baseline; /* 기준선 맞춤 */
+  padding-bottom: 2px;
+}
+
 #serviceOverview-pm1-value,
 #serviceOverview-pm25-value,
 #serviceOverview-pm10-value{
@@ -182,4 +194,31 @@ html, body {
     font-size: 0.6em;
 	width: 40%;
 	text-align: left;
+}
+
+#co2,
+#humidity,
+#temp{
+	width: 50%;
+	text-align: right;
+	font-weight: bold;
+	font-size: clamp(2rem, 2.5vw, 4rem);
+}
+
+
+.unit2 {
+	width: 35%;
+	text-align: left;
+}
+
+.serviceOverview-contant-top2{
+	width : 100%;
+	flex: 1;
+	text-align: center;
+	display : flex;
+	flex-direction : column;
+	justify-content : flex-end;
+	white-space: nowrap;
+	padding-bottom: 20px;
+	font-size: clamp(2rem, 2.5vw, 4rem);
 }
