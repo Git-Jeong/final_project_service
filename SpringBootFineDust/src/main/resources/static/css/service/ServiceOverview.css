@@ -15,6 +15,7 @@ html, body {
 }
 
 .serviceOverview-header{
+	position: relative; /* 기준 영역 설정 */
 	width: 90%;
 	margin-left : auto;
 	margin-right : auto;
@@ -32,13 +33,14 @@ html, body {
 }
 
 .serviceOverview-header-center {
-	display: flex;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
 	align-items: center;
 	height: 40px;
 	line-height: 40px;
 }
 
-.serviceChart-select,
 .serviceOverview-header-center,
 .serviceOverview-header-right-btn,
 #serviceOverview-header-nowDate {
@@ -59,10 +61,11 @@ html, body {
 
 .serviceChart-select {
 	text-align: center;          /* 텍스트 좌우 중앙 정렬 */
-	width: 160px;                /* 너비 줄이기 */
 	height: 80%;
 	line-height: 40px;
 	border-radius: 10px;
+	display: flex;
+	align-items: center;
 }
 
 #serviceOverview-header-nowDate {
