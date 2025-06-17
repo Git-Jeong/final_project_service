@@ -2,12 +2,8 @@ const dustStack = [];
 const predStack = [];
 const stackSize = 60;
 
-// 역 바꾸게 되면 스택 초기화
-const resetDustStack = () => {
-	dustStack.length = 0;
-}
-
-const startPredDust = (stId) => {
+const startPredDust = () => {
+	const stId = document.getElementById('stationSelect').value;
 	$.ajax({
 		url: "savePred",
 		type: "post",
@@ -88,7 +84,8 @@ function updateStatusText(elementId, newText) {
 }
 
 // 데이터 불러오는 함수
-const getStationDust = (stId) => {
+const getStationDust = () => {
+	const stId = document.getElementById('stationSelect').value;
 	$.ajax({
 		url: "getStationDustOne",
 		type: "get",
@@ -192,7 +189,14 @@ const getStationDust = (stId) => {
 				}
 			}
 
-			
+			const spinner = document.getElementById("loding-spin");
+			const nonSpinner = document.getElementById("non-loding-spin");
+			if (spinner.style.display === "block") {
+			  spinner.style.display = "none";
+			}
+			if (nonSpinner.style.display === "none" || nonSpinner.hidden) {
+			  nonSpinner.style.display = "block";
+			}
 		},
 		error: function(err) {
 			console.error("데이터 불러오기 실패:", err);
@@ -200,19 +204,30 @@ const getStationDust = (stId) => {
 	});
 }
 
+const newStationList = () =>{
+	const spinner = document.getElementById("loding-spin");
+	const nonSpinner = document.getElementById("non-loding-spin");
+	if (nonSpinner.style.display === "block") {
+	  nonSpinner.style.display = "none";
+	}
+	if (spinner.style.display === "none" || spinner.hidden) {
+	  spinner.style.display = "block";
+	}	
+	
+	getStationDust();
+	startPredDust();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-	const selectedValue = document.getElementById('stationSelect').value;
-	getStationDust(selectedValue);
-	startPredDust(selectedValue);
+	getStationDust();
+	startPredDust();
 
 	setInterval(() => {
-		const selectedValue = document.getElementById('stationSelect').value;
-		getStationDust(selectedValue);
+		getStationDust();
 	}, 5000);
 
 	setInterval(() => {
-		const selectedValue = document.getElementById('stationSelect').value;
-		startPredDust(selectedValue);
+		startPredDust();
 	}, 5000);
 });
 
@@ -289,4 +304,10 @@ function renderNotifications(notifications) {
 		container.append(card);
 	});
 }
+
+document.addEventListener("change", (e) => {
+  if (e.target && e.target.id === "stationSelect") {
+    newStationList();
+  }
+});
 
