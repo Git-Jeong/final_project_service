@@ -63,7 +63,7 @@
 				</div>
 
 				<div class="serviceOverview-header-right">
-					<button onclick="location.href='/service'"
+					<button onclick="goServicePage()"
 						class="serviceOverview-header-right-btn">
 						나가기 <i class="bi-box-arrow-right logout-icon"></i>
 					</button>
@@ -177,6 +177,12 @@
 
 		setInterval(updateDateTime, 1000);
 		updateDateTime();
+		
+		const goServicePage = () => {
+			if(confirm('뒤로 나가겠습니까?')){
+				location.href='/service';
+			}
+		}
 	</script>
 </body>
 </html>
