@@ -82,6 +82,30 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 		dustEChart = echarts.init(document.getElementById('chart-dust-main-echarts'));
 	}
 
+	// 기준 시간 설정
+	const today = new Date().toISOString().split('T')[0];
+	const seriesMinTime = labels.length ? new Date(`${today}T${labels[0]}`) : null;
+	const xMinTime = new Date(seriesMinTime?.getTime() - 60 * 1000); // 1분 앞당김 (예시)
+	
+	// 시작 값 추출
+	const pm1Start = pm1Data[0] ?? null;
+	const pm25Start = pm25Data[0] ?? null;
+	const pm10Start = pm10Data[0] ?? null;
+	
+	// 채우기 함수
+	const fillSeriesStart = (timeStr, value) => {
+	  if (!timeStr || value == null) return [];
+	  const filledTime = `${today}T${xMinTime.toTimeString().slice(0, 8)}`;
+	  return [[filledTime, value]];
+	};
+	
+	// 시리즈 보정
+	const toTimeValue = (t, v) => [`${today}T${t}`, v];
+	
+	const filledPm1 = [...fillSeriesStart(labels[0], pm1Start), ...labels.map((t, i) => toTimeValue(t, pm1Data[i]))];
+	const filledPm25 = [...fillSeriesStart(labels[0], pm25Start), ...labels.map((t, i) => toTimeValue(t, pm25Data[i]))];
+	const filledPm10 = [...fillSeriesStart(labels[0], pm10Start), ...labels.map((t, i) => toTimeValue(t, pm10Data[i]))];
+
 	const option = {
 		title: [
 			{
@@ -91,9 +115,11 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 		],
 		tooltip: { trigger: 'axis' },
 		xAxis: {
-			type: 'category',
-			data: labels,
-			name: '시간'
+			type: 'time',
+			name: '시간',
+			axisLabel: {
+				formatter: val => new Date(val).toTimeString().slice(0, 8)
+			}
 		},
 		yAxis: {
 			type: 'value',
@@ -112,9 +138,9 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 			bottom: 30
 		},
 		series: [
-			{ name: 'PM10', type: 'line', smooth: true, data: pm10Data, itemStyle: { color: '#DE2AA6' } },
-			{ name: 'PM2.5', type: 'line', smooth: true, data: pm25Data, itemStyle: { color: '#4169E1' } },
-			{ name: 'PM1.0', type: 'line', smooth: true, data: pm1Data, itemStyle: { color: '#8e44ad' } }
+			{ name: 'PM10', type: 'line', smooth: true, data: filledPm10, itemStyle: { color: '#DE2AA6' } },
+			{ name: 'PM2.5', type: 'line', smooth: true, data: filledPm25, itemStyle: { color: '#4169E1' } },
+			{ name: 'PM1.0', type: 'line', smooth: true, data: filledPm1, itemStyle: { color: '#8e44ad' } }
 		],
 		graphic: {
 			elements: [
