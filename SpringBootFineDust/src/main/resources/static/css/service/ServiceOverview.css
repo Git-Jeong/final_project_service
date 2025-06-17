@@ -116,6 +116,7 @@ html, body {
 	font-size: 1.2rem;
 	height: 5rem;
 	border-bottom: 1px solid #ccc; 
+	font-weight: bold;
 }
 
 .serviceOverview-contant {
@@ -143,6 +144,7 @@ html, body {
 
 .serviceOverview-contant-text{	
 	font-size: clamp(2rem, 2.5vw, 4rem);
+	font-weight: bold;
 	display: flex;
 	flex-direction : column;
 	justify-content: center;
@@ -164,15 +166,16 @@ html, body {
 .serviceOverview-contant-bottom {
   display: flex;
   justify-content: center;
-  gap: 0.2rem;
+  gap: 0.1rem;
   align-items: center;
 }
 
 #serviceOverview-pm1-value,
 #serviceOverview-pm25-value,
 #serviceOverview-pm10-value{
-	width: 60%;
-	text-align: right;
+	width: 50%;
+	text-align: center;
+	font-weight: bold;
 }
 
 .unit {
