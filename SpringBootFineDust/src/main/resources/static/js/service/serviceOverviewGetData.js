@@ -19,6 +19,18 @@ const startPredDust = (stId) => {
 	});
 }
 
+const setDustImage = (elementId, statusText) => {
+	const statusMap = {
+		'좋음': 'Good.png',
+		'보통': 'Average.png',
+		'나쁨': 'Bad.png',
+		'매우 나쁨': 'VeryBad.png'
+	};
+	const imgName = statusMap[statusText] || 'Average.png';
+	const imgTag = `<img src="/img/${imgName}" alt="${statusText}">`;
+	document.getElementById(elementId).innerHTML = imgTag;
+};
+
 function getPMStatusTextAndColor(type, value) {
 	let text = '';
 	let color = '';
@@ -58,9 +70,9 @@ const getStationDust = (stId) => {
 			const dto_temp = Math.round(dtoDust.temp * 10) / 10;
 			const dto_humidity = Math.round(dtoDust.humidity * 10) / 10;
 			const dto_co2den = dtoDust.co2den;
-			const dto_pm1 = dtoDust.pm1 = 133;
-			const dto_pm25 = dtoDust.pm25 = 123;
-			const dto_pm10 = dtoDust.pm10 = 33;
+			const dto_pm1 = dtoDust.pm1 = 999;
+			const dto_pm25 = dtoDust.pm25 = 50;
+			const dto_pm10 = dtoDust.pm10 = 10;
 
 			document.getElementById("temp").textContent = dto_temp + "℃";
 			document.getElementById("humidity").textContent = dto_humidity + "%";
@@ -81,7 +93,11 @@ const getStationDust = (stId) => {
 			document.getElementById("serviceOverview-pm1-value").textContent = dto_pm1;
 			document.getElementById("serviceOverview-pm25-value").textContent = dto_pm25;
 			document.getElementById("serviceOverview-pm10-value").textContent = dto_pm10;
-
+			
+			setDustImage("serviceOverview-pm1-img", pm1Status.text);
+			setDustImage("serviceOverview-pm25-img", pm25Status.text);
+			setDustImage("serviceOverview-pm10-img", pm10Status.text);
+			
 			const lastDust = dustStack[dustStack.length - 1];
 			const lastPred = predStack[predStack.length - 1];
 

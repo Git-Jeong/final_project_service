@@ -105,7 +105,6 @@ html, body {
 	border-radius : 10px;
 	border:  1px solid #ccc;
 	overflow: hidden;
-	color : white;
 }
 
 .serviceOverview-contant-title{
@@ -124,6 +123,7 @@ html, body {
 	justify-content: space-between;
 	align-items: center;
 	height: calc(100% - 5rem); 
+	color : white;
 }
 
 .serviceOverview-contant-2{
@@ -142,16 +142,24 @@ html, body {
 }
 
 .serviceOverview-contant-text{	
-	font-size: clamp(2rem, 2.5vw, 5rem);
+	font-size: clamp(2rem, 2.5vw, 4rem);
 	display: flex;
 	flex-direction : column;
 	justify-content: center;
 }
 
-.serviceOverview-contant-img img {
-  height: 100%;
-  object-fit: cover; /* 또는 contain */
+.serviceOverview-contant-img {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* 세로 정렬 */
+  align-items: center; /* 수평 중앙 */
 }
+
+.serviceOverview-contant-img img {
+  height: 80%;
+  object-fit: cover;
+}
+
 
 .serviceOverview-contant-bottom {
   display: flex;
