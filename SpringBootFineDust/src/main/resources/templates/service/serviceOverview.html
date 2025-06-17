@@ -41,7 +41,7 @@
 		</select>
 	</div>
 
-	<div class="service-main-page">
+	<div class="service-main-page"> 
 		<main class="serviceChart-main-content">
 			<div class="serviceOverview-header">
 				<div class="serviceOverview-header-left">
@@ -72,6 +72,9 @@
 
 			<hr class="custom-hr" />
 			
+			<div id="loding-spin" class="loading-spin"></div>
+			
+			<div id="non-loding-spin" style="display: none">
 			<div class="serviceOverview-wide-container">
 				<div id="serviceOverview-pm10" class="serviceOverview-container">
 					<div class="serviceOverview-contant-title">미세먼지(PM10)</div>
@@ -113,40 +116,42 @@
 						</div>
 						<div id="serviceOverview-pm1-img"
 							class="serviceOverview-contant-img"></div>
-					</div>
-				</div>
-			</div>
-
-
-			<div class="serviceOverview-wide-container2">
-				<div class="serviceOverview-container2">
-					<div class="serviceOverview-contant-title">온도</div>
-						<div class="serviceOverview-contant2">
-							<div id="temp-text" class="serviceOverview-contant-top2"></div>
-							<div class="serviceOverview-contant-bottom2">
-								<span id="temp"></span><span class="unit2">℃</span>
-							</div>
-						</div>
-					</div>
-					<div class="serviceOverview-container2">
-						<div class="serviceOverview-contant-title">습도</div>
-						<div class="serviceOverview-contant2">
-							<div id="humidity-text" class="serviceOverview-contant-top2"></div>
-							<div class="serviceOverview-contant-bottom2">
-								<span id="humidity"></span><span class="unit2">%</span>
-							</div>
-						</div>
-					</div>
-					<div class="serviceOverview-container2">
-						<div class="serviceOverview-contant-title">이산화탄소</div>
-						<div class="serviceOverview-contant2">
-							<div id="co2-text" class="serviceOverview-contant-top2"></div>
-							<div class="serviceOverview-contant-bottom2">
-							<span id="co2"></span><span class="unit2">ppm</span>
 						</div>
 					</div>
 				</div>
+	
+	
+				<div class="serviceOverview-wide-container2">
+					<div class="serviceOverview-container2">
+						<div class="serviceOverview-contant-title">온도</div>
+							<div class="serviceOverview-contant2">
+								<div id="temp-text" class="serviceOverview-contant-top2"></div>
+								<div class="serviceOverview-contant-bottom2">
+									<span id="temp"></span><span class="unit2">℃</span>
+								</div>
+							</div>
+						</div>
+						<div class="serviceOverview-container2">
+							<div class="serviceOverview-contant-title">습도</div>
+							<div class="serviceOverview-contant2">
+								<div id="humidity-text" class="serviceOverview-contant-top2"></div>
+								<div class="serviceOverview-contant-bottom2">
+									<span id="humidity"></span><span class="unit2">%</span>
+								</div>
+							</div>
+						</div>
+						<div class="serviceOverview-container2">
+							<div class="serviceOverview-contant-title">이산화탄소</div>
+							<div class="serviceOverview-contant2">
+								<div id="co2-text" class="serviceOverview-contant-top2"></div>
+								<div class="serviceOverview-contant-bottom2">
+								<span id="co2"></span><span class="unit2">ppm</span>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
+			
 		</main>
 	</div>
 
