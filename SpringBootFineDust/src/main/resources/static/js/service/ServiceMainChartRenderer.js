@@ -84,9 +84,9 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 
 	// 기준 시간 설정
 	const today = new Date().toISOString().split('T')[0];
-	const seriesMinTime = labels.length ? new Date(`${today}T${labels[0]}`) : null;
-	const xMinTime = new Date(seriesMinTime?.getTime() - 60 * 1000); // 1분 앞당김 (예시)
-	
+	const seriesMinTime = labels.length ? new Date(`${today}T${labels[labels.length - 1]}`) : null;
+	const xMinTime = new Date(seriesMinTime?.getTime() - 30 * 1000);
+
 	// 시작 값 추출
 	const pm1Start = pm1Data[0] ?? null;
 	const pm25Start = pm25Data[0] ?? null;
@@ -115,11 +115,12 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 		],
 		tooltip: { trigger: 'axis' },
 		xAxis: {
-			type: 'time',
-			name: '시간',
-			axisLabel: {
-				formatter: val => new Date(val).toTimeString().slice(0, 8)
-			}
+		  type: 'time',
+		  name: '시간',
+		  min: xMinTime, // 명시적 시작 시간
+		  axisLabel: {
+		    formatter: val => new Date(val).toTimeString().slice(0, 8)
+		  }
 		},
 		yAxis: {
 			type: 'value',
