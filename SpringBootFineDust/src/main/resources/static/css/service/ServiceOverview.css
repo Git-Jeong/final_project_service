@@ -3,8 +3,11 @@ html, body {
 	margin: 0;
 	width: 100vw;
 	height: 100vh;
+	
 }
-
+::-webkit-scrollbar {
+  display: none;
+}
 .service-main-page{
 	margin-left: auto;
 	margin-right: auto;
@@ -23,22 +26,28 @@ html, body {
 	justify-content: space-between;
 	padding: 2rem 0;
 	font-size: 20px;
+	border-bottom: 1px solid #ccc;
 }
 
+.serviceOverview-header-center,
+.serviceOverview-header-left,
+.serviceOverview-header-right {
+	width: 400px;
+}
 
 .serviceOverview-header-left{
 	display: flex;
 	gap : 20px;
 	align-items: center; /* 상하 중앙 정렬 */
+	left: 0;
 }
 
 .serviceOverview-header-center {
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
+	position: flex;
 	align-items: center;
 	height: 40px;
 	line-height: 40px;
+	justify-content: center;
 }
 
 .serviceOverview-header-center,
@@ -48,13 +57,18 @@ html, body {
 	align-items: center;
 }
 
+.serviceOverview-header-right{
+	display: flex;
+	height: 40px;
+	line-height: 40px;
+	justify-content: flex-end;
+}
+
 .serviceOverview-header-right-btn i {
 	margin-left: 6px; /* 아이콘과 텍스트 사이 띄어쓰기 */
 }
 
 .serviceOverview-header-right-btn {
-	height: 40px;
-	line-height: 40px;
 	background: transparent;
 	border: none;
 }
@@ -84,7 +98,7 @@ html, body {
 	min-width : 300px;
 	flex: 1;
 	max-width : 500px;
-	min-height : 400px;
+	min-height : 300px;
 	height : 30vh;
 	max-height : 550px;
 	text-align: center;
@@ -100,21 +114,36 @@ html, body {
 	padding: 0 0.9rem;
 	font-weight: bold;
 	font-size: 1.2rem;
-	height: 4rem;
+	height: 5rem;
 	border-bottom: 1px solid #ccc;
 }
 
 .serviceOverview-contant {
-	background : aqua;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	height: calc(100% - 4rem); 
+	height: calc(100% - 5rem); 
+}
+
+.serviceOverview-contant-2{
+	display: flex;
+	align-items: center;
+	height: calc(100% - 5rem); 
+	font-size: 3rem;
 }
 
 .serviceOverview-contant-text,
 .serviceOverview-contant-img {
 	width: 50%;
+	height : 100%;
 	text-align: center;
 }
 
+.serviceOverview-contant-text{	
+	font-size: 3rem;
+}
+
+.serviceOverview-contant-img img {
+  height: 100%;
+  object-fit: cover; /* 또는 contain */
+}

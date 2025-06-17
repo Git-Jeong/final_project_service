@@ -19,6 +19,31 @@ const startPredDust = (stId) => {
 	});
 }
 
+function getPMStatusTextAndColor(type, value) {
+	let text = '';
+	let color = '';
+
+	if (type === 'pm1.0') {
+		if (value > 50) { text = '매우 나쁨'; color = '#f34545'; }
+		else if (value > 35) { text = '나쁨'; color = '#ffa70c'; }
+		else if (value > 15) { text = '보통'; color = '#0aa953'; }
+		else { text = '좋음'; color = '#1c8bf3'; }
+	} else if (type === 'pm2.5') {
+		if (value > 75) { text = '매우 나쁨'; color = '#f34545'; }
+		else if (value > 35) { text = '나쁨'; color = '#ffa70c'; }
+		else if (value > 15) { text = '보통'; color = '#0aa953'; }
+		else { text = '좋음'; color = '#1c8bf3'; }
+	} else if (type === 'pm10') {
+		if (value > 150) { text = '매우 나쁨'; color = '#f34545'; }
+		else if (value > 80) { text = '나쁨'; color = '#ffa70c'; }
+		else if (value > 30) { text = '보통'; color = '#0aa953'; }
+		else { text = '좋음'; color = '#1c8bf3'; }
+	}
+
+	return { text, color };
+}
+
+
 // 데이터 불러오는 함수
 const getStationDust = (stId) => {
 	$.ajax({
@@ -26,16 +51,36 @@ const getStationDust = (stId) => {
 		type: "get",
 		data: { "stId": stId },
 		success: function(data) {
+			console.log(data);
 			const dtoDust = data.snsr;
 			const dtoPred = data.pred;
 
 			const dto_temp = Math.round(dtoDust.temp * 10) / 10;
 			const dto_humidity = Math.round(dtoDust.humidity * 10) / 10;
-			const today = new Date().toISOString().split('T')[0];
+			const dto_co2den = dtoDust.co2den;
+			const dto_pm1 = dtoDust.pm1;
+			const dto_pm25 = dtoDust.pm25;
+			const dto_pm10 = dtoDust.pm10;
 
-			document.getElementById("temp").textContent = "온도: 🌡️ " + dto_temp + "℃";
-			document.getElementById("humidity").textContent = "습도: 💧 " + dto_humidity + "%";
-			document.getElementById("dtime").textContent = "갱신: 📅 " + today + " ⏰" + dtoDust.timeHms;
+			document.getElementById("temp").textContent = dto_temp + "℃";
+			document.getElementById("humidity").textContent = dto_humidity + "%";
+			document.getElementById("co2").textContent = dto_co2den + "ppm";
+
+			const pm1Status = getPMStatusTextAndColor('pm1.0', dto_pm1);
+			document.getElementById('serviceOverview-pm1-text').textContent = pm1Status.text;
+			document.getElementById('serviceOverview-pm1').style.backgroundColor = pm1Status.color;
+			
+			const pm25Status = getPMStatusTextAndColor('pm2.5', dto_pm25);
+			document.getElementById('serviceOverview-pm25-text').textContent = pm25Status.text;
+			document.getElementById('serviceOverview-pm25').style.backgroundColor = pm25Status.color;
+			
+			const pm10Status = getPMStatusTextAndColor('pm10', dto_pm10);
+			document.getElementById('serviceOverview-pm10-text').textContent = pm10Status.text;
+			document.getElementById('serviceOverview-pm10').style.backgroundColor = pm10Status.color;
+
+			document.getElementById("serviceOverview-pm1-value").textContent = dto_pm1;
+			document.getElementById("serviceOverview-pm25-value").textContent = dto_pm25;
+			document.getElementById("serviceOverview-pm10-value").textContent = dto_pm10;
 
 			const lastDust = dustStack[dustStack.length - 1];
 			const lastPred = predStack[predStack.length - 1];
@@ -91,26 +136,6 @@ const getStationDust = (stId) => {
 				}
 			}
 
-			updateAirQualitySignal(dtoDust);
-
-			const dustMainChartData = {
-				timeHms: [],
-				pm1Data: [],
-				pm25Data: [],
-				pm10Data: [],
-				codenData: [],
-				co2denData: []
-			};
-
-			dustStack.forEach(d => {
-				dustMainChartData.timeHms.push(d.timeHms);
-				dustMainChartData.pm1Data.push(d.pm1);
-				dustMainChartData.pm25Data.push(d.pm25);
-				dustMainChartData.pm10Data.push(d.pm10);
-				dustMainChartData.codenData.push(d.coden);
-				dustMainChartData.co2denData.push(d.co2den);
-			});
-
 			
 		},
 		error: function(err) {
@@ -119,11 +144,11 @@ const getStationDust = (stId) => {
 	});
 }
 
-const updateAirQualitySignal = (dtoDust) => {
-	console.log(dtoDust);
-}
-
 document.addEventListener('DOMContentLoaded', () => {
+	const selectedValue = document.getElementById('stationSelect').value;
+	getStationDust(selectedValue);
+	startPredDust(selectedValue);
+
 	setInterval(() => {
 		const selectedValue = document.getElementById('stationSelect').value;
 		getStationDust(selectedValue);
@@ -133,7 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		const selectedValue = document.getElementById('stationSelect').value;
 		startPredDust(selectedValue);
 	}, 5000);
-
 });
 
 // notiType에 따른 아이콘 클래스 매핑
