@@ -144,7 +144,6 @@ html, body {
 
 .serviceOverview-contant-text{	
 	font-size: clamp(2rem, 2.5vw, 4rem);
-	font-weight: bold;
 	display: flex;
 	flex-direction : column;
 	justify-content: center;
