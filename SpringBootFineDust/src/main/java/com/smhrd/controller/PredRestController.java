@@ -37,8 +37,10 @@ public class PredRestController {
         if(usrEmail == null) {
             return false;  // null 대신 빈 리스트 반환 권장
         }
+        
+        String flaskUrl = "http://127.0.0.1:5000/flask-station-db-test?st_id=" + stId;
+        
 	    try { //127.0.0.1:5000
-	        String flaskUrl = "http://127.0.0.1:5000/flask-station-db-test?st_id=" + stId;
 	        RestTemplate restTemplate = new RestTemplate();
 
 	        ResponseEntity<Object> response = restTemplate.getForEntity(flaskUrl, Object.class);
@@ -68,7 +70,7 @@ public class PredRestController {
 	            return predService.savePred(pred);
 	        }
 	    } catch (Exception e) {
-	        e.printStackTrace();
+	        System.out.println("[Flask 서버 연결 오류] Flask 서버가 실행 중인지 확인 필요 \t" + e.getMessage());
 	    }
 	    return false;
 	}

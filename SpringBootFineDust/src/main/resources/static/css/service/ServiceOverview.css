@@ -1,0 +1,263 @@
+html, body {
+	padding: 0;
+	margin: 0;
+	width: 100vw;
+	height: 100vh;
+	
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+.custom-hr{
+	padding: 0;
+	margin:  0;	
+}
+
+.service-main-page{
+	margin-left: auto;
+	margin-right: auto;
+	min-width : 700px;
+	width: 100vw;
+	max-width : 1800px;
+	height: 100vh;
+}
+
+.serviceOverview-header{
+	position: relative; /* 기준 영역 설정 */
+	width: 90%;
+	margin-left : auto;
+	margin-right : auto;
+	display: flex;
+	justify-content: space-between;
+	padding: 1rem 0;
+  white-space: nowrap;
+}
+
+.serviceOverview-header-center,
+.serviceOverview-header-left,
+.serviceOverview-header-right {
+	width: 400px;
+}
+
+.serviceOverview-header-left{
+	display: flex;
+	gap : 20px;
+	align-items: center; /* 상하 중앙 정렬 */
+	left: 0;
+}
+
+.serviceOverview-header-center {
+	position: flex;
+	align-items: center;
+	height: 40px;
+	line-height: 40px;
+	justify-content: center;
+}
+
+.serviceOverview-header-center,
+.serviceOverview-header-right-btn,
+#serviceOverview-header-nowDate {
+	display: flex;
+	align-items: center;
+}
+
+.serviceOverview-header-right{
+	display: flex;
+	height: 40px;
+	line-height: 40px;
+	justify-content: flex-end;
+}
+
+.serviceOverview-header-right-btn i {
+	margin-left: 6px; /* 아이콘과 텍스트 사이 띄어쓰기 */
+}
+
+.serviceOverview-header-right-btn {
+	background: transparent;
+	border: none;
+}
+
+.serviceChart-select {
+	text-align: center;          /* 텍스트 좌우 중앙 정렬 */
+	height: 80%;
+	line-height: 40px;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+}
+
+#serviceOverview-header-nowDate {
+	line-height: 40px;
+}
+
+.serviceOverview-wide-container,
+.serviceOverview-wide-container2{
+	padding: 1rem;
+	display: flex;
+	justify-content: center;
+	align-items: center; 
+	gap : 2rem;
+}
+
+.serviceOverview-container,
+.serviceOverview-container2 {
+	min-width: 350px;
+	max-width: 500px;
+	height: 30vh;
+	max-height: 550px;
+	text-align: center;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	overflow: hidden;
+	flex: 1;
+}
+
+.serviceOverview-container {
+	min-height: 400px;
+	color : white;
+}
+
+.serviceOverview-container2 {
+	min-height: 300px;
+}
+
+
+.serviceOverview-contant-title{
+	display: flex;
+	align-items: center;
+	justify-content : center;
+	padding: 0 0.9rem;
+	font-weight: bold;
+	font-size: 1.65rem;
+	height: 5rem;
+}
+
+.serviceOverview-contant {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: calc(100% - 5rem); 
+}
+
+
+.serviceOverview-contant2{
+	width: 100%;
+	height: calc(100% - 5rem); 
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	box-sizing: border-box;
+}
+
+.serviceOverview-contant-text,
+.serviceOverview-contant-img {
+	width: 50%;
+	height : 100%;
+	text-align: center;
+	white-space: nowrap;
+	padding: 10px;
+}
+
+.serviceOverview-contant-text{	
+	font-size: clamp(2rem, 2.5vw, 4rem);
+	display: flex;
+	flex-direction : column;
+	justify-content: center;
+}
+
+.serviceOverview-contant-img {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* 세로 정렬 */
+  align-items: center; /* 수평 중앙 */
+}
+
+.serviceOverview-contant-img img {
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.serviceOverview-contant-bottom {
+  display: flex;
+  justify-content: center;
+  gap: 0.1rem;
+  align-items: center;
+}
+
+.serviceOverview-contant-bottom2 {
+  width: 100%;
+  display: flex;
+  gap: 0.1rem;
+  justify-content : center;
+  flex: 1;
+  align-items: baseline; /* 기준선 맞춤 */
+  padding-bottom: 2px;
+}
+
+#serviceOverview-pm1-value,
+#serviceOverview-pm25-value,
+#serviceOverview-pm10-value{
+	width: 50%;
+	text-align: center;
+	font-weight: bold;
+}
+
+.unit {
+    font-size: 0.6em;
+	width: 40%;
+	text-align: left;
+}
+
+#co2,
+#humidity,
+#temp{
+	width: 50%;
+	text-align: right;
+	font-weight: bold;
+	font-size: clamp(2rem, 2.5vw, 4rem);
+}
+
+
+.unit2 {
+	width: 35%;
+	font-size: clamp(1.5rem, 2vw, 3rem);
+	text-align: left;
+}
+
+.serviceOverview-contant-top2{
+	width : 100%;
+	flex: 1;
+	text-align: center;
+	display : flex;
+	flex-direction : column;
+	justify-content : flex-end;
+	white-space: nowrap;
+	padding-bottom: 20px;
+	font-size: clamp(2rem, 2.5vw, 4rem);
+}
+
+.loading-spin {
+	width: 40px;
+	height: 40px;
+	border: 4px solid #eee;
+	border-top-color: #3498db;
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+	box-shadow: 0 0 10px rgba(52, 152, 219, 0.6);
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 9999;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

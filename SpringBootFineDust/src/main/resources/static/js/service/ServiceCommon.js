@@ -187,17 +187,17 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 	
 	function onIndoorAirPredictClick() {
-	    window.location.href = '/servicePred';
+	    window.location.href = '/serviceHistory';
 	}
 	
 	function onclickTest() {
-	    window.location.href = '/serviceTest';
+	    window.location.href = '/serviceOverview';
 	}
 	
 	const buttons = [
 	    { text: '모니터링 시스템', onClick: goMonitoringPage },
 	    { text: '조회 시스템', onClick: onIndoorAirPredictClick },
-	    { text: '테스트 시스템', onClick: onclickTest }
+	    { text: '사용자 시스템', onClick: onclickTest }
 	];
 
 	buttons.forEach(({ text, onClick }) => {
@@ -240,13 +240,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		// 차트 리사이즈
 		setTimeout(() => {
-			if (dustEChart) dustEChart.resize();
-			if (pm1EChart) pm1EChart.resize();
-			if (pm25EChart) pm25EChart.resize();
-			if (pm10EChart) pm10EChart.resize();
-			if (codenEChart) codenEChart.resize();
-			if (co2denEChart) co2denEChart.resize();
+			if (document.getElementById('dustEChart') && dustEChart) dustEChart.resize();
+			if (document.getElementById('pm1EChart') && pm1EChart) pm1EChart.resize();
+			if (document.getElementById('pm25EChart') && pm25EChart) pm25EChart.resize();
+			if (document.getElementById('pm10EChart') && pm10EChart) pm10EChart.resize();
+			if (document.getElementById('codenEChart') && codenEChart) codenEChart.resize();
+			if (document.getElementById('co2denEChart') && co2denEChart) co2denEChart.resize();
 		}, 1);
+
 	}
 
 	const storedSidebarState = localStorage.getItem('sidebarOpen');
@@ -264,14 +265,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	// --- 4. 이벤트 리스너 부착 (이제 요소가 존재함) ---
 	if (toggleBtn_sidebar) { // null 체크
 		toggleBtn_sidebar.addEventListener("click", sidebarOpenButton);
-	} else {
-		console.error("ID 'toggleSidebarBtn'을 가진 사이드바 버튼을 찾을 수 없습니다.");
-	}
+	} 
 
 	if (toggleBtn_header) { // null 체크
 		toggleBtn_header.addEventListener("click", sidebarOpenButton);
-	} else {
-		console.error("ID 'toggleSidebarBtn_2'를 가진 헤더 버튼을 찾을 수 없습니다.");
 	}
 
 

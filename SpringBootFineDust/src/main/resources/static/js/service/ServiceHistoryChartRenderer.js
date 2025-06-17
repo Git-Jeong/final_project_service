@@ -1,3 +1,6 @@
+// drawAmPmAvgChart 함수 내에서 echarts 인스턴스를 전역변수로 관리하도록 수정
+let amPmChart = null;
+
 function drawAmPmAvgChart({
   xLabels,
   amAvgPm1, amAvgPm25, amAvgPm10,
@@ -5,10 +8,10 @@ function drawAmPmAvgChart({
 }) {
   const chartDom = document.getElementById('PastDustChart');
   if (!chartDom) {
-    console.error('PastDustChart element not found');
+    console.error('PastDustChart element not found');  
     return;
   }
-  const chart = echarts.init(chartDom);
+  if (!amPmChart) amPmChart = echarts.init(chartDom);
 
   const option = {
     title: { text: 'AM/PM 평균 미세먼지', left: 'center' },
@@ -29,17 +32,11 @@ function drawAmPmAvgChart({
     ]
   };
 
-  chart.setOption(option);
-  chart.resize();
+  amPmChart.setOption(option);
+  amPmChart.resize();
 }
 
-/* 
-// DOM이 완전히 로드되면 호출
-    window.onload = function() {
-      drawAmPmAvgChart({
-        xLabels: ['AM', 'PM'],
-        amAvgPm1: amAvgPm1, amAvgPm25: amAvgPm25, amAvgPm10: amAvgPm10,
-        pmAvgPm1: pmAvgPm1, pmAvgPm25: pmAvgPm25, pmAvgPm10: pmAvgPm10
-      });
-};
-*/
+// 리사이즈 이벤트에 amPmChart 인스턴스 resize 호출로 수정
+window.addEventListener('resize', () => {
+  if (amPmChart) amPmChart.resize();
+});
