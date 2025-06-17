@@ -70,33 +70,39 @@ const getStationDust = (stId) => {
 			const dto_temp = Math.round(dtoDust.temp * 10) / 10;
 			const dto_humidity = Math.round(dtoDust.humidity * 10) / 10;
 			const dto_co2den = dtoDust.co2den;
-			const dto_pm1 = dtoDust.pm1 = 999;
-			const dto_pm25 = dtoDust.pm25 = 50;
-			const dto_pm10 = dtoDust.pm10 = 10;
+			const dto_pm1 = dtoDust.pm1;
+			const dto_pm25 = dtoDust.pm25;
+			const dto_pm10 = dtoDust.pm10;
 
 			document.getElementById("temp").textContent = dto_temp + "℃";
 			document.getElementById("humidity").textContent = dto_humidity + "%";
 			document.getElementById("co2").textContent = dto_co2den + "ppm";
 
 			const pm1Status = getPMStatusTextAndColor('pm1.0', dto_pm1);
-			document.getElementById('serviceOverview-pm1-text').textContent = pm1Status.text;
-			document.getElementById('serviceOverview-pm1').style.backgroundColor = pm1Status.color;
-			
 			const pm25Status = getPMStatusTextAndColor('pm2.5', dto_pm25);
-			document.getElementById('serviceOverview-pm25-text').textContent = pm25Status.text;
-			document.getElementById('serviceOverview-pm25').style.backgroundColor = pm25Status.color;
-			
 			const pm10Status = getPMStatusTextAndColor('pm10', dto_pm10);
-			document.getElementById('serviceOverview-pm10-text').textContent = pm10Status.text;
-			document.getElementById('serviceOverview-pm10').style.backgroundColor = pm10Status.color;
 
 			document.getElementById("serviceOverview-pm1-value").textContent = dto_pm1;
 			document.getElementById("serviceOverview-pm25-value").textContent = dto_pm25;
 			document.getElementById("serviceOverview-pm10-value").textContent = dto_pm10;
 			
-			setDustImage("serviceOverview-pm1-img", pm1Status.text);
-			setDustImage("serviceOverview-pm25-img", pm25Status.text);
-			setDustImage("serviceOverview-pm10-img", pm10Status.text);
+			if (pm1Status.text !== document.getElementById('serviceOverview-pm1-text').textContent) {
+				document.getElementById('serviceOverview-pm1-text').textContent = pm1Status.text;
+				document.getElementById('serviceOverview-pm1').style.backgroundColor = pm1Status.color;
+				setDustImage("serviceOverview-pm1-img", pm1Status.text);
+			}
+			
+			if (pm25Status.text !== document.getElementById('serviceOverview-pm25-text').textContent) {
+				document.getElementById('serviceOverview-pm25-text').textContent = pm25Status.text;
+				document.getElementById('serviceOverview-pm25').style.backgroundColor = pm25Status.color;
+				setDustImage("serviceOverview-pm25-img", pm25Status.text);
+			}
+			
+			if (pm10Status.text !== document.getElementById('serviceOverview-pm10-text').textContent) {
+				document.getElementById('serviceOverview-pm10-text').textContent = pm10Status.text;
+				document.getElementById('serviceOverview-pm10').style.backgroundColor = pm10Status.color;
+				setDustImage("serviceOverview-pm10-img", pm10Status.text);
+			}
 			
 			const lastDust = dustStack[dustStack.length - 1];
 			const lastPred = predStack[predStack.length - 1];
