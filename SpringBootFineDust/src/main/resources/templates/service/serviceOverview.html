@@ -11,16 +11,12 @@ window.model = {
 		userName : '[[${userName}]]'
 };
 </script>
-<!-- ApexCharts 및 Vue -->
-<script
-	src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+
 <script src="/js/service/serviceOverviewGetData.js"></script>
-<script src="/js/service/ServiceCommon.js"></script>
 
 
 <!-- 차트 컴포넌트 스타일/스크립트 -->
-<link rel="stylesheet" href="/css/Common.css" />
-<link rel="stylesheet" href="/css/service/ServiceCommon.css">
+<link rel="stylesheet" href="/css/service/ServiceOverview.css">
 
 <!-- 부트스트랩 CSS -->
 <link
@@ -44,24 +40,19 @@ window.model = {
 			</th:block>
 		</select>
 	</div>
+	
 	<div class="service-main-page">
-		<div id="sidebar-container"></div>
 		<main class="serviceChart-main-content">
-			<div id="serviceChart-header">
-				<!-- js를 통해 여기에 헤더를 만들어 둠. -->
-				<!-- 헤더에는 '실내공기질 측정시스템'을 포함하여 '마이페이지', '알림', '로그아웃' 기능이 들어 있음. -->
-			</div>
-			<div id="notificationDropdown" class="notification-dropdown hidden">
-				<!-- 여기까지 실제 DB에서 데이터를 불러와서 출럭을 해야 됨. 즉 db에 값이 있으면 위의 코드를 반복하는 것 -->
-				<!-- js를 통해 여기에 알림 베너를 만들어 둠. -->
-			</div>
-			<div class="serviceChart-headeroption">
-					<select id="stationSelect" class="serviceChart-select" onchange="resetDustStack()">
-						<th:block th:each="station : ${stationList}">
-							<option th:if="${!#strings.isEmpty(station.stName_1)}"
-								th:value="${station.stId}" th:text="${station.stName_1}"></option>
-						</th:block>
-					</select> 
+			<div class="serviceOverview-header">
+				<select id="stationSelect" class="serviceChart-select" onchange="resetDustStack()">
+					<th:block th:each="station : ${stationList}">
+						<option th:if="${!#strings.isEmpty(station.stName_1)}"
+							th:value="${station.stId}" th:text="${station.stName_1}"></option>
+					</th:block>
+				</select> 
+				<button onclick="history.back()" class="btn btn-outline-secondary ms-2">
+				  나가기 <i class="bi-box-arrow-right logout-icon"></i> 
+				</button>
 			</div>
 			
 			<div>

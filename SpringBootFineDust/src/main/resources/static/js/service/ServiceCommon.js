@@ -265,14 +265,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	// --- 4. 이벤트 리스너 부착 (이제 요소가 존재함) ---
 	if (toggleBtn_sidebar) { // null 체크
 		toggleBtn_sidebar.addEventListener("click", sidebarOpenButton);
-	} else {
-		console.error("ID 'toggleSidebarBtn'을 가진 사이드바 버튼을 찾을 수 없습니다.");
-	}
+	} 
 
 	if (toggleBtn_header) { // null 체크
 		toggleBtn_header.addEventListener("click", sidebarOpenButton);
-	} else {
-		console.error("ID 'toggleSidebarBtn_2'를 가진 헤더 버튼을 찾을 수 없습니다.");
 	}
 
 
