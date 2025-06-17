@@ -119,8 +119,12 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 		  name: '시간',
 		  min: xMinTime, // 명시적 시작 시간
 		  axisLabel: {
-		    formatter: val => new Date(val).toTimeString().slice(0, 8)
-		  }
+				formatter: value => {
+					const date = new Date(value);
+					const sec = date.getSeconds();
+					return sec % 10 === 0 ? date.toTimeString().slice(0, 8) : '';
+				}
+			}
 		},
 		yAxis: {
 			type: 'value',
