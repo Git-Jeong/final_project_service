@@ -131,6 +131,7 @@ html, body {
 	align-items: center;
 	height: calc(100% - 5rem); 
 	font-size: 3rem;
+	padding: 10px;
 }
 
 .serviceOverview-contant-text,

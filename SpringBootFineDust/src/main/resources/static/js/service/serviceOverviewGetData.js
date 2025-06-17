@@ -69,14 +69,14 @@ const getStationDust = (stId) => {
 
 			const dto_temp = Math.round(dtoDust.temp * 10) / 10;
 			const dto_humidity = Math.round(dtoDust.humidity * 10) / 10;
-			const dto_co2den = dtoDust.co2den;
+			const dto_co2den = Number(dtoDust.co2den || 0).toLocaleString();
 			const dto_pm1 = dtoDust.pm1;
 			const dto_pm25 = dtoDust.pm25;
 			const dto_pm10 = dtoDust.pm10;
 
-			document.getElementById("temp").textContent = dto_temp + "℃";
-			document.getElementById("humidity").textContent = dto_humidity + "%";
-			document.getElementById("co2").textContent = dto_co2den + "ppm";
+			document.getElementById("temp").textContent = dto_temp;
+			document.getElementById("humidity").textContent = dto_humidity;
+			document.getElementById("co2").textContent = dto_co2den;
 
 			const pm1Status = getPMStatusTextAndColor('pm1.0', dto_pm1);
 			const pm25Status = getPMStatusTextAndColor('pm2.5', dto_pm25);
