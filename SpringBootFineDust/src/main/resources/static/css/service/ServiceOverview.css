@@ -105,6 +105,7 @@ html, body {
 	border-radius : 10px;
 	border:  1px solid #ccc;
 	overflow: hidden;
+	color : white;
 }
 
 .serviceOverview-contant-title{
@@ -115,7 +116,7 @@ html, body {
 	font-weight: bold;
 	font-size: 1.2rem;
 	height: 5rem;
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid #ccc; 
 }
 
 .serviceOverview-contant {
@@ -137,13 +138,37 @@ html, body {
 	width: 50%;
 	height : 100%;
 	text-align: center;
+	white-space: nowrap;
 }
 
 .serviceOverview-contant-text{	
-	font-size: 3rem;
+	font-size: clamp(2rem, 2.5vw, 5rem);
+	display: flex;
+	flex-direction : column;
+	justify-content: center;
 }
 
 .serviceOverview-contant-img img {
   height: 100%;
   object-fit: cover; /* 또는 contain */
+}
+
+.serviceOverview-contant-bottom {
+  display: flex;
+  justify-content: center;
+  gap: 0.2rem;
+  align-items: center;
+}
+
+#serviceOverview-pm1-value,
+#serviceOverview-pm25-value,
+#serviceOverview-pm10-value{
+	width: 60%;
+	text-align: right;
+}
+
+.unit {
+    font-size: 0.6em;
+	width: 40%;
+	text-align: left;
 }
