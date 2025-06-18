@@ -36,3 +36,4 @@ Flask/.env
 /DBInsertPython/.ipynb_checkpoints
 /DBInsertPython/data
 /DBInsertPython/anaconda_projects
+/Flask/__pycache__
