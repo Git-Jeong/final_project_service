@@ -32,4 +32,7 @@ SpringBootFineDust/src/main/resources/application.properties
 SpringBootFineDust/src/application.properties
 Flask/.env
 /Flask/__pycache__
-/DBInsertPython
+/DBInsertPython/.env
+/DBInsertPython/.ipynb_checkpoints
+/DBInsertPython/data
+/DBInsertPython/anaconda_projects
