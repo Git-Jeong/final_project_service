@@ -21,7 +21,7 @@ const startCommentDust = () => {
 		url: "avgDust",
 		type: "POST",
 		data: JSON.stringify(stId),
-	    contentType: "application/json",
+		contentType: "application/json",
 		success: function(data) {
 			const pm1Status = getPMStatusTextAndColor('pm1.0', data.pm1);
 			const pm25Status = getPMStatusTextAndColor('pm2.5', data.pm25);
@@ -47,13 +47,24 @@ const startCommentDust = () => {
 				'매우 나쁨': '외출을 자제하는 것이 좋습니다.'
 			};
 
+			const statusMap = {
+				'좋음': 'Good.png',
+				'보통': 'Average.png',
+				'나쁨': 'Bad.png',
+				'매우 나쁨': 'VeryBad.png'
+			};
+
 			const data_comment1 = `${iconMap[worstStatus.text]} ${worstStatus.text}`;
 			const data_comment2 = adviceMap[worstStatus.text];
+			const imgName = statusMap[worstStatus.text] || 'Average.png';
 
 			document.getElementById("comment1").textContent = data_comment1;
 			document.getElementById("comment1").style.color = worstStatus.color;
-			
-			document.getElementById("comment2").textContent = data_comment2;
+
+			document.getElementById("comment2").innerHTML = `
+				${data_comment2}
+				<img src="img/${imgName}" alt="${worstStatus.text}" style="height:1em; vertical-align:text-bottom; margin-left:5px;">
+			`;
 		},
 		error: function(err) {
 			console.error("데이터 불러오기 실패:", err);
@@ -277,11 +288,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	setInterval(() => {
 		startPredDust();
 	}, 5000);
-	
+
 	setInterval(() => {
 		startCommentDust();
 	}, 1800000);
-	
+
 });
 
 // notiType에 따른 아이콘 클래스 매핑
