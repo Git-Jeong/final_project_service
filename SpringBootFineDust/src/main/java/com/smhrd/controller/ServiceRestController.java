@@ -214,27 +214,36 @@ public class ServiceRestController {
         //System.out.println("weekday = " + weekday);
         if (result.isEmpty()) {
             return Map.of(
-                "xLabels", List.of("AM", "PM"),
+                "xLabels", (Object)List.of("AM", "PM"),
                 "amAvgPm1", 0,
                 "amAvgPm25", 0,
                 "amAvgPm10", 0,
                 "pmAvgPm1", 0,
                 "pmAvgPm25", 0,
-                "pmAvgPm10", 0
+                "pmAvgPm10", 0,
+                
+               "amAvgCoden", 0,
+                "pmAvgCoden",0 ,
+                "amAvgCo2den",0,
+                "pmAvgCo2den",0
+                
             );
         }
 
         Map<String, Object> row = result.get(0);
 
-        return Map.of(
-            "xLabels", List.of("AM", "PM"),
-            "amAvgPm1", row.getOrDefault("amAvgPm1", 0),
-            "amAvgPm25", row.getOrDefault("amAvgPm25", 0),
-            "amAvgPm10", row.getOrDefault("amAvgPm10", 0),
-            "pmAvgPm1", row.getOrDefault("pmAvgPm1", 0),
-            "pmAvgPm25", row.getOrDefault("pmAvgPm25", 0),
-            "pmAvgPm10", row.getOrDefault("pmAvgPm10", 0)
-        );
+        return Map.ofEntries(
+        	    Map.entry("xLabels", List.of("AM", "PM")),
+        	    Map.entry("amAvgPm1", row.getOrDefault("amAvgPm1", 0)),
+        	    Map.entry("amAvgPm25", row.getOrDefault("amAvgPm25", 0)),
+        	    Map.entry("amAvgPm10", row.getOrDefault("amAvgPm10", 0)),
+        	    Map.entry("pmAvgPm1", row.getOrDefault("pmAvgPm1", 0)),
+        	    Map.entry("pmAvgPm25", row.getOrDefault("pmAvgPm25", 0)),
+        	    Map.entry("pmAvgPm10", row.getOrDefault("pmAvgPm10", 0)),
+        	    Map.entry("amAvgCo2den", row.getOrDefault("amAvgCo2den", 0)),
+        	    Map.entry("pmAvgCo2den", row.getOrDefault("pmAvgCo2den", 0))
+        	);
+
     }
 
 

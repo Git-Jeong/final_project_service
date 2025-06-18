@@ -21,18 +21,18 @@ public interface SensorRepository extends JpaRepository<Sensor, Integer> {
 
     @Query(value = """
             SELECT
-      AVG(CASE WHEN HOUR(time_hms) < 12 THEN pm1 END) AS amAvgPm1,
-      AVG(CASE WHEN HOUR(time_hms) < 12 THEN pm25 END) AS amAvgPm25,
-      AVG(CASE WHEN HOUR(time_hms) < 12 THEN pm10 END) AS amAvgPm10,
-      AVG(CASE WHEN HOUR(time_hms) >= 12 THEN pm1 END) AS pmAvgPm1,
-      AVG(CASE WHEN HOUR(time_hms) >= 12 THEN pm25 END) AS pmAvgPm25,
-      AVG(CASE WHEN HOUR(time_hms) >= 12 THEN pm10 END) AS pmAvgPm10,
+      ROUND(AVG(CASE WHEN HOUR(time_hms) < 12 THEN pm1 END),2) AS amAvgPm1,
+      ROUND(AVG(CASE WHEN HOUR(time_hms) < 12 THEN pm25 END),2) AS amAvgPm25,
+      ROUND(AVG(CASE WHEN HOUR(time_hms) < 12 THEN pm10 END),2) AS amAvgPm10,
+      ROUND(AVG(CASE WHEN HOUR(time_hms) >= 12 THEN pm1 END),2) AS pmAvgPm1,
+      ROUND(AVG(CASE WHEN HOUR(time_hms) >= 12 THEN pm25 END),2) AS pmAvgPm25,
+      ROUND(AVG(CASE WHEN HOUR(time_hms) >= 12 THEN pm10 END),2) AS pmAvgPm10,
       
-      AVG(CASE WHEN HOUR(time_hms) < 12 THEN coden END) AS amAvgCoden,
-      AVG(CASE WHEN HOUR(time_hms) >= 12 THEN coden END) AS pmAvgCoden,
+      ROUND(AVG(CASE WHEN HOUR(time_hms) < 12 THEN coden END),2) AS amAvgCoden,
+      ROUND(AVG(CASE WHEN HOUR(time_hms) >= 12 THEN coden END),2) AS pmAvgCoden,
       
-      AVG(CASE WHEN HOUR(time_hms) < 12 THEN co2den END) AS amAvgCo2den,
-      AVG(CASE WHEN HOUR(time_hms) >= 12 THEN co2den END) AS pmAvgCo2den
+      ROUND(AVG(CASE WHEN HOUR(time_hms) < 12 THEN co2den END),2) AS amAvgCo2den,
+      ROUND(AVG(CASE WHEN HOUR(time_hms) >= 12 THEN co2den END),2) AS pmAvgCo2den
     		
       
     FROM sensor

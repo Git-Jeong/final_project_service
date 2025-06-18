@@ -196,11 +196,19 @@
 	margin-left: 0.5rem;
 }
 
-.chartContainer{
+.chartContainer-left{
 	width: 45vw;
 	margin-left: auto;
 	margin-right: auto;
 }
+
+.chartContainer-right{
+	width: 45vw;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
 
 #PastDustChart{
 	width: 100%;
