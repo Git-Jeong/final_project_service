@@ -9,6 +9,8 @@ import pandas as pd
 import numpy as np
 import joblib
 from tensorflow.keras.models import load_model
+import keras
+keras.config.enable_unsafe_deserialization()
 
 # 1) 이 파일(.py)이 위치한 디렉터리 구하기
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -96,7 +98,7 @@ def dustPred(sensor_results):
     X = df[['PM10_log','PM2_5_log','PM1_log','Temp','Humidity','CO2Den_log', 'AtmosphericPress', 'doy_sin','doy_cos','time_sin','time_cos']].to_numpy()
 
     # 모델 불러오기
-    loaded_model = load_model(MODEL_PATH, compile=False)
+    loaded_model = load_model(MODEL_PATH, compile=False, safe_mode=False)
 
     # 예측 (스케일된 y)
     y_pred_scaled = loaded_model.predict(X.reshape(1, *X.shape))
@@ -141,7 +143,7 @@ def db_test():
             SELECT * FROM sensor
             WHERE st_id = %s AND weekday = %s AND time_hms <= %s
             ORDER BY time_hms DESC
-            LIMIT 600
+            LIMIT 60
         """, (st_id, weekday_eng, current_time_str))
 
         results = cursor.fetchall()

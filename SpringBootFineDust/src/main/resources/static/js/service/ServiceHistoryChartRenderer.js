@@ -1,6 +1,9 @@
 // drawAmPmAvgChart 함수 내에서 echarts 인스턴스를 전역변수로 관리하도록 수정
 let amPmChart = null;
 
+//이산화탄소 평균 차트 추가 만들거야
+let amPmCodenChart = null
+
 function drawAmPmAvgChart({
   xLabels,
   amAvgPm1, amAvgPm25, amAvgPm10,
@@ -18,19 +21,18 @@ function drawAmPmAvgChart({
     tooltip: { trigger: 'axis' },
     legend: {
       top: '8%',
-      data: ['PM1 (AM)', 'PM2.5 (AM)', 'PM10 (AM)', 'PM1 (PM)', 'PM2.5 (PM)', 'PM10 (PM)']
+      data: ['PM1.0', 'PM2.5', 'PM10']
     },
     xAxis: { type: 'category', data: xLabels },
     yAxis: { type: 'value', name: '㎍/㎥' },
     series: [
-      { name: 'PM1 (AM)', type: 'bar', data: [amAvgPm1, amAvgPm1], itemStyle: { color: '#FF6B6B' }},
-      { name: 'PM2.5 (AM)', type: 'bar', data: [amAvgPm25, amAvgPm25], itemStyle: { color: '#4ECDC4' }},
-      { name: 'PM10 (AM)', type: 'bar', data: [amAvgPm10, amAvgPm10], itemStyle: { color: '#1A535C' }},
-      { name: 'PM1 (PM)', type: 'bar', data: [pmAvgPm1, pmAvgPm1], itemStyle: { color: '#FFB400' }},
-      { name: 'PM2.5 (PM)', type: 'bar', data: [pmAvgPm25, pmAvgPm25], itemStyle: { color: '#00A8E8' }},
-      { name: 'PM10 (PM)', type: 'bar', data: [pmAvgPm10, pmAvgPm10], itemStyle: { color: '#4D4D4D' }}
+     
+      { name: 'PM1.0', type: 'bar', data: [amAvgPm1, pmAvgPm1], itemStyle: { color: '#4D4D4D' }},
+ 	{ name: 'PM2.5', type: 'bar', data: [amAvgPm25,pmAvgPm25], itemStyle: { color: '#1A535C' }},
+      { name: 'PM10', type: 'bar', data: [amAvgPm10, pmAvgPm10], itemStyle: { color: '#FFB400' }},
+
     ]
-  };
+  };//색이 참 마음에 안드네
 
   amPmChart.setOption(option);
   amPmChart.resize();
@@ -40,3 +42,56 @@ function drawAmPmAvgChart({
 window.addEventListener('resize', () => {
   if (amPmChart) amPmChart.resize();
 });
+
+function drawAmPmCodenChart({
+  amAvgCoden, pmAvgCoden,
+  amAvgCo2den, pmAvgCo2den
+}) {
+  const chartDom = document.getElementById('PastCodenChart');
+  if (!chartDom) {
+    console.error('PastCodenChart element not found');
+    return;
+  }
+  if (!amPmCodenChart) amPmCodenChart = echarts.init(chartDom);
+
+  const option = {
+    title: { text: 'AM/PM 평균 가스 농도 (꺾은선)', left: 'center' },
+    tooltip: { trigger: 'axis' },
+    legend: {
+      top: '8%',
+      data: ['CO (ppm)', 'CO₂ (ppm)']
+    },
+    xAxis: {
+      type: 'category',
+      data: ['AM', 'PM']
+    },
+    yAxis: {
+      type: 'value',
+      name: 'ppm'
+    },
+    series: [
+      {
+        name: 'CO (ppm)',
+        type: 'line',
+        data: [amAvgCoden, pmAvgCoden],
+        itemStyle: { color: '#2fd093' },
+        symbol: 'circle',
+        lineStyle: { width: 2 },
+        smooth: true
+      },
+      {
+        name: 'CO₂ (ppm)',
+        type: 'line',
+        data: [amAvgCo2den, pmAvgCo2den],
+        itemStyle: { color: '#597ef7' },
+        symbol: 'circle',
+        lineStyle: { width: 2 },
+        smooth: true
+      }
+    ]
+  };
+
+  amPmCodenChart.setOption(option);
+  amPmCodenChart.resize();
+}
+
