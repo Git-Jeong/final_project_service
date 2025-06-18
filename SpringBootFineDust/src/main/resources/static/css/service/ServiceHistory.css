@@ -134,20 +134,19 @@
 }
 
 .serviceHistory-average-info {
-	border-top: 1px solid #ccc;
 	width: 100%;
+	height: 100%;
 }
 
 .serviceHistory-info-header {
-  margin-top: 0;
-  padding-top: 6.25rem;
-  margin-bottom: 1rem;
+  padding : 1rem 0;
   width : 100%;
   font-size: 1.25rem;
   font-weight: 600;
   display: flex;
   align-items: flex-end;  
   justify-content: center; /* 좌우 중앙 정렬 */
+  top : 0;
 }
 
 .serviceHistory-info-body {
@@ -155,45 +154,52 @@
 	border-radius: 10px;
 	font-size: 0.8rem;
 	color: #444;
-	margin: 0 0.5rem;
+	margin: 0;
 }
 
 .pm-list {
 	list-style: none;
-	padding: 1rem;
 	margin: 0;
-	border: 1px solid #ccc;
+	padding: 0;
 	border-radius: 8px;
-	background-color: #fafafa;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	display: flex;
-	flex-direction: column;
-	gap: 23px;
+	justify-content: center;
+	align-items: stretch; /* 높이 균일하게 */
+	height: auto; /* 내용에 맞게 높이 자동 조절 */
+	width: 100%;
+	gap: 1rem; /* 카드 간 간격 추가 */
 }
 
 .pm-list li {
-	padding: 1rem;
+	padding: 0.8rem 1rem;
 	background-color: #fff;
-	border-radius: 8px;
+	border-radius: 10px;
 	border: 1px solid #e0e0e0;
-	width: 100%;
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
 .pm-title {
 	font-weight: 700;
-	font-size: 1.1rem;
+	font-size: 1.4rem;
 	color: #2d6cdf;
+	margin-bottom: 0.5rem;
+	text-align: center;
 }
 
 .pm-item {
-	font-size: 1rem;
-	margin: 0.5rem 0;
+	font-size: 1.1rem;
+	margin: 0.3rem 0;
 	color: #444;
+	text-align: center;
 }
 
 .pm-item span {
 	font-weight: 600;
-	margin-left: 0.5rem;
+	margin-left: 0.3rem;
 }
 
 .chartContainer-left{
