@@ -9,13 +9,15 @@ import pandas as pd
 import numpy as np
 import joblib
 from tensorflow.keras.models import load_model
+import keras
+keras.config.enable_unsafe_deserialization()
 
 # 1) 이 파일(.py)이 위치한 디렉터리 구하기
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # 2) 데이터 폴더까지의 상대 경로 연결
 PIPELINE_PATH = os.path.join(BASE_DIR, 'data', 'feature_pipelines_v2.pkl')
-MODEL_PATH    = os.path.join(BASE_DIR, 'data', 'my_lstm_model_30s_v01.keras')
+MODEL_PATH    = os.path.join(BASE_DIR, 'data', 'my_lstm_model_30s_v3.keras')
 
 load_dotenv()
 app = Flask(__name__)
@@ -141,7 +143,7 @@ def db_test():
             SELECT * FROM sensor
             WHERE st_id = %s AND weekday = %s AND time_hms <= %s
             ORDER BY time_hms DESC
-            LIMIT 600
+            LIMIT 60
         """, (st_id, weekday_eng, current_time_str))
 
         results = cursor.fetchall()
