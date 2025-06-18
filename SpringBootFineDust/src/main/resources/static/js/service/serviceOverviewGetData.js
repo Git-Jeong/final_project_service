@@ -108,13 +108,43 @@ function getPMStatusTextAndColor(type, value) {
 	return { text, color };
 }
 
-// 온도 상태 표시 함수
-function getTempStatus(temp) {
-	if (temp <= 18) return '좋음';
-	else if (temp <= 24) return '보통';
-	else if (temp <= 30) return '나쁨';
-	else return '매우 나쁨';
+function getSeason(month) {
+    if (month >= 3 && month <= 5) return '봄';
+    if (month >= 6 && month <= 8) return '여름';
+    if (month >= 9 && month <= 11) return '가을';
+    return '겨울';
 }
+
+function getTempStatus(temp) {
+    const now = new Date();
+    const season = getSeason(now.getMonth() + 1);
+
+    if (season === '봄') {
+        if (temp >= 20 && temp <= 24) return '좋음';
+        else if ((temp >= 18 && temp < 20) || (temp > 24 && temp <= 26)) return '보통';
+        else if ((temp >= 16 && temp < 18) || (temp > 26 && temp <= 28)) return '나쁨';
+        else return '매우 나쁨';
+    }
+    else if (season === '여름') {
+        if (temp >= 22 && temp <= 26) return '좋음';
+        else if ((temp >= 20 && temp < 22) || (temp > 26 && temp <= 28)) return '보통';
+        else if ((temp >= 18 && temp < 20) || (temp > 28 && temp <= 30)) return '나쁨';
+        else return '매우 나쁨';
+    }
+    else if (season === '가을') {
+        if (temp >= 20 && temp <= 24) return '좋음';
+        else if ((temp >= 18 && temp < 20) || (temp > 24 && temp <= 26)) return '보통';
+        else if ((temp >= 16 && temp < 18) || (temp > 26 && temp <= 28)) return '나쁨';
+        else return '매우 나쁨';
+    }
+    else { // 겨울
+        if (temp >= 20 && temp <= 22) return '좋음';
+        else if ((temp >= 18 && temp < 20) || (temp > 22 && temp <= 24)) return '보통';
+        else if ((temp >= 16 && temp < 18) || (temp > 24 && temp <= 26)) return '나쁨';
+        else return '매우 나쁨';
+    }
+}
+
 
 // 습도 상태 표시 함수
 function getHumidityStatus(humidity) {
