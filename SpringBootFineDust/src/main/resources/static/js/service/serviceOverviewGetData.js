@@ -15,6 +15,52 @@ const startPredDust = () => {
 	});
 }
 
+const startCommentDust = () => {
+	const stId = document.getElementById('stationSelect').value;
+	$.ajax({
+		url: "avgDust",
+		type: "POST",
+		data: JSON.stringify(stId),
+	    contentType: "application/json",
+		success: function(data) {
+			const pm1Status = getPMStatusTextAndColor('pm1.0', data.pm1);
+			const pm25Status = getPMStatusTextAndColor('pm2.5', data.pm25);
+			const pm10Status = getPMStatusTextAndColor('pm10', data.pm10);
+
+			const statusList = [pm1Status, pm25Status, pm10Status];
+			const worstStatus = statusList.sort((a, b) => {
+				const rank = { '좋음': 1, '보통': 2, '나쁨': 3, '매우 나쁨': 4 };
+				return rank[b.text] - rank[a.text];
+			})[0];
+
+			const iconMap = {
+				'좋음': '😊',
+				'보통': '😐',
+				'나쁨': '😷',
+				'매우 나쁨': '🚨'
+			};
+
+			const adviceMap = {
+				'좋음': '모처럼 좋은 공기, 산책 어때요?',
+				'보통': '무난한 공기 상태입니다.',
+				'나쁨': '마스크를 챙기는 것이 좋아요!',
+				'매우 나쁨': '외출을 자제하는 것이 좋습니다.'
+			};
+
+			const data_comment1 = `${iconMap[worstStatus.text]} ${worstStatus.text}`;
+			const data_comment2 = adviceMap[worstStatus.text];
+
+			document.getElementById("comment1").textContent = data_comment1;
+			document.getElementById("comment1").style.color = worstStatus.color;
+			
+			document.getElementById("comment2").textContent = data_comment2;
+		},
+		error: function(err) {
+			console.error("데이터 불러오기 실패:", err);
+		}
+	});
+}
+
 const setDustImage = (elementId, statusText) => {
 	const statusMap = {
 		'좋음': 'Good.png',
@@ -53,34 +99,34 @@ function getPMStatusTextAndColor(type, value) {
 
 // 온도 상태 표시 함수
 function getTempStatus(temp) {
-  if (temp <= 18) return '좋음';
-  else if (temp <= 24) return '보통';
-  else if (temp <= 30) return '나쁨';
-  else return '매우 나쁨';
+	if (temp <= 18) return '좋음';
+	else if (temp <= 24) return '보통';
+	else if (temp <= 30) return '나쁨';
+	else return '매우 나쁨';
 }
 
 // 습도 상태 표시 함수
 function getHumidityStatus(humidity) {
-  if (humidity >= 40 && humidity <= 60) return '좋음';
-  else if ((humidity >= 30 && humidity < 40) || (humidity > 60 && humidity <= 70)) return '보통';
-  else if ((humidity >= 20 && humidity < 30) || (humidity > 70 && humidity <= 80)) return '나쁨';
-  else return '매우 나쁨';
+	if (humidity >= 40 && humidity <= 60) return '좋음';
+	else if ((humidity >= 30 && humidity < 40) || (humidity > 60 && humidity <= 70)) return '보통';
+	else if ((humidity >= 20 && humidity < 30) || (humidity > 70 && humidity <= 80)) return '나쁨';
+	else return '매우 나쁨';
 }
 
 // 이산화탄소 상태 표시 함수 (ppm 기준, 예시 기준)
 function getCo2Status(co2) {
-  if (co2 <= 600) return '좋음';
-  else if (co2 <= 1000) return '보통';
-  else if (co2 <= 2000) return '나쁨';
-  else return '매우 나쁨';
+	if (co2 <= 600) return '좋음';
+	else if (co2 <= 1000) return '보통';
+	else if (co2 <= 2000) return '나쁨';
+	else return '매우 나쁨';
 }
 
 function updateStatusText(elementId, newText) {
-  const elem = document.getElementById(elementId);
-  if (!elem) return;
-  if (elem.textContent !== newText) {
-    elem.textContent = newText;
-  }
+	const elem = document.getElementById(elementId);
+	if (!elem) return;
+	if (elem.textContent !== newText) {
+		elem.textContent = newText;
+	}
 }
 
 // 데이터 불러오는 함수
@@ -97,7 +143,7 @@ const getStationDust = () => {
 			const dto_temp = (Math.round(dtoDust.temp * 10) / 10).toFixed(1);
 			const dto_humidity = (Math.round(dtoDust.humidity * 10) / 10).toFixed(1);
 			const dto_co2den = Number(dtoDust.co2den || 0).toLocaleString();
-			
+
 			const dto_pm1 = dtoDust.pm1;
 			const dto_pm25 = dtoDust.pm25;
 			const dto_pm10 = dtoDust.pm10;
@@ -113,29 +159,29 @@ const getStationDust = () => {
 			document.getElementById("serviceOverview-pm1-value").textContent = dto_pm1;
 			document.getElementById("serviceOverview-pm25-value").textContent = dto_pm25;
 			document.getElementById("serviceOverview-pm10-value").textContent = dto_pm10;
-			
+
 			updateStatusText('temp-text', getTempStatus(dto_temp));
 			updateStatusText('humidity-text', getHumidityStatus(dto_humidity));
 			updateStatusText('co2-text', getCo2Status(Number(dtoDust.co2den || 0)));
-			
+
 			if (pm1Status.text !== document.getElementById('serviceOverview-pm1-text').textContent) {
 				document.getElementById('serviceOverview-pm1-text').textContent = pm1Status.text;
 				document.getElementById('serviceOverview-pm1').style.backgroundColor = pm1Status.color;
 				setDustImage("serviceOverview-pm1-img", pm1Status.text);
 			}
-			
+
 			if (pm25Status.text !== document.getElementById('serviceOverview-pm25-text').textContent) {
 				document.getElementById('serviceOverview-pm25-text').textContent = pm25Status.text;
 				document.getElementById('serviceOverview-pm25').style.backgroundColor = pm25Status.color;
 				setDustImage("serviceOverview-pm25-img", pm25Status.text);
 			}
-			
+
 			if (pm10Status.text !== document.getElementById('serviceOverview-pm10-text').textContent) {
 				document.getElementById('serviceOverview-pm10-text').textContent = pm10Status.text;
 				document.getElementById('serviceOverview-pm10').style.backgroundColor = pm10Status.color;
 				setDustImage("serviceOverview-pm10-img", pm10Status.text);
 			}
-			
+
 			const lastDust = dustStack[dustStack.length - 1];
 			const lastPred = predStack[predStack.length - 1];
 
@@ -193,10 +239,10 @@ const getStationDust = () => {
 			const spinner = document.getElementById("loding-spin");
 			const nonSpinner = document.getElementById("non-loding-spin");
 			if (spinner.style.display === "block") {
-			  spinner.style.display = "none";
+				spinner.style.display = "none";
 			}
 			if (nonSpinner.style.display === "none" || nonSpinner.hidden) {
-			  nonSpinner.style.display = "block";
+				nonSpinner.style.display = "block";
 			}
 		},
 		error: function(err) {
@@ -205,16 +251,16 @@ const getStationDust = () => {
 	});
 }
 
-const newStationList = () =>{
+const newStationList = () => {
 	const spinner = document.getElementById("loding-spin");
 	const nonSpinner = document.getElementById("non-loding-spin");
 	if (nonSpinner.style.display === "block") {
-	  nonSpinner.style.display = "none";
+		nonSpinner.style.display = "none";
 	}
 	if (spinner.style.display === "none" || spinner.hidden) {
-	  spinner.style.display = "block";
-	}	
-	
+		spinner.style.display = "block";
+	}
+
 	getStationDust();
 	startPredDust();
 }
@@ -222,6 +268,7 @@ const newStationList = () =>{
 document.addEventListener('DOMContentLoaded', () => {
 	getStationDust();
 	startPredDust();
+	startCommentDust();
 
 	setInterval(() => {
 		getStationDust();
@@ -230,6 +277,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	setInterval(() => {
 		startPredDust();
 	}, 5000);
+	
+	setInterval(() => {
+		startCommentDust();
+	}, 1800000);
+	
 });
 
 // notiType에 따른 아이콘 클래스 매핑
@@ -307,8 +359,8 @@ function renderNotifications(notifications) {
 }
 
 document.addEventListener("change", (e) => {
-  if (e.target && e.target.id === "stationSelect") {
-    newStationList();
-  }
+	if (e.target && e.target.id === "stationSelect") {
+		newStationList();
+	}
 });
 

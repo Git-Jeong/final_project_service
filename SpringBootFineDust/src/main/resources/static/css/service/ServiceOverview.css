@@ -92,7 +92,8 @@ html, body {
 }
 
 .serviceOverview-wide-container,
-.serviceOverview-wide-container2{
+.serviceOverview-wide-container2,
+.serviceOverview-wide-container3{
 	padding: 1rem;
 	display: flex;
 	justify-content: center;
@@ -101,7 +102,7 @@ html, body {
 }
 
 .serviceOverview-container,
-.serviceOverview-container2 {
+.serviceOverview-container2{
 	min-width: 350px;
 	max-width: 500px;
 	height: 30vh;
@@ -111,6 +112,32 @@ html, body {
 	border: 1px solid #ccc;
 	overflow: hidden;
 	flex: 1;
+}
+
+.serviceOverview-container3{
+	margin: 0 auto;
+	min-width: calc(1050px + 4rem);
+	max-width: calc(1500px + 4rem);
+	height: 100px;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	display: flex;
+	gap : 0.3rem;
+	justify-content : center;
+	border: 1px solid #ccc;
+	background: #FFF6BC;
+	align-items: center; 
+}
+
+.serviceOverview-comment1,
+.serviceOverview-comment2{
+	width : 50%;
+	text-align: center;
+	font-size: 2rem;
+}
+
+#comment1{
+	font-weight: bold;	
 }
 
 .serviceOverview-container {

@@ -38,8 +38,11 @@ public interface SensorRepository extends JpaRepository<Sensor, Integer> {
     FROM sensor
     WHERE weekday = :weekday AND st_id = 1
             """, nativeQuery = true)
-        List<Map<String, Object>> findMinuteAvgPmByDateGroupedByPeriod(@Param("weekday") String date);
-    }  //stId, weekday, timeHms 를 추가해줘야 함
+    List<Map<String, Object>> findMinuteAvgPmByDateGroupedByPeriod(@Param("weekday") String date);
+
+	List<Sensor> findByStIdAndWeekdayAndTimeHmsLessThanEqual(int stId, String weekday, LocalTime timeHms);
+
+}  //stId, weekday, timeHms 를 추가해줘야 함
 		// '%Y-%m-%d %H:%i'
 
 

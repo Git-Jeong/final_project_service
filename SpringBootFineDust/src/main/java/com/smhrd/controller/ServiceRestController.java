@@ -145,6 +145,25 @@ public class ServiceRestController {
     	return new SensorPredResponse(snsr, pred);
     }
     
+
+    @PostMapping("/avgDust")
+    public Sensor avgDust(@RequestBody int stId, HttpServletRequest request) {
+    	int originStId = stId;
+    	stId = 1; //현재는 모든 데이터가 1번으로 저장되어 있어서 이걸로 처리'
+
+    	String usrEmail = token.extractUserFromJwt(request);
+    	if(usrEmail == null) {
+    		return null;
+    	}
+    	
+    	Sensor snsr = snsrService.getStDustAvg(stId);
+    	
+    	// 더미데이터를 불러 왔으니, 다시 stId값을 복구
+    	stId = originStId;
+    	
+    	return snsr;
+    }
+    
     @GetMapping("/getAllNotify")
     public List<Notification> getAllNotify(HttpServletRequest request) {
         String usrEmail = token.extractUserFromJwt(request);
