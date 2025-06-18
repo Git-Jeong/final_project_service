@@ -43,8 +43,6 @@ window.addEventListener('resize', () => {
   if (amPmChart) amPmChart.resize();
 });
 
-let amPmCodenChart = null;
-
 function drawAmPmCodenChart({
   amAvgCoden, pmAvgCoden,
   amAvgCo2den, pmAvgCo2den
