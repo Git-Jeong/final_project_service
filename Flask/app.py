@@ -9,13 +9,31 @@ import pandas as pd
 import numpy as np
 import joblib
 from tensorflow.keras.models import load_model
+import keras
+keras.config.enable_unsafe_deserialization()
 
-# 1) 이 파일(.py)이 위치한 디렉터리 구하기
+def slice_last_hidden(x):
+    return x[:, -1, :]
+
+def expand_query(x):
+    return tf.expand_dims(x, axis=1)
+
+def squeeze_context(x):
+    return tf.squeeze(x, axis=1)
+
+# 1) custom_objects 에 함수 이름 등록
+custom_objects = {
+    'slice_last_hidden': slice_last_hidden,
+    'expand_query':      expand_query,
+    'squeeze_context':   squeeze_context
+}
+
+# 이 파일(app.py)이 위치한 디렉터리 구하기
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# 2) 데이터 폴더까지의 상대 경로 연결
+#  데이터 폴더까지의 상대 경로 연결
 PIPELINE_PATH = os.path.join(BASE_DIR, 'data', 'feature_pipelines_v2.pkl')
-MODEL_PATH    = os.path.join(BASE_DIR, 'data', 'my_lstm_model_30s_v01.keras')
+MODEL_PATH    = os.path.join(BASE_DIR, 'data', 'my_lstm_model_30s_v4_fixed.keras')
 
 load_dotenv()
 app = Flask(__name__)
@@ -31,7 +49,6 @@ db_config = {
 
 # 저장된 파이프라인 불러오기
 feature_pipelines = joblib.load(PIPELINE_PATH)
-
 
 
 # ✅ JSON 직렬화 지원 함수
@@ -54,14 +71,13 @@ def dustPred(sensor_results):
     df_results = df_results.set_index('dtime').sort_index()
 
     # — (B) 인덱스(Timestamp)로부터 시계열 특성 생성 ———
-    #  1) 연중 며칠째(day of year)를 구해서 1~365 범위로 만듭니다.
     doy = df_results.index.dayofyear  # 1~365 (윤년이면 366)
 
-    #  2) 365일 주기로 사인/코사인 계산
+    #  365일 주기로 사인/코사인 계산
     df_results['doy_sin'] = np.sin(2 * np.pi * doy / 365)
     df_results['doy_cos'] = np.cos(2 * np.pi * doy / 365)
 
-    #  3) 하루 중 경과된 초(sec_of_day) 계산 → 사인/코사인
+    #  하루 중 경과된 초(sec_of_day) 계산 → 사인/코사인
     sec_of_day = (
         df_results.index.hour * 3600
         + df_results.index.minute * 60
@@ -78,7 +94,7 @@ def dustPred(sensor_results):
     for j in range(len(col)):
         df[col[j]+'_log'] = np.log1p(df[col[j]])
 
-    # 3) 사용할 월(month) 지정
+    # 사용할 월(month) 지정
     month = 12
     pipeline = feature_pipelines[month]
 
@@ -96,8 +112,7 @@ def dustPred(sensor_results):
     X = df[['PM10_log','PM2_5_log','PM1_log','Temp','Humidity','CO2Den_log', 'AtmosphericPress', 'doy_sin','doy_cos','time_sin','time_cos']].to_numpy()
 
     # 모델 불러오기
-    loaded_model = load_model(MODEL_PATH, compile=False)
-
+    loaded_model = load_model(MODEL_PATH, compile=False, custom_objects=custom_objects)
     # 예측 (스케일된 y)
     y_pred_scaled = loaded_model.predict(X.reshape(1, *X.shape))
 
@@ -141,7 +156,7 @@ def db_test():
             SELECT * FROM sensor
             WHERE st_id = %s AND weekday = %s AND time_hms <= %s
             ORDER BY time_hms DESC
-            LIMIT 600
+            LIMIT 60
         """, (st_id, weekday_eng, current_time_str))
 
         results = cursor.fetchall()
@@ -169,4 +184,3 @@ def db_test():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
-
