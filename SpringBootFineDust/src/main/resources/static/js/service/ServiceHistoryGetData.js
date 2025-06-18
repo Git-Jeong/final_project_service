@@ -128,4 +128,26 @@ const barChartSho = (weekday) => {
 		}
 	});
 };
+//barChartShow - 차트만 화면에 출력
+const barChartShoCo = (weekday) => {
+	//console.log("barChartSho = " + weekday); // 예: Monday
+	$.ajax({
+		url: `/weekday/co/${weekday}`,
+		type: "GET",
+		success: function(data) {
+			if (!data || !data.xLabels) {
+				console.warn("데이터 없음");
+				return;
+			}
+			// 차트 렌더링
+			//console.log(data);
+			drawAmPmCodenChart(data);
+			
+		},
+		error: function(err) {
+			console.error("데이터 요청 실패", err);
+
+		}
+	});
+};
 

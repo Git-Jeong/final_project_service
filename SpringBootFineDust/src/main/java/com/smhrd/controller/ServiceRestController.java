@@ -145,6 +145,25 @@ public class ServiceRestController {
     	return new SensorPredResponse(snsr, pred);
     }
     
+
+    @PostMapping("/avgDust")
+    public Sensor avgDust(@RequestBody int stId, HttpServletRequest request) {
+    	int originStId = stId;
+    	stId = 1; //현재는 모든 데이터가 1번으로 저장되어 있어서 이걸로 처리'
+
+    	String usrEmail = token.extractUserFromJwt(request);
+    	if(usrEmail == null) {
+    		return null;
+    	}
+    	
+    	Sensor snsr = snsrService.getStDustAvg(stId);
+    	
+    	// 더미데이터를 불러 왔으니, 다시 stId값을 복구
+    	stId = originStId;
+    	
+    	return snsr;
+    }
+    
     @GetMapping("/getAllNotify")
     public List<Notification> getAllNotify(HttpServletRequest request) {
         String usrEmail = token.extractUserFromJwt(request);
@@ -220,12 +239,8 @@ public class ServiceRestController {
                 "amAvgPm10", 0,
                 "pmAvgPm1", 0,
                 "pmAvgPm25", 0,
-                "pmAvgPm10", 0,
-                
-               "amAvgCoden", 0,
-                "pmAvgCoden",0 ,
-                "amAvgCo2den",0,
-                "pmAvgCo2den",0
+                "pmAvgPm10", 0
+
                 
             );
         }
@@ -239,9 +254,50 @@ public class ServiceRestController {
         	    Map.entry("amAvgPm10", row.getOrDefault("amAvgPm10", 0)),
         	    Map.entry("pmAvgPm1", row.getOrDefault("pmAvgPm1", 0)),
         	    Map.entry("pmAvgPm25", row.getOrDefault("pmAvgPm25", 0)),
-        	    Map.entry("pmAvgPm10", row.getOrDefault("pmAvgPm10", 0)),
-        	    Map.entry("amAvgCo2den", row.getOrDefault("amAvgCo2den", 0)),
-        	    Map.entry("pmAvgCo2den", row.getOrDefault("pmAvgCo2den", 0))
+        	    Map.entry("pmAvgPm10", row.getOrDefault("pmAvgPm10", 0))
+
+        	);
+
+    }
+    //이산화탄소 데이터컨트롤러
+    @GetMapping("/weekday/co/{weekday}")
+    public Map<String, Object> getAvgPmByAmCo(@PathVariable String weekday) {
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        //System.out.println("weekday = " + weekday);
+        try {
+            result = snsrService.findMinuteAvgPmByDateGroupedByPeriod(weekday);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        //System.out.println("weekday = " + weekday);
+        if (result.isEmpty()) {
+            return Map.of(
+                "xLabels", (Object)List.of("AM", "PM"),
+
+                "amAvgCoden", 0,
+                "amAvgCo2den", 0,
+
+                "pmAvgCoden", 0,
+                "pmAvgPmCo2den", 0
+
+                
+            );
+        }
+
+        Map<String, Object> row = result.get(0);
+
+        return Map.ofEntries(
+        	    Map.entry("xLabels", List.of("AM", "PM")),
+
+        	    Map.entry("amAvgPm25", row.getOrDefault("amAvgPm25", 0)),
+        	    Map.entry("amAvgPm10", row.getOrDefault("amAvgPm10", 0)),
+
+        	    Map.entry("pmAvgPm25", row.getOrDefault("pmAvgPm25", 0)),
+        	    Map.entry("pmAvgPm10", row.getOrDefault("pmAvgPm10", 0))
+
         	);
 
     }
