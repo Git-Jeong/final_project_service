@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # 2) 데이터 폴더까지의 상대 경로 연결
 PIPELINE_PATH = os.path.join(BASE_DIR, 'data', 'feature_pipelines_v2.pkl')
-MODEL_PATH    = os.path.join(BASE_DIR, 'data', 'my_lstm_model_30s_v3.keras')
+MODEL_PATH    = os.path.join(BASE_DIR, 'data', 'my_lstm_model_30s_v01.keras')
 
 load_dotenv()
 app = Flask(__name__)
@@ -98,7 +98,7 @@ def dustPred(sensor_results):
     X = df[['PM10_log','PM2_5_log','PM1_log','Temp','Humidity','CO2Den_log', 'AtmosphericPress', 'doy_sin','doy_cos','time_sin','time_cos']].to_numpy()
 
     # 모델 불러오기
-    loaded_model = load_model(MODEL_PATH, compile=False)
+    loaded_model = load_model(MODEL_PATH, compile=False, safe_mode=False)
 
     # 예측 (스케일된 y)
     y_pred_scaled = loaded_model.predict(X.reshape(1, *X.shape))

@@ -131,6 +131,18 @@ html, body {
 	font-weight: bold;
 	font-size: 1.65rem;
 	height: 5rem;
+	border-bottom: 1px solid #ffffff;
+}
+
+.serviceOverview-contant-title2{
+	display: flex;
+	align-items: center;
+	justify-content : center;
+	padding: 0 0.9rem;
+	font-weight: bold;
+	font-size: 1.65rem;
+	height: 5rem;
+	border-bottom: 1px solid #ccc;
 }
 
 .serviceOverview-contant {
@@ -182,8 +194,8 @@ html, body {
 .serviceOverview-contant-bottom {
   display: flex;
   justify-content: center;
-  gap: 0.1rem;
   align-items: center;
+  gap: 0.5rem;
 }
 
 .serviceOverview-contant-bottom2 {
@@ -199,14 +211,14 @@ html, body {
 #serviceOverview-pm1-value,
 #serviceOverview-pm25-value,
 #serviceOverview-pm10-value{
-	width: 50%;
-	text-align: center;
+	width: 47%;
+	text-align: right;
 	font-weight: bold;
 }
 
 .unit {
     font-size: 0.6em;
-	width: 40%;
+	width: 50%;
 	text-align: left;
 }
 

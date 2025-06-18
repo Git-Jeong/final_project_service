@@ -94,9 +94,10 @@ const getStationDust = () => {
 			const dtoDust = data.snsr;
 			const dtoPred = data.pred;
 
-			const dto_temp = Math.round(dtoDust.temp * 10) / 10;
-			const dto_humidity = Math.round(dtoDust.humidity * 10) / 10;
+			const dto_temp = (Math.round(dtoDust.temp * 10) / 10).toFixed(1);
+			const dto_humidity = (Math.round(dtoDust.humidity * 10) / 10).toFixed(1);
 			const dto_co2den = Number(dtoDust.co2den || 0).toLocaleString();
+			
 			const dto_pm1 = dtoDust.pm1;
 			const dto_pm25 = dtoDust.pm25;
 			const dto_pm10 = dtoDust.pm10;
