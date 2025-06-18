@@ -183,7 +183,7 @@ const getStationDust = () => {
 
 			const dto_temp = (Math.round(dtoDust.temp * 10) / 10).toFixed(1);
 			const dto_humidity = (Math.round(dtoDust.humidity * 10) / 10).toFixed(1);
-			const dto_co2den = Number(dtoDust.co2den || 0).toLocaleString();
+			const dto_co2den = Number(dtoDust.co2den || 0).toFixed(1).toLocaleString();
 
 			const dto_pm1 = dtoDust.pm1;
 			const dto_pm25 = dtoDust.pm25;
