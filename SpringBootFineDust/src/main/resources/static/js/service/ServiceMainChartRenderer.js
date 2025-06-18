@@ -600,7 +600,6 @@ const drawCodenChart = ({ timeHms, codenData }) => {
       top: 0,
       textStyle: { fontSize: 14, color: '#333' }
     },
-    legend: { left: 'left', top: 'top' },
     xAxis: {
       type: 'time',
       axisLabel: {
