@@ -214,41 +214,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	const toggleBtn_sidebar = document.getElementById("toggleSidebarBtn");
 
-	function updateSidebarState(isOpen) {
-		const mainChart = document.getElementById('chart-dust-main-echarts'); // 요소를 변수에 저장
-		if (isOpen) {
-			if (toggleBtn_header) { // null 체크 추가
-				//toggleBtn_header.style.visibility = "hidden"; // 사이드바 열릴 때 헤더 버튼 숨김
-				toggleBtn_header.style.display = "none"; // 사이드바 열릴 때 헤더 버튼 숨김
-			}
-			container.classList.add("active");
-			mainPage.style.marginLeft = "clamp(200px, 20vw, 300px)";
-			if (mainChart) {
-				document.getElementById('chart-dust-main-echarts').style.width = 'calc(100% - clamp(200px, 20vw, 300px))';
-			}
-		} else {
-			if (toggleBtn_header) { // null 체크 추가
-				//toggleBtn_header.style.visibility = "visible"; // 사이드바 닫힐 때 헤더 버튼 보임
-				toggleBtn_header.style.display = "block"; // 사이드바 닫힐 때 헤더 버튼 보임
-			}
-			container.classList.remove("active");
-			mainPage.style.marginLeft = "0";
-			if (mainChart) {
-				document.getElementById('chart-dust-main-echarts').style.width = "100%";
-			}
+function updateSidebarState(isOpen) {
+	const mainChart = document.getElementById('chart-dust-main-echarts'); // 요소 변수 저장\
+	if (isOpen) {
+		if (toggleBtn_header) {
+			toggleBtn_header.style.display = "none"; // 헤더 버튼 숨김
 		}
-
-		// 차트 리사이즈
-		setTimeout(() => {
-			if (document.getElementById('dustEChart') && dustEChart) dustEChart.resize();
-			if (document.getElementById('pm1EChart') && pm1EChart) pm1EChart.resize();
-			if (document.getElementById('pm25EChart') && pm25EChart) pm25EChart.resize();
-			if (document.getElementById('pm10EChart') && pm10EChart) pm10EChart.resize();
-			if (document.getElementById('codenEChart') && codenEChart) codenEChart.resize();
-			if (document.getElementById('co2denEChart') && co2denEChart) co2denEChart.resize();
-		}, 1);
-
+		container.classList.add("active");
+		mainPage.style.marginLeft = "clamp(200px, 20vw, 300px)";
+		if (mainChart) {
+			mainChart.style.width = 'calc(100% - clamp(200px, 20vw, 300px))';
+		}
+	} else {
+		if (toggleBtn_header) {
+			toggleBtn_header.style.display = "block"; // 헤더 버튼 보임
+		}
+		container.classList.remove("active");
+		mainPage.style.marginLeft = "0";
+		if (mainChart) {
+			mainChart.style.width = "100%";
+		}
 	}
+	// 차트 리사이즈
+	setTimeout(() => {
+		if (document.getElementById('chart-dust-main-echarts') && dustEChart) dustEChart.resize();
+		if (document.getElementById('pm1EChart') && pm1EChart) pm1EChart.resize();
+		if (document.getElementById('pm25EChart') && pm25EChart) pm25EChart.resize();
+		if (document.getElementById('pm10EChart') && pm10EChart) pm10EChart.resize();
+		if (document.getElementById('codenEChart') && codenEChart) codenEChart.resize();
+		if (document.getElementById('co2denEChart') && co2denEChart) co2denEChart.resize();
+		// alert 제거하거나 주석 처리 권장
+	}, 1);
+}
+
 
 	const storedSidebarState = localStorage.getItem('sidebarOpen');
 	const isSidebarOpen = storedSidebarState === null ? true : storedSidebarState === 'true';
