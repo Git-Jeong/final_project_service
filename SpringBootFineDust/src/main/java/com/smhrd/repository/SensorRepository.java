@@ -26,7 +26,15 @@ public interface SensorRepository extends JpaRepository<Sensor, Integer> {
       AVG(CASE WHEN HOUR(time_hms) < 12 THEN pm10 END) AS amAvgPm10,
       AVG(CASE WHEN HOUR(time_hms) >= 12 THEN pm1 END) AS pmAvgPm1,
       AVG(CASE WHEN HOUR(time_hms) >= 12 THEN pm25 END) AS pmAvgPm25,
-      AVG(CASE WHEN HOUR(time_hms) >= 12 THEN pm10 END) AS pmAvgPm10
+      AVG(CASE WHEN HOUR(time_hms) >= 12 THEN pm10 END) AS pmAvgPm10,
+      
+      AVG(CASE WHEN HOUR(time_hms) < 12 THEN coden END) AS amAvgCoden,
+      AVG(CASE WHEN HOUR(time_hms) >= 12 THEN coden END) AS pmAvgCoden,
+      
+      AVG(CASE WHEN HOUR(time_hms) < 12 THEN co2den END) AS amAvgCo2den,
+      AVG(CASE WHEN HOUR(time_hms) >= 12 THEN co2den END) AS pmAvgCo2den
+    		
+      
     FROM sensor
     WHERE weekday = :weekday AND st_id = 1
             """, nativeQuery = true)
