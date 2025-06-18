@@ -8,32 +8,66 @@ from decimal import Decimal
 import pandas as pd
 import numpy as np
 import joblib
-from tensorflow.keras.models import load_model
+import tensorflow as tf
 import keras
-keras.config.enable_unsafe_deserialization()
+from tensorflow.keras.utils import get_custom_objects
+from tensorflow.keras import Model, Input
+from tensorflow.keras.layers import (Conv1D, Bidirectional, LSTM, LayerNormalization, Dense, Concatenate)
+from tensorflow.keras.optimizers import AdamW
 
-def slice_last_hidden(x):
-    return x[:, -1, :]
+# ① BahdanauAttention 정의 (custom layer)
+class BahdanauAttention(tf.keras.layers.Layer):
+    def __init__(self, units, **kwargs):
+        super().__init__(**kwargs)
+        self.W1 = tf.keras.layers.Dense(units)
+        self.W2 = tf.keras.layers.Dense(units)
+        self.V  = tf.keras.layers.Dense(1)
+    def call(self, values, query):
+        hidden = tf.expand_dims(query, 1)
+        score  = self.V(tf.nn.tanh(self.W1(values) + self.W2(hidden)))
+        weights= tf.nn.softmax(score, axis=1)
+        context= tf.reduce_sum(weights * values, axis=1)
+        return context, weights
 
-def expand_query(x):
-    return tf.expand_dims(x, axis=1)
+# ② 모델 아키텍처 코드 (학습 때 쓰신 것과 완전히 동일하게)
+inp = Input(shape=(60,11), name="input")
 
-def squeeze_context(x):
-    return tf.squeeze(x, axis=1)
+x = Conv1D(128,3,activation='tanh',padding='same', name="conv1d_tanh")(inp)
+x = Bidirectional(LSTM(64, return_sequences=True), name="bilstm_1")(x)
+x = LayerNormalization(name="ln_1")(x)
+x = Bidirectional(LSTM(32, return_sequences=True), name="bilstm_2")(x)
+x = LayerNormalization(name="ln_2")(x)
+x = Bidirectional(LSTM(16, return_sequences=True), name="bilstm_3")(x)
 
-# 1) custom_objects 에 함수 이름 등록
-custom_objects = {
-    'slice_last_hidden': slice_last_hidden,
-    'expand_query':      expand_query,
-    'squeeze_context':   squeeze_context
-}
+# 마지막 Bi-LSTM (return_state=True)
+lstm_out, f_h, f_c, b_h, b_c = Bidirectional(
+    LSTM(8, return_sequences=True, return_state=True),
+    name="bilstm_4"
+)(x)
+state_h = Concatenate()([f_h, b_h])
+
+# Bahdanau 어텐션 적용
+context, attn_w = BahdanauAttention(16)(lstm_out, state_h)
+
+# 출력
+out = Dense(3, activation='linear', name="output")(context)
+model = Model(inp, out, name="conv_lstm_rnn_attention")
+
+# ③ 컴파일 (학습 때 쓰신 설정과 동일하게)
+model.compile(
+    loss='mse',
+    optimizer=AdamW(learning_rate=0.00025, weight_decay=0.004, beta_1=0.95),
+    metrics=[tf.keras.metrics.MeanAbsoluteError(), tf.keras.metrics.RootMeanSquaredError()]
+)
 
 # 이 파일(app.py)이 위치한 디렉터리 구하기
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 #  데이터 폴더까지의 상대 경로 연결
 PIPELINE_PATH = os.path.join(BASE_DIR, 'data', 'feature_pipelines_v2.pkl')
-MODEL_PATH    = os.path.join(BASE_DIR, 'data', 'my_lstm_model_30s_v4_fixed.keras')
+WEIGHTS_PATH = os.path.join(BASE_DIR, 'data', 'my_lstm_model_30s_v5.weights.h5')
+# 가중치만 로드
+model.load_weights(WEIGHTS_PATH)
 
 load_dotenv()
 app = Flask(__name__)
@@ -46,7 +80,6 @@ db_config = {
     'password': os.getenv('MYSQL_PASSWORD'),
     'database': os.getenv('MYSQL_DATABASE')
 }
-
 # 저장된 파이프라인 불러오기
 feature_pipelines = joblib.load(PIPELINE_PATH)
 
@@ -111,10 +144,9 @@ def dustPred(sensor_results):
     
     X = df[['PM10_log','PM2_5_log','PM1_log','Temp','Humidity','CO2Den_log', 'AtmosphericPress', 'doy_sin','doy_cos','time_sin','time_cos']].to_numpy()
 
-    # 모델 불러오기
-    loaded_model = load_model(MODEL_PATH, compile=False, custom_objects=custom_objects)
+
     # 예측 (스케일된 y)
-    y_pred_scaled = loaded_model.predict(X.reshape(1, *X.shape))
+    y_pred_scaled = model.predict(X.reshape(1, *X.shape))
 
     # 예측 결과 원본 단위로 복원
     y_pred = y_scaler.inverse_transform(y_pred_scaled).tolist()
