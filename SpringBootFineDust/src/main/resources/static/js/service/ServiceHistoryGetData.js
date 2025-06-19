@@ -110,7 +110,7 @@ const weekday = new Date(getWeekday).toLocaleDateString('en-US', { weekday: 'lon
 const barChartSho = (weekday) => {
 	//console.log("barChartSho = " + weekday); // 예: Monday
 	$.ajax({
-		url: `/weekday/${weekday}`,
+		url: `/weekday/day/${weekday}`,
 		type: "GET",
 		success: function(data) {
 			if (!data || !data.xLabels) {

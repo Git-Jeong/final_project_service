@@ -77,7 +77,7 @@ public class SensorService {
 
 	public List<Map<String, Object>> findHourlyAvgByWeekdayAndStId(String weekday) {
 		// TODO Auto-generated method stub
-		return null;
+		return snsrRepository.findHourlyAvgByWeekdayAndStId(weekday);
 	}
 
 

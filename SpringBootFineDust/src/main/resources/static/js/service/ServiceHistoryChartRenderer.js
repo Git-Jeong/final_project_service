@@ -3,36 +3,62 @@ let amPmChart = null;
 
 //이산화탄소 평균 차트 추가 만들거야
 
+function drawAmPmAvgChart({ xLabels, avgPm1, avgPm25, avgPm10 }) {
+  console.log(xLabels, avgPm1, avgPm25, avgPm10);
 
-function drawAmPmAvgChart({
-  xLabels,
- avgPm1,avgPm25,avgPm10
-}) {
-	console.log(avgPm1,avgPm25,avgPm10);
   const chartDom = document.getElementById('PastDustChart');
   if (!chartDom) {
-    console.error('PastDustChart element not found');  
+    console.error('PastDustChart element not found');
     return;
   }
-  if (!amPmChart) amPmChart = echarts.init(chartDom);
+
+  if (!amPmChart) {
+    amPmChart = echarts.init(chartDom);
+  }
 
   const option = {
-    title: { text: 'AM/PM 평균 미세먼지', left: 'center' },
+    title: { text: '시간대별 평균 미세먼지', left: 'center' },
     tooltip: { trigger: 'axis' },
     legend: {
       top: '8%',
       data: ['PM10', 'PM2.5', 'PM1.0']
     },
-    xAxis: { type: 'time', data: xLabels },
-    yAxis: { type: 'value', name: '㎍/㎥' },
+    xAxis: {
+      type: 'category',
+      data: xLabels,
+      name: '시간',
+      axisLabel: {
+        rotate: 45
+      }
+    },
+    yAxis: {
+      type: 'value',
+      name: '㎍/㎥'
+    },
     series: [
-     
-      { name: 'PM10', type: 'line', data: [avgPm1], itemStyle: { color: '#DE2AA6' }},
- 	  { name: 'PM2.5', type: 'line', data: [avgPm25], itemStyle: { color: '#4169E1' }},
-      { name: 'PM1.0', type: 'line', data: [avgPm10], itemStyle: { color: '#8E44AD' }},
-
+      {
+        name: 'PM10',
+        type: 'line',
+        data: avgPm10,
+        itemStyle: { color: '#DE2AA6' },
+        smooth: true
+      },
+      {
+        name: 'PM2.5',
+        type: 'line',
+        data: avgPm25,
+        itemStyle: { color: '#4169E1' },
+        smooth: true
+      },
+      {
+        name: 'PM1.0',
+        type: 'line',
+        data: avgPm1,
+        itemStyle: { color: '#8E44AD' },
+        smooth: true
+      }
     ]
-  };//색이 참 마음에 안드네
+  };
 
   amPmChart.setOption(option);
   amPmChart.resize();
