@@ -4,7 +4,7 @@
 	padding: 15px;
 	border-radius: 8px;
 	width: 100%; /* 부모 너비에 맞게 가변 */
-	min-width: 350px; /* 최소 너비, 캘린더 전부 보이도록 설정 */
+	min-width: 450px; /* 최소 너비, 캘린더 전부 보이도록 설정 */
 	box-sizing: border-box; /* 패딩과 테두리 포함 너비 계산 */
 	height: 100%;
 }
@@ -55,7 +55,8 @@
 .service-flex-row {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 2rem;
+	gap: 3rem;
+	justify-content: center;
 	align-items: stretch; /* 높이 통일을 위해 stretch 적용 */
 }
 
@@ -68,11 +69,15 @@
 }
 
 .calendar-section {
-	flex: 1 1 0;
+	flex: 1;
+	min-width: 550px;
+	max-width: 550px; /* 추가 */
 }
 
 .result-section {
 	flex: 2 1 0;
+	min-width: 550px; /* 추가 */
+	max-width: 550px; /* 추가 */
 }
 
 .serviceHistory-container {
