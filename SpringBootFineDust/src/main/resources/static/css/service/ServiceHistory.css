@@ -235,6 +235,15 @@
 	text-align: left;
 }
 
+.chart-loading-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 1rem;
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+
 #PastDustChart {
 	width: 100%;  /* 70% of 1200px 기준  840px */
 	height: 600px;
