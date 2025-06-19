@@ -7,7 +7,9 @@
 }
 
 .history-main-container2{
-	width: 80vw;
+	min-width: 720px;
+	width: 90vw;
+	max-width: 1500px;
 	margin-left: auto;
 	margin-right: auto;
 	align-items: center;
