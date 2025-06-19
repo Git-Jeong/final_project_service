@@ -312,15 +312,6 @@ const drawDustPm1EChart = (snsr, pred) => {
 
 	const option = {
 		tooltip: { trigger: 'axis' },
-		title: {
-			text: `${snsr.pm1Data.at(-1)} ㎍/㎥`,
-			right: 10,
-			top: 0,
-			textStyle: {
-				fontSize: 14,
-				color: '#333'
-			}
-		},
 	    legend: {
 	        left: 'center',
 	        top: 'top'
@@ -343,7 +334,7 @@ const drawDustPm1EChart = (snsr, pred) => {
 		},
 		grid: {
 			left: 30,
-			right: 30,
+			right: 15,
 			bottom: 20,
 			top: 30
 		},
@@ -417,15 +408,6 @@ const drawDustPm25EChart = (snsr, pred) => {
 
 	const option = {
 		tooltip: { trigger: 'axis' },
-		title: {
-			text: `${snsr.pm25Data.at(-1)} ㎍/㎥`,
-			right: 10,
-			top: 0,
-			textStyle: {
-				fontSize: 14,
-				color: '#333'
-			}
-		},
 	    legend: {
 	        left: 'center',
 	        top: 'top'
@@ -448,7 +430,7 @@ const drawDustPm25EChart = (snsr, pred) => {
 		},
 		grid: {
 			left: 30,
-			right: 30,
+			right: 15,
 			bottom: 20,
 			top: 30
 		},
@@ -522,15 +504,6 @@ const drawDustPm10EChart = (snsr, pred) => {
 
 	const option = {
 		tooltip: { trigger: 'axis' },
-		title: {
-			text: `${snsr.pm10Data.at(-1)} ㎍/㎥`,
-			right: 10,
-			top: 0,
-			textStyle: {
-				fontSize: 14,
-				color: '#333'
-			}
-		},
 	    legend: {
 	        left: 'center',
 	        top: 'top'
@@ -553,7 +526,7 @@ const drawDustPm10EChart = (snsr, pred) => {
 		},
 		grid: {
 			left: 30,
-			right: 30,
+			right: 15,
 			bottom: 20,
 			top: 30
 		},
