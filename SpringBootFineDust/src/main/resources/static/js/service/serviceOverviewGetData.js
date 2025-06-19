@@ -62,8 +62,10 @@ const startCommentDust = () => {
 			document.getElementById("comment1").style.color = worstStatus.color;
 
 			document.getElementById("comment2").innerHTML = `
-				${data_comment2}
-				<img src="img/icon/${imgName}" alt="${worstStatus.text}" style="height:1em; vertical-align:text-bottom; margin-left:5px;">
+				<span style="display: flex; align-items: center; white-space: nowrap; gap: 0.5rem;">
+					${data_comment2}
+					<img src="img/icon/${imgName}" alt="${worstStatus.text}" style="height:1.5rem; width:auto;">
+				</span>
 			`;
 		},
 		error: function(err) {
