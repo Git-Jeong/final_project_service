@@ -2,6 +2,9 @@
 
 .history-main-container{
 	padding: 2rem;	
+	max-width: 1500px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .calendar-box {
@@ -57,9 +60,10 @@
 
 .service-flex-row {
 	display: flex;
-	flex-wrap: wrap;
+	justify-content: space-between;
 	gap: 1rem;
-	justify-content: center;
+	flex-wrap: wrap;
+	width: 100%;
 	align-items: stretch; /* 높이 통일을 위해 stretch 적용 */
 }
 
@@ -225,27 +229,22 @@
 	text-align: left;
 }
 
-.chartContainer-left{
-	width: 45vw;
+
+.chartContainer-chart-bov{
+	width: 100%;
+	display: flex;
 	margin-left: auto;
 	margin-right: auto;
 }
-
-.chartContainer-right{
-	width: 45vw;
-	margin-left: auto;
-	margin-right: auto;
-}
-
 
 
 #PastDustChart{
-	width: 100%;
+	width: 70%;
 	height: 400px;
 	margin-top: 2rem;
 }
 #PastCodenChart{
-	width: 100%;
+	width: 30%;
 	height: 400px;
 	margin-top: 2rem;
 }
