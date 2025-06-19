@@ -86,16 +86,16 @@ function renderCalendar(date) {
 								  <ul class="pm-list">
 								    <li>
 								      <div class="pm-title">☀️ 오전 평균</div>
-								      <div class="pm-item" data-label="🌫️ PM1.0:" data-unit="㎍/㎥"><span>${data[0].amAvgPm1 !== undefined && data[0].amAvgPm1 !== null ? data[0].amAvgPm1.toFixed(1) : 'N/A'}</span></div>
-								      <div class="pm-item" data-label="🌁 PM2.5:" data-unit="㎍/㎥"><span>${data[0].amAvgPm25 !== undefined && data[0].amAvgPm25 !== null ? data[0].amAvgPm25.toFixed(1) : 'N/A'}</span></div>
 								      <div class="pm-item" data-label="🌪️ PM10:" data-unit="㎍/㎥"><span>${data[0].amAvgPm10 !== undefined && data[0].amAvgPm10 !== null ? data[0].amAvgPm10.toFixed(1) : 'N/A'}</span></div>
+								      <div class="pm-item" data-label="🌁 PM2.5:" data-unit="㎍/㎥"><span>${data[0].amAvgPm25 !== undefined && data[0].amAvgPm25 !== null ? data[0].amAvgPm25.toFixed(1) : 'N/A'}</span></div>
+								      <div class="pm-item" data-label="🌫️ PM1.0:" data-unit="㎍/㎥"><span>${data[0].amAvgPm1 !== undefined && data[0].amAvgPm1 !== null ? data[0].amAvgPm1.toFixed(1) : 'N/A'}</span></div>
 								      <div class="pm-item" data-label="🫁 CO₂:" data-unit="ppm"><span>${data[0].amAvgCo2den !== undefined && data[0].amAvgCo2den !== null ? data[0].amAvgCo2den.toFixed(1) : 'N/A'}</span></div>
 								    </li>
 								    <li>
 								      <div class="pm-title">🌇 오후 평균</div>
-								      <div class="pm-item" data-label="🌫 PM1.0:" data-unit="㎍/㎥"><span>${data[0].pmAvgPm1 !== undefined && data[0].pmAvgPm1 !== null ? data[0].pmAvgPm1.toFixed(1) : 'N/A'}</span></div>
-								      <div class="pm-item" data-label="🌁 PM2.5:" data-unit="㎍/㎥"><span>${data[0].pmAvgPm25 !== undefined && data[0].pmAvgPm25 !== null ? data[0].pmAvgPm25.toFixed(1) : 'N/A'}</span></div>
 								      <div class="pm-item" data-label="🌪️ PM10:" data-unit="㎍/㎥"><span>${data[0].pmAvgPm10 !== undefined && data[0].pmAvgPm10 !== null ? data[0].pmAvgPm10.toFixed(1) : 'N/A'}</span></div>
+								      <div class="pm-item" data-label="🌁 PM2.5:" data-unit="㎍/㎥"><span>${data[0].pmAvgPm25 !== undefined && data[0].pmAvgPm25 !== null ? data[0].pmAvgPm25.toFixed(1) : 'N/A'}</span></div>
+								      <div class="pm-item" data-label="🌫 PM1.0:" data-unit="㎍/㎥"><span>${data[0].pmAvgPm1 !== undefined && data[0].pmAvgPm1 !== null ? data[0].pmAvgPm1.toFixed(1) : 'N/A'}</span></div>
 								      <div class="pm-item" data-label="🫁 CO₂:" data-unit="ppm"><span>${data[0].pmAvgCo2den !== undefined && data[0].pmAvgCo2den !== null ? data[0].pmAvgCo2den.toFixed(1) : 'N/A'}</span></div>
 								    </li>
 								  </ul>
