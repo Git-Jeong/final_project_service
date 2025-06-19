@@ -36,7 +36,6 @@
 
 /* day-circle 스타일 */
 .day-circle {
-	display: inline-block;
 	width: 80%; /* 셀 너비 대비 비율로 설정 */
 	max-width: 30px; /* 최대 너비 제한 */
 	height: 30px;
@@ -106,7 +105,6 @@
 
 .serviceHistory-card:hover {
 	box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-	transform: translateY(-2px);
 }
 
 .serviceHistory-card-header {
@@ -130,7 +128,6 @@
 	align-items: center;
 	justify-content: center;
 	color: #999;
-	font-style: italic;
 }
 
 .serviceHistory-card-body::-webkit-scrollbar {
@@ -202,15 +199,18 @@
 	padding: 0 0.7rem;
 	margin-top: 1rem;
 	color: #444;
-	text-align: center;
+	text-align: left;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 }
 
 .pm-item span {
 	font-weight: 900;
 	margin-left: 0.3rem;
+	margin-right: 0.2rem;
 	font-size: 1.6rem;
+	width: 100px;
+	text-align: right;
 }
 
 .chartContainer-left{

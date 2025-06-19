@@ -129,7 +129,7 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 		yAxis: {
 			type: 'value',
 			name: '㎍/㎥',
-			min: 0
+			min: Math.max(0, Math.min(...pm1Data, ...pm25Data, ...pm10Data) - 10)
 		},
 		legend: {
 			data: ['PM1.0', 'PM2.5', 'PM10'],
@@ -338,7 +338,8 @@ const drawDustPm1EChart = (snsr, pred) => {
 		},
 		yAxis: {
 			type: 'value',
-			name: '㎍/㎥'
+			name: '㎍/㎥',
+			min: Math.max(0, Math.min(...snsr.pm1Data, ...pred.pm1Data) - 10)
 		},
 		grid: {
 			left: 30,
@@ -442,7 +443,8 @@ const drawDustPm25EChart = (snsr, pred) => {
 		},
 		yAxis: {
 			type: 'value',
-			name: '㎍/㎥'
+			name: '㎍/㎥',
+			min: Math.max(0, Math.min(...snsr.pm25Data, ...pred.pm25Data) - 10)
 		},
 		grid: {
 			left: 30,
@@ -546,7 +548,8 @@ const drawDustPm10EChart = (snsr, pred) => {
 		},
 		yAxis: {
 			type: 'value',
-			name: '㎍/㎥'
+			name: '㎍/㎥',
+			min: Math.max(0, Math.min(...snsr.pm10Data, ...pred.pm10Data) - 10)
 		},
 		grid: {
 			left: 30,
