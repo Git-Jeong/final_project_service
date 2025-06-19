@@ -75,5 +75,10 @@ public class SensorService {
 		return snsrRepository.findMinuteAvgPmByDateGroupedByPeriod(weekday);
 	}
 
+	public List<Map<String, Object>> findHourlyAvgByWeekdayAndStId(String weekday) {
+		// TODO Auto-generated method stub
+		return snsrRepository.findHourlyAvgByWeekdayAndStId(weekday);
+	}
+
 
 }

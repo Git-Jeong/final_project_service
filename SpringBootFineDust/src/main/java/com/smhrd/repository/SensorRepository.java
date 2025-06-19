@@ -42,9 +42,24 @@ public interface SensorRepository extends JpaRepository<Sensor, Integer> {
 
 	List<Sensor> findByStIdAndWeekdayAndTimeHmsLessThanEqual(int stId, String weekday, LocalTime timeHms);
 
-}  //stId, weekday, timeHms 를 추가해줘야 함
-		// '%Y-%m-%d %H:%i'
+	
+	 @Query(value = """
+	          SELECT 
+  HOUR(time_hms) AS hour,
+  ROUND(AVG(pm1), 2) AS avgPm1,
+  ROUND(AVG(pm25), 2) AS avgPm25,
+  ROUND(AVG(pm10), 2) AS avgPm10,
+  ROUND(AVG(co2den), 2) AS avgCo2den
+FROM sensor
+WHERE weekday = :weekday AND st_id = 1
+GROUP BY hour
+ORDER BY hour
 
 
+	          
+	   		""", nativeQuery = true)
+	 List<Map<String, Object>> findHourlyAvgByWeekdayAndStId(@Param("weekday") String weekday);
+	
 
-
+} // stId, weekday, timeHms 를 추가해줘야 함
+	// '%Y-%m-%d %H:%i'
