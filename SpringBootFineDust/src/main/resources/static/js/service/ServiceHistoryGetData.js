@@ -120,7 +120,7 @@ const barChartSho = (weekday) => {
 			// 차트 렌더링
 			console.log(data);
 			drawAmPmAvgChart(data);
-			
+
 		},
 		error: function(err) {
 			console.error("데이터 요청 실패", err);
@@ -132,17 +132,26 @@ const barChartSho = (weekday) => {
 const barChartShoCo = (weekday) => {
 	//console.log("barChartSho = " + weekday); // 예: Monday
 	$.ajax({
-		url: `/weekday/co/${weekday}`,
+		url: `/weekday/co2/${weekday}`,
 		type: "GET",
 		success: function(data1) {
 			if (!data1 || !data1.xLabels) {
 				console.warn("데이터 없음");
 				return;
 			}
-			// 차트 렌더링
-			//console.log(data1);
-			drawAmPmCodenChart(data1);
-			
+			// CO₂ 차트 렌더링
+			drawAmPmCo2denChart({
+				xLabels: data1.xLabels,
+				amAvgCo2den: data1.amAvgCo2den,
+				pmAvgCo2den: data1.pmAvgCo2den
+			});
+
+			// CO 차트 렌더링
+			drawAmPmCo1denChart({
+				xLabels: data1.xLabels,
+				amAvgCoden: data1.amAvgCoden,
+				pmAvgCoden: data1.pmAvgCoden
+			});
 		},
 		error: function(err) {
 			console.error("데이터 요청 실패", err);
@@ -150,4 +159,3 @@ const barChartShoCo = (weekday) => {
 		}
 	});
 };
-

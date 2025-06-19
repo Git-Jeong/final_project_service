@@ -14,7 +14,7 @@
 .service-flex-row {
 	display: flex;
 	justify-content: center;
-	gap : 20%;
+	gap : 10%;
 	flex-wrap: wrap;
 	width: 100%;
 	align-items: stretch; /* 높이 통일을 위해 stretch 적용 */
@@ -255,13 +255,27 @@
   text-align: center;
 }
 
-
 #PastDustChart {
-	width: 100%;  /* 70% of 1200px 기준  840px */
+	margin-bottom : 5rem;
+	margin-top: 5rem;
+	width: 100%;
 	height: 600px;
 }
 
+.chartFLex{
+	display: flex;
+	justify-content : center;
+	width: 100%;
+}
+
 #PastCodenChart {
-	width: 100%;  /* 30% of 1200px 기준 */
+	flex : 1;
+	width: 100%;
+	height: 400px;
+} 
+
+#PastCo2denChart {
+	flex : 1;
+	width: 100%;
 	height: 400px;
 } 

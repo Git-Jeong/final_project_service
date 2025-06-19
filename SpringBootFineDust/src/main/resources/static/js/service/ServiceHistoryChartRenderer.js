@@ -130,18 +130,19 @@ window.addEventListener('resize', () => {
 });
 
 
+let amPmCo2denChart = null;
 let amPmCodenChart = null;
 
-function drawAmPmCodenChart({
+function drawAmPmCo2denChart({
 	xLabels,
 	amAvgCo2den, pmAvgCo2den
 }) {
-	const chartDom = document.getElementById('PastCodenChart');
+	const chartDom = document.getElementById('PastCo2denChart');
 	if (!chartDom) {
-		console.error('PastCodenChart element not found');
+		console.error('PastCo2denChart element not found');
 		return;
 	}
-	if (!amPmCodenChart) amPmCodenChart = echarts.init(chartDom);
+	if (!amPmCo2denChart) amPmCo2denChart = echarts.init(chartDom);
 
 	const option = {
 		title: { text: 'AM/PM 평균 이산화탄소', left: 'center' },
@@ -176,7 +177,55 @@ function drawAmPmCodenChart({
 
 	};
 
+	amPmCo2denChart.setOption(option);
+	amPmCo2denChart.resize();
+}
+
+
+function drawAmPmCo1denChart({
+	xLabels,
+	amAvgCoden, pmAvgCoden
+}) {
+	const chartDom = document.getElementById('PastCodenChart');
+	if (!chartDom) {
+		console.error('PastCo2denChart element not found');
+		return;
+	}
+	if (!amPmCodenChart) amPmCodenChart = echarts.init(chartDom);
+
+	const option = {
+		title: { text: 'AM/PM 평균 일산화탄소', left: 'center' },
+		tooltip: { trigger: 'axis' },
+		legend: {
+			top: '8%',
+			data: ['CO₂ (ppm)']
+		},
+
+		xAxis:
+			{ type: 'category', data: xLabels },
+		yAxis: {
+			type: 'value',
+			name: 'ppm'
+		},
+		series: [
+			{
+				name: 'CO (ppm)',
+				type: 'bar',
+				data: [
+					{
+						value: amAvgCoden,
+						itemStyle: { color: '#1A535C' }  // AM 색상
+					},
+					{
+						value: pmAvgCoden,
+						itemStyle: { color: '#FF6B6B' }  // PM 색상
+					}
+				]
+			}
+		]
+
+	};
+
 	amPmCodenChart.setOption(option);
 	amPmCodenChart.resize();
 }
-

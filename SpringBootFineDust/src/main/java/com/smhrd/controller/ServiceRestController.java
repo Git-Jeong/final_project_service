@@ -262,9 +262,10 @@ public class ServiceRestController {
         	);
 
     }
+    
     //이산화탄소 데이터컨트롤러
-    @GetMapping("/weekday/co/{weekday}")
-    public Map<String, Object> getAvgPmByAmCo(@PathVariable String weekday) {
+    @GetMapping("/weekday/co2/{weekday}")
+    public Map<String, Object> getAvgPmByAmCo2(@PathVariable String weekday) {
         List<Map<String, Object>> result = new ArrayList<>();
 
         //System.out.println("weekday = " + weekday);
@@ -274,37 +275,27 @@ public class ServiceRestController {
             e.printStackTrace();
         }
 
-
         //System.out.println("weekday = " + weekday);
         if (result.isEmpty()) {
             return Map.of(
                 "xLabels", (Object)List.of("AM", "PM"),
-
-   
                 "amAvgCo2den", 0,
-
-   
-                "pmAvgCo2den", 0
-
-                
+                "pmAvgCo2den", 0,
+                "amAvgCoden", 0,
+                "pmAvgCoden", 0
             );
         }
-
         Map<String, Object> row = result.get(0);
 
         return Map.ofEntries(
         	    Map.entry("xLabels", List.of("AM", "PM")),
-
         	    Map.entry("amAvgCo2den", row.getOrDefault("amAvgCo2den", 0)),
-
-
-        	    Map.entry("pmAvgCo2den", row.getOrDefault("pmAvgCo2den", 0))
-
-
+        	    Map.entry("pmAvgCo2den", row.getOrDefault("pmAvgCo2den", 0)),
+        	    Map.entry("amAvgCoden", row.getOrDefault("amAvgCoden", 0)),
+        	    Map.entry("pmAvgCoden", row.getOrDefault("pmAvgCoden", 0))
         	);
-
     }
-
+    
     @GetMapping("/weekday/day/{weekday}")
     public Map<String, Object> drawHourlyAvgChart(@PathVariable String weekday) {
         List<Map<String, Object>> result = new ArrayList<>();
