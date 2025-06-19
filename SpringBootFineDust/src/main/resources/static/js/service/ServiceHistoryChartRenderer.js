@@ -27,9 +27,9 @@ function drawAmPmAvgChart({
     yAxis: { type: 'value', name: '㎍/㎥' },
     series: [
      
-      { name: 'PM1.0', type: 'bar', data: [amAvgPm1, pmAvgPm1], itemStyle: { color: '#4D4D4D' }},
- 	{ name: 'PM2.5', type: 'bar', data: [amAvgPm25,pmAvgPm25], itemStyle: { color: '#1A535C' }},
-      { name: 'PM10', type: 'bar', data: [amAvgPm10, pmAvgPm10], itemStyle: { color: '#FFB400' }},
+      { name: 'PM1.0', type: 'bar', data: [amAvgPm1, pmAvgPm1], itemStyle: { color: '#8E44AD' }},
+ 	{ name: 'PM2.5', type: 'bar', data: [amAvgPm25,pmAvgPm25], itemStyle: { color: '#4169E1' }},
+      { name: 'PM10', type: 'bar', data: [amAvgPm10, pmAvgPm10], itemStyle: { color: '#DE2AA6' }},
 
     ]
   };//색이 참 마음에 안드네
