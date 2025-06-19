@@ -8,13 +8,14 @@
 }
 
 .chartContainer-chart-box{
-	width: 100%;
-	min-width:1196px;
-	max-width: 1500px;
 	display: flex;
 	justify-content: center;
 	gap: 1rem;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
+	width: 100%;
+	min-width: 1196px;
+	max-width: 1500px;
+	overflow-x: auto; /* 작아지면 가로 스크롤 */
 }
 
 .calendar-box {
@@ -240,11 +241,13 @@
 }
 
 #PastDustChart {
-	flex: 7;
+	width: 840px;  /* 70% of 1200px 기준 */
 	height: 400px;
+	flex-shrink: 0; /* 줄어들지 않도록 고정 */
 }
 
 #PastCodenChart {
-	flex: 3;
+	width: 360px;  /* 30% of 1200px 기준 */
 	height: 400px;
-}
+	flex-shrink: 0;
+} 
