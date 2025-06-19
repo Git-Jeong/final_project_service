@@ -67,8 +67,6 @@ const startCommentDust = () => {
 					<img src="img/icon/${imgName}" alt="${worstStatus.text}" style="height:1.5rem; width:auto;">
 				</span>
 			`;
-			
-			getStationDust();
 		},
 		error: function(err) {
 			console.error("데이터 불러오기 실패:", err);
@@ -312,6 +310,7 @@ const newStationList = () => {
 
 document.addEventListener('DOMContentLoaded', () => {
 	startCommentDust();
+	getStationDust();
 	startPredDust();
 
 	setInterval(() => {
