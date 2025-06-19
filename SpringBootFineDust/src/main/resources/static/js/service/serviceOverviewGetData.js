@@ -67,6 +67,16 @@ const startCommentDust = () => {
 					<img src="img/icon/${imgName}" alt="${worstStatus.text}" style="height:1.5rem; width:auto;">
 				</span>
 			`;
+			
+
+			const spinner = document.getElementById("middle-loding-spin");
+			const nonSpinner = document.getElementById("non-middle-loding-spin");
+			if (spinner.style.display === "block") {
+				spinner.style.display = "none";
+			}
+			if (nonSpinner.style.display === "none" || nonSpinner.hidden) {
+				nonSpinner.style.display = "block";
+			}
 		},
 		error: function(err) {
 			console.error("데이터 불러오기 실패:", err);
