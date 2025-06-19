@@ -6,9 +6,9 @@ let amPmChart = null;
 
 function drawAmPmAvgChart({
   xLabels,
-  amAvgPm1, amAvgPm25, amAvgPm10,
-  pmAvgPm1, pmAvgPm25, pmAvgPm10
+ avgPm1,avgPm25,avgPm10
 }) {
+	console.log(avgPm1,avgPm25,avgPm10);
   const chartDom = document.getElementById('PastDustChart');
   if (!chartDom) {
     console.error('PastDustChart element not found');  
@@ -23,13 +23,13 @@ function drawAmPmAvgChart({
       top: '8%',
       data: ['PM10', 'PM2.5', 'PM1.0']
     },
-    xAxis: { type: 'category', data: xLabels },
+    xAxis: { type: 'time', data: xLabels },
     yAxis: { type: 'value', name: '㎍/㎥' },
     series: [
      
-      { name: 'PM10', type: 'bar', data: [amAvgPm10, pmAvgPm10], itemStyle: { color: '#DE2AA6' }},
- 	  { name: 'PM2.5', type: 'bar', data: [amAvgPm25,pmAvgPm25], itemStyle: { color: '#4169E1' }},
-      { name: 'PM1.0', type: 'bar', data: [amAvgPm1, pmAvgPm1], itemStyle: { color: '#8E44AD' }},
+      { name: 'PM10', type: 'line', data: [avgPm1], itemStyle: { color: '#DE2AA6' }},
+ 	  { name: 'PM2.5', type: 'line', data: [avgPm25], itemStyle: { color: '#4169E1' }},
+      { name: 'PM1.0', type: 'line', data: [avgPm10], itemStyle: { color: '#8E44AD' }},
 
     ]
   };//색이 참 마음에 안드네

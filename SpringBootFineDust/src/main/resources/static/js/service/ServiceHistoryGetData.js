@@ -118,7 +118,7 @@ const barChartSho = (weekday) => {
 				return;
 			}
 			// 차트 렌더링
-			//console.log(data);
+			console.log(data);
 			drawAmPmAvgChart(data);
 			
 		},
@@ -140,7 +140,7 @@ const barChartShoCo = (weekday) => {
 				return;
 			}
 			// 차트 렌더링
-			console.log(data1);
+			//console.log(data1);
 			drawAmPmCodenChart(data1);
 			
 		},
