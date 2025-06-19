@@ -48,10 +48,10 @@ const startCommentDust = () => {
 			};
 
 			const statusMap = {
-				'좋음': 'Good.png',
-				'보통': 'Average.png',
-				'나쁨': 'Bad.png',
-				'매우 나쁨': 'VeryBad.png'
+				'좋음': 'GoodHead.png',
+				'보통': 'AverageHead.png',
+				'나쁨': 'BadHead.png',
+				'매우 나쁨': 'VeryBadHead.png'
 			};
 
 			const data_comment1 = `${iconMap[worstStatus.text]} ${worstStatus.text}`;
@@ -63,7 +63,7 @@ const startCommentDust = () => {
 
 			document.getElementById("comment2").innerHTML = `
 				${data_comment2}
-				<img src="img/${imgName}" alt="${worstStatus.text}" style="height:1em; vertical-align:text-bottom; margin-left:5px;">
+				<img src="img/icon/${imgName}" alt="${worstStatus.text}" style="height:1em; vertical-align:text-bottom; margin-left:5px;">
 			`;
 		},
 		error: function(err) {
@@ -80,7 +80,7 @@ const setDustImage = (elementId, statusText) => {
 		'매우 나쁨': 'VeryBad.png'
 	};
 	const imgName = statusMap[statusText] || 'Average.png';
-	const imgTag = `<img src="/img/${imgName}" alt="${statusText}">`;
+	const imgTag = `<img src="/img/icon/${imgName}" alt="${statusText}">`;
 	document.getElementById(elementId).innerHTML = imgTag;
 };
 
