@@ -62,9 +62,21 @@ const startCommentDust = () => {
 			document.getElementById("comment1").style.color = worstStatus.color;
 
 			document.getElementById("comment2").innerHTML = `
-				${data_comment2}
-				<img src="img/icon/${imgName}" alt="${worstStatus.text}" style="height:1em; vertical-align:text-bottom; margin-left:5px;">
+				<span style="display: flex; align-items: center; white-space: nowrap; gap: 0.5rem;">
+					${data_comment2}
+					<img src="img/icon/${imgName}" alt="${worstStatus.text}" style="height:1.5rem; width:auto;">
+				</span>
 			`;
+			
+
+			const spinner = document.getElementById("middle-loding-spin");
+			const nonSpinner = document.getElementById("non-middle-loding-spin");
+			if (spinner.style.display === "block") {
+				spinner.style.display = "none";
+			}
+			if (nonSpinner.style.display === "none" || nonSpinner.hidden) {
+				nonSpinner.style.display = "block";
+			}
 		},
 		error: function(err) {
 			console.error("데이터 불러오기 실패:", err);
@@ -307,9 +319,9 @@ const newStationList = () => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+	startCommentDust();
 	getStationDust();
 	startPredDust();
-	startCommentDust();
 
 	setInterval(() => {
 		getStationDust();
