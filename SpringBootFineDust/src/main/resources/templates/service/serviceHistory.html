@@ -133,8 +133,11 @@
 			</div>
 
 			<div class="history-main-container2" id="chartList-loading" style="display: none;">
-			    <div align="center" class="chart-loading-text">차트 시각화 중.</div>
-				<div class="chart-loading-mini-spinner"></div>
+			  <div class="chart-loading-text-wrap">
+			    <span class="chart-loading-text">차트 시각화 중</span>
+			    <span id="chart-loading-point" class="chart-loading-text">...</span>
+			  </div>
+			  <div class="chart-loading-mini-spinner"></div>
 			</div>
 			<div class="history-main-container2" id="chartList" style="display: none">
 				<!-- 차트는 아래에서 넓게 배치 -->
@@ -152,13 +155,11 @@
 	<script src="/js/service/Calendar.js"></script>
 
 	<script type="text/javascript">
-	const loadingText = document.querySelector('.chart-loading-text');
+	const loadingPoint = document.getElementById('chart-loading-point');
 	let visible = true;
 
-	const baseText = '차트 시각화 중...';
-
 	const interval = setInterval(() => {
-	  loadingText.textContent = visible ? baseText : '차트 시각화 중   '; // 점 3개 길이 유지
+	  loadingPoint.style.visibility = visible ? 'visible' : 'hidden';
 	  visible = !visible;
 	}, 500);
 	</script>
