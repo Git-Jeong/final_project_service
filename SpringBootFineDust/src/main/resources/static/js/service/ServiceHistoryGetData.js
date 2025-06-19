@@ -134,14 +134,14 @@ const barChartShoCo = (weekday) => {
 	$.ajax({
 		url: `/weekday/co/${weekday}`,
 		type: "GET",
-		success: function(data) {
-			if (!data || !data.xLabels) {
+		success: function(data1) {
+			if (!data1 || !data1.xLabels) {
 				console.warn("데이터 없음");
 				return;
 			}
 			// 차트 렌더링
-			//console.log(data);
-			drawAmPmCodenChart(data);
+			console.log(data1);
+			drawAmPmCodenChart(data1);
 			
 		},
 		error: function(err) {
