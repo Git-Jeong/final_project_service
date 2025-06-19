@@ -1,6 +1,7 @@
 const calendarBody = document.getElementById("calendar-body");
 const monthYear = document.getElementById("month-year");
 let currentDate = new Date();
+let lastClickedDate = null; 
 
 const yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
@@ -47,8 +48,6 @@ function renderCalendar(date) {
 
 					dayCircle.addEventListener("click", () => {
 
-						let lastClickedDate = null;
-
 						document.getElementById('chart-loading-main').style.display = 'block';
 						document.getElementById('initial-message').style.display = 'none';
 						document.getElementById('dustAccordion').style.display = 'none';
@@ -88,17 +87,17 @@ function renderCalendar(date) {
 								  <ul class="pm-list">
 								    <li>
 								      <div class="pm-title">☀️ 오전 평균</div>
-								      <div class="pm-item">🌫️ PM1.0: <span>${data[0].amAvgPm1 ?? 'N/A'}</span> ㎍/㎥</div>
-									  <div class="pm-item">🌁 PM2.5: <span>${data[0].amAvgPm25 ?? 'N/A'}</span> ㎍/㎥</div>
-									  <div class="pm-item">🌪️ PM10: <span>${data[0].amAvgPm10 ?? 'N/A'}</span> ㎍/㎥</div>
-									  <div class="pm-item">🫁 CO₂: <span>${data[0].amAvgCo2den ?? 'N/A'}</span> ppm</div>
+								      <div class="pm-item" data-label="🌫️ PM1.0:" data-unit="㎍/㎥"><span>${data[0].amAvgPm1 ?? 'N/A'}</span></div>
+								      <div class="pm-item" data-label="🌁 PM2.5:" data-unit="㎍/㎥"><span>${data[0].amAvgPm25 ?? 'N/A'}</span></div>
+								      <div class="pm-item" data-label="🌪️ PM10:" data-unit="㎍/㎥"><span>${data[0].amAvgPm10 ?? 'N/A'}</span></div>
+								      <div class="pm-item" data-label="🫁 CO₂:" data-unit="ppm"><span>${data[0].amAvgCo2den ?? 'N/A'}</span></div>
 								    </li>
 								    <li>
 								      <div class="pm-title">🌇 오후 평균</div>
-								      <div class="pm-item">🌫 PM1.0: <span>${data[0].pmAvgPm1 ?? 'N/A'}</span> ㎍/㎥</div>
-								      <div class="pm-item">🌁 PM2.5: <span>${data[0].pmAvgPm25 ?? 'N/A'}</span> ㎍/㎥</div>
-								      <div class="pm-item">🌪️ PM10: <span>${data[0].pmAvgPm10 ?? 'N/A'}</span> ㎍/㎥</div>
-								      <div class="pm-item">🫁 CO₂: <span>${data[0].pmAvgCo2den ?? 'N/A'}</span> ppm</div>
+								      <div class="pm-item" data-label="🌫 PM1.0:" data-unit="㎍/㎥"><span>${data[0].pmAvgPm1 ?? 'N/A'}</span></div>
+								      <div class="pm-item" data-label="🌁 PM2.5:" data-unit="㎍/㎥"><span>${data[0].pmAvgPm25 ?? 'N/A'}</span></div>
+								      <div class="pm-item" data-label="🌪️ PM10:" data-unit="㎍/㎥"><span>${data[0].pmAvgPm10 ?? 'N/A'}</span></div>
+								      <div class="pm-item" data-label="🫁 CO₂:" data-unit="ppm"><span>${data[0].pmAvgCo2den ?? 'N/A'}</span></div>
 								    </li>
 								  </ul>
 								`;

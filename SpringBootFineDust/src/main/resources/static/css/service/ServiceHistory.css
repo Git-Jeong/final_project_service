@@ -201,16 +201,28 @@
 	color: #444;
 	text-align: left;
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
+	white-space: nowrap;
+}
+
+.pm-item::before {
+	content: attr(data-label);
+	width: 80px; /* 왼쪽 라벨 고정 너비 */
+	text-align: left;
 }
 
 .pm-item span {
-	font-weight: 900;
-	margin-left: 0.3rem;
-	margin-right: 0.2rem;
-	font-size: 1.6rem;
-	width: 100px;
+	width: 100px; /* 가운데 값 */
 	text-align: right;
+	font-weight: 900;
+	margin: 0 0.3rem;
+	font-size: 1.6rem;
+}
+
+.pm-item::after {
+	content: attr(data-unit);
+	width: 60px; /* 오른쪽 단위 고정 너비 */
+	text-align: left;
 }
 
 .chartContainer-left{
