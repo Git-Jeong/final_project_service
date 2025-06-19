@@ -1,18 +1,23 @@
 /* 캘린더 테이블 기본 스타일 */
+.history-main-container2,
 .history-main-container{
-	padding: 2rem;	
-	max-width: 1500px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.history-main-container2{
+	padding: 1rem;	
 	min-width: 720px;
 	width: 90vw;
-	max-width: 1500px;
+	max-width: 1800px;
 	margin-left: auto;
 	margin-right: auto;
 	align-items: center;
+}
+
+
+.service-flex-row {
+	display: flex;
+	justify-content: center;
+	gap : 10rem;
+	flex-wrap: wrap;
+	width: 100%;
+	align-items: stretch; /* 높이 통일을 위해 stretch 적용 */
 }
 
 .chartContainer-chart-box{
@@ -74,18 +79,7 @@
 	color: #fff;
 }
 
-.service-flex-row {
-	display: flex;
-	justify-content: space-between;
-	gap: 1rem;
-	flex-wrap: wrap;
-	width: 100%;
-	align-items: stretch; /* 높이 통일을 위해 stretch 적용 */
-}
-
 .calendar-section, .result-section {
-	min-width: 350px;
-	height: 422px;
 	box-sizing: border-box; /* 패딩, 테두리 포함 높이 계산 */
 	display: flex;
 	flex-direction: column;
@@ -94,14 +88,10 @@
 .calendar-section {
 	flex: 1;
 	font-weight : 900;
-	min-width: 500px;
-	max-width: 500px; /* 추가 */
 }
 
 .result-section {
-	flex: 1;
-	min-width: 680px; /* 추가 */
-	max-width: 680px; /* 추가 */
+	flex: 2;
 }
 
 .serviceHistory-container {

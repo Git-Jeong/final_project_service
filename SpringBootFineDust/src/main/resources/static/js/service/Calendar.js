@@ -45,7 +45,11 @@ function renderCalendar(date) {
 						const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 						return days[date.getDay()];
 					}
-
+					function getWeekdayKoreanName(dateStr) {
+						const weekdays = ['일', '월', '화', '수', '목', '금', '토']; // 한국어 요일
+						const date = new Date(dateStr);
+						return weekdays[date.getDay()];
+					}
 					dayCircle.addEventListener("click", () => {
 
 						document.getElementById('chart-loading-main').style.display = 'block';
@@ -53,7 +57,8 @@ function renderCalendar(date) {
 						document.getElementById('dustAccordion').style.display = 'none';
 
 						const weekday = getWeekdayName(dateStr);
-
+						const weekdayKorean = getWeekdayKoreanName(dateStr);
+						
 						/* 불러오기 collapse if ~ 닫히게 하기 */
 						const dustCard = document.getElementById("dustCard");
 						const bsCollapse = bootstrap.Collapse.getOrCreateInstance(dustCard);
@@ -72,7 +77,7 @@ function renderCalendar(date) {
 								const title = document.getElementById("headingDust");
 								const detail = document.getElementById("dust-detail");
 
-								title.textContent = `${dateStr} (${weekday}) 미세먼지 평균 정보`;
+								title.textContent = `${dateStr} (${weekdayKorean}) 미세먼지 평균 정보`;
 
 								if (!data || data.length === 0) {
 									detail.innerHTML = `<p>데이터가 없습니다.</p>`;
