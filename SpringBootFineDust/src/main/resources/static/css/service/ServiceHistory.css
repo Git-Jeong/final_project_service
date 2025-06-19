@@ -241,7 +241,7 @@
 }
 
 #PastDustChart {
-	width: 840px;  /* 70% of 1200px 기준 */
+	width: 100%;  /* 70% of 1200px 기준  840px */
 	height: 400px;
 	flex-shrink: 0; /* 줄어들지 않도록 고정 */
 }
