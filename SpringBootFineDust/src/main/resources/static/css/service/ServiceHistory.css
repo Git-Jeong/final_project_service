@@ -251,6 +251,6 @@
 }
 
 #PastCodenChart {
-	width: 360px;  /* 30% of 1200px 기준 */
+	width: 100%;  /* 30% of 1200px 기준 */
 	height: 400px;
 } 
