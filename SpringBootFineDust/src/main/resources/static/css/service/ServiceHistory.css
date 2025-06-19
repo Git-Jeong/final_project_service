@@ -1,10 +1,16 @@
 /* 캘린더 테이블 기본 스타일 */
-.history-main-container2,	
 .history-main-container{
 	padding: 2rem;	
 	max-width: 1500px;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.history-main-container2{
+	width: 80vw;
+	margin-left: auto;
+	margin-right: auto;
+	align-items: center;
 }
 
 .chartContainer-chart-box{
@@ -13,7 +19,6 @@
 	flex-direction: column;
 	gap: 1rem;
 	flex-wrap: nowrap;
-	width: 100%;
 }
 
 .calendar-box {
@@ -240,12 +245,10 @@
 
 #PastDustChart {
 	width: 100%;  /* 70% of 1200px 기준  840px */
-	height: 400px;
-	flex-shrink: 0; /* 줄어들지 않도록 고정 */
+	height: 600px;
 }
 
 #PastCodenChart {
 	width: 360px;  /* 30% of 1200px 기준 */
 	height: 400px;
-	flex-shrink: 0;
 } 
