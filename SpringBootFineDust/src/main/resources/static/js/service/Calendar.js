@@ -91,18 +91,19 @@ function renderCalendar(date) {
 								      <div class="pm-item">🌫️ PM1.0: <span>${data[0].amAvgPm1 ?? 'N/A'}</span> ㎍/㎥</div>
 									  <div class="pm-item">🌁 PM2.5: <span>${data[0].amAvgPm25 ?? 'N/A'}</span> ㎍/㎥</div>
 									  <div class="pm-item">🌪️ PM10: <span>${data[0].amAvgPm10 ?? 'N/A'}</span> ㎍/㎥</div>
-									  <div class="pm-item">🫁 CO₂: <span>${data[0].amAvgCO2 ?? 'N/A'}</span> ppm</div>
+									  <div class="pm-item">🫁 CO₂: <span>${data[0].amAvgCo2den ?? 'N/A'}</span> ppm</div>
 								    </li>
 								    <li>
 								      <div class="pm-title">🌇 오후 평균</div>
 								      <div class="pm-item">🌫 PM1.0: <span>${data[0].pmAvgPm1 ?? 'N/A'}</span> ㎍/㎥</div>
 								      <div class="pm-item">🌁 PM2.5: <span>${data[0].pmAvgPm25 ?? 'N/A'}</span> ㎍/㎥</div>
 								      <div class="pm-item">🌪️ PM10: <span>${data[0].pmAvgPm10 ?? 'N/A'}</span> ㎍/㎥</div>
-								      <div class="pm-item">🫁 CO2: <span>${data[0].amAvgCO2 ?? 'N/A'}</span> ppm</div>
+								      <div class="pm-item">🫁 CO₂: <span>${data[0].pmAvgCo2den ?? 'N/A'}</span> ppm</div>
 								    </li>
 								  </ul>
 								`;
 								barChartSho(weekday);
+								barChartShoCo(weekday);
 
 								document.getElementById('chart-loading-main').style.display = 'none';
 								document.getElementById('dustAccordion').style.display = 'block';

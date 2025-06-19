@@ -277,11 +277,11 @@ public class ServiceRestController {
             return Map.of(
                 "xLabels", (Object)List.of("AM", "PM"),
 
-                "amAvgCoden", 0,
+   
                 "amAvgCo2den", 0,
 
-                "pmAvgCoden", 0,
-                "pmAvgPmCo2den", 0
+   
+                "pmAvgCo2den", 0
 
                 
             );
@@ -292,11 +292,11 @@ public class ServiceRestController {
         return Map.ofEntries(
         	    Map.entry("xLabels", List.of("AM", "PM")),
 
-        	    Map.entry("amAvgPm25", row.getOrDefault("amAvgPm25", 0)),
-        	    Map.entry("amAvgPm10", row.getOrDefault("amAvgPm10", 0)),
+        	    Map.entry("amAvgCo2den", row.getOrDefault("amAvgCo2den", 0)),
 
-        	    Map.entry("pmAvgPm25", row.getOrDefault("pmAvgPm25", 0)),
-        	    Map.entry("pmAvgPm10", row.getOrDefault("pmAvgPm10", 0))
+
+        	    Map.entry("pmAvgCo2den", row.getOrDefault("pmAvgCo2den", 0))
+
 
         	);
 
