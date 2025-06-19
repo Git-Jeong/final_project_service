@@ -104,14 +104,14 @@ function drawAmPmAvgChart({ xLabels, avgPm1, avgPm25, avgPm10 }) {
 				name: 'PM2.5',
 				type: 'line',
 				data: avgPm25,
-				itemStyle: { color: '#4169E1' },
+				itemStyle: { color: '#93cfb8' },
 				smooth: true
 			},
 			{
 				name: 'PM1.0',
 				type: 'line',
 				data: avgPm1,
-				itemStyle: { color: '#8E44AD' },
+				itemStyle: { color: '#0fd68a' },
 				smooth: true
 			}
 		]
@@ -151,7 +151,6 @@ function drawAmPmCo2denChart({
 			top: '8%',
 			data: ['CO₂ (ppm)']
 		},
-
 		xAxis:
 			{ type: 'category', data: xLabels },
 		yAxis: {
@@ -179,6 +178,9 @@ function drawAmPmCo2denChart({
 
 	amPmCo2denChart.setOption(option);
 	amPmCo2denChart.resize();
+	setTimeout(() => {
+	  amPmCo2denChart.resize();
+	}, 200);
 }
 
 
@@ -198,9 +200,8 @@ function drawAmPmCo1denChart({
 		tooltip: { trigger: 'axis' },
 		legend: {
 			top: '8%',
-			data: ['CO₂ (ppm)']
+			data: ['CO (ppm)']
 		},
-
 		xAxis:
 			{ type: 'category', data: xLabels },
 		yAxis: {
@@ -214,11 +215,11 @@ function drawAmPmCo1denChart({
 				data: [
 					{
 						value: amAvgCoden,
-						itemStyle: { color: '#1A535C' }  // AM 색상
+						itemStyle: { color: '#a3d9df' }  // AM 색상
 					},
 					{
 						value: pmAvgCoden,
-						itemStyle: { color: '#FF6B6B' }  // PM 색상
+						itemStyle: { color: '#1ac7da' }  // PM 색상
 					}
 				]
 			}
@@ -228,4 +229,7 @@ function drawAmPmCo1denChart({
 
 	amPmCodenChart.setOption(option);
 	amPmCodenChart.resize();
+	setTimeout(() => {
+	  amPmCodenChart.resize();
+	}, 200);
 }
