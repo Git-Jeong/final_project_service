@@ -21,15 +21,15 @@ function drawAmPmAvgChart({
     tooltip: { trigger: 'axis' },
     legend: {
       top: '8%',
-      data: ['PM1.0', 'PM2.5', 'PM10']
+      data: ['PM10', 'PM2.5', 'PM1.0']
     },
     xAxis: { type: 'category', data: xLabels },
     yAxis: { type: 'value', name: '㎍/㎥' },
     series: [
      
-      { name: 'PM1.0', type: 'bar', data: [amAvgPm1, pmAvgPm1], itemStyle: { color: '#4D4D4D' }},
- 	{ name: 'PM2.5', type: 'bar', data: [amAvgPm25,pmAvgPm25], itemStyle: { color: '#1A535C' }},
-      { name: 'PM10', type: 'bar', data: [amAvgPm10, pmAvgPm10], itemStyle: { color: '#FFB400' }},
+      { name: 'PM10', type: 'bar', data: [amAvgPm10, pmAvgPm10], itemStyle: { color: '#DE2AA6' }},
+ 	  { name: 'PM2.5', type: 'bar', data: [amAvgPm25,pmAvgPm25], itemStyle: { color: '#4169E1' }},
+      { name: 'PM1.0', type: 'bar', data: [amAvgPm1, pmAvgPm1], itemStyle: { color: '#8E44AD' }},
 
     ]
   };//색이 참 마음에 안드네

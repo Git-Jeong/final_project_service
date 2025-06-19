@@ -88,9 +88,9 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 	const xMinTime = new Date(seriesMinTime?.getTime() - 30 * 1000);
 
 	// 시작 값 추출
-	const pm1Start = pm1Data[0] ?? null;
-	const pm25Start = pm25Data[0] ?? null;
 	const pm10Start = pm10Data[0] ?? null;
+	const pm25Start = pm25Data[0] ?? null;
+	const pm1Start = pm1Data[0] ?? null;
 	
 	// 채우기 함수
 	const fillSeriesStart = (timeStr, value) => {
@@ -102,9 +102,9 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 	// 시리즈 보정
 	const toTimeValue = (t, v) => [`${today}T${t}`, v];
 	
-	const filledPm1 = [...fillSeriesStart(labels[0], pm1Start), ...labels.map((t, i) => toTimeValue(t, pm1Data[i]))];
-	const filledPm25 = [...fillSeriesStart(labels[0], pm25Start), ...labels.map((t, i) => toTimeValue(t, pm25Data[i]))];
 	const filledPm10 = [...fillSeriesStart(labels[0], pm10Start), ...labels.map((t, i) => toTimeValue(t, pm10Data[i]))];
+	const filledPm25 = [...fillSeriesStart(labels[0], pm25Start), ...labels.map((t, i) => toTimeValue(t, pm25Data[i]))];
+	const filledPm1 = [...fillSeriesStart(labels[0], pm1Start), ...labels.map((t, i) => toTimeValue(t, pm1Data[i]))];
 
 	const option = {
 		title: [
@@ -129,10 +129,10 @@ const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) =>
 		yAxis: {
 			type: 'value',
 			name: '㎍/㎥',
-			min: 0
+			min: Math.max(0, Math.min(...pm1Data, ...pm25Data, ...pm10Data) - 10)
 		},
 		legend: {
-			data: ['PM1.0', 'PM2.5', 'PM10'],
+			data: ['PM10', 'PM2.5', 'PM1.0'],
 			top: 0,
 			left: 20
 		},
@@ -312,15 +312,6 @@ const drawDustPm1EChart = (snsr, pred) => {
 
 	const option = {
 		tooltip: { trigger: 'axis' },
-		title: {
-			text: `${snsr.pm1Data.at(-1)} ㎍/㎥`,
-			right: 10,
-			top: 0,
-			textStyle: {
-				fontSize: 14,
-				color: '#333'
-			}
-		},
 	    legend: {
 	        left: 'center',
 	        top: 'top'
@@ -338,11 +329,12 @@ const drawDustPm1EChart = (snsr, pred) => {
 		},
 		yAxis: {
 			type: 'value',
-			name: '㎍/㎥'
+			name: '㎍/㎥',
+			min: Math.min(50, Math.min(...snsr.pm1Data, ...pred.pm1Data) - 10)
 		},
 		grid: {
 			left: 30,
-			right: 30,
+			right: 15,
 			bottom: 20,
 			top: 30
 		},
@@ -416,15 +408,6 @@ const drawDustPm25EChart = (snsr, pred) => {
 
 	const option = {
 		tooltip: { trigger: 'axis' },
-		title: {
-			text: `${snsr.pm25Data.at(-1)} ㎍/㎥`,
-			right: 10,
-			top: 0,
-			textStyle: {
-				fontSize: 14,
-				color: '#333'
-			}
-		},
 	    legend: {
 	        left: 'center',
 	        top: 'top'
@@ -442,11 +425,12 @@ const drawDustPm25EChart = (snsr, pred) => {
 		},
 		yAxis: {
 			type: 'value',
-			name: '㎍/㎥'
+			name: '㎍/㎥', 
+			min: Math.min(50, Math.min(...snsr.pm25Data, ...pred.pm25Data) - 10)
 		},
 		grid: {
 			left: 30,
-			right: 30,
+			right: 15,
 			bottom: 20,
 			top: 30
 		},
@@ -520,15 +504,6 @@ const drawDustPm10EChart = (snsr, pred) => {
 
 	const option = {
 		tooltip: { trigger: 'axis' },
-		title: {
-			text: `${snsr.pm10Data.at(-1)} ㎍/㎥`,
-			right: 10,
-			top: 0,
-			textStyle: {
-				fontSize: 14,
-				color: '#333'
-			}
-		},
 	    legend: {
 	        left: 'center',
 	        top: 'top'
@@ -546,11 +521,12 @@ const drawDustPm10EChart = (snsr, pred) => {
 		},
 		yAxis: {
 			type: 'value',
-			name: '㎍/㎥'
+			name: '㎍/㎥',
+			min: Math.min(50, Math.min(...snsr.pm10Data, ...pred.pm10Data) - 10)
 		},
 		grid: {
 			left: 30,
-			right: 30,
+			right: 15,
 			bottom: 20,
 			top: 30
 		},
