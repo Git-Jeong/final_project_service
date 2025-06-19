@@ -14,7 +14,7 @@
 .service-flex-row {
 	display: flex;
 	justify-content: center;
-	gap : 10rem;
+	gap : 20%;
 	flex-wrap: wrap;
 	width: 100%;
 	align-items: stretch; /* 높이 통일을 위해 stretch 적용 */

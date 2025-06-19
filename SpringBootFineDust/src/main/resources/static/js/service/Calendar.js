@@ -53,8 +53,10 @@ function renderCalendar(date) {
 					dayCircle.addEventListener("click", () => {
 
 						document.getElementById('chart-loading-main').style.display = 'block';
+						document.getElementById('chartList-loading').style.display = 'block';
 						document.getElementById('initial-message').style.display = 'none';
 						document.getElementById('dustAccordion').style.display = 'none';
+						document.getElementById('chartList').style.display = 'none';
 
 						const weekday = getWeekdayName(dateStr);
 						const weekdayKorean = getWeekdayKoreanName(dateStr);

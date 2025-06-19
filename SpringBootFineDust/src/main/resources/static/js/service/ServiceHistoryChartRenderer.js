@@ -119,6 +119,8 @@ function drawAmPmAvgChart({ xLabels, avgPm1, avgPm25, avgPm10 }) {
 
 
 	amPmChart.setOption(option);
+	document.getElementById('chartList-loading').style.display = 'none';
+	document.getElementById('chartList').style.display = 'block';
 	amPmChart.resize();
 }
 
