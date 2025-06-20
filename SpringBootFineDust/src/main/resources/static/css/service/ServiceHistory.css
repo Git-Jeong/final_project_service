@@ -246,6 +246,19 @@
 	text-align: left;
 }
 
+.no-data-message {
+  height: 100%;
+  color: #999;
+  font-size: 1.1rem;
+  display: flex;
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center;     /* 세로 중앙 정렬 */
+  text-align: center;
+  padding: 0 1rem;
+  white-space: pre-line; /* 줄바꿈 허용 */
+  line-height: 1.4;
+}
+
 .chart-loading-text-wrap {
   display: inline-flex;
   justify-content: center;
