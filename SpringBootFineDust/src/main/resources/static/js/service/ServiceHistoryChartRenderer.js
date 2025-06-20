@@ -163,6 +163,7 @@ window.addEventListener('resize', () => {
 
 let amPmCo2denChart = null;
 let amPmCodenChart = null;
+
 function drawAmPmCo2denChart({
 	xLabels,
 	amAvgCo2den, pmAvgCo2den
@@ -229,7 +230,7 @@ function drawAmPmCo2denChart({
 				textStyle: { color: '#000000' },
 				icon: 'none'
 			},
-			xAxis: { type: 'category', data: xLabels },
+			xAxis: { type: 'category', data: ['오전', '오후'] },
 			yAxis: { type: 'value', name: 'ppm' },
 			series: [
 				{
@@ -317,7 +318,7 @@ function drawAmPmCo1denChart({
 				},
 				icon: 'none'
 			},
-			xAxis: { type: 'category', data: xLabels },
+			xAxis: { type: 'category', data: ['오전', '오후'] },
 			yAxis: {
 				type: 'value',
 				name: 'ppm',
