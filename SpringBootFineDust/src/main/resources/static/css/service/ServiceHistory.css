@@ -259,6 +259,11 @@
   line-height: 1.4;
 }
 
+#initial-message{
+  color: #999;
+  font-size: 1.4rem;
+}
+
 .chart-loading-text-wrap {
   display: inline-flex;
   justify-content: center;

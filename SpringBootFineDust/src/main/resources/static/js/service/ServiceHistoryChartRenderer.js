@@ -207,7 +207,7 @@ function drawAmPmCo2denChart({
 						type: 'text',
 						style: {
 							text: '계산된 데이터가 없습니다.',
-							fill: '#666',
+							fill: '#999',
 							fontSize: 18,
 							fontWeight: 'bold',
 							align: 'center'
@@ -293,7 +293,7 @@ function drawAmPmCo1denChart({
 						type: 'text',
 						style: {
 							text: '계산된 데이터가 없습니다.',
-							fill: '#666',
+							fill: '#999',
 							fontSize: 18,
 							fontWeight: 'bold',
 							align: 'center'
