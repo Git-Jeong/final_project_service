@@ -217,7 +217,7 @@ function drawAmPmCo2denChart({
 					}
 				]
 			}
-
+	
 		};
 	} else {
 		option = {
@@ -236,8 +236,8 @@ function drawAmPmCo2denChart({
 					name: 'CO₂ (ppm)',
 					type: 'bar',
 					data: [
-						{ value: amAvgCo2den, itemStyle: { color: '#1A535C' } },
-						{ value: pmAvgCo2den, itemStyle: { color: '#FF6B6B' } }
+						{ value: amAvgCo2den, itemStyle: { color: '#00C3FF' } },
+						{ value: pmAvgCo2den, itemStyle: { color: '#FF3CAC' } }
 					]
 				}
 			]
@@ -328,8 +328,8 @@ function drawAmPmCo1denChart({
 					name: 'CO (ppm)',
 					type: 'bar',
 					data: [
-						{ value: amAvgCoden, itemStyle: { color: '#a3d9df' } },
-						{ value: pmAvgCoden, itemStyle: { color: '#1ac7da' } }
+						{ value: amAvgCoden, itemStyle: { color: '#1CC8B0' } },
+						{ value: pmAvgCoden, itemStyle: { color: '#A259FF' } }
 					]
 				}
 			]
