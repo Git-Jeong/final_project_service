@@ -120,7 +120,6 @@
 .serviceHistory-card-header {
 	background-color: #2d6cdf;
 	color: white;
-	padding: 1rem 1.5rem;
 	height: 4rem; 
 	flex-shrink : 0;
 	font-size: 1.25rem; font-weight : 600;
@@ -128,6 +127,13 @@
 	border-top-right-radius: 16px;
 	font-weight: 600;
 	flex-shrink: 0;
+	display: flex;
+	align-items: center;      /* 수직 중앙 정렬 */
+	justify-content: center;  /* 수평 중앙 정렬(필요 시) */
+}
+
+.serviceHistory-card-header span{
+	font-size: 2rem;     /* 폰트 키움 */
 }
 
 .serviceHistory-card-body {
