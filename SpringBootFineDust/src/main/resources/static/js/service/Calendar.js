@@ -4,7 +4,7 @@ let currentDate = new Date();
 let lastClickedDate = null;
 
 const yesterday = new Date();
-yesterday.setDate(yesterday.getDate() - 1);
+yesterday.setDate(yesterday.getDate() - 0);
 
 function pad(num) {
 	return String(num).padStart(2, "0");
