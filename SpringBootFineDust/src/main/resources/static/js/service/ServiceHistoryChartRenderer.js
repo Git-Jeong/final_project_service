@@ -119,7 +119,7 @@ function drawAmPmAvgChart({ xLabels, avgPm1, avgPm25, avgPm10 }, dateStr) {
 				markArea: {
 					silent: true,
 					itemStyle: {
-						color: 'rgba(200, 200, 200, 0.3)'
+						color: 'rgba(200, 200, 200, 0.15)'
 					},
 					data: [
 						[{ xAxis: 0 }, { xAxis: 6 }],
@@ -196,7 +196,7 @@ function drawAmPmCo2denChart({
 						type: 'text',
 						style: {
 							text: '아직 하루가 지나지 않아',
-							fill: '#666',
+							fill: '#999',
 							fontSize: 18,
 							fontWeight: 'bold',
 							align: 'center'
@@ -282,7 +282,7 @@ function drawAmPmCo1denChart({
 						type: 'text',
 						style: {
 							text: '아직 하루가 지나지 않아',
-							fill: '#666',
+							fill: '#999',
 							fontSize: 18,
 							fontWeight: 'bold',
 							align: 'center'

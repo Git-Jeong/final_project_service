@@ -247,11 +247,10 @@
 }
 
 .no-data-message {
-	padding: 0.8rem 0.5rem;
-	background-color: #fff;
-  height: 100%;
+  padding: 0.8rem 0.5rem;
+  height: 258px;
   color: #999;
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   display: flex;
   justify-content: center; /* 가로 중앙 정렬 */
   align-items: center;     /* 세로 중앙 정렬 */
