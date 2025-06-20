@@ -3,8 +3,32 @@ let amPmChart = null;
 
 //이산화탄소 평균 차트 추가 만들거야
 
-function drawAmPmAvgChart({ xLabels, avgPm1, avgPm25, avgPm10 }) {
-	console.log(xLabels);
+function drawAmPmAvgChart({ xLabels, avgPm1, avgPm25, avgPm10 }, dateStr) {
+	//console.log(xLabels);
+
+	const today = new Date();
+	const inputDate = new Date(dateStr);
+
+	// 오늘 날짜와 같으면 현재 시간 기준으로 데이터 자르기
+	if (
+		today.getFullYear() === inputDate.getFullYear() &&
+		today.getMonth() === inputDate.getMonth() &&
+		today.getDate() === inputDate.getDate()
+	) {
+		const currentHour = today.getHours();
+
+		// xLabels가 시간 문자열 배열이라 가정 (예: ["00", "01", ..., "23"])
+		const cutoffIndex = xLabels.findIndex(label => parseInt(label, 10) > currentHour);
+
+		if (cutoffIndex !== -1) {
+			// 시간 초과 구간 데이터는 0으로 채우기
+			for (let i = cutoffIndex; i < xLabels.length; i++) {
+				avgPm1[i] = null;
+				avgPm25[i] = null;
+				avgPm10[i] = null;
+			}
+		}
+	}
 
 	const chartDom = document.getElementById('PastDustChart');
 	if (!chartDom) {
@@ -139,11 +163,10 @@ window.addEventListener('resize', () => {
 
 let amPmCo2denChart = null;
 let amPmCodenChart = null;
-
 function drawAmPmCo2denChart({
 	xLabels,
 	amAvgCo2den, pmAvgCo2den
-}) {
+}, dateStr) {
 	const chartDom = document.getElementById('PastCo2denChart');
 	if (!chartDom) {
 		console.error('PastCo2denChart element not found');
@@ -151,54 +174,67 @@ function drawAmPmCo2denChart({
 	}
 	if (!amPmCo2denChart) amPmCo2denChart = echarts.init(chartDom);
 
-	const option = {
-		title: { text: 'AM/PM 평균 이산화탄소', left: 'center' },
-		tooltip: { trigger: 'axis' },
-		legend: {
-			top: '8%',
-			data: ['CO₂ (ppm)'],
-			textStyle: {
-				color: '#000000' // 글자색 투명 처리
-			},
-			icon: 'none' // 아이콘(색상 표시) 없애기
-		},
-		xAxis:
-			{ type: 'category', data: xLabels },
-		yAxis: {
-			type: 'value',
-			name: 'ppm'
-		},
-		series: [
-			{
-				name: 'CO₂ (ppm)',
-				type: 'bar',
-				data: [
-					{
-						value: amAvgCo2den,
-						itemStyle: { color: '#1A535C' }  // AM 색상
-					},
-					{
-						value: pmAvgCo2den,
-						itemStyle: { color: '#FF6B6B' }  // PM 색상
-					}
-				]
+	const today = new Date();
+	const inputDate = new Date(dateStr);
+
+	let option;
+
+	// 오늘 날짜면 데이터 미집계 안내 메시지 표시
+	if (
+		today.getFullYear() === inputDate.getFullYear() &&
+		today.getMonth() === inputDate.getMonth() &&
+		today.getDate() === inputDate.getDate()
+	) {
+		option = {
+			title: { text: 'AM/PM 평균 이산화탄소', left: 'center' },
+			graphic: {
+				type: 'text',
+				left: 'center',
+				top: 'middle',
+				style: {
+					text: '아직 하루가 지나지 않아\n계산된 데이터가 없습니다.',
+					fill: '#666',
+					fontSize: 16,
+					fontWeight: 'bold',
+					align: 'center'
+				}
 			}
-		]
+		};
+	} else {
+		option = {
+			title: { text: 'AM/PM 평균 이산화탄소', left: 'center' },
+			tooltip: { trigger: 'axis' },
+			legend: {
+				top: '8%',
+				data: ['CO₂ (ppm)'],
+				textStyle: { color: '#000000' },
+				icon: 'none'
+			},
+			xAxis: { type: 'category', data: xLabels },
+			yAxis: { type: 'value', name: 'ppm' },
+			series: [
+				{
+					name: 'CO₂ (ppm)',
+					type: 'bar',
+					data: [
+						{ value: amAvgCo2den, itemStyle: { color: '#1A535C' } },
+						{ value: pmAvgCo2den, itemStyle: { color: '#FF6B6B' } }
+					]
+				}
+			]
+		};
+	}
 
-	};
-
-	amPmCo2denChart.setOption(option);
+	amPmCo2denChart.setOption(option, { notMerge: true });
 	amPmCo2denChart.resize();
 	setTimeout(() => {
 		amPmCo2denChart.resize();
 	}, 200);
 }
-
-
 function drawAmPmCo1denChart({
 	xLabels,
 	amAvgCoden, pmAvgCoden
-}) {
+}, dateStr) {
 	const chartDom = document.getElementById('PastCodenChart');
 	if (!chartDom) {
 		console.error('PastCo2denChart element not found');
@@ -206,44 +242,63 @@ function drawAmPmCo1denChart({
 	}
 	if (!amPmCodenChart) amPmCodenChart = echarts.init(chartDom);
 
-	const option = {
-		title: { text: 'AM/PM 평균 일산화탄소', left: 'center' },
-		tooltip: { trigger: 'axis' },
-		legend: {
-			top: '8%',
-			data: ['CO (ppm)'],
-			textStyle: {
-				color: '#000000' // 글자색 투명 처리
-			},
-			icon: 'none' // 아이콘(색상 표시) 없애기
-		},
-		xAxis:
-			{ type: 'category', data: xLabels },
-		yAxis: {
-			type: 'value',
-			name: 'ppm',
-			max: '0.2'
-		},
-		series: [
-			{
-				name: 'CO (ppm)',
-				type: 'bar',
-				data: [
-					{
-						value: amAvgCoden,
-						itemStyle: { color: '#a3d9df' }  // AM 색상
-					},
-					{
-						value: pmAvgCoden,
-						itemStyle: { color: '#1ac7da' }  // PM 색상
-					}
-				]
+	const today = new Date();
+	const inputDate = new Date(dateStr);
+
+	let option;
+
+	if (
+		today.getFullYear() === inputDate.getFullYear() &&
+		today.getMonth() === inputDate.getMonth() &&
+		today.getDate() === inputDate.getDate()
+	) {
+		option = {
+			title: { text: 'AM/PM 평균 일산화탄소', left: 'center' },
+			graphic: {
+				type: 'text',
+				left: 'center',
+				top: 'middle',
+				style: {
+					text: '아직 하루가 지나지 않아\n계산된 데이터가 없습니다.',
+					fill: '#666',
+					fontSize: 16,
+					fontWeight: 'bold',
+					align: 'center'
+				}
 			}
-		]
+		};
+	} else {
+		option = {
+			title: { text: 'AM/PM 평균 일산화탄소', left: 'center' },
+			tooltip: { trigger: 'axis' },
+			legend: {
+				top: '8%',
+				data: ['CO (ppm)'],
+				textStyle: {
+					color: '#000000'
+				},
+				icon: 'none'
+			},
+			xAxis: { type: 'category', data: xLabels },
+			yAxis: {
+				type: 'value',
+				name: 'ppm',
+				max: '0.2'
+			},
+			series: [
+				{
+					name: 'CO (ppm)',
+					type: 'bar',
+					data: [
+						{ value: amAvgCoden, itemStyle: { color: '#a3d9df' } },
+						{ value: pmAvgCoden, itemStyle: { color: '#1ac7da' } }
+					]
+				}
+			]
+		};
+	}
 
-	};
-
-	amPmCodenChart.setOption(option);
+	amPmCodenChart.setOption(option, { notMerge: true });
 	amPmCodenChart.resize();
 	setTimeout(() => {
 		amPmCodenChart.resize();

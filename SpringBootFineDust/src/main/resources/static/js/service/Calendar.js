@@ -112,8 +112,8 @@ function renderCalendar(date) {
 							    </li>
 							  </ul>
 							`;
-								barChartSho(weekday);
-								barChartShoCo(weekday);
+								barChartSho(weekday, dateStr);
+								barChartShoCo(weekday, dateStr);
 
 								document.getElementById('chart-loading-main').style.display = 'none';
 								document.getElementById('dustAccordion').style.display = 'block';

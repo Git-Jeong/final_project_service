@@ -107,8 +107,9 @@ let getWeekday = "2025-05-05";
 const weekday = new Date(getWeekday).toLocaleDateString('en-US', { weekday: 'long' });
  */
 
-const barChartSho = (weekday) => {
+const barChartSho = (weekday, dateStr) => {
 	//console.log("barChartSho = " + weekday); // 예: Monday
+	
 	$.ajax({
 		url: `/weekday/day/${weekday}`,
 		type: "GET",
@@ -118,8 +119,8 @@ const barChartSho = (weekday) => {
 				return;
 			}
 			// 차트 렌더링
-			console.log(data);
-			drawAmPmAvgChart(data);
+			console.log(data, dateStr);
+			drawAmPmAvgChart(data, dateStr);
 
 		},
 		error: function(err) {
@@ -128,9 +129,11 @@ const barChartSho = (weekday) => {
 		}
 	});
 };
+
 //barChartShow - 차트만 화면에 출력
-const barChartShoCo = (weekday) => {
+const barChartShoCo = (weekday, dateStr) => {
 	//console.log("barChartSho = " + weekday); // 예: Monday
+	
 	$.ajax({
 		url: `/weekday/co2/${weekday}`,
 		type: "GET",
@@ -144,14 +147,14 @@ const barChartShoCo = (weekday) => {
 				xLabels: data1.xLabels,
 				amAvgCo2den: data1.amAvgCo2den,
 				pmAvgCo2den: data1.pmAvgCo2den
-			});
+			}, dateStr);
 
 			// CO 차트 렌더링
 			drawAmPmCo1denChart({
 				xLabels: data1.xLabels,
 				amAvgCoden: data1.amAvgCoden,
 				pmAvgCoden: data1.pmAvgCoden
-			});
+			}, dateStr);
 		},
 		error: function(err) {
 			console.error("데이터 요청 실패", err);
