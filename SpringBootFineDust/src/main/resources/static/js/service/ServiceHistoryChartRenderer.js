@@ -114,7 +114,7 @@ function drawAmPmAvgChart({ xLabels, avgPm1, avgPm25, avgPm10 }, dateStr) {
 				data: avgPm10,
 				itemStyle: { color: '#DE2AA6' },
 				smooth: true,
-				lineStyle: { width: 3 }, // 추가
+				lineStyle: { width: 5 }, // 추가
 				symbolSize: 8,           // 추가
 				markArea: {
 					silent: true,
@@ -131,18 +131,18 @@ function drawAmPmAvgChart({ xLabels, avgPm1, avgPm25, avgPm10 }, dateStr) {
 				name: 'PM2.5',
 				type: 'line',
 				data: avgPm25,
-				itemStyle: { color: '#93cfb8' },
+				itemStyle: { color: '#4169E1' },
 				smooth: true,
-				lineStyle: { width: 3 }, // 추가
+				lineStyle: { width: 5 }, // 추가
 				symbolSize: 8            // 추가
 			},
 			{
 				name: 'PM1.0',
 				type: 'line',
 				data: avgPm1,
-				itemStyle: { color: '#0fd68a' },
+				itemStyle: { color: '#8E44AD' },
 				smooth: true,
-				lineStyle: { width: 3 }, // 추가
+				lineStyle: { width: 5 }, // 추가
 				symbolSize: 8            // 추가
 			}
 		]
