@@ -188,17 +188,36 @@ function drawAmPmCo2denChart({
 		option = {
 			title: { text: 'AM/PM 평균 이산화탄소', left: 'center' },
 			graphic: {
-				type: 'text',
+				type: 'group',
 				left: 'center',
 				top: 'middle',
-				style: {
-					text: '아직 하루가 지나지 않아\n계산된 데이터가 없습니다.',
-					fill: '#666',
-					fontSize: 16,
-					fontWeight: 'bold',
-					align: 'center'
-				}
+				children: [
+					{
+						type: 'text',
+						style: {
+							text: '아직 하루가 지나지 않아',
+							fill: '#666',
+							fontSize: 18,
+							fontWeight: 'bold',
+							align: 'center'
+						},
+						left: 'center'
+					},
+					{
+						type: 'text',
+						style: {
+							text: '계산된 데이터가 없습니다.',
+							fill: '#666',
+							fontSize: 18,
+							fontWeight: 'bold',
+							align: 'center'
+						},
+						left: 'center',
+						top: 30
+					}
+				]
 			}
+
 		};
 	} else {
 		option = {
@@ -255,17 +274,36 @@ function drawAmPmCo1denChart({
 		option = {
 			title: { text: 'AM/PM 평균 일산화탄소', left: 'center' },
 			graphic: {
-				type: 'text',
+				type: 'group',
 				left: 'center',
 				top: 'middle',
-				style: {
-					text: '아직 하루가 지나지 않아\n계산된 데이터가 없습니다.',
-					fill: '#666',
-					fontSize: 16,
-					fontWeight: 'bold',
-					align: 'center'
-				}
+				children: [
+					{
+						type: 'text',
+						style: {
+							text: '아직 하루가 지나지 않아',
+							fill: '#666',
+							fontSize: 18,
+							fontWeight: 'bold',
+							align: 'center'
+						},
+						left: 'center'
+					},
+					{
+						type: 'text',
+						style: {
+							text: '계산된 데이터가 없습니다.',
+							fill: '#666',
+							fontSize: 18,
+							fontWeight: 'bold',
+							align: 'center'
+						},
+						left: 'center',
+						top: 30
+					}
+				]
 			}
+
 		};
 	} else {
 		option = {
