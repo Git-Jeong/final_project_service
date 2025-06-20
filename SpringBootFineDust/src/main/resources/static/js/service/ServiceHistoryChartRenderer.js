@@ -186,7 +186,7 @@ function drawAmPmCo2denChart({
 		today.getDate() === inputDate.getDate()
 	) {
 		option = {
-			title: { text: 'AM/PM 평균 이산화탄소', left: 'center' },
+			title: { text: '오전/오후 평균 이산화탄소', left: 'center' },
 			graphic: {
 				type: 'group',
 				left: 'center',
@@ -221,7 +221,7 @@ function drawAmPmCo2denChart({
 		};
 	} else {
 		option = {
-			title: { text: 'AM/PM 평균 이산화탄소', left: 'center' },
+			title: { text: '오전/오후 평균 이산화탄소', left: 'center' },
 			tooltip: { trigger: 'axis' },
 			legend: {
 				top: '8%',
@@ -272,7 +272,7 @@ function drawAmPmCo1denChart({
 		today.getDate() === inputDate.getDate()
 	) {
 		option = {
-			title: { text: 'AM/PM 평균 일산화탄소', left: 'center' },
+			title: { text: '오전/오후 평균 일산화탄소', left: 'center' },
 			graphic: {
 				type: 'group',
 				left: 'center',
@@ -307,7 +307,7 @@ function drawAmPmCo1denChart({
 		};
 	} else {
 		option = {
-			title: { text: 'AM/PM 평균 일산화탄소', left: 'center' },
+			title: { text: '오전/오후 평균 일산화탄소', left: 'center' },
 			tooltip: { trigger: 'axis' },
 			legend: {
 				top: '8%',
