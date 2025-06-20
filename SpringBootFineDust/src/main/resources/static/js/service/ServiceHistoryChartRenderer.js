@@ -156,7 +156,11 @@ function drawAmPmCo2denChart({
 		tooltip: { trigger: 'axis' },
 		legend: {
 			top: '8%',
-			data: ['CO₂ (ppm)']
+			data: ['CO₂ (ppm)'],
+			textStyle: {
+				color: '#000000' // 글자색 투명 처리
+			},
+			icon: 'none' // 아이콘(색상 표시) 없애기
 		},
 		xAxis:
 			{ type: 'category', data: xLabels },
@@ -207,7 +211,11 @@ function drawAmPmCo1denChart({
 		tooltip: { trigger: 'axis' },
 		legend: {
 			top: '8%',
-			data: ['CO (ppm)']
+			data: ['CO (ppm)'],
+			textStyle: {
+				color: '#000000' // 글자색 투명 처리
+			},
+			icon: 'none' // 아이콘(색상 표시) 없애기
 		},
 		xAxis:
 			{ type: 'category', data: xLabels },
