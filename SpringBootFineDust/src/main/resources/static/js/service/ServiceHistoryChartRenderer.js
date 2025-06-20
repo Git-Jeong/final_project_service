@@ -50,11 +50,13 @@ function drawAmPmAvgChart({ xLabels, avgPm1, avgPm25, avgPm10 }) {
 			name: '시간',
 			nameTextStyle: {
 				fontWeight: 'bold',
+				fontSize: 15,
 				padding: [10, 0, 0, 0]
 			},
 			axisLabel: {
 				rotate: 45,
 				fontSize: 11,
+				fontWeight: 'bold',
 				color: '#555'
 			},
 			axisLine: { lineStyle: { color: '#ccc' } },
@@ -65,14 +67,19 @@ function drawAmPmAvgChart({ xLabels, avgPm1, avgPm25, avgPm10 }) {
 			name: '㎍/㎥',
 			nameTextStyle: {
 				fontWeight: 'bold',
+				fontSize: 11,
 				padding: [0, 30, 0, 0]
 			},
-			axisLabel: { fontSize: 11, color: '#555' },
+			axisLabel: {
+				fontSize: 14,
+				fontWeight: 'bold', // 추가
+				color: '#555'
+			},
 			splitLine: { lineStyle: { color: '#eee' } }
 		},
 		grid: {
-			left: 60,
-			right: 60,
+			left: 50,
+			right: 50,
 			top: 80,
 			bottom: 50
 		},
@@ -83,20 +90,16 @@ function drawAmPmAvgChart({ xLabels, avgPm1, avgPm25, avgPm10 }) {
 				data: avgPm10,
 				itemStyle: { color: '#DE2AA6' },
 				smooth: true,
+				lineStyle: { width: 3 }, // 추가
+				symbolSize: 8,           // 추가
 				markArea: {
 					silent: true,
 					itemStyle: {
-						color: 'rgba(200, 200, 200, 0.3)' // 연한 회색 배경 (야간)
+						color: 'rgba(200, 200, 200, 0.3)'
 					},
 					data: [
-						[
-							{ xAxis: 0 },
-							{ xAxis: 6 }
-						],
-						[
-							{ xAxis: 19 },
-							{ xAxis: 23 }
-						]
+						[{ xAxis: 0 }, { xAxis: 6 }],
+						[{ xAxis: 19 }, { xAxis: 23 }]
 					]
 				}
 			},
@@ -105,14 +108,18 @@ function drawAmPmAvgChart({ xLabels, avgPm1, avgPm25, avgPm10 }) {
 				type: 'line',
 				data: avgPm25,
 				itemStyle: { color: '#93cfb8' },
-				smooth: true
+				smooth: true,
+				lineStyle: { width: 3 }, // 추가
+				symbolSize: 8            // 추가
 			},
 			{
 				name: 'PM1.0',
 				type: 'line',
 				data: avgPm1,
 				itemStyle: { color: '#0fd68a' },
-				smooth: true
+				smooth: true,
+				lineStyle: { width: 3 }, // 추가
+				symbolSize: 8            // 추가
 			}
 		]
 	};
@@ -179,7 +186,7 @@ function drawAmPmCo2denChart({
 	amPmCo2denChart.setOption(option);
 	amPmCo2denChart.resize();
 	setTimeout(() => {
-	  amPmCo2denChart.resize();
+		amPmCo2denChart.resize();
 	}, 200);
 }
 
@@ -206,7 +213,8 @@ function drawAmPmCo1denChart({
 			{ type: 'category', data: xLabels },
 		yAxis: {
 			type: 'value',
-			name: 'ppm'
+			name: 'ppm',
+			max: '0.2'
 		},
 		series: [
 			{
@@ -230,6 +238,6 @@ function drawAmPmCo1denChart({
 	amPmCodenChart.setOption(option);
 	amPmCodenChart.resize();
 	setTimeout(() => {
-	  amPmCodenChart.resize();
+		amPmCodenChart.resize();
 	}, 200);
 }

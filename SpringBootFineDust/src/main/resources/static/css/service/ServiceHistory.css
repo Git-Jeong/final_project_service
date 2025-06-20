@@ -60,8 +60,7 @@
 
 /* day-circle 스타일 */
 .day-circle {
-	width: 80%; /* 셀 너비 대비 비율로 설정 */
-	min-width: 30px; /* 최대 너비 제한 */
+	width: 30px; /* 최대 너비 제한 */
 	height: 30px;
 	line-height: 30px;
 	border-radius: 50%;
@@ -181,8 +180,8 @@
 	border-radius: 8px;
 	display: flex;
 	justify-content: space-around;
-	align-items: stretch; /* 높이 균일하게 */
-	height: auto; /* 내용에 맞게 높이 자동 조절 */
+	align-items: stretch;
+	height: auto;
 	width: 100%;
 }
 
@@ -207,24 +206,28 @@
 
 .pm-item {
 	font-size: 1.5rem;
-	padding: 0 0.7rem;
-	margin-top: 1rem;
+	padding: 0.5rem 0.7rem;
 	color: #444;
 	text-align: left;
 	display: flex;
 	justify-content: space-between;
 	white-space: nowrap;
+	border-top: 1px solid #d6d6d6; /* 구분선 추가 */
+}
+
+.pm-item:first-of-type {
+	border-top: none; /* 첫 항목은 선 제거 */
 }
 
 .pm-item::before {
 	content: attr(data-label);
-	width: 80px; /* 왼쪽 라벨 고정 너비 */
+	width: 80px;
 	font-weight: 600;
 	text-align: left;
 }
 
 .pm-item span {
-	width: 100px; /* 가운데 값 */
+	width: 100px;
 	text-align: right;
 	font-weight: 900;
 	margin: 0 0.3rem;
@@ -233,7 +236,7 @@
 
 .pm-item::after {
 	content: attr(data-unit);
-	width: 60px; /* 오른쪽 단위 고정 너비 */
+	width: 60px;
 	text-align: left;
 }
 
@@ -261,7 +264,9 @@
 	margin-bottom : 1rem;
 	margin-top: 1rem;
 	width: 100%;
+	min-height:300px;
 	height: 50vh;
+	max-height: 500px;
 }
 
 .chartFLex{

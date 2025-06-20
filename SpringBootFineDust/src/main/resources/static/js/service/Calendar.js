@@ -1,7 +1,7 @@
 const calendarBody = document.getElementById("calendar-body");
 const monthYear = document.getElementById("month-year");
 let currentDate = new Date();
-let lastClickedDate = null; 
+let lastClickedDate = null;
 
 const yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
@@ -60,7 +60,7 @@ function renderCalendar(date) {
 
 						const weekday = getWeekdayName(dateStr);
 						const weekdayKorean = getWeekdayKoreanName(dateStr);
-						
+
 						/* 불러오기 collapse if ~ 닫히게 하기 */
 						const dustCard = document.getElementById("dustCard");
 						const bsCollapse = bootstrap.Collapse.getOrCreateInstance(dustCard);
@@ -90,28 +90,28 @@ function renderCalendar(date) {
 								const bsCollapse = bootstrap.Collapse.getOrCreateInstance(dustCard);
 								bsCollapse.show();
 								detail.innerHTML = `
-								  <ul class="pm-list">
-								    <li>
-								      <div class="pm-title">🌡️ 오전 / 오후 평균</div>
-								      <div class="pm-item" data-label="🌪️ PM10:" data-unit="㎍/㎥">
-								        <span><span style="color:#f39c12;">☀️</span> ${data[0].amAvgPm10 !== undefined && data[0].amAvgPm10 !== null ? data[0].amAvgPm10.toFixed(1) : 'N/A'}</span>
-								        <span><span style="color:#8e44ad;">🌇</span> ${data[0].pmAvgPm10 !== undefined && data[0].pmAvgPm10 !== null ? data[0].pmAvgPm10.toFixed(1) : 'N/A'}</span>
-								      </div>
-								      <div class="pm-item" data-label="🌁 PM2.5:" data-unit="㎍/㎥">
-								        <span><span style="color:#f39c12;">☀️</span> ${data[0].amAvgPm25 !== undefined && data[0].amAvgPm25 !== null ? data[0].amAvgPm25.toFixed(1) : 'N/A'}</span>
-								        <span><span style="color:#8e44ad;">🌇</span> ${data[0].pmAvgPm25 !== undefined && data[0].pmAvgPm25 !== null ? data[0].pmAvgPm25.toFixed(1) : 'N/A'}</span>
-								      </div>
-								      <div class="pm-item" data-label="🌫️ PM1.0:" data-unit="㎍/㎥">
-								        <span><span style="color:#f39c12;">☀️</span> ${data[0].amAvgPm1 !== undefined && data[0].amAvgPm1 !== null ? data[0].amAvgPm1.toFixed(1) : 'N/A'}</span>
-								        <span><span style="color:#8e44ad;">🌇</span> ${data[0].pmAvgPm1 !== undefined && data[0].pmAvgPm1 !== null ? data[0].pmAvgPm1.toFixed(1) : 'N/A'}</span>
-								      </div>
-								      <div class="pm-item" data-label="🫁 CO₂:" data-unit="ppm">
-								        <span><span style="color:#f39c12;">☀️</span> ${data[0].amAvgCo2den !== undefined && data[0].amAvgCo2den !== null ? data[0].amAvgCo2den.toFixed(1) : 'N/A'}</span>
-								        <span><span style="color:#8e44ad;">🌇</span> ${data[0].pmAvgCo2den !== undefined && data[0].pmAvgCo2den !== null ? data[0].pmAvgCo2den.toFixed(1) : 'N/A'}</span>
-								      </div>
-								    </li>
-								  </ul>
-								`;
+							  <ul class="pm-list">
+							    <li>
+							      <div class="pm-title"> 오전 / 오후 평균</div>
+							      <div class="pm-item" data-label="🌪️ PM10:" data-unit="㎍/㎥">
+							        <span><span style="color:#f39c12;">☀️</span> ${data[0].amAvgPm10 !== undefined && data[0].amAvgPm10 !== null ? data[0].amAvgPm10.toFixed(1) : 'N/A'}</span>
+							        <span><span style="color:#8e44ad;">🌃</span> ${data[0].pmAvgPm10 !== undefined && data[0].pmAvgPm10 !== null ? data[0].pmAvgPm10.toFixed(1) : 'N/A'}</span>
+							      </div>
+							      <div class="pm-item" data-label="🌁 PM2.5:" data-unit="㎍/㎥">
+							        <span><span style="color:#f39c12;">☀️</span> ${data[0].amAvgPm25 !== undefined && data[0].amAvgPm25 !== null ? data[0].amAvgPm25.toFixed(1) : 'N/A'}</span>
+							        <span><span style="color:#8e44ad;">🌃</span> ${data[0].pmAvgPm25 !== undefined && data[0].pmAvgPm25 !== null ? data[0].pmAvgPm25.toFixed(1) : 'N/A'}</span>
+							      </div>
+							      <div class="pm-item" data-label="🌫️ PM1.0:" data-unit="㎍/㎥">
+							        <span><span style="color:#f39c12;">☀️</span> ${data[0].amAvgPm1 !== undefined && data[0].amAvgPm1 !== null ? data[0].amAvgPm1.toFixed(1) : 'N/A'}</span>
+							        <span><span style="color:#8e44ad;">🌃</span> ${data[0].pmAvgPm1 !== undefined && data[0].pmAvgPm1 !== null ? data[0].pmAvgPm1.toFixed(1) : 'N/A'}</span>
+							      </div>
+							      <div class="pm-item" data-label="🫁 CO₂:" data-unit="ppm">
+							        <span><span style="color:#f39c12;">☀️</span> ${data[0].amAvgCo2den !== undefined && data[0].amAvgCo2den !== null ? data[0].amAvgCo2den.toFixed(1) : 'N/A'}</span>
+							        <span><span style="color:#8e44ad;">🌃</span> ${data[0].pmAvgCo2den !== undefined && data[0].pmAvgCo2den !== null ? data[0].pmAvgCo2den.toFixed(1) : 'N/A'}</span>
+							      </div>
+							    </li>
+							  </ul>
+							`;
 								barChartSho(weekday);
 								barChartShoCo(weekday);
 
