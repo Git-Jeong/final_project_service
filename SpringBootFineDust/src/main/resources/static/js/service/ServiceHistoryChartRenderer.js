@@ -165,7 +165,6 @@ let amPmCo2denChart = null;
 let amPmCodenChart = null;
 
 function drawAmPmCo2denChart({
-	xLabels,
 	amAvgCo2den, pmAvgCo2den
 }, dateStr) {
 	const chartDom = document.getElementById('PastCo2denChart');
@@ -237,8 +236,8 @@ function drawAmPmCo2denChart({
 					name: 'CO₂ (ppm)',
 					type: 'bar',
 					data: [
-						{ value: amAvgCo2den, itemStyle: { color: '#00C3FF' } },
-						{ value: pmAvgCo2den, itemStyle: { color: '#FF3CAC' } }
+						{ value: amAvgCo2den, itemStyle: { color: '#FF7D90' } },
+						{ value: pmAvgCo2den, itemStyle: { color: '#FFBB54' } }
 					]
 				}
 			]
@@ -251,8 +250,8 @@ function drawAmPmCo2denChart({
 		amPmCo2denChart.resize();
 	}, 200);
 }
+
 function drawAmPmCo1denChart({
-	xLabels,
 	amAvgCoden, pmAvgCoden
 }, dateStr) {
 	const chartDom = document.getElementById('PastCodenChart');
@@ -329,8 +328,8 @@ function drawAmPmCo1denChart({
 					name: 'CO (ppm)',
 					type: 'bar',
 					data: [
-						{ value: amAvgCoden, itemStyle: { color: '#1CC8B0' } },
-						{ value: pmAvgCoden, itemStyle: { color: '#A259FF' } }
+						{ value: amAvgCoden, itemStyle: { color: '#70C8FF' } },
+						{ value: pmAvgCoden, itemStyle: { color: '#61D4BA' } }
 					]
 				}
 			]

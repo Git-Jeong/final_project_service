@@ -76,13 +76,9 @@ function renderCalendar(date) {
 							const detail = document.getElementById("dust-detail");
 							title.textContent = `${dateStr} (${weekdayKorean}) 미세먼지 평균 정보`;
 							detail.innerHTML = `
-							  <ul class="pm-list" style="height: 150px;">
-							    <li>
-							      <p class="no-data-message">
+							      <div class="no-data-message">
 							        아직 하루가 지나지 않아\n계산된 데이터가 없습니다.\n다른 날짜를 선택해 주세요.
-							      </p>
-							    </li>
-							  </ul>
+							      </div>
 							`;
 							
 							barChartSho(weekday, dateStr);

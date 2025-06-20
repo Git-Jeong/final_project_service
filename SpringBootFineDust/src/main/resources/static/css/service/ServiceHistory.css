@@ -247,6 +247,8 @@
 }
 
 .no-data-message {
+	padding: 0.8rem 0.5rem;
+	background-color: #fff;
   height: 100%;
   color: #999;
   font-size: 1.1rem;
@@ -254,7 +256,6 @@
   justify-content: center; /* 가로 중앙 정렬 */
   align-items: center;     /* 세로 중앙 정렬 */
   text-align: center;
-  padding: 0 1rem;
   white-space: pre-line; /* 줄바꿈 허용 */
   line-height: 1.4;
 }
