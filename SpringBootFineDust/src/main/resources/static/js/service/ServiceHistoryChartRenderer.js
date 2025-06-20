@@ -37,8 +37,11 @@ function drawAmPmAvgChart({ xLabels, avgPm1, avgPm25, avgPm10 }, dateStr) {
 	}
 
 	if (!amPmChart) {
-		amPmChart = echarts.init(chartDom);
+		amPmChart = echarts.init(chartDom, null, {
+			devicePixelRatio: window.devicePixelRatio * 4
+		});
 	}
+
 
 	const option = {
 		title: {
@@ -172,7 +175,11 @@ function drawAmPmCo2denChart({
 		console.error('PastCo2denChart element not found');
 		return;
 	}
-	if (!amPmCo2denChart) amPmCo2denChart = echarts.init(chartDom);
+	if (!amPmCo2denChart) {
+		amPmCo2denChart = echarts.init(chartDom, null, {
+			devicePixelRatio: window.devicePixelRatio * 3
+		});
+	}
 
 	const today = new Date();
 	const inputDate = new Date(dateStr);
@@ -259,8 +266,12 @@ function drawAmPmCo1denChart({
 		console.error('PastCo2denChart element not found');
 		return;
 	}
-	if (!amPmCodenChart) amPmCodenChart = echarts.init(chartDom);
 
+	if (!amPmCodenChart) {
+		amPmCodenChart = echarts.init(chartDom, null, {
+			devicePixelRatio: window.devicePixelRatio * 3
+		});
+	}
 	const today = new Date();
 	const inputDate = new Date(dateStr);
 
