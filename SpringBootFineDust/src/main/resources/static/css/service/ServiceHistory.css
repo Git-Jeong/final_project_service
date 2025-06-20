@@ -129,11 +129,12 @@
 	flex-shrink: 0;
 	display: flex;
 	align-items: center;      /* 수직 중앙 정렬 */
-	justify-content: center;  /* 수평 중앙 정렬(필요 시) */
+	justify-content: flex-start;  /* 수평 중앙 정렬(필요 시) */
+	padding: 0 1rem;
 }
 
 .serviceHistory-card-header span{
-	font-size: 2rem;     /* 폰트 키움 */
+	font-size: 1.7rem;     /* 폰트 키움 */
 }
 
 .serviceHistory-card-body {
