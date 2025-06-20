@@ -84,8 +84,7 @@ function renderCalendar(date) {
 							    </li>
 							  </ul>
 							`;
-
-
+							
 							barChartSho(weekday, dateStr);
 							barChartShoCo(weekday, dateStr);
 
