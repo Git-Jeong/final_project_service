@@ -15,6 +15,9 @@ from tensorflow.keras import Model, Input
 from tensorflow.keras.layers import (Conv1D, Bidirectional, LSTM, LayerNormalization, Dense, Concatenate)
 from tensorflow.keras.optimizers import AdamW
 
+## 데이터 예측 소요시간 측정
+import tracemalloc  # 추가
+
 # ① BahdanauAttention 정의 (custom layer)
 class BahdanauAttention(tf.keras.layers.Layer):
     def __init__(self, units, **kwargs):
@@ -71,6 +74,11 @@ model.load_weights(WEIGHTS_PATH)
 
 load_dotenv()
 app = Flask(__name__)
+
+# 메모리, 응답시간 측정 시작
+tracemalloc.start() 
+
+
 
 # ✅ DB 설정 (환경변수에서 불러오기)
 db_config = {
@@ -179,6 +187,8 @@ def db_test():
         # ✅ 현재 시각 구하기 (hh:mm:ss 형식)
         current_time_str = datetime.now().strftime('%H:%M:%S')
         print("[현재 시각 기준]:", current_time_str)
+        print("\n=== 📌 [API 호출 시각] ===", datetime.now())
+        t_start = datetime.now()
 
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor(dictionary=True, buffered=True)
