@@ -79,7 +79,11 @@ const updateAirQualitySignal = (data) => {
 const drawDustMainEChart = ({ timeHms: labels, pm1Data, pm25Data, pm10Data }) => {
 
 	if (!dustEChart) {
-		dustEChart = echarts.init(document.getElementById('chart-dust-main-echarts'));
+		dustEChart = echarts.init(
+			document.getElementById('chart-dust-main-echarts'),
+			null,
+			{ devicePixelRatio: window.devicePixelRatio * 6 }
+		);
 	}
 
 	// 기준 시간 설정
@@ -272,7 +276,9 @@ const drawDustPm1EChart = (snsr, pred) => {
 	if (!container) return;
 
 	if (!pm1EChart) {
-		pm1EChart = echarts.init(container);
+		pm1EChart = echarts.init(container, null, {
+			devicePixelRatio: window.devicePixelRatio * 3
+		});
 	}
 
 	const today = new Date().toISOString().split('T')[0];
@@ -368,7 +374,9 @@ const drawDustPm25EChart = (snsr, pred) => {
 	if (!container) return;
 
 	if (!pm25EChart) {
-		pm25EChart = echarts.init(container);
+		pm25EChart = echarts.init(container, null, {
+			devicePixelRatio: window.devicePixelRatio * 3
+		});
 	}
 
 	const today = new Date().toISOString().split('T')[0];
@@ -462,9 +470,11 @@ const drawDustPm25EChart = (snsr, pred) => {
 const drawDustPm10EChart = (snsr, pred) => {
 	const container = document.getElementById('mini-pm10-chart');
 	if (!container) return;
-
+	
 	if (!pm10EChart) {
-		pm10EChart = echarts.init(container);
+		pm10EChart = echarts.init(container, null, {
+			devicePixelRatio: window.devicePixelRatio * 3
+		});
 	}
 
 	const today = new Date().toISOString().split('T')[0];
@@ -559,9 +569,11 @@ const drawCodenChart = ({ timeHms, codenData }) => {
   const container = document.getElementById('mini-co-chart');
   if (!container) return;
 
-  if (!codenEChart) {
-    codenEChart = echarts.init(container);
-  }
+	if (!codenEChart) {
+		codenEChart = echarts.init(container, null, {
+			devicePixelRatio: window.devicePixelRatio * 3
+		});
+	}
 
   const today = new Date().toISOString().split('T')[0];
   const seriesData = timeHms.map((t, i) => ({
@@ -614,7 +626,9 @@ const drawCo2denChart = (co2denChartData) => {
 	if (!container) return;
 
 	if (!co2denEChart) {
-		co2denEChart = echarts.init(container);
+		co2denEChart = echarts.init(container, null, {
+			devicePixelRatio: window.devicePixelRatio * 3
+		});
 	}
 
 	const option = {

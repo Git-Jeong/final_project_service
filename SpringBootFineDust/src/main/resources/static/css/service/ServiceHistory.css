@@ -1,18 +1,23 @@
 /* 캘린더 테이블 기본 스타일 */
+.history-main-container2,
 .history-main-container{
-	padding: 2rem;	
-	max-width: 1500px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.history-main-container2{
+	padding: 1rem;	
 	min-width: 720px;
 	width: 90vw;
-	max-width: 1500px;
+	max-width: 1800px;
 	margin-left: auto;
 	margin-right: auto;
 	align-items: center;
+}
+
+
+.service-flex-row {
+	display: flex;
+	justify-content: center;
+	gap : 5rem;
+	flex-wrap: wrap;
+	width: 100%;
+	align-items: stretch; /* 높이 통일을 위해 stretch 적용 */
 }
 
 .chartContainer-chart-box{
@@ -29,18 +34,18 @@
 	border-radius: 8px;
 	width: 100%; /* 부모 너비에 맞게 가변 */
 	box-sizing: border-box; /* 패딩과 테두리 포함 너비 계산 */
-	height: 100%;
 }
 
 #calendar-body {
 	width: 100%;
+	height: 100%;
 	border-collapse: collapse;
 	table-layout: fixed;
 	user-select: none;
 }
 
 #calendar-body tr {
-	height: 40px;
+	height: 57px;
 }
 
 .calendar-cell {
@@ -55,14 +60,14 @@
 
 /* day-circle 스타일 */
 .day-circle {
-	width: 80%; /* 셀 너비 대비 비율로 설정 */
-	max-width: 30px; /* 최대 너비 제한 */
+	width: 30px; /* 최대 너비 제한 */
 	height: 30px;
 	line-height: 30px;
 	border-radius: 50%;
 	background-color: transparent;
 	color: #333;
 	cursor: pointer;
+	font-size: 20px;
 	transition: background-color 0.3s ease, color 0.3s ease;
 	user-select: none;
 	text-align: center;
@@ -74,34 +79,19 @@
 	color: #fff;
 }
 
-.service-flex-row {
-	display: flex;
-	justify-content: space-between;
-	gap: 1rem;
-	flex-wrap: wrap;
-	width: 100%;
-	align-items: stretch; /* 높이 통일을 위해 stretch 적용 */
-}
-
 .calendar-section, .result-section {
-	min-width: 350px;
-	height: 422px;
 	box-sizing: border-box; /* 패딩, 테두리 포함 높이 계산 */
 	display: flex;
 	flex-direction: column;
 }
 
 .calendar-section {
-	flex: 1;
+	width: 500px;
 	font-weight : 900;
-	min-width: 500px;
-	max-width: 500px; /* 추가 */
 }
 
 .result-section {
-	flex: 1;
-	min-width: 680px; /* 추가 */
-	max-width: 680px; /* 추가 */
+	width: 700px;
 }
 
 .serviceHistory-container {
@@ -130,7 +120,6 @@
 .serviceHistory-card-header {
 	background-color: #2d6cdf;
 	color: white;
-	padding: 1rem 1.5rem;
 	height: 4rem; 
 	flex-shrink : 0;
 	font-size: 1.25rem; font-weight : 600;
@@ -138,6 +127,13 @@
 	border-top-right-radius: 16px;
 	font-weight: 600;
 	flex-shrink: 0;
+	display: flex;
+	align-items: center;      /* 수직 중앙 정렬 */
+	justify-content: center;  /* 수평 중앙 정렬(필요 시) */
+}
+
+.serviceHistory-card-header span{
+	font-size: 1.7rem;     /* 폰트 키움 */
 }
 
 .serviceHistory-card-body {
@@ -148,6 +144,10 @@
 	align-items: center;
 	justify-content: center;
 	color: #999;
+	background-color: #fff;
+	border-radius: 0 0 10px 10px;
+	border: 1px solid #e0e0e0;
+	overflow: hidden;
 }
 
 .serviceHistory-card-body::-webkit-scrollbar {
@@ -163,7 +163,8 @@
 	width: 100%;
 	height: 100%;
 	border: 1px solid #ddd;
-	border-radius: 8px;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
 }
 
 .serviceHistory-info-header {
@@ -175,10 +176,10 @@
   align-items: flex-end;  
   justify-content: center; /* 좌우 중앙 정렬 */
   top : 0;
+  color: black;
 }
 
 .serviceHistory-info-body {
-	border-radius: 10px;
 	font-size: 0.8rem;
 	color: #444;
 	margin: 0;
@@ -190,17 +191,15 @@
 	border-radius: 8px;
 	display: flex;
 	justify-content: space-around;
-	align-items: stretch; /* 높이 균일하게 */
-	height: auto; /* 내용에 맞게 높이 자동 조절 */
+	align-items: stretch;
+	height: auto;
 	width: 100%;
 }
 
 .pm-list li {
 	padding: 0.8rem 0.5rem;
-	background-color: #fff;
-	border-radius: 10px;
-	border: 1px solid #e0e0e0;
-	width: 49%;
+	background-color: #FAFAFA;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -216,23 +215,28 @@
 
 .pm-item {
 	font-size: 1.5rem;
-	padding: 0 0.7rem;
-	margin-top: 1rem;
+	padding: 0.5rem 0.7rem;
 	color: #444;
 	text-align: left;
 	display: flex;
 	justify-content: space-between;
 	white-space: nowrap;
+	border-top: 1px solid #d6d6d6; /* 구분선 추가 */
+}
+
+.pm-item:first-of-type {
+	border-top: none; /* 첫 항목은 선 제거 */
 }
 
 .pm-item::before {
 	content: attr(data-label);
-	width: 80px; /* 왼쪽 라벨 고정 너비 */
+	width: 80px;
+	font-weight: 600;
 	text-align: left;
 }
 
 .pm-item span {
-	width: 100px; /* 가운데 값 */
+	width: 100px;
 	text-align: right;
 	font-weight: 900;
 	margin: 0 0.3rem;
@@ -241,16 +245,71 @@
 
 .pm-item::after {
 	content: attr(data-unit);
-	width: 60px; /* 오른쪽 단위 고정 너비 */
+	width: 60px;
 	text-align: left;
 }
 
+.no-data-message {
+  padding: 0.8rem 0.5rem;
+  height: 258px;
+  color: #999;
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center;     /* 세로 중앙 정렬 */
+  text-align: center;
+  white-space: pre-line; /* 줄바꿈 허용 */
+  line-height: 1.4;
+}
+
+#initial-message{
+  color: #999;
+  font-size: 1.4rem;
+}
+
+.chart-loading-text-wrap {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+.chart-loading-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #444;
+  white-space: pre; /* 공백 유지 */
+}
+
+#chartList-loading {
+  text-align: center;
+}
+
 #PastDustChart {
-	width: 100%;  /* 70% of 1200px 기준  840px */
-	height: 600px;
+	margin-bottom : 1rem;
+	margin-top: 1rem;
+	width: 100%;
+	min-height:300px;
+	height: 50vh;
+	max-height: 500px;
+}
+
+.chartFLex{
+	display: flex;
+	justify-content : center;
+	width: 100%;
 }
 
 #PastCodenChart {
-	width: 100%;  /* 30% of 1200px 기준 */
+	flex : 1;
+	width: 100%;
+	height: 400px;
+} 
+
+#PastCo2denChart {
+	flex : 1;
+	width: 100%;
 	height: 400px;
 } 

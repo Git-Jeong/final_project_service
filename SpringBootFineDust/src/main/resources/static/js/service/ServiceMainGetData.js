@@ -151,7 +151,6 @@ const getStationDust = (stId) => {
 				pm10Data: predStack.map(p => p.pm10),
 			};
 
-
 			drawDustMainEChart(dustMainChartData);
 
 			drawDustPm1EChart(dustPm1ChartData, predPm1ChartData);
