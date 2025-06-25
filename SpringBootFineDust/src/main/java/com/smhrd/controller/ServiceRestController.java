@@ -113,8 +113,8 @@ public class ServiceRestController {
     	stId = originStId;
 
     	//알림기능 테스트룰 위한 더미 센싱값
-//    	snsr.setPm1(150);
-//    	snsr.setPm25(50);
+//    	snsr.setPm1(50);
+//    	snsr.setPm25(30);
 //    	snsr.setPm10(10);
 //    	snsr.setCo2den(BigDecimal.valueOf(960));
 //    	snsr.setCoden(BigDecimal.valueOf(7.212));
