@@ -3,46 +3,45 @@ html, body {
 	margin: 0;
 	width: 100vw;
 	height: 100vh;
-	
 }
+
 ::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
-.custom-hr{
+.custom-hr {
 	padding: 0;
-	margin:  0;	
+	margin: 0;
 }
 
-.service-main-page{
+.service-main-page {
 	margin-left: auto;
 	margin-right: auto;
-	min-width : 700px;
+	min-width: 700px;
 	width: 100vw;
-	max-width : 1800px;
+	max-width: 1800px;
 	height: 100vh;
 }
 
-.serviceOverview-header{
+.serviceOverview-header {
 	position: relative; /* 기준 영역 설정 */
 	width: 90%;
-	margin-left : auto;
-	margin-right : auto;
+	margin-left: auto;
+	margin-right: auto;
 	display: flex;
 	justify-content: space-between;
 	padding: 1rem 0;
-  white-space: nowrap;
+	white-space: nowrap;
 }
 
-.serviceOverview-header-center,
-.serviceOverview-header-left,
-.serviceOverview-header-right {
+.serviceOverview-header-center, .serviceOverview-header-left,
+	.serviceOverview-header-right {
 	width: 400px;
 }
 
-.serviceOverview-header-left{
+.serviceOverview-header-left {
 	display: flex;
-	gap : 20px;
+	gap: 20px;
 	align-items: center; /* 상하 중앙 정렬 */
 	left: 0;
 }
@@ -55,14 +54,13 @@ html, body {
 	justify-content: center;
 }
 
-.serviceOverview-header-center,
-.serviceOverview-header-right-btn,
-#serviceOverview-header-nowDate {
+.serviceOverview-header-center, .serviceOverview-header-right-btn,
+	#serviceOverview-header-nowDate {
 	display: flex;
 	align-items: center;
 }
 
-.serviceOverview-header-right{
+.serviceOverview-header-right {
 	display: flex;
 	height: 40px;
 	line-height: 40px;
@@ -79,7 +77,7 @@ html, body {
 }
 
 .serviceChart-select {
-	text-align: center;          /* 텍스트 좌우 중앙 정렬 */
+	text-align: center; /* 텍스트 좌우 중앙 정렬 */
 	height: 80%;
 	line-height: 40px;
 	border-radius: 10px;
@@ -91,18 +89,35 @@ html, body {
 	line-height: 40px;
 }
 
-.serviceOverview-wide-container,
-.serviceOverview-wide-container2,
-.serviceOverview-wide-container3{
+.serviceOverview-wide-container, .serviceOverview-wide-container2,
+	.serviceOverview-wide-container3 {
 	padding: 1rem;
 	display: flex;
 	justify-content: center;
-	align-items: center; 
-	gap : 2rem;
+	align-items: center;
+	gap: 2rem;
+	padding: 20px;
 }
 
-.serviceOverview-container,
-.serviceOverview-container2{
+.serviceOverview-container {
+	min-width: 350px;
+	max-width: 500px;
+	height: 25vh;
+	max-height: 550px;
+	text-align: center;
+	border-radius: 10px;
+	border-top-left-radius: 10px;
+	border-top-right-radius : 10px;
+	flex: 1;
+	background-color: white; /* 전체 배경은 흰색 */
+	display: flex;
+	flex-direction: column;
+	
+	overflow: hidden;
+	
+}
+
+.serviceOverview-container2 {
 	min-width: 350px;
 	max-width: 500px;
 	height: 30vh;
@@ -114,7 +129,7 @@ html, body {
 	flex: 1;
 }
 
-.serviceOverview-container3{
+.serviceOverview-container3 {
 	margin: 0 auto;
 	min-width: calc(1050px + 4rem);
 	max-width: calc(1500px + 4rem);
@@ -122,49 +137,72 @@ html, body {
 	border-radius: 10px;
 	border: 1px solid #ccc;
 	display: flex;
-	gap : 0.3rem;
-	justify-content : center;
+	gap: 0.9rem;
+	justify-content: center;
 	border: 1px solid #ccc;
 	background: #FFF6BC;
-	align-items: center; 
+	align-items: center;
 }
 
-.serviceOverview-comment1,
-.serviceOverview-comment2{
-	width : 50%;
-	text-align: center;
+#verticalline {
+	width: 1px;
+	height: 60px;
+	background-color: black;
+	margin: 2rem 1.5rem; /* 상하 0.15rem, 좌우 1.5rem */
+	color: #ccc;
+}
+
+.serviceOverview-comment1, .serviceOverview-comment2 {
+	width: 50%;
+	height: 100%;
 	font-size: 2rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
 }
 
-#comment1{
-	font-weight: bold;	
+.serviceOverview-comment2 img {
+	height: 4rem !important;
+	width: auto;
+	object-fit: contain;
+	margin-left: 5px;
+	display: block;
+	align-self: center;
+}
+
+#comment1 {
+	font-weight: bold;
 }
 
 .serviceOverview-container {
 	min-height: 400px;
-	color : white;
+	color: white;
 }
 
 .serviceOverview-container2 {
 	min-height: 300px;
 }
 
-
-.serviceOverview-contant-title{
+.serviceOverview-contant-title {
 	display: flex;
 	align-items: center;
-	justify-content : center;
-	padding: 0 0.9rem;
+	justify-content: center;
+	padding: 10px;
 	font-weight: bold;
 	font-size: 1.65rem;
+	color: black;
 	height: 5rem;
-	border-bottom: 1px solid #ffffff;
+	background: white;
+	border: 1px solid #ccc;
+	margin-bottom: 10px;
+	border-radius: 10px;
 }
 
-.serviceOverview-contant-title2{
+.serviceOverview-contant-title2 {
 	display: flex;
 	align-items: center;
-	justify-content : center;
+	justify-content: center;
 	padding: 0 0.9rem;
 	font-weight: bold;
 	font-size: 1.65rem;
@@ -176,88 +214,87 @@ html, body {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	height: calc(100% - 5rem); 
+	height: calc(100% - 6rem);
+	padding: 10px;
+	flex: 1;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius:10px;
 }
 
-
-.serviceOverview-contant2{
+.serviceOverview-contant2 {
 	width: 100%;
-	height: calc(100% - 5rem); 
+	height: calc(100% - 5rem);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	box-sizing: border-box;
 }
 
-.serviceOverview-contant-text,
-.serviceOverview-contant-img {
+.serviceOverview-contant-text, .serviceOverview-contant-img {
 	width: 50%;
-	height : 100%;
+	height: 100%;
 	text-align: center;
 	white-space: nowrap;
 	padding: 10px;
 }
 
-.serviceOverview-contant-text{	
+.serviceOverview-contant-text {
 	font-size: clamp(2rem, 2.5vw, 4rem);
 	display: flex;
-	flex-direction : column;
+	flex-direction: column;
 	justify-content: center;
 }
 
 .serviceOverview-contant-img {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end; /* 세로 정렬 */
-  align-items: center; /* 수평 중앙 */
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end; /* 세로 정렬 */
+	align-items: center; /* 수평 중앙 */
 }
 
 .serviceOverview-contant-img img {
-  height: 100%;
-  object-fit: cover;
+	height: 100%;
+	object-fit: cover;
 }
 
-
 .serviceOverview-contant-bottom {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
 }
 
 .serviceOverview-contant-bottom2 {
-  width: 100%;
-  display: flex;
-  gap: 0.1rem;
-  justify-content : center;
-  flex: 1;
-  align-items: baseline; /* 기준선 맞춤 */
-  padding-bottom: 2px;
+	width: 100%;
+	display: flex;
+	gap: 0.1rem;
+	justify-content: center;
+	flex: 1;
+	align-items: baseline; /* 기준선 맞춤 */
+	padding-bottom: 2px;
 }
 
-#serviceOverview-pm1-value,
-#serviceOverview-pm25-value,
-#serviceOverview-pm10-value{
+#serviceOverview-pm1-value, #serviceOverview-pm25-value,
+	#serviceOverview-pm10-value {
 	width: 47%;
 	text-align: right;
 	font-weight: bold;
+	margin-top: 8px;
 }
 
 .unit {
-    font-size: 0.6em;
+	font-size: 0.6em;
 	width: 50%;
 	text-align: left;
 }
 
-#co2,
-#humidity,
-#temp{
+#co2, #humidity, #temp {
 	width: 50%;
 	text-align: right;
 	font-weight: bold;
 	font-size: clamp(2rem, 2.5vw, 4rem);
 }
-
 
 .unit2 {
 	width: 35%;
@@ -265,13 +302,13 @@ html, body {
 	text-align: left;
 }
 
-.serviceOverview-contant-top2{
-	width : 100%;
+.serviceOverview-contant-top2 {
+	width: 100%;
 	flex: 1;
 	text-align: center;
-	display : flex;
-	flex-direction : column;
-	justify-content : flex-end;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
 	white-space: nowrap;
 	padding-bottom: 20px;
 	font-size: clamp(2rem, 2.5vw, 4rem);
@@ -292,11 +329,17 @@ html, body {
 	z-index: 9999;
 }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+@
+keyframes spin { 0% {
+	transform: rotate(0deg);
+}
+100
+%
+{
+transform
+:
+rotate(
+360deg
+);
+}
 }

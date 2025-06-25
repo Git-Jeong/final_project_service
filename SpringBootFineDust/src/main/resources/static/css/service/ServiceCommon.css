@@ -60,6 +60,10 @@ body {
     justify-content: flex-start; /* 왼쪽 정렬 유지 */
 }
 
+.serviceChart-header-left h2{
+	font-weight: bold;	
+}
+
 .toggleSidebarBtn_header {
     line-height: normal;
     vertical-align: middle;

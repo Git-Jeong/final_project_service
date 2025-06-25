@@ -1,9 +1,10 @@
 const calendarBody = document.getElementById("calendar-body");
 const monthYear = document.getElementById("month-year");
 let currentDate = new Date();
+let lastClickedDate = null;
 
 const yesterday = new Date();
-yesterday.setDate(yesterday.getDate() - 1);
+yesterday.setDate(yesterday.getDate() - 0);
 
 function pad(num) {
 	return String(num).padStart(2, "0");
@@ -44,65 +45,91 @@ function renderCalendar(date) {
 						const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 						return days[date.getDay()];
 					}
-
-					dayCircle.addEventListener("click", () => {
-
-						let lastClickedDate = null;
-
+					function getWeekdayKoreanName(dateStr) {
+						const weekdays = ['일', '월', '화', '수', '목', '금', '토']; // 한국어 요일
+						const date = new Date(dateStr);
+						return weekdays[date.getDay()];
+					} dayCircle.addEventListener("click", () => {
 						document.getElementById('chart-loading-main').style.display = 'block';
+						document.getElementById('chartList-loading').style.display = 'block';
 						document.getElementById('initial-message').style.display = 'none';
 						document.getElementById('dustAccordion').style.display = 'none';
+						document.getElementById('chartList').style.display = 'none';
 
 						const weekday = getWeekdayName(dateStr);
+						const weekdayKorean = getWeekdayKoreanName(dateStr);
 
-						/* 불러오기 collapse if ~ 닫히게 하기 */
 						const dustCard = document.getElementById("dustCard");
 						const bsCollapse = bootstrap.Collapse.getOrCreateInstance(dustCard);
 
 						if (lastClickedDate === dateStr && bsCollapse._isShown) {
 							bsCollapse.hide();
-							lastClickedDate = null; // 초기화
+							lastClickedDate = null;
 							return;
 						}
 
-						// 다른 날짜 클릭했거나 처음 열 때는 => 열기 + 데이터 갱신
 						lastClickedDate = dateStr;
+
+						const todayStr = new Date().toISOString().slice(0, 10);
+						if (dateStr === todayStr) {
+							const title = document.getElementById("headingDust");
+							const detail = document.getElementById("dust-detail");
+							title.textContent = `${dateStr} (${weekdayKorean}) 미세먼지 평균 정보`;
+							detail.innerHTML = `
+							      <div class="no-data-message">
+							        아직 하루가 지나지 않아\n계산된 데이터가 없습니다.\n다른 날짜를 선택해 주세요.
+							      </div>
+							`;
+							
+							barChartSho(weekday, dateStr);
+							barChartShoCo(weekday, dateStr);
+
+							document.getElementById('chart-loading-main').style.display = 'none';
+							document.getElementById('dustAccordion').style.display = 'block';
+							return;
+						}
+
 						fetch(`/dust-data/${dateStr}`)
 							.then(res => res.json())
 							.then(data => {
 								const title = document.getElementById("headingDust");
 								const detail = document.getElementById("dust-detail");
 
-								title.textContent = `${dateStr} (${weekday}) 미세먼지 평균 정보`;
+								title.textContent = `${dateStr} (${weekdayKorean}) 미세먼지 평균 정보`;
 
 								if (!data || data.length === 0) {
 									detail.innerHTML = `<p>데이터가 없습니다.</p>`;
 									return;
 								}
 
-								const dustCard = document.getElementById("dustCard");
-								const bsCollapse = bootstrap.Collapse.getOrCreateInstance(dustCard);
+								dustCard.style.display = "block";
 								bsCollapse.show();
 
 								detail.innerHTML = `
 								  <ul class="pm-list">
 								    <li>
-								      <div class="pm-title">☀️ 오전 평균</div>
-								      <div class="pm-item">🌫️ PM1.0: <span>${data[0].amAvgPm1 ?? 'N/A'}</span> ㎍/㎥</div>
-									  <div class="pm-item">🌁 PM2.5: <span>${data[0].amAvgPm25 ?? 'N/A'}</span> ㎍/㎥</div>
-									  <div class="pm-item">🌪️ PM10: <span>${data[0].amAvgPm10 ?? 'N/A'}</span> ㎍/㎥</div>
-									  <div class="pm-item">🫁 CO₂: <span>${data[0].amAvgCO2 ?? 'N/A'}</span> ppm</div>
-								    </li>
-								    <li>
-								      <div class="pm-title">🌇 오후 평균</div>
-								      <div class="pm-item">🌫 PM1.0: <span>${data[0].pmAvgPm1 ?? 'N/A'}</span> ㎍/㎥</div>
-								      <div class="pm-item">🌁 PM2.5: <span>${data[0].pmAvgPm25 ?? 'N/A'}</span> ㎍/㎥</div>
-								      <div class="pm-item">🌪️ PM10: <span>${data[0].pmAvgPm10 ?? 'N/A'}</span> ㎍/㎥</div>
-								      <div class="pm-item">🫁 CO2: <span>${data[0].amAvgCO2 ?? 'N/A'}</span> ppm</div>
+								      <div class="pm-title"> 오전 / 오후 평균</div>
+								      <div class="pm-item" data-label="🌪️ PM10:" data-unit="㎍/㎥">
+								        <span><span style="color:#f39c12;">☀️</span> ${data[0].amAvgPm10 !== undefined && data[0].amAvgPm10 !== null ? data[0].amAvgPm10.toFixed(1) : 'N/A'}</span>
+								        <span><span style="color:#8e44ad;">🌃</span> ${data[0].pmAvgPm10 !== undefined && data[0].pmAvgPm10 !== null ? data[0].pmAvgPm10.toFixed(1) : 'N/A'}</span>
+								      </div>
+								      <div class="pm-item" data-label="🌁 PM2.5:" data-unit="㎍/㎥">
+								        <span><span style="color:#f39c12;">☀️</span> ${data[0].amAvgPm25 !== undefined && data[0].amAvgPm25 !== null ? data[0].amAvgPm25.toFixed(1) : 'N/A'}</span>
+								        <span><span style="color:#8e44ad;">🌃</span> ${data[0].pmAvgPm25 !== undefined && data[0].pmAvgPm25 !== null ? data[0].pmAvgPm25.toFixed(1) : 'N/A'}</span>
+								      </div>
+								      <div class="pm-item" data-label="🌫️ PM1.0:" data-unit="㎍/㎥">
+								        <span><span style="color:#f39c12;">☀️</span> ${data[0].amAvgPm1 !== undefined && data[0].amAvgPm1 !== null ? data[0].amAvgPm1.toFixed(1) : 'N/A'}</span>
+								        <span><span style="color:#8e44ad;">🌃</span> ${data[0].pmAvgPm1 !== undefined && data[0].pmAvgPm1 !== null ? data[0].pmAvgPm1.toFixed(1) : 'N/A'}</span>
+								      </div>
+								      <div class="pm-item" data-label="🫁 CO₂:" data-unit="ppm">
+								        <span><span style="color:#f39c12;">☀️</span> ${data[0].amAvgCo2den !== undefined && data[0].amAvgCo2den !== null ? data[0].amAvgCo2den.toFixed(1) : 'N/A'}</span>
+								        <span><span style="color:#8e44ad;">🌃</span> ${data[0].pmAvgCo2den !== undefined && data[0].pmAvgCo2den !== null ? data[0].pmAvgCo2den.toFixed(1) : 'N/A'}</span>
+								      </div>
 								    </li>
 								  </ul>
 								`;
-								barChartSho(weekday);
+								barChartSho(weekday, dateStr);
+								barChartShoCo(weekday, dateStr);
 
 								document.getElementById('chart-loading-main').style.display = 'none';
 								document.getElementById('dustAccordion').style.display = 'block';

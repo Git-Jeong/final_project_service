@@ -77,8 +77,9 @@
 				<div class="serviceOverview-wide-container">
 					<div id="serviceOverview-pm10" class="serviceOverview-container">
 						<div class="serviceOverview-contant-title">미세먼지(PM10)</div>
-						<div class="serviceOverview-contant">
-							<div class="serviceOverview-contant-text">
+						 
+						<div class="serviceOverview-contant" id="serviceOverview-contant-pm10">
+							<div class="serviceOverview-contant-text" >
 								<div id="serviceOverview-pm10-text"
 									class="serviceOverview-contant-top"></div>
 								<div class="serviceOverview-contant-bottom">
@@ -89,9 +90,11 @@
 								class="serviceOverview-contant-img"></div>
 						</div>
 					</div>
+					
 					<div id="serviceOverview-pm25" class="serviceOverview-container">
 						<div class="serviceOverview-contant-title">초미세먼지(PM2.5)</div>
-						<div class="serviceOverview-contant">
+						
+						<div class="serviceOverview-contant" id="serviceOverview-contant-pm25">
 							<div class="serviceOverview-contant-text">
 								<div id="serviceOverview-pm25-text"
 									class="serviceOverview-contant-top"></div>
@@ -105,8 +108,8 @@
 					</div>
 					<div id="serviceOverview-pm1" class="serviceOverview-container">
 						<div class="serviceOverview-contant-title">극초미세먼지(PM1.0)</div>
-						<div class="serviceOverview-contant">
-							<div class="serviceOverview-contant-text">
+						<div class="serviceOverview-contant" id="serviceOverview-contant-pm1" >
+							<div class="serviceOverview-contant-text" >
 								<div id="serviceOverview-pm1-text"
 									class="serviceOverview-contant-top"></div>
 								<div class="serviceOverview-contant-bottom">
@@ -118,12 +121,22 @@
 						</div>
 					</div>
 				</div>
-
-				<div class="serviceOverview-middle-wide-container3">
+				
+				
+				<div id="middle-loding-spin" class="serviceOverview-middle-wide-container3" style="display: block;">
 					<div class="serviceOverview-container3">
 						<div class="serviceOverview-comment1">
+						 <div style="width: 50%; height: 2px; background-color: black; margin: 20px auto;"></div>
+							오늘의 종합 등급 계산 중..
+						</div>
+					</div>
+				</div>
+				<div id="non-middle-loding-spin" class="serviceOverview-middle-wide-container3" style="display: none;">
+					<div class="serviceOverview-container3">
+						<div class="serviceOverview-comment1">							
 							오늘의 종합 등급: <span id="comment1" ></span>
 						</div>
+							<div id="verticalline"></div>
 						<div class="serviceOverview-comment2">
 							<span id="comment2" ></span>
 						</div>
@@ -132,15 +145,15 @@
 
 				<div class="serviceOverview-wide-container2">
 					<div class="serviceOverview-container2">
-						<div class="serviceOverview-contant-title2">온도</div>
-							<div class="serviceOverview-contant2">
-								<div id="temp-text" class="serviceOverview-contant-top2"></div>
-								<div class="serviceOverview-contant-bottom2">
+					<div class="serviceOverview-contant-title2">온도</div>				
+						<div class="serviceOverview-contant2">
+							<div id="temp-text" class="serviceOverview-contant-top2"></div>
+							<div class="serviceOverview-contant-bottom2">
 									<span id="temp"></span><span class="unit2">℃</span>
-								</div>
 							</div>
 						</div>
-						<div class="serviceOverview-container2">
+					</div>
+					<div class="serviceOverview-container2">
 							<div class="serviceOverview-contant-title2">습도</div>
 							<div class="serviceOverview-contant2">
 								<div id="humidity-text" class="serviceOverview-contant-top2"></div>

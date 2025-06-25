@@ -3,8 +3,11 @@ package com.smhrd.controller;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -110,8 +113,8 @@ public class ServiceRestController {
     	stId = originStId;
 
     	//알림기능 테스트룰 위한 더미 센싱값
-//    	snsr.setPm1(150);
-//    	snsr.setPm25(50);
+//    	snsr.setPm1(50);
+//    	snsr.setPm25(30);
 //    	snsr.setPm10(10);
 //    	snsr.setCo2den(BigDecimal.valueOf(960));
 //    	snsr.setCoden(BigDecimal.valueOf(7.212));
@@ -259,9 +262,10 @@ public class ServiceRestController {
         	);
 
     }
+    
     //이산화탄소 데이터컨트롤러
-    @GetMapping("/weekday/co/{weekday}")
-    public Map<String, Object> getAvgPmByAmCo(@PathVariable String weekday) {
+    @GetMapping("/weekday/co2/{weekday}")
+    public Map<String, Object> getAvgPmByAmCo2(@PathVariable String weekday) {
         List<Map<String, Object>> result = new ArrayList<>();
 
         //System.out.println("weekday = " + weekday);
@@ -271,35 +275,78 @@ public class ServiceRestController {
             e.printStackTrace();
         }
 
-
         //System.out.println("weekday = " + weekday);
         if (result.isEmpty()) {
             return Map.of(
                 "xLabels", (Object)List.of("AM", "PM"),
-
-                "amAvgCoden", 0,
                 "amAvgCo2den", 0,
-
-                "pmAvgCoden", 0,
-                "pmAvgPmCo2den", 0
-
-                
+                "pmAvgCo2den", 0,
+                "amAvgCoden", 0,
+                "pmAvgCoden", 0
             );
         }
-
         Map<String, Object> row = result.get(0);
 
         return Map.ofEntries(
         	    Map.entry("xLabels", List.of("AM", "PM")),
-
-        	    Map.entry("amAvgPm25", row.getOrDefault("amAvgPm25", 0)),
-        	    Map.entry("amAvgPm10", row.getOrDefault("amAvgPm10", 0)),
-
-        	    Map.entry("pmAvgPm25", row.getOrDefault("pmAvgPm25", 0)),
-        	    Map.entry("pmAvgPm10", row.getOrDefault("pmAvgPm10", 0))
-
+        	    Map.entry("amAvgCo2den", row.getOrDefault("amAvgCo2den", 0)),
+        	    Map.entry("pmAvgCo2den", row.getOrDefault("pmAvgCo2den", 0)),
+        	    Map.entry("amAvgCoden", row.getOrDefault("amAvgCoden", 0)),
+        	    Map.entry("pmAvgCoden", row.getOrDefault("pmAvgCoden", 0))
         	);
+    }
+    
+    @GetMapping("/weekday/day/{weekday}")
+    public Map<String, Object> drawHourlyAvgChart(@PathVariable String weekday) {
+        List<Map<String, Object>> result = new ArrayList<>();
 
+        try {
+            // 시간별 평균 데이터 가져오기 (hour, avgPm1, avgPm25, avgPm10 포함)
+            result = snsrService.findHourlyAvgByWeekdayAndStId(weekday);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 00:00 ~ 23:00 라벨 생성
+        List<String> xLabels = IntStream.range(0, 24)
+                .mapToObj(hour -> String.format("%02d:00", hour))
+                .collect(Collectors.toList());
+
+        if (result == null || result.isEmpty()) {
+            // 결과 없으면 모두 0으로 채운 리스트 반환
+            return Map.of(
+                    "xLabels", xLabels,
+                    "avgPm1", Collections.nCopies(24, 0),
+                    "avgPm25", Collections.nCopies(24, 0),
+                    "avgPm10", Collections.nCopies(24, 0)
+            );
+        }
+
+        // 시간별 데이터 맵으로 변환 (기본값 0.0)
+        Map<String, Double> pm1Map = new HashMap<>();
+        Map<String, Double> pm25Map = new HashMap<>();
+        Map<String, Double> pm10Map = new HashMap<>();
+
+        for (Map<String, Object> row : result) {
+            int hour = ((Number) row.get("hour")).intValue();
+            String label = String.format("%02d:00", hour);
+
+            pm1Map.put(label, ((Number) row.getOrDefault("avgPm1", 0)).doubleValue());
+            pm25Map.put(label, ((Number) row.getOrDefault("avgPm25", 0)).doubleValue());
+            pm10Map.put(label, ((Number) row.getOrDefault("avgPm10", 0)).doubleValue());
+        }
+
+        // xLabels 순서대로 값 리스트 생성
+        List<Double> avgPm1List = xLabels.stream().map(l -> pm1Map.getOrDefault(l, 0.0)).collect(Collectors.toList());
+        List<Double> avgPm25List = xLabels.stream().map(l -> pm25Map.getOrDefault(l, 0.0)).collect(Collectors.toList());
+        List<Double> avgPm10List = xLabels.stream().map(l -> pm10Map.getOrDefault(l, 0.0)).collect(Collectors.toList());
+
+        return Map.of(
+                "xLabels", xLabels,
+                "avgPm1", avgPm1List,
+                "avgPm25", avgPm25List,
+                "avgPm10", avgPm10List
+        );
     }
 
 

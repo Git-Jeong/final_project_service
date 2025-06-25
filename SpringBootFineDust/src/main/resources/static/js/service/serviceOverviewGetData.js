@@ -48,10 +48,10 @@ const startCommentDust = () => {
 			};
 
 			const statusMap = {
-				'좋음': 'Good.png',
-				'보통': 'Average.png',
-				'나쁨': 'Bad.png',
-				'매우 나쁨': 'VeryBad.png'
+				'좋음': 'GoodHead.png',
+				'보통': 'AverageHead.png',
+				'나쁨': 'BadHead.png',
+				'매우 나쁨': 'VeryBadHead.png'
 			};
 
 			const data_comment1 = `${iconMap[worstStatus.text]} ${worstStatus.text}`;
@@ -62,9 +62,21 @@ const startCommentDust = () => {
 			document.getElementById("comment1").style.color = worstStatus.color;
 
 			document.getElementById("comment2").innerHTML = `
-				${data_comment2}
-				<img src="img/${imgName}" alt="${worstStatus.text}" style="height:1em; vertical-align:text-bottom; margin-left:5px;">
+				<span style="display: flex; align-items: center; white-space: nowrap; gap: 0.5rem;">
+					${data_comment2}
+					<img src="img/icon/${imgName}" alt="${worstStatus.text}" style="height:1.5rem; width:auto;">
+				</span>
 			`;
+			
+
+			const spinner = document.getElementById("middle-loding-spin");
+			const nonSpinner = document.getElementById("non-middle-loding-spin");
+			if (spinner.style.display === "block") {
+				spinner.style.display = "none";
+			}
+			if (nonSpinner.style.display === "none" || nonSpinner.hidden) {
+				nonSpinner.style.display = "block";
+			}
 		},
 		error: function(err) {
 			console.error("데이터 불러오기 실패:", err);
@@ -80,7 +92,7 @@ const setDustImage = (elementId, statusText) => {
 		'매우 나쁨': 'VeryBad.png'
 	};
 	const imgName = statusMap[statusText] || 'Average.png';
-	const imgTag = `<img src="/img/${imgName}" alt="${statusText}">`;
+	const imgTag = `<img src="/img/icon/${imgName}" alt="${statusText}">`;
 	document.getElementById(elementId).innerHTML = imgTag;
 };
 
@@ -88,18 +100,18 @@ function getPMStatusTextAndColor(type, value) {
 	let text = '';
 	let color = '';
 
-	if (type === 'pm1.0') {
-		if (value > 50) { text = '매우 나쁨'; color = '#f34545'; }
+	if (type === 'pm1.0') {   //원래 red는 rgba(243, 69, 69, 0.85) = f34545
+		if (value > 50) { text = '매우 나쁨'; color = 'rgba(243, 69, 69, 0.85)'; }
 		else if (value > 35) { text = '나쁨'; color = '#ffa70c'; }
 		else if (value > 15) { text = '보통'; color = '#0aa953'; }
 		else { text = '좋음'; color = '#1c8bf3'; }
 	} else if (type === 'pm2.5') {
-		if (value > 75) { text = '매우 나쁨'; color = '#f34545'; }
+		if (value > 75) { text = '매우 나쁨'; color = 'rgba(243, 69, 69, 0.85)'; }
 		else if (value > 35) { text = '나쁨'; color = '#ffa70c'; }
 		else if (value > 15) { text = '보통'; color = '#0aa953'; }
 		else { text = '좋음'; color = '#1c8bf3'; }
 	} else if (type === 'pm10') {
-		if (value > 150) { text = '매우 나쁨'; color = '#f34545'; }
+		if (value > 150) { text = '매우 나쁨'; color = 'rgba(243, 69, 69, 0.85)'; }
 		else if (value > 80) { text = '나쁨'; color = '#ffa70c'; }
 		else if (value > 30) { text = '보통'; color = '#0aa953'; }
 		else { text = '좋음'; color = '#1c8bf3'; }
@@ -207,19 +219,19 @@ const getStationDust = () => {
 
 			if (pm1Status.text !== document.getElementById('serviceOverview-pm1-text').textContent) {
 				document.getElementById('serviceOverview-pm1-text').textContent = pm1Status.text;
-				document.getElementById('serviceOverview-pm1').style.backgroundColor = pm1Status.color;
+				document.getElementById('serviceOverview-contant-pm1').style.backgroundColor = pm1Status.color;
 				setDustImage("serviceOverview-pm1-img", pm1Status.text);
 			}
 
 			if (pm25Status.text !== document.getElementById('serviceOverview-pm25-text').textContent) {
 				document.getElementById('serviceOverview-pm25-text').textContent = pm25Status.text;
-				document.getElementById('serviceOverview-pm25').style.backgroundColor = pm25Status.color;
+				document.getElementById('serviceOverview-contant-pm25').style.backgroundColor = pm25Status.color;
 				setDustImage("serviceOverview-pm25-img", pm25Status.text);
 			}
 
 			if (pm10Status.text !== document.getElementById('serviceOverview-pm10-text').textContent) {
 				document.getElementById('serviceOverview-pm10-text').textContent = pm10Status.text;
-				document.getElementById('serviceOverview-pm10').style.backgroundColor = pm10Status.color;
+				document.getElementById('serviceOverview-contant-pm10').style.backgroundColor = pm10Status.color;
 				setDustImage("serviceOverview-pm10-img", pm10Status.text);
 			}
 
@@ -307,9 +319,9 @@ const newStationList = () => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+	startCommentDust();
 	getStationDust();
 	startPredDust();
-	startCommentDust();
 
 	setInterval(() => {
 		getStationDust();
