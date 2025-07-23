@@ -66,7 +66,8 @@ public class PredRestController {
 	            pred.setPmTime(now);
 	            pred.setTimeHms(now.toLocalTime());
 	            pred.setStId(stId);
-
+	            
+	            //System.out.println("불러온 pred = " + pred);
 	            return predService.savePred(pred);
 	        }
 	    } catch (Exception e) {
